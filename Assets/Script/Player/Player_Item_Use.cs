@@ -319,4 +319,16 @@ public class Player_Item_Use : MonoBehaviour
             quickSlotUI.UpdateUI();
         }
     }
+
+    //빈손 체크 함수
+    public int CheckEmptySlotsCount()
+    {
+        int emptyCount = 0;
+        foreach(var quickSlot in quickSlots)
+        {
+            if(quickSlot == null)
+                emptyCount++;
+        }
+        return emptyCount;
+    }
 }

@@ -226,6 +226,7 @@ public class PassiveItemManager : MonoBehaviour
 			case "Soul_Add_2_3":// 
 				break;
 			case "Soul_Add_3_1":// 
+				DoPassive_3_1();
 				break;
 			case "Soul_Add_3_2":// 
 				break;
@@ -243,6 +244,7 @@ public class PassiveItemManager : MonoBehaviour
 			case "Soul_Add_5_1":// 
 				break;
 			case "Soul_Add_5_2":// 
+				DoPassive_5_2();
 				break;
 			case "Soul_Add_5_3":// 
 				break;
@@ -255,6 +257,7 @@ public class PassiveItemManager : MonoBehaviour
 			case "Soul_Add_7_1":// 
 				break;
 			case "Soul_Add_7_2":// 
+				DoPassive_7_2();
 				break;
 			case "Soul_Add_7_3":// 
 				break;
@@ -297,7 +300,7 @@ public class PassiveItemManager : MonoBehaviour
 	//금의환향
 	public void DoPassive_3_1()
 	{
-
+		GameManager.Instance.playerData.gold *= 1.1f;
 	}
 
 	//다다익선
@@ -335,7 +338,13 @@ public class PassiveItemManager : MonoBehaviour
 	//취사선택
 	public void DoPassive_5_2()
 	{
-
+		var player_item_use = FindObjectOfType<Player_Item_Use>();
+		if(player_item_use)
+        {
+			int emptyItemSlotCount = player_item_use.CheckEmptySlotsCount();
+			TryApplyEffect(new IncreaseMoveSpeedEffect(GameManager.Instance.playerData, 0.1f * emptyItemSlotCount));
+		}
+		
 	}
 
 	//등용문

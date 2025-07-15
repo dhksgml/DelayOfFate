@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 4f;
     public float runSpeed = 7f;
     public float currentMoveSpeed;
+    public float speedMultiplier = 1f;
     public float rayCastDistance = 2f;
 
     [SerializeField] private float hpRecoveryDuration = 20f;
@@ -17,7 +18,7 @@ public class PlayerController : MonoBehaviour
 
     const float runThreshold = 1f; //달리기에 필요한 최소 sp
 
-    public float attackDamage;
+    public float attackDamage = 1;
     public float attackCoolTime;
 
     public float maxHp = 100; //최대 체력
@@ -316,13 +317,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //private void HandleRecovery()
-    //{
-    //    if (isRecovering)
-    //    {
-    //        Debug.Log("회복 중..");
-    //    }
-    //}
 
     private void HandleFlashlight()
     {
@@ -529,7 +523,7 @@ public class PlayerController : MonoBehaviour
         if (moveDir != Vector3.zero && CanMove(moveDir))
         {
             UpdateMoveSpeedByWeight(); // 추가
-            transform.position += moveDir * currentMoveSpeed * Time.fixedDeltaTime; ;
+            transform.position += moveDir * currentMoveSpeed * speedMultiplier * Time.fixedDeltaTime; ;
         }
     }
     void UpdateMoveSpeedByWeight()
@@ -538,7 +532,7 @@ public class PlayerController : MonoBehaviour
         {
             float currentWeight = player_Item_Use.GetTotalItemWeight();
             float penalty = currentWeight * 0.02f;
-            print(PassiveItemManager.Instance);
+            
             if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_1_1"))//천하장사 보유시
             {
                 penalty = 0f;
@@ -685,34 +679,9 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        //animator.SetTrigger("Resting");
-        //currentState = PlayerState.Resting;
-
-        //yield return null;
-
-        //yield return new WaitUntil(() =>
-        //    animator.GetCurrentAnimatorStateInfo(0).IsName("Player_Resting") &&
-        //    animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f
-        //);
-
-
         yield return new WaitUntil(() => Input.anyKeyDown);
 
         StartCoroutine(HandleGetUp());
-        /*
-        animator.SetTrigger("Rest_out");
-
-        yield return new WaitUntil(() =>
-            animator.GetCurrentAnimatorStateInfo(0).IsName("Player_Rest_out") &&
-            animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f
-        );
-
-        EndRecovery();
-        */
-
-        //isRecovering = false;
-        //isMoveAble = true;
-        //currentState = PlayerState.Idle;
 
     }
 
@@ -826,4 +795,6 @@ public class PlayerController : MonoBehaviour
     {
         transform.position = targetPosition;
     }
+
+    
 }
