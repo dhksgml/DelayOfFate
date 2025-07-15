@@ -538,6 +538,11 @@ public class PlayerController : MonoBehaviour
         {
             float currentWeight = player_Item_Use.GetTotalItemWeight();
             float penalty = currentWeight * 0.02f;
+            print(PassiveItemManager.Instance);
+            if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_1_1"))//천하장사 보유시
+            {
+                penalty = 0f;
+            }
             currentMoveSpeed = Mathf.Max(currentMoveSpeed - penalty, minMoveSpeed);
         }
     }

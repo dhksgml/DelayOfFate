@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: item_data_1
   m_EditorClassIdentifier: 
   id: 1
-  itemName: "\uB77C\uC774\uD130"
+  itemName: "\uBE44\uB140"
   InGameSprite: {fileID: -322435216, guid: 51fc66902a0daa54a914208c397ebc9f, type: 3}
   icon: {fileID: 21300000, guid: fdd866e72f2805b45936f7b417565067, type: 3}
-  Coin: 2
-  Weight: 7
+  Coin: 20
+  Weight: 3
   ValPoint: 5
   Count_Check: 0
   Count: 1
@@ -26,7 +26,7 @@ MonoBehaviour:
   isUsable: 0
   Usage_cool_down: 0
   Charging: 0
-  CoinDeviation: 2
+  CoinDeviation: 3
   WeightDeviation: 2
   CountDeviation: 0
   Drop_item: 0

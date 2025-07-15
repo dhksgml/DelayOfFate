@@ -3,19 +3,32 @@ using UnityEngine.EventSystems; // 포인터 이벤트를 사용하려면 필요
 
 public class Soul_in_text : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public GameObject mouse_text; // 활성화/비활성화할 오브젝트
+	public string itemId; // 예: "Soul_Add_2_3"
+	private PassiveItemUI passiveItemUI;
+	private PassiveItemManager passiveItemManager;
+	public bool show = true;
 
-    // 마우스를 올렸을 때
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (mouse_text != null)
-            mouse_text.SetActive(true);
-    }
+	void Start()
+	{
+		passiveItemUI = FindObjectOfType<PassiveItemUI>();
+		passiveItemManager = FindObjectOfType<PassiveItemManager>();
+	}
 
-    // 마우스를 내렸을 때
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (mouse_text != null)
-            mouse_text.SetActive(false);
-    }
+	public void OnPointerEnter(PointerEventData eventData)
+	{
+		var item = passiveItemManager.passiveItems.Find(i => i.id == itemId);
+		if (item != null)
+		{
+			if (show)
+            {
+				passiveItemUI.Show(item.itemName, item.description, item.rating);
+				passiveItemUI.SetPosition(Input.mousePosition);
+			}
+		}
+	}
+
+	public void OnPointerExit(PointerEventData eventData)
+	{
+		passiveItemUI.Hide();
+	}
 }

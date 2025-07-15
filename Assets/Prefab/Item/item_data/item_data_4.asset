@@ -16,8 +16,8 @@ MonoBehaviour:
   itemName: "\uCD95\uC74C\uAE30"
   InGameSprite: {fileID: 21300000, guid: 0d6a7d7cf38df2548b60c9bde25ed25c, type: 3}
   icon: {fileID: 21300000, guid: fdd866e72f2805b45936f7b417565067, type: 3}
-  Coin: 1
-  Weight: 19
+  Coin: 110
+  Weight: 120
   ValPoint: 10
   Count_Check: 0
   Count: 1
@@ -26,7 +26,7 @@ MonoBehaviour:
   isUsable: 0
   Usage_cool_down: 0
   Charging: 0
-  CoinDeviation: 0
-  WeightDeviation: 2
+  CoinDeviation: 10
+  WeightDeviation: 10
   CountDeviation: 0
   Drop_item: 0

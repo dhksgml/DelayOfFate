@@ -721,7 +721,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &790705476
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1337,6 +1337,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2292360888671f14c96a896d2118ae5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData:
+    maxHp: 100
+    maxMp: 100
+    maxSp: 100
+    currentHp: 100
+    currentMp: 100
+    currentSp: 100
+    flashLightLevel: 1
+    gold: 0
+    soul: 0
+    quickSlots:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    damageTakenMultiplier: 1
+    damageMultiplier: 1
+    speedMultiplier: 1
   Day: 1
   Gold: 0
   Soul: 0

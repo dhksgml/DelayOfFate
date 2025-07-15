@@ -2,25 +2,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class Shop : MonoBehaviour
 {
-    public GameObject ShopPrefab; // 모든 상점 요소
-    public GameObject QuestPrefab; //미션 카드 3개
-
     public float Gold;
     public float Soul;
-    public int day;
 
     private int rerollCost = 30;
     private int lanternBuyCount = 0;
 
-    private const int lanternFirstPrice = 750;
-    private const int lanternSecondPrice = 1500;
+    private const int lantern_1 = 750;
+    private const int lantern_2 = 1500;
 
-    public TMP_Text coin_text;
-    public TMP_Text soul_text;
     // 테스트용 무기/영혼 데이터
     private List<string> weaponNames = new List<string> { "Sword", "Axe", "Bow", "Spear", "Gun" };
     private List<int> weaponPrices = new List<int>();
@@ -29,38 +23,52 @@ public class Shop : MonoBehaviour
     private List<int> soulPrices = new List<int>();
     private bool[] soulPurchased = new bool[4]; // 영혼 4개 구매 여부
 
+    private List<string> allSoulIds = new List<string>();
+
+    public Image[] soulIcons; // UI에 보여줄 아이콘 4개
+
     public TMP_Text[] weaponSlots; // 상품 목록들 무기, 영혼, 초롱
     public Item[] weaponData; // 무기 데이터
     public QuickSlotUI quickSlotUI; // 퀵슬롯 연결
+    private PassiveItemManager passiveItemManager;
+    void Awake()
+    {
+        passiveItemManager = FindObjectOfType<PassiveItemManager>();
 
+        // 초기 아이템 ID 리스트 구성
+        for (int g = 1; g <= 7; g++)
+            for (int n = 1; n <= 2; n++)
+                allSoulIds.Add($"Soul_Add_{g}_{n}");
+        allSoulIds.Add($"Soul_Add_{2}_{3}");
+        allSoulIds.Add($"Soul_Add_{4}_{3}");
+        allSoulIds.Add($"Soul_Add_{6}_{3}");
+        RerollSouls(); // Start()보다 먼저 실행되도록
+    }
     void Start()
     {
         InitializeShop();
+        passiveItemManager = FindObjectOfType<PassiveItemManager>();
     }
-    private void Update()
+    void Update()
     {
         Gold = GameManager.Instance.Gold;
         Soul = GameManager.Instance.Soul;
-        coin_text.text = $"{Gold} :냥";
-        soul_text.text = $"{Soul} :혼";
     }
-
-    public void InitializeShop()
+    void InitializeShop()
     {
         weaponPrices.Clear();
         for (int i = 0; i < weaponNames.Count; i++)
         {
-            weaponPrices.Add(day * 100);
-            weaponSlots_text(i, day * 100, "Soul");
+            weaponPrices.Add(GameManager.Instance.Day * 100);
+            weaponSlots_text(i, GameManager.Instance.Day * 100, "Soul");
         }
 
-        weaponSlots_text(9, lanternFirstPrice, "Gold"); // 초롱가격
+        weaponSlots_text(9, lantern_1, "Gold"); // 초롱가격
         weaponSlots_text(10, rerollCost, "Gold"); // 리롤 가격
 
         // 영혼 구매 상태 초기화
         soulPurchased = new bool[4];
         RerollSouls();
-
     }
     void weaponSlots_text(int Slot,int coin,string name)
     {
@@ -89,17 +97,17 @@ public class Shop : MonoBehaviour
             if (btn != null) btn.interactable = false;
 
             // 내부에서 바로 퀵슬롯 참조
-            ShopQuickSlot shopQuickSlot = FindObjectOfType<ShopQuickSlot>();
-            print(shopQuickSlot);
-            if (shopQuickSlot == null) return;
+            Player_Item_Use playerItemUse = FindObjectOfType<Player_Item_Use>();
+            print(playerItemUse);
+            if (playerItemUse == null) return;
 
             bool slotFilled = false;
-            for (int i = 0; i < shopQuickSlot.quickSlots.Length; i++)
+            for (int i = 0; i < playerItemUse.quickSlots.Length; i++)
             {
-                Item item = shopQuickSlot.quickSlots[i];
+                Item item = playerItemUse.quickSlots[i];
                 if (item == null || string.IsNullOrEmpty(item.itemName))
                 {
-                    shopQuickSlot.quickSlots[i] = weaponData[index];
+                    playerItemUse.quickSlots[i] = weaponData[index];
                     OnItemHover(i, weaponData[index]);
                     slotFilled = true;
                     quickSlotUI.UpdateUI();
@@ -114,8 +122,6 @@ public class Shop : MonoBehaviour
         }
     }
 
-
-
     public void OnItemHover(int i, Item item)
     {
         QuickSlotUI quickSlotUI = FindObjectOfType<QuickSlotUI>();
@@ -124,30 +130,37 @@ public class Shop : MonoBehaviour
             quickSlotUI.DisplayItemInfo(i, item);
         }
     }
-    public void BuySoul(int index) //혼령 강화
+    public void BuySoul(int index)
     {
         if (index < 0 || index >= soulNames.Count) return;
-
-        if (soulPurchased[index]) return; // 이미 구매했으면 무시
+        if (soulPurchased[index]) return;
 
         int price = soulPrices[index];
         if (Soul >= price)
         {
             GameManager.Instance.Sub_Soul(price);
-            soulPurchased[index] = true; // 구매 상태 저장
+            soulPurchased[index] = true;
 
             weaponSlots[index + 5].text = "구매 완료";
             Button btn = weaponSlots[index + 5].GetComponentInParent<Button>();
+            Soul_in_text slot = soulIcons[index].GetComponentInParent<Soul_in_text>();
             if (btn != null)
             {
                 btn.interactable = false;
+                slot.show = false; // 구매 완료 한건 살펴 보기 해도 안보이고 인벤토리 가서 봐야함
             }
+
+            // 구매 효과 적용 신호 보내기
+            string itemId = soulNames[index]; // ← 이미 RerollSouls()에서 할당됨
+            passiveItemManager.PurchaseItem(itemId);
+            Debug.Log($"혼령 구매: {itemId}");
         }
         else
         {
             Debug.Log("Not enough coins to buy soul.");
         }
     }
+
 
 
     public void BuyLantern() // 호롱 업글
@@ -162,11 +175,11 @@ public class Shop : MonoBehaviour
 
         if (lanternBuyCount == 0)
         {
-            price = lanternFirstPrice; // 2단계
+            price = lantern_1; // 2단계
         }
         else if (lanternBuyCount == 1)
         {
-            price = lanternSecondPrice; // 3단계
+            price = lantern_2; // 3단계
         }
 
         if (Gold >= price)
@@ -181,7 +194,7 @@ public class Shop : MonoBehaviour
             }
             else
             {
-                int nextPrice = (lanternBuyCount == 1) ? lanternSecondPrice : 0;
+                int nextPrice = (lanternBuyCount == 1) ? lantern_2 : 0;
                 weaponSlots_text(9, nextPrice, "Gold");
             }
 
@@ -196,7 +209,7 @@ public class Shop : MonoBehaviour
 
     public void RerollSouls()
     {
-        // 리스트 크기 보장
+        // 리스트 초기화 보장
         if (soulNames.Count < 4)
         {
             soulNames.Clear();
@@ -208,28 +221,95 @@ public class Shop : MonoBehaviour
             }
         }
 
+        // 1. 후보군 만들기 (미구매 아이템만)
+        List<string> availableSouls = new List<string>();
+        foreach (var id in allSoulIds)
+        {
+            if (!passiveItemManager.IsPurchased(id)) // 구매 안 한 것만
+                availableSouls.Add(id);
+        }
+
+        // 2. 랜덤 섞기 & 4개 추출 (중복 제거)
+        availableSouls = availableSouls.OrderBy(x => Random.value).ToList();
+        print(availableSouls);
         for (int i = 0; i < 4; i++)
         {
-            if (soulPurchased[i]) continue; // 구매된 건 유지
+            if (soulPurchased[i]) continue;
 
-            string name = $"Soul_{Random.Range(1, 100)}";
-            int price = Random.Range(80, 201);
+            if (i >= availableSouls.Count)
+            {
+                Debug.LogWarning("미구매 아이템이 4개 미만입니다!");
+                soulNames[i] = "";
+                soulPrices[i] = 0;
+                weaponSlots_text(5 + i, 0, "Soul");
+                soulIcons[i].sprite = null;
+                continue;
+            }
 
-            soulNames[i] = name;
-            soulPrices[i] = price;
-            weaponSlots_text(5 + i, price, "Soul");
+            string id = availableSouls[i];
+            soulNames[i] = id;
+            PassiveItemData itemData = passiveItemManager.passiveItems.Find(x => x.id == id);
+            int rating = itemData != null ? itemData.rating : 1; // 기본값은 1
+            switch (rating)
+            {
+                case 1:
+                    soulPrices[i] = 120;
+                    break;
+                case 2:
+                    soulPrices[i] = 170;
+                    break;
+                case 3:
+                    soulPrices[i] = 130;
+                    break;
+                case 4:
+                    soulPrices[i] = 160;
+                    break;
+                default:
+                    soulPrices[i] = 100;
+                    break;
+            }
+            soulPrices[i] += Random.Range(-10, +11);
+
+            // UI 텍스트 갱신
+            weaponSlots_text(5 + i, soulPrices[i], "Soul");
+
+            // 아이콘 갱신
+            SetSoulIcon(i, id);
+
+            // 슬롯에 있는 ShopSlot 컴포넌트에 itemId 전달
+            Soul_in_text slot = soulIcons[i].GetComponentInParent<Soul_in_text>();
+            if (slot != null)
+            {
+                slot.itemId = id;
+            }
+
+            // 콘솔에 어떤 아이템이 배치되었는지 출력 (디버그용)
+            Debug.Log($"슬롯 {i}번 → {id}, 가격: {soulPrices[i]} 혼");
         }
     }
-    public void Quest_ok() // 미션을 고른 후 상점 페이지로 전환
+
+    void SetSoulIcon(int slotIndex, string id)
     {
-        ShopPrefab.SetActive(true);
-        QuestPrefab.SetActive(false);
-    }
-    public void Shop_end() // 상점 전부 고른 후 전투씬으로 넘어가기
-    {
-        SceneManager.LoadScene("InGame_Scenes");
+        // 예: "Soul_Add_2_3" → group = 2, num = 3
+        string[] parts = id.Split('_');
+        int group = int.Parse(parts[2]); // 1~7
+        int number = int.Parse(parts[3]); // 1~3
+
+        Sprite icon = passiveItemManager.GetIcon(group, number);
+        if (soulIcons[slotIndex] != null)
+            soulIcons[slotIndex].sprite = icon;
     }
 
+    public void Soul_c_Gold()//100혼 을 > 50 전으로
+    {
+        GameManager.Instance.Sub_Soul(100);
+        GameManager.Instance.Add_Gold(50);
+    }
+    public void Goul_c_Soul()//100전 을 > 50 혼으로
+    {
+        GameManager.Instance.Sub_Gold(100);
+        GameManager.Instance.Add_Soul(50);
+    }
 
     public void Reroll()
     {
@@ -243,7 +323,7 @@ public class Shop : MonoBehaviour
         }
         else
         {
-            Debug.Log("Not enough coins to reroll.");
+            Debug.Log(Gold);
         }
     }
 }

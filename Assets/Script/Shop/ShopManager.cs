@@ -14,7 +14,7 @@ public class ShopManager : MonoBehaviour
         {
             playerData = GameManager.Instance.playerData;
 
-            shop.day = GameManager.Instance.Day;
+            //shop.day = GameManager.Instance.Day;
 
             shop.Gold = playerData.gold;
             shop.Soul = playerData.soul;

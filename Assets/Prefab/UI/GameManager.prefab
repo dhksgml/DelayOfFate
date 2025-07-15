@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2129524968966117579}
   - component: {fileID: 1080896599292874791}
+  - component: {fileID: 2930368111101819406}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -44,5 +45,66 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2292360888671f14c96a896d2118ae5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Gold: 0
-  Soul: 0
+  playerData:
+    maxHp: 100
+    maxMp: 100
+    maxSp: 100
+    currentHp: 100
+    currentMp: 100
+    currentSp: 100
+    flashLightLevel: 1
+    gold: 0
+    soul: 0
+    quickSlots:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  Day: 1
+  Gold: 1500
+  Soul: 1500
+  N_Day_Add_Soul: 0
+  N_Day_Time: 0
+  N_Day_Cost: 0
+  currentQuickSlot:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &2930368111101819406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7200107309123050454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4697d3fbf35d7c049b01c04d24570547, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  passiveItems: []
+  Passive_Item_Icon_1:
+  - {fileID: 21300000, guid: c247c7f32d66d4b459bb69f7812be929, type: 3}
+  - {fileID: 21300000, guid: 1cbc1c7d2b4594f47a816245eebb004f, type: 3}
+  Passive_Item_Icon_2:
+  - {fileID: 21300000, guid: b5ecf3825c6153b4d92bce2b7d98ec99, type: 3}
+  - {fileID: 21300000, guid: 26bcceb280d610f408907a34da1e16fc, type: 3}
+  - {fileID: 21300000, guid: 3fcfe2879f9e1e34d8a9fe2b473d8d4a, type: 3}
+  Passive_Item_Icon_3:
+  - {fileID: 21300000, guid: c0afeebb30ee45e43966060f86ca5315, type: 3}
+  - {fileID: 21300000, guid: 2ceccdc44e0e3d743bbd32ee7dc21ee2, type: 3}
+  Passive_Item_Icon_4:
+  - {fileID: 21300000, guid: 2ea023d927c896e4c96d3a4e589866fe, type: 3}
+  - {fileID: 21300000, guid: 0caba4db2cbefb748bc7dfd7902668bb, type: 3}
+  - {fileID: 21300000, guid: d142507ec94a3b1479071e023828b0b1, type: 3}
+  Passive_Item_Icon_5:
+  - {fileID: 21300000, guid: d3eeda175c0ee3b41b469f53a194b637, type: 3}
+  - {fileID: 21300000, guid: cd45210949d7522428cff5d4f5f14358, type: 3}
+  Passive_Item_Icon_6:
+  - {fileID: 21300000, guid: dbf5f52640f98254a81c02e5731baca7, type: 3}
+  - {fileID: 21300000, guid: fc9e23d7e459d744f81e5bf877ec193c, type: 3}
+  - {fileID: 21300000, guid: 57b9de04ab73ec04282059638d8fa928, type: 3}
+  Passive_Item_Icon_7:
+  - {fileID: 21300000, guid: 522914fcde1044f459ed0aeebb4385b2, type: 3}
+  - {fileID: 21300000, guid: 856bd2dfe55e6684390b805dd20fba91, type: 3}

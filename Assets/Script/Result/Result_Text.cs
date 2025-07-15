@@ -1,6 +1,7 @@
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Result_Text : MonoBehaviour
 {
@@ -37,8 +38,8 @@ public class Result_Text : MonoBehaviour
         getGoldText.text = "벌어온 돈 : " + getGold;
         timeText.text = "소모 시간 : " + time;
         currentGoldText.text = "현재 자산 : " + currentGold;
-        costText.text = "생존비 납부 : -" + cost;
+        costText.text = "약 값 : -" + cost;
         finalGoldText.text = "총 자산 : " + finalGold;
-        dayText.text = "일차 : N "; // 추후에 값을 받아오면 변경
+        dayText.text = GameManager.Instance.Day + " 일차";
     }
 }

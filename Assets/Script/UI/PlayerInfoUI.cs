@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 
 public class PlayerInfoUI : MonoBehaviour
@@ -9,6 +10,9 @@ public class PlayerInfoUI : MonoBehaviour
     public Image playerMPsc;
     public Image playerMPSC;// 가장자리 이미지 지정
     public Sprite[] Mp_sc; // 가장자리 이미지 3개
+
+    public TMP_Text coin_text;
+    public TMP_Text soul_text;
 
     private float maxHpBarWidth; // 실제 UI에서의 최대 바 너비
     private float maxSpBarWidth;
@@ -22,12 +26,16 @@ public class PlayerInfoUI : MonoBehaviour
 
     private void Update()
     {
+
         if (playerController == null) // 플레이어가 없는 경우 (상점, 스테이지 선택)
         {
 
         }
         else // 인게임 에서 보여줄것
         {
+            coin_text.text = $"냥: {GameManager.Instance.Gold}";
+            soul_text.text = $"혼: {GameManager.Instance.Soul}";
+
             float hpRatio = playerController.currentHp / playerController.maxHp;
             float spRatio = playerController.currentSp / playerController.maxSp;
 

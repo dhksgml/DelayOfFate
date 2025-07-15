@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class QuickSlotUI : MonoBehaviour
@@ -18,7 +19,7 @@ public class QuickSlotUI : MonoBehaviour
     private PlayerController playerController;
 
     public TMP_Text timeText; // UI 텍스트 오브젝트
-    int angleUnit = 0;
+    public int angleUnit = 0;
     int day = 1;
 
     void Start()
@@ -64,7 +65,7 @@ public class QuickSlotUI : MonoBehaviour
     }
     public void UpdateUI()
     {
-        if (playerController == null) // 인게임 중에서
+        if (SceneManager.GetActiveScene().name == "Stage_Scene")
         {
             timeText.text = day + " 일";
         }
@@ -133,7 +134,6 @@ public class QuickSlotUI : MonoBehaviour
             Item_Weight.text = null;
         }
     }
-
     public void UpdateUI(Item[] quickSlots, int selectedIndex)
     {
         for (int i = 0; i < 4; i++)
@@ -163,7 +163,6 @@ public class QuickSlotUI : MonoBehaviour
             slotBackgrounds[i].sprite = (i == selectedIndex) ? selectedSlotSprite : defaultSlotSprite;
         }
 
-        // 아이템 정보 출력
         Item selectedItem = quickSlots[selectedIndex];
         if (selectedItem != null && !string.IsNullOrEmpty(selectedItem.itemName))
         {
