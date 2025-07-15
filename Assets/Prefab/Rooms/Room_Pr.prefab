@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &467880456937811478
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6118702571318767708}
+  - component: {fileID: 4707302419557312770}
+  - component: {fileID: 7065677994999204319}
+  - component: {fileID: 5527380200257563260}
+  m_Layer: 0
+  m_Name: Room_Pr
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6118702571318767708
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467880456937811478}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4707302419557312770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467880456937811478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad135899d6c2c8040b2fe7fb319ae13f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 8
+  height: 8
+  roomCount: 32
+  spacing: 50
+  allRoomPrefabs:
+  - {fileID: 3463885864821706135, guid: dc9c7e8004619b740851cc4651805fe9, type: 3}
+  - {fileID: 3463885864821706135, guid: b6bc6b094b9a04e419f1d2b8615cb6ab, type: 3}
+  - {fileID: 3463885864821706135, guid: 8f58cbc8a286cb440aa3fbbd640d07c9, type: 3}
+  - {fileID: 3463885864821706135, guid: b8a907623be81b5469cf202abea719bc, type: 3}
+  - {fileID: 3463885864821706135, guid: 7bd28de4f06a5c94a82651ee3f18e27d, type: 3}
+  - {fileID: 3463885864821706135, guid: 2021401bfeae2904b9aafb7eca5fcc62, type: 3}
+  - {fileID: 3463885864821706135, guid: e553c2e9944991447ba556b48c4504bc, type: 3}
+  - {fileID: 3463885864821706135, guid: b91f86a47280bf64782b69c0e0c6b2f1, type: 3}
+  - {fileID: 3463885864821706135, guid: 2aabfe13a262b28479dc87f5cd22cf81, type: 3}
+  - {fileID: 3463885864821706135, guid: 53f02013d59a9cc46974c8a5b6870ead, type: 3}
+  - {fileID: 3463885864821706135, guid: 1948bbb0838ec714ca674cad6a7f3642, type: 3}
+  - {fileID: 3463885864821706135, guid: 3acf8e36a55048c49937e170a8be5548, type: 3}
+  - {fileID: 3463885864821706135, guid: 295fadd4adbb41c4eae2a3dcb2167f31, type: 3}
+  - {fileID: 3463885864821706135, guid: 0ff2483edcadad5469359ba4ec6af914, type: 3}
+  - {fileID: 3463885864821706135, guid: 55c92625b097f89498973786a4c0b829, type: 3}
+  - {fileID: 3463885864821706135, guid: baf17788dc2e6c34fa1429f4877ef77f, type: 3}
+  - {fileID: 3463885864821706135, guid: acdc8c35b4f83614781e2d3bf97e3b70, type: 3}
+  - {fileID: 3463885864821706135, guid: 1e43df10748b64e4aa4ae2b6b192c7f1, type: 3}
+  corridorPrefab: {fileID: 2397570491956597122, guid: 1cbf2292152381b419260e1070094160, type: 3}
+  corridorThickness: 2.5
+  Place_Resurrection: {fileID: 6373634918162350719, guid: 5e2095dff9d456a43ab46a2190b13978, type: 3}
+  Place_Sale: {fileID: 1044354756543004560, guid: 2dc94e4bb87af7043a43e1b85daa30d9, type: 3}
+  Place_Escape: {fileID: 6146136370363173489, guid: f67d7223472b9bd43b099ff957901841, type: 3}
+--- !u!114 &7065677994999204319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467880456937811478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42165a3e0c27d104e88651ae5207bdf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefabs: []
+  itemPrefabs:
+  - {fileID: 8557445870057906743, guid: b25e2b7203029594f9c51dc6ae17e891, type: 3}
+  - {fileID: 8557445870057906743, guid: a1f805b38e212de4d9dbf59dc9062e69, type: 3}
+  totalD_Point: 0
+  totalValPoint: 500
+--- !u!114 &5527380200257563260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467880456937811478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32690d89cd0903a4f8ff3623e2b002c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  escape: 0
+  escape_pos: {x: 0, y: 0}
+  resurrection: 0
+  resurrection_pos: {x: 0, y: 0}
+  sale: 0
+  sale_pos: {x: 0, y: 0}

@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 6e14adfdf9b1c0c4fb1052779910d3a7
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - dropPoint: {instanceID: 0}
+  - emptySlotSprite: {instanceID: 0}
+  - item_Prefab: {instanceID: 0}
+  - playerItemUse: {instanceID: 0}
+  - itemUsageManager: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

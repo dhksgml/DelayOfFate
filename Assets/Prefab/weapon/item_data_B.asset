@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 392c66dabba90874a87ee44e68468c78, type: 3}
+  m_Name: item_data_B
+  m_EditorClassIdentifier: 
+  id: 998
+  itemName: "\uBC29\uB9DD\uC774"
+  InGameSprite: {fileID: 21300000, guid: e6f99322bf5d9584eadac3f6c781a803, type: 3}
+  icon: {fileID: 21300000, guid: e6f99322bf5d9584eadac3f6c781a803, type: 3}
+  Coin: 0
+  Weight: 80
+  ValPoint: 0
+  Count_Check: 0
+  Count: 1
+  Sell_whether: 0
+  Sell_immediately: 0
+  isUsable: 1
+  Usage_cool_down: 0.5
+  Charging: 0
+  CoinDeviation: 0
+  WeightDeviation: 0
+  CountDeviation: 0
+  Drop_item: 1

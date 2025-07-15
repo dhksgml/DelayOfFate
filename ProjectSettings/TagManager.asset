@@ -3,15 +3,19 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Light
+  - Attack
+  - Item
+  - Sight
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Item
   - Water
   - UI
-  - 
+  - Wall
   - 
   - 
   - 
