@@ -66,11 +66,14 @@ public class EnemyTrace : MonoBehaviour
             //분열귀 전용
             if (boon_yeol_gwi != null)
             {
+                //item을 가져와준 후
+                ItemObject item = collision.gameObject.GetComponent<ItemObject>();
+
                 //찾은게 아이템이면
-                if (collision.gameObject.CompareTag("Item"))
+                if (collision.gameObject.CompareTag("Item") && item.itemData.Coin != 0)
                 {
                     boon_yeol_gwi.isItemFind = true;
-                    boon_yeol_gwi.itemTrs = collision.gameObject.transform.position;    
+                    boon_yeol_gwi.itemTrs = collision.gameObject.transform.position;
                 }
 
                 //아이템을 찾고 가치를 먹었고, 충돌한 오브젝트가 적이면
