@@ -24,7 +24,6 @@ public enum EnemyWeakness
 
 public abstract class Enemy     : MonoBehaviour
 {
-
     [Header("적 데이터")]
     public Enemy_data enemyData;
 
