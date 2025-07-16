@@ -53,7 +53,6 @@ public class Attack_sc : MonoBehaviour
             default: return null;
         }
     }
-
     private void StartFadeOut()
     {
         StartCoroutine(FadeAndDestroy());
