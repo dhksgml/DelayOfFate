@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Attack_sc : MonoBehaviour
 {
+
     public enum AttackType
     {
         Sword,
@@ -25,7 +26,6 @@ public class Attack_sc : MonoBehaviour
     {
         animator = GetComponent<Animator>();
     }
-
     private void Start()
     {
         Invoke(nameof(StartFadeOut), 0.1f);
