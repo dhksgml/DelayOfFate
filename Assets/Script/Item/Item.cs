@@ -1,7 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewItem", menuName = "Item/ItemData")]
-public class Item : ScriptableObject
+public class Item
 {
     public int id; // 고유 ID
 
@@ -36,7 +37,39 @@ public class Item : ScriptableObject
     [HideInInspector]
     public bool Drop_item; // 떨어트린 적이 있는 아이템인가
 
+    public Item()
+    {
 
+    }
+
+    public Item(ItemData itemData)
+    {
+        this.id = itemData.id;
+        this.itemName = itemData.itemName;
+        this.InGameSprite = itemData.InGameSprite;
+        this.icon = itemData.icon;
+
+        this.Coin = itemData.Coin;
+        this.Weight = itemData.Weight;
+        this.ValPoint = itemData.ValPoint;
+
+        this.Count_Check = itemData.Count_Check;
+        this.Count = itemData.Count;
+
+        this.Sell_whether = itemData.Sell_whether;
+        this.Sell_immediately = itemData.Sell_immediately;
+
+        this.isUsable = itemData.isUsable;
+        this.Usage_cool_down = itemData.Usage_cool_down;
+        this.Charging = itemData.Charging;
+
+        this.CoinDeviation = itemData.CoinDeviation;
+        this.WeightDeviation = itemData.WeightDeviation;
+        this.CountDeviation = itemData.CountDeviation;
+
+        this.Drop_item = itemData.Drop_item;
+
+    }
     // 랜덤 값 세팅은 외부에서 할 수 있도록 남겨둡니다.
     public Item Clone()
     {
@@ -83,5 +116,4 @@ public class Item : ScriptableObject
 
         Weight = Random.Range(minWeight, maxWeight);
     }
-
 }

@@ -4,6 +4,8 @@ using TMPro;
 
 public class ItemObject : MonoBehaviour
 {
+    
+    public ItemData itemDataTemplate;
     public Item itemData;
     private SpriteRenderer spriteRenderer;
     private Player_Item_Use player_item_use;
@@ -20,11 +22,15 @@ public class ItemObject : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         player_item_use = FindObjectOfType<Player_Item_Use>();
 
+        if(itemDataTemplate != null)
+        {
+            itemData = new Item(itemDataTemplate);
+        }
         if (spriteRenderer != null && itemData != null && itemData.InGameSprite != null)
         {
             spriteRenderer.sprite = itemData.InGameSprite;
         }
-        if (itemData.Drop_item == false) { itemData.SetRandomValues(); } // 값이 없으면 랜덤 값 적용
+        if (itemData != null && itemData.Drop_item == false) { itemData.SetRandomValues(); } // 값이 없으면 랜덤 값 적용
 
         
         infoPanel?.SetActive(false);
