@@ -136,7 +136,7 @@ public class EnemyTrace : MonoBehaviour
                     PlayerController player = collision.GetComponent<PlayerController>();
 
                     //범위 내에서 움직임을 감지 && 공격준비가 됐으면
-                    if (player.currentMoveSpeed > 0 && landShark.isAttackReady && landShark.isIn)
+                    if (player.isMoving && landShark.isAttackReady && landShark.isIn)
                     {
                         landSharkAttackTime += Time.deltaTime;
 

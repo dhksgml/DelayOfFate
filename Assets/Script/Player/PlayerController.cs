@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
 
     private float x;
     private float y;
-    private bool isMoving;
+    [HideInInspector] public bool isMoving;
     private Vector2 lastMoveDirection;
 
     SpriteRenderer spriteRenderer;
