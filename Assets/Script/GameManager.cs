@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public int N_Day_Time; // 당일에 클리어한 각(시간)
     public float N_Day_Cost; //해당 정산일에 낼 돈
     public Item[] currentQuickSlot = new Item[4];
-    
+    public int killcount = 0; //처치한 악귀 수
 
     private void Awake()
     {

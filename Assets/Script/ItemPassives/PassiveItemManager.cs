@@ -242,6 +242,7 @@ public class PassiveItemManager : MonoBehaviour
 				DoPassive_4_3();
 				break;
 			case "Soul_Add_5_1":// 
+				DoPassive_5_1();
 				break;
 			case "Soul_Add_5_2":// 
 				DoPassive_5_2();
@@ -251,10 +252,13 @@ public class PassiveItemManager : MonoBehaviour
 			case "Soul_Add_6_1":// 
 				break;
 			case "Soul_Add_6_2":// 
+				DoPassive_6_2();
 				break;
 			case "Soul_Add_6_3":// 
+				DoPassive_6_3();
 				break;
 			case "Soul_Add_7_1":// 
+				DoPassive_7_1();
 				break;
 			case "Soul_Add_7_2":// 
 				DoPassive_7_2();
@@ -332,7 +336,7 @@ public class PassiveItemManager : MonoBehaviour
 	//가담항설
 	public void DoPassive_5_1()
 	{
-
+		TryApplyEffect(new ItemFindAbilityOn(GameManager.Instance.playerData));
 	}
 
 	//취사선택
@@ -356,18 +360,24 @@ public class PassiveItemManager : MonoBehaviour
 	//승승장구
 	public void DoPassive_6_2()
 	{
-
+		TryApplyEffect(new IncreaseDamageEffect(GameManager.Instance.playerData, 0.1f * GameManager.Instance.killcount));
 	}
 	//선견지명
 	public void DoPassive_6_3()
 	{
-
+		var quickSlotItems = GameManager.Instance.currentQuickSlot;
+		int totalGold = 0;
+		foreach(var item in quickSlotItems)
+        {
+			totalGold += item.Coin;
+        }
+		GameManager.Instance.Add_Gold(totalGold * 0.5f);
 	}
 
 	//구사일생
 	public void DoPassive_7_1()
 	{
-
+		TryApplyEffect(new ItemSaveAbilityOnRevive(GameManager.Instance.playerData));
 	}
 
 	//궁여지책
