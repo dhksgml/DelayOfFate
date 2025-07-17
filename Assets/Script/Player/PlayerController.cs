@@ -88,6 +88,8 @@ public class PlayerController : MonoBehaviour
 
     private Coroutine recoveryCoroutine;
 
+    private NearestItemFinder nearestItemFinder; //가까운 아이템 탐지
+
     public enum PlayerState
     {
         Idle,
@@ -105,6 +107,7 @@ public class PlayerController : MonoBehaviour
         placeManager = FindObjectOfType<PlaceManager>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         player_Item_Use = GetComponent<Player_Item_Use>();
+        nearestItemFinder = GetComponent<NearestItemFinder>();
         mainCamera = Camera.main;
     }
 
@@ -243,12 +246,6 @@ public class PlayerController : MonoBehaviour
             clickLookTimer = clickLookDuration; // 타이머 초기화
         }
     }
-    //private void EnterRecoveryMode()
-    //{
-
-    //}
-
-
 
     //유저 아이템 사용하는지 여부
     public void SetUseItem(bool isUseItem)
@@ -388,13 +385,6 @@ public class PlayerController : MonoBehaviour
         HandleRunInput();
 
         if (Input.GetKeyDown(KeyCode.C)) DoRecovery();
-
-
-        //if (Input.GetMouseButtonDown(0) && Mathf.Approximately(Player_Usage_cu_cool_down, 0f) && !isUseItem)
-        //{
-        //   Debug.Log(player_Item_Use.CheckQuickSlotItemEmpty());
-        //   SetUseItemCooltime(1.0f);
-        //}
     }
     void HandleBlockedInput()
     {
@@ -523,7 +513,10 @@ public class PlayerController : MonoBehaviour
         if (moveDir != Vector3.zero && CanMove(moveDir))
         {
             UpdateMoveSpeedByWeight(); // 추가
-            transform.position += moveDir * currentMoveSpeed * speedMultiplier * Time.fixedDeltaTime; ;
+            transform.position += moveDir * currentMoveSpeed * speedMultiplier * Time.fixedDeltaTime;
+
+            if(nearestItemFinder != null && GameManager.Instance != null && GameManager.Instance.playerData.isFindNearestItem)
+                nearestItemFinder.FindNearestItem();
         }
     }
     void UpdateMoveSpeedByWeight()
@@ -767,7 +760,11 @@ public class PlayerController : MonoBehaviour
     IEnumerator ReviveRoutine(Vector3 revivePosition)
     {
         Instantiate(corpse, gameObject.transform.position, Quaternion.identity);
-        player_Item_Use.Drop_All_Item();
+
+        //구사일생 활성화 시
+        if(GameManager.Instance != null && !GameManager.Instance.playerData.isDropWhenRevive)
+            player_Item_Use.Drop_All_Item();
+
         yield return new WaitForSeconds(0.1f);
 
         if (placeManager.resurrection) // 부활이 가능하다면

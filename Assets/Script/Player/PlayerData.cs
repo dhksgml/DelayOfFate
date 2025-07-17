@@ -21,6 +21,8 @@ public class PlayerData
 
     public float damageTakenMultiplier = 1.0f; //받는 데미지 가중치
     public float damageMultiplier = 1.0f; //주는 데미지 가중치
-
     public float speedMultiplier = 1.0f; //이동속도 가중치
+
+    public bool isDropWhenRevive = false; //구사일생 관련
+    public bool isFindNearestItem = false; //가담항설 관련
 }
