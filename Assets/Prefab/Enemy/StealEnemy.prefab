@@ -228,8 +228,8 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 816972ebf20ef7a41b6eb45a4f7f6e85, type: 2}
   enemyName: StealEnemy
   enemyHp: 10
-  enemyMoveSpeed: 5
-  enemyRunSpeed: 20
+  enemyMoveSpeed: 1
+  enemyRunSpeed: 10
   enemyPriceMin: 100
   enemyPriceMax: 200
   enemyPrice: 0
@@ -252,7 +252,6 @@ MonoBehaviour:
   sp: {fileID: 5638505646721683246}
   anim: {fileID: 0}
   enemyCorpse: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
-  enemy_Corpse_data: {fileID: 11400000, guid: 160f2d3033bb9524fa884c730fd94f73, type: 2}
   enemySelf: {fileID: 5341648827927804214}
   enemyTargetDir: {x: 0, y: 0, z: 0}
   isDie: 0
@@ -260,7 +259,7 @@ MonoBehaviour:
   enemyMoveDir: {x: 0, y: 0, z: 0}
   moveDirection: {x: 0, y: 0, z: 0}
   isAttack: 0
-  isSteal: 0
+  isStealGold: 0
 --- !u!1 &2581753709897334888
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,4 +479,6 @@ MonoBehaviour:
   landShark: {fileID: 0}
   landSharkAttack: {fileID: 0}
   somyeon_Gwi: {fileID: 0}
+  boon_yeol_gwi: {fileID: 0}
+  mumyeon_Gwi: {fileID: 0}
   landSharkAttackTime: 0

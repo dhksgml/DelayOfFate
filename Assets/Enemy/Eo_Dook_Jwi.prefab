@@ -113,7 +113,7 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 6bdec621c8ade7743a681e889b2df1f4, type: 2}
   enemyName: "\uC5B4\uB451\uC950"
   enemyHp: 22
-  enemyMoveSpeed: 5
+  enemyMoveSpeed: 1
   enemyRunSpeed: 3
   enemyPriceMin: 41
   enemyPriceMax: 44
@@ -137,7 +137,6 @@ MonoBehaviour:
   sp: {fileID: 0}
   anim: {fileID: 0}
   enemyCorpse: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
-  enemy_Corpse_data: {fileID: 11400000, guid: 160f2d3033bb9524fa884c730fd94f73, type: 2}
   enemySelf: {fileID: 4761938672998679258}
   enemyTargetDir: {x: 0, y: 0, z: 0}
   isDie: 0
@@ -145,6 +144,7 @@ MonoBehaviour:
   enemyMoveDir: {x: 0, y: 0, z: 0}
   moveDirection: {x: 0, y: 0, z: 0}
   waitTime: 0
+  moveTime: 0
   isLighting: 0
   isAction: 0
   isStop: 0

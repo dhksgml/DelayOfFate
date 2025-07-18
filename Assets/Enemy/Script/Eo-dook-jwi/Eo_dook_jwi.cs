@@ -6,6 +6,7 @@ public class Eo_dook_jwi : Enemy
 {
     [Header("Eo_dook_jwi")]
     [SerializeField] float waitTime = 0f;
+    [SerializeField] float moveTime = 0f;
     [SerializeField] bool isLighting;
     [SerializeField] bool isAction;
     [SerializeField] bool isStop;
@@ -18,6 +19,14 @@ public class Eo_dook_jwi : Enemy
         EnemyInt();
     }
 
+    void Start()
+    {
+        // 처음에 랜덤한 방향 설정
+        ChooseNewDirection();
+
+        // 주기적으로 방향 전환
+        StartCoroutine(ChangeDirectionRoutine());
+    }
 
     void Update()
     {
@@ -27,40 +36,29 @@ public class Eo_dook_jwi : Enemy
             isDie = true;
             StartCoroutine(EnemyDie());
         }
-        //도착하지 않을 시
-        if (!isArrive) 
-        {
-            EnemyMove();
-        }
-        //빛에 닿았을 시
-        else if (isLighting)
-        {
-            EnemyMove();
-        }
 
-        //도착 했을시
-        else if(isArrive)
+        if (!isStop) { EnemyMove(); }
+
+        // 10초 움직이고 5초 멈춰줌
+        if (moveTime >= 10f)
         {
-            if (!isStop) { EnemyMove(); }
-            //거리를 계산해서
-            float distance = Vector3.Distance(transform.position, enemyMovePoint[0].position);
-            // 1f이하면
-            if (distance < 1f)
+            //멈춰준 후
+            isStop = true;
+
+            // 대기 시간을 더해줌
+            waitTime += Time.deltaTime;
+
+            //5초가 지나면 false로 바꾸어 줌
+            if (waitTime >= 5f)
             {
-                //멈춰준 후
-                isStop = true;
+                // bool 초기화
+                isArrive = false;
+                isStop = false;
 
-                //시간을 더해주고
-                waitTime += Time.deltaTime;
-                //10초가 지나면 false로 바꾸어 줌
-                if (waitTime >= 10f)
-                {
-                    isArrive = false;
-                    isStop = false;
-                    waitTime = 0f;
-                }
+                // 초기화
+                waitTime = 0f;
+                moveTime = 0f;
             }
-
         }
     }
 
@@ -70,7 +68,8 @@ public class Eo_dook_jwi : Enemy
         if(isLighting)
         {
             enemyMoveDir = -(player.transform.position - transform.position).normalized;
-            rigid.MovePosition(transform.position + enemyMoveDir * enemyRunSpeed * Time.deltaTime);
+
+            transform.Translate(enemyMoveDir * enemyRunSpeed * Time.deltaTime);
         }
 
         //추적중이 아니면
@@ -82,9 +81,11 @@ public class Eo_dook_jwi : Enemy
             //에니메이션, 추적 false로 바꾸어줌
             //anim.SetBool("isTrace", false);
 
-            //MovePostion을 이용해 이동한다.
-            rigid.MovePosition(transform.position + enemyMoveDir * enemyMoveSpeed * Time.deltaTime);
-            EnemyMoveTarget();
+            // 현재 방향으로 이동
+            transform.Translate(moveDirection * enemyMoveSpeed * Time.deltaTime);
+
+            // 시간을 더해줌
+            moveTime += Time.deltaTime;
         }
     }
 

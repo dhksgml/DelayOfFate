@@ -193,6 +193,8 @@ MonoBehaviour:
   landShark: {fileID: 0}
   landSharkAttack: {fileID: 0}
   somyeon_Gwi: {fileID: 0}
+  boon_yeol_gwi: {fileID: 0}
+  mumyeon_Gwi: {fileID: 0}
   landSharkAttackTime: 0
 --- !u!1 &1844140142737461735
 GameObject:
@@ -244,8 +246,8 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 0727af581051e044f9e436206d3eb96d, type: 2}
   enemyName: "\uCC98\uB140 \uADC0\uC2E0"
   enemyHp: 34
-  enemyMoveSpeed: 10
-  enemyRunSpeed: 5
+  enemyMoveSpeed: 1
+  enemyRunSpeed: 2
   enemyPriceMin: 72
   enemyPriceMax: 92
   enemyPrice: 0
@@ -268,7 +270,6 @@ MonoBehaviour:
   sp: {fileID: 3596648650307278598}
   anim: {fileID: 636676555407985214}
   enemyCorpse: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
-  enemy_Corpse_data: {fileID: 11400000, guid: 160f2d3033bb9524fa884c730fd94f73, type: 2}
   enemySelf: {fileID: 4938018955128738630}
   enemyTargetDir: {x: 0, y: 0, z: 0}
   isDie: 0
@@ -350,7 +351,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 1.5, y: 1.5}
   m_EdgeRadius: 0
 --- !u!1 &4938018955128738630
 GameObject:
@@ -462,7 +463,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 2.5, y: 2.5}
   m_EdgeRadius: 0
 --- !u!114 &2214340189701865263
 MonoBehaviour:

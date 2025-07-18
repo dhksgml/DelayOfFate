@@ -17,6 +17,15 @@ public class StealEnemy : Enemy
         EnemyInt();
     }
 
+    void Start()
+    {
+        // 처음에 랜덤한 방향 설정
+        ChooseNewDirection();
+
+        // 주기적으로 방향 전환
+        StartCoroutine(ChangeDirectionRoutine());
+    }
+
 
     void Update()
     {
@@ -38,6 +47,7 @@ public class StealEnemy : Enemy
 
         if(isStealGold && !hasStolen)
         {
+            // 게임 메니저에서 골드를 빼줌
             GameManager.Instance.Sub_Gold(enemyData.CoinDeviation);
             hasStolen = true;
         }
@@ -45,7 +55,10 @@ public class StealEnemy : Enemy
         //물건을 훔쳤을때
         if (isStealGold)
         {
+            // 스프라이트 회전
             EnemyTraceTurn();
+
+            // 반대 방향으로 이동
             rigid.MovePosition(transform.position + -enemyTargetDir * enemyRunSpeed * Time.deltaTime);
         }
 
@@ -54,21 +67,17 @@ public class StealEnemy : Enemy
         //추적중일때 또는 한번 인식을 했을때
         else if (isTrace && !isDie && !isEnemyHit || isChasing)
         {
+            // 추적중 bool 값 true로
             isChasing = true;
+
+            // 스프라이트 회전
             EnemyTraceTurn2();
 
             //한번 추적중이면 끝까지 따라옴
             enemyTargetDir = (player.transform.position - transform.position).normalized;
 
-            //에니메이션, 추적 true 바꾸어줌
-            //anim.SetBool("isTrace", true);
-
-            rigid.MovePosition(transform.position + enemyTargetDir * enemyMoveSpeed * Time.deltaTime);
-
-            if (enemyMovePoint.Length > 0)
-            {
-                enemyMoveDir = (enemyMovePoint[enemyCurrentMove].position - transform.position).normalized;
-            }  
+            // 목표로 이동
+            transform.Translate(enemyTargetDir * enemyMoveSpeed * 2 * Time.deltaTime);
         }
 
         //추적중이 아니면
@@ -77,16 +86,8 @@ public class StealEnemy : Enemy
             //스프라이트 때문에 이걸 사용해줌
             EnemyNormalTurn2();
 
-            //에니메이션, 추적 false로 바꾸어줌
-            //anim.SetBool("isTrace", false);
-
-            //MovePostion을 이용해 이동한다.
-            if (enemyMovePoint.Length > 0)
-            {
-                rigid.MovePosition(transform.position + enemyMoveDir * enemyMoveSpeed * Time.deltaTime);
-            }
-            
-            EnemyMoveTarget();
+            // 현재 방향으로 이동
+            transform.Translate(moveDirection * enemyMoveSpeed * Time.deltaTime);
         }
 
     }
