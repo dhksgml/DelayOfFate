@@ -64,16 +64,33 @@ public class Eo_dook_jwi : Enemy
 
     public override void EnemyMove()
     {
-        //빛에 닿았을 시
-        if(isLighting)
-        {
-            enemyMoveDir = -(player.transform.position - transform.position).normalized;
+        // 빛에 닿으면 도망가는 기믹은 일단 제거해줌
+        ////빛에 닿았을 시
+        //if(isLighting)
+        //{
+        //    enemyMoveDir = -(player.transform.position - transform.position).normalized;
 
-            transform.Translate(enemyMoveDir * enemyRunSpeed * Time.deltaTime);
-        }
+        //    transform.Translate(enemyMoveDir * enemyRunSpeed * Time.deltaTime);
+        //}
+
+        ////추적중이 아니면
+        //else if (!isTrace && !isDie && !isEnemyHit)
+        //{
+        //    //스프라이트 때문에 이걸 사용해줌
+        //    //EnemyNormalTurn2();
+
+        //    //에니메이션, 추적 false로 바꾸어줌
+        //    //anim.SetBool("isTrace", false);
+
+        //    // 현재 방향으로 이동
+        //    transform.Translate(moveDirection * enemyMoveSpeed * Time.deltaTime);
+
+        //    // 시간을 더해줌
+        //    moveTime += Time.deltaTime;
+        //}
 
         //추적중이 아니면
-        else if (!isTrace && !isDie && !isEnemyHit)
+        if (!isTrace && !isDie && !isEnemyHit)
         {
             //스프라이트 때문에 이걸 사용해줌
             //EnemyNormalTurn2();
