@@ -17,8 +17,6 @@ public class Mumyeon_Gwi_Attack : EnemyAttack
 
     void Update()
     {
-
-
         transform.position = enemy.transform.position;
         //거리를 계산하고
         float distance = Vector3.Distance(transform.position, player.transform.position);
@@ -45,6 +43,14 @@ public class Mumyeon_Gwi_Attack : EnemyAttack
                 //0.5초후 공격 콜라이더 비활성화
                 Invoke("AttackDelay", 0.5f);
             }
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            player.DamagedHP(enemyDamage);
         }
     }
 

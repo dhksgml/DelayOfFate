@@ -57,7 +57,7 @@ public class EnemyPattern : MonoBehaviour
             {
                 if (enemyTrigger == EnemyTrigger.Not_See && enemyAction == EnemyAction.Steal)
                 {
-                    enemy.isSteal = true;
+                    //enemy.isSteal = true;
                     Debug.Log("플레이어의 골드가 감소하였습니다");
                     //추후 이곳에서 충돌한 콜라이더에게서 플레이어를 가져오거나
                     //싱글톤으로 선언한 게임메니저에서 돈을 감소시키게 해주면 될 것 같음

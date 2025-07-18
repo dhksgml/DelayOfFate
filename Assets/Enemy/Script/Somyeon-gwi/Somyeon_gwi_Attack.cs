@@ -37,9 +37,8 @@ public class Somyeon_gwi_Attack : EnemyAttack
                     if (attackTime >= enemyAttackSpeed)
                     {
                         //충돌시 데미지를 줌
-                        //이부분 메서드 쓸 예정
-                        player.currentHp -= enemyDamage;
-                        player.currentMp -= somyeon_Gwi_Mind_Damage;
+                        player.DamagedHP(enemyDamage);
+                        player.DamagedMP(somyeon_Gwi_Mind_Damage);
                         attackTime = 0;
                     }
                 }

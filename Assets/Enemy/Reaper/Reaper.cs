@@ -43,7 +43,8 @@ public class Reaper : Enemy
             if(collision != null)
             {
                 PlayerController player = collision.gameObject.GetComponent<PlayerController>();
-                player.currentHp -= 4444444444;
+                // 데미지 처리 부분
+                player.DamagedHP(444444);
             }
         }
 
@@ -53,17 +54,21 @@ public class Reaper : Enemy
 
         if (collision.gameObject.CompareTag("Attack") && !isEnemyHit && attack != null)
         {
+            // 사신은 약점이 없으므로 주석처리
             // 타입이 일치하면 즉사
-            if (attack.attackType.ToString() == enemyWeakness.ToString())
-            {
-                //이부분 없다 나와서 일단 주석 처리 해주었음.
-                //attack.CheckWeakness();
-                enemyHp = 0f;
-            }
-            else
-            {
-                enemyHp -= attack.damage;
-            }
+            //if (attack.attackType.ToString() == enemyWeakness.ToString())
+            //{
+            //    //이부분 없다 나와서 일단 주석 처리 해주었음.
+            //    //attack.CheckWeakness();
+            //    enemyHp = 0f;
+            //}
+            //else
+            //{
+            //    enemyHp -= attack.damage;
+            //}
+
+            // 데미지 처리
+            enemyHp -= attack.damage;
 
             EnemyHit();
             Invoke("EnemyHitRegen", enemyHitTime);

@@ -83,7 +83,6 @@ public abstract class Enemy     : MonoBehaviour
     [HideInInspector] public Rigidbody2D          rigid;
     [HideInInspector] public Vector3              enemyMoveDir; //적의 원래 이동 방향
     public Vector3              moveDirection;
-    internal bool isSteal;
 
     //시작시 초기화 해주는 함수
     public void EnemyInt()

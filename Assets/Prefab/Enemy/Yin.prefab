@@ -137,7 +137,6 @@ MonoBehaviour:
   sp: {fileID: 0}
   anim: {fileID: 0}
   enemyCorpse: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
-  enemy_Corpse_data: {fileID: 11400000, guid: 355fda7a94654324fbe3f3ce554417a6, type: 2}
   enemySelf: {fileID: 958911829622340847}
   enemyTargetDir: {x: 0, y: 0, z: 0}
   isDie: 0
@@ -367,7 +366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d384ab41225a69e49aa563ffb0857daf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyDamage: -3
+  enemyDamage: 3
   enemyAttackSpeed: 0
   enemyAttackRange: 0
   enemyAttackType: 0

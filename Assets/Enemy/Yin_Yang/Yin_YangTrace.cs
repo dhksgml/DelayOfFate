@@ -48,12 +48,19 @@ public class Yin_YangTrace : EnemyAttack
             switch(yinyang.type)
             {
                 case Yin_Yang_Type.Yin:
-                    player.currentHp += enemyDamage; //데미지만큼 빼줌. 근데 -3으로 해놨음
+                    player.DamagedHP(enemyDamage); //데미지만큼 빼줌. 근데 -3으로 해놨음
                     attackTime = 0;
                     break;
 
                 case Yin_Yang_Type.Yang:
                     player.currentMp += enemyDamage; //정신 회복
+
+                    // 정신이 최대치를 넘어가면 최대값에 고정시켜줌
+                    if (player.currentMp >= player.maxMp)
+                    {
+                        player.currentMp = player.maxMp;
+                    }
+
                     attackTime = 0;
                     break;
             }
