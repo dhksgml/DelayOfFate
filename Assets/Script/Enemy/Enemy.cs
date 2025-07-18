@@ -252,8 +252,8 @@ public abstract class Enemy     : MonoBehaviour
     public void EnemyNormalTurn()
     {
         //적이 돌아다닐때
-        if (enemyMoveDir.x < 0) { sp.flipX = true; }
-        else if (enemyMoveDir.x > 0) { sp.flipX = false; }
+        if (moveDirection.x < 0) { sp.flipX = true; }
+        else if (moveDirection.x > 0) { sp.flipX = false; }
 
     }
 
@@ -261,8 +261,8 @@ public abstract class Enemy     : MonoBehaviour
     public void EnemyNormalTurn2()
     {
         //적이 돌아다닐때
-        if (enemyMoveDir.x < 0) { sp.flipX = false; }
-        else if (enemyMoveDir.x > 0) { sp.flipX = true; }
+        if (moveDirection.x < 0) { sp.flipX = false; }
+        else if (moveDirection.x > 0) { sp.flipX = true; }
 
     }
 

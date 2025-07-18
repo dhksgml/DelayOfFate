@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 using Color = UnityEngine.Color;
 
 public class WomanGhost : Enemy
@@ -17,6 +18,7 @@ public class WomanGhost : Enemy
     bool isinvisible;
     bool isAction = false;
     public bool isAttack;
+    bool isWomanTrace = false;
     
 
     [SerializeField] float seeTime;
@@ -30,8 +32,17 @@ public class WomanGhost : Enemy
         EnemyInt();
     }
 
+    void Start()
+    {
+        // 처음에 랜덤한 방향 설정
+        ChooseNewDirection();
+
+        // 주기적으로 방향 전환
+        StartCoroutine(ChangeDirectionRoutine());
+    }
     void Update()
     {
+        if (isTrace) { isWomanTrace = true; }
         
         if (!isPlayerSee && isinvisible) { dontSeeTime += Time.deltaTime; }
        
@@ -110,7 +121,7 @@ public class WomanGhost : Enemy
     public override void EnemyMove()
     {
         //추적하는 타겟의 위치 - 자신의 위치를 구한 후 정규화를 해준다
-        enemyTargetDir = (enemyTrace.targetPos - transform.position).normalized;
+        enemyTargetDir = (player.transform.position - transform.position).normalized;
 
         //플레이어가 지켜볼때
         if (isPlayerSee && !isDie && !isEnemyHit && !isStop)
@@ -119,31 +130,24 @@ public class WomanGhost : Enemy
 
             anim.SetBool("isTrace", false);
 
+            // 한번 보지않으면 끝까지 쫒아옴
+            isWomanTrace = false;
+
             //반대 방향으로 도망가줌
             rigid.MovePosition(transform.position + -enemyTargetDir * enemyRunSpeed * Time.deltaTime);
-            //추가. 웨이포인트가 없으면 작동 x
-            if (enemyMovePoint.Length > 0)
-            {
-                enemyMoveDir = (enemyMovePoint[enemyCurrentMove].position - transform.position).normalized;
-            }
-            
         }
 
         //추적중일때
-        else if (isTrace && !isDie && !isEnemyHit && !isStop)
+        else if (isWomanTrace && !isDie && !isEnemyHit && !isStop && !isPlayerSee)
         {
             EnemyTraceTurn2();
    
             //에니메이션, 추적 true 바꾸어줌
             anim.SetBool("isTrace", true);
 
-            rigid.MovePosition(transform.position + enemyTargetDir * enemyMoveSpeed * Time.deltaTime);
+            // 목표를 향해 이동
+            transform.Translate(enemyTargetDir * enemyMoveSpeed * 3 * Time.deltaTime);
 
-            //추가. 웨이포인트가 없으면 작동 x
-            if (enemyMovePoint.Length > 0)
-                {
-                enemyMoveDir = (enemyMovePoint[enemyCurrentMove].position - transform.position).normalized;
-            } 
         }
 
         //추적중이 아니면
@@ -155,9 +159,8 @@ public class WomanGhost : Enemy
             //에니메이션, 추적 false로 바꾸어줌
             anim.SetBool("isTrace", false);
 
-            //MovePostion을 이용해 이동한다.
-            rigid.MovePosition(transform.position + enemyMoveDir * enemyMoveSpeed * Time.deltaTime);
-            EnemyMoveTarget();
+            // 현재 방향으로 이동
+            transform.Translate(moveDirection * enemyMoveSpeed * Time.deltaTime);
         }
     }
 
