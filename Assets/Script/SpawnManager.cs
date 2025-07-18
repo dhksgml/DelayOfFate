@@ -6,7 +6,7 @@ public class SpawnManager : MonoBehaviour
     [Header("Spawn Settings")]
     public GameObject[] enemyPrefabs; // 적 프리팹
     public GameObject itemPrefab;     // 공통 아이템 프리팹
-    public Item[] item_date;          // ScriptableObject 기반 아이템 데이터 배열
+    public ItemData[] item_date;          // ScriptableObject 기반 아이템 데이터 배열
 
     public int totalD_Point;          // 위험 점수 총합
     public int totalValPoint;         // 코인 점수 총합
@@ -56,7 +56,7 @@ public class SpawnManager : MonoBehaviour
         int minItemCoin = int.MaxValue;
 
         List<GameObject> validEnemies = new List<GameObject>();
-        List<Item> validItems = new List<Item>();
+        List<ItemData> validItems = new List<ItemData>();
 
         foreach (GameObject prefab in enemyPrefabs)
         {
@@ -76,7 +76,7 @@ public class SpawnManager : MonoBehaviour
         }
 
 
-        foreach (Item item in item_date)
+        foreach (ItemData item in item_date)
         {
             if (item != null)
             {
@@ -120,10 +120,10 @@ public class SpawnManager : MonoBehaviour
         // 4. 아이템 스폰
         while (coinRemain >= minItemCoin && itemSpawnPoints.Count > 0)
         {
-            List<Item> spawnables = validItems.FindAll(i => i.ValPoint <= coinRemain);
+            List<ItemData> spawnables = validItems.FindAll(i => i.ValPoint <= coinRemain);
             if (spawnables.Count == 0) break;
 
-            Item randomItemData = spawnables[Random.Range(0, spawnables.Count)];
+            ItemData randomItemData = spawnables[Random.Range(0, spawnables.Count)];
 
             int index = Random.Range(0, itemSpawnPoints.Count);
             Transform spawnPoint = itemSpawnPoints[index];
@@ -133,7 +133,8 @@ public class SpawnManager : MonoBehaviour
             ItemObject itemObjComp = itemObj.GetComponentInChildren<ItemObject>();
             if (itemObjComp != null)
             {
-                itemObjComp.itemData = randomItemData;
+                itemObjComp.itemDataTemplate = randomItemData;
+                itemObjComp.itemData = new Item(randomItemData);
             }
             else
             {
