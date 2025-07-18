@@ -160,9 +160,6 @@ public class Boon_yeol_gwi : Enemy
                 //가치를 올려준 후
                 enemyPrice += item.itemData.Coin;
 
-                // 가치 변수를 복사
-                int itemPrice = item.itemData.Coin;
-
                 //가치를 제거해줌
                 item.itemData.Coin = 0;
 
