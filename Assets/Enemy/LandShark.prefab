@@ -230,7 +230,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1, y: 0}
+  m_Offset: {x: 0.5, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -288,7 +288,6 @@ GameObject:
   - component: {fileID: 7836281151718679667}
   - component: {fileID: 1017489393362226214}
   - component: {fileID: 3654836320264230940}
-  - component: {fileID: 2099868139090354444}
   - component: {fileID: 2294743210190872661}
   m_Layer: 0
   m_Name: Enemy
@@ -369,42 +368,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
---- !u!58 &2099868139090354444
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7656576500990689164}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -449,7 +413,6 @@ MonoBehaviour:
   sp: {fileID: 0}
   anim: {fileID: 0}
   enemyCorpse: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
-  enemy_Corpse_data: {fileID: 11400000, guid: 160f2d3033bb9524fa884c730fd94f73, type: 2}
   enemySelf: {fileID: 6855693868523006174}
   enemyTargetDir: {x: 0, y: 0, z: 0}
   isDie: 0
@@ -549,4 +512,6 @@ MonoBehaviour:
   landShark: {fileID: 2294743210190872661}
   landSharkAttack: {fileID: 3641203100698774316}
   somyeon_Gwi: {fileID: 0}
+  boon_yeol_gwi: {fileID: 0}
+  mumyeon_Gwi: {fileID: 0}
   landSharkAttackTime: 0

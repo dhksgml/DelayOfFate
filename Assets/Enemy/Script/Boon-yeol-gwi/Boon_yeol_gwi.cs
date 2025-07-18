@@ -48,7 +48,7 @@ public class Boon_yeol_gwi : Enemy
         //본채일떄
         else if (type == Boon_yeol_gwi_Type.Entity)
         {
-            GameObject copyEnemy = Instantiate(copyObj);
+            GameObject copyEnemy = Instantiate(copyObj, transform.position, Quaternion.identity);
             //리스트에 추가해줌
             copyObjList.Add(copyEnemy);
             currentIndex++; //1마리 증가했으므로 ++
@@ -73,17 +73,17 @@ public class Boon_yeol_gwi : Enemy
         //스폰 준비가 되면
         else if (type == Boon_yeol_gwi_Type.Entity && isSpawn)
         {
-            if(currentIndex <= maxIndex)
+            if (currentIndex <= maxIndex)
             {
                 //두마리 소환
-                GameObject copyEnemy = Instantiate(copyObj);
+                GameObject copyEnemy = Instantiate(copyObj, transform.position, Quaternion.identity);
                 copyObjList.Add(copyEnemy);
 
                 currentIndex++;
 
                 if (currentIndex <= maxIndex)
                 {
-                    GameObject copyEnemy2 = Instantiate(copyObj);
+                    GameObject copyEnemy2 = Instantiate(copyObj, transform.position, Quaternion.identity);
                     copyObjList.Add(copyEnemy2);
                     currentIndex++;
                 }
@@ -152,13 +152,16 @@ public class Boon_yeol_gwi : Enemy
                 Invoke("EnemyHitRegen", enemyHitTime);
             }
 
-            if (collision.gameObject.CompareTag("Item"))
-            {
-                //item을 가져와준 후
-                ItemObject item = collision.gameObject.GetComponent<ItemObject>();
+            //item을 가져와준 후
+            ItemObject item = collision.gameObject.GetComponent<ItemObject>();
 
+            if (collision.gameObject.CompareTag("Item") && item.itemData.Coin != 0 && !isItemEat)
+            {
                 //가치를 올려준 후
                 enemyPrice += item.itemData.Coin;
+
+                // 가치 변수를 복사
+                int itemPrice = item.itemData.Coin;
 
                 //가치를 제거해줌
                 item.itemData.Coin = 0;
@@ -166,7 +169,8 @@ public class Boon_yeol_gwi : Enemy
                 isItemEat = true;
             }
 
-            if(type == Boon_yeol_gwi_Type.Copy)
+
+            if (type == Boon_yeol_gwi_Type.Copy)
             {
                 if (collision.gameObject.CompareTag("Enemy"))
                 {
@@ -206,7 +210,7 @@ public class Boon_yeol_gwi : Enemy
                         }
                     }
                 }
-            }    
+            }
         }
     }
 }
