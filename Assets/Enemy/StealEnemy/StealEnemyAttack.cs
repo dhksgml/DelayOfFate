@@ -21,12 +21,12 @@ public class StealEnemyAttack : EnemyAttack
         transform.position = enemy.transform.position;
 
         //훔치지 않았으면 공격
-        if (!stealEnemy.isSteal) time += Time.deltaTime;
+        if (!stealEnemy.isStealGold) time += Time.deltaTime;
 
         rotationColl();
 
         //공격 시간이 됐고, 목표와의 거리가 1f 보다 작거나 같으면 공격
-        if (time >= enemyAttackSpeed && !stealEnemy.isSteal
+        if (time >= enemyAttackSpeed && !stealEnemy.isStealGold
             && distance <= 1f)
         {
             //에니메이션 활성화
@@ -43,7 +43,7 @@ public class StealEnemyAttack : EnemyAttack
     {
         if (collision.gameObject.CompareTag("Player") && !stealEnemy.isAttack)
         {
-            stealEnemy.isSteal = true;
+            stealEnemy.isStealGold = true;
             stealEnemy.isAttack = true;
         }
     }

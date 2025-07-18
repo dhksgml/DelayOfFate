@@ -6,7 +6,7 @@ public class StealEnemy : Enemy
 {
     PlayerController player;
     public bool isAttack;
-    public bool isSteal;
+    public bool isStealGold;
     bool isChasing = false;
     bool hasStolen = false; // 돈 훔친 후 최초 1회만 차감하기 위한 변수
 
@@ -36,14 +36,14 @@ public class StealEnemy : Enemy
         //추적하는 타겟의 위치 - 자신의 위치를 구한 후 정규화를 해준다
         enemyTargetDir = (enemyTrace.targetPos - transform.position).normalized;
 
-        if(isSteal && !hasStolen)
+        if(isStealGold && !hasStolen)
         {
             GameManager.Instance.Sub_Gold(enemyData.CoinDeviation);
             hasStolen = true;
         }
 
         //물건을 훔쳤을때
-        if (isSteal)
+        if (isStealGold)
         {
             EnemyTraceTurn();
             rigid.MovePosition(transform.position + -enemyTargetDir * enemyRunSpeed * Time.deltaTime);

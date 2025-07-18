@@ -82,7 +82,7 @@ public class LandSharkAttack : EnemyAttack
             {
                 PlayerController player = collision.GetComponent<PlayerController>();
                 //충돌시 데미지를 줌
-                player.currentHp -= enemyDamage;
+                player.DamagedHP(enemyDamage);
             }
         }
     }
