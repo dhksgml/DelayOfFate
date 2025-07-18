@@ -12,8 +12,8 @@ public class Shop : MonoBehaviour
     private int rerollCost = 30;
     private int lanternBuyCount = 0;
 
-    private const int lantern_1 = 750;
-    private const int lantern_2 = 1500;
+    private const int lantern_1 = 250;
+    private const int lantern_2 = 500;
 
     // 테스트용 무기/영혼 데이터
     private List<string> weaponNames = new List<string> { "Sword", "Axe", "Bow", "Spear", "Gun" };
