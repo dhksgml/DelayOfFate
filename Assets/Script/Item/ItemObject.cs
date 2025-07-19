@@ -9,7 +9,7 @@ public class ItemObject : MonoBehaviour
     public Item itemData;
     private SpriteRenderer spriteRenderer;
     private Player_Item_Use player_item_use;
-    public GameObject item_soul;
+    //public GameObject item_soul;
     public GameObject infoPanel; // 월드 UI (Canvas) 참조
     public TMP_Text coin_text; // 텍스트 참조
     public GameObject holdGaugeUI; // 판매 키 게이지 UI
@@ -59,11 +59,11 @@ public class ItemObject : MonoBehaviour
 
         if (itemData == null) // 내부 데이터 가 있는가?
         {
-            item_soul.SetActive(false);
+            //item_soul.SetActive(false);
         }
         else
         {
-            item_soul.SetActive(true);
+            //item_soul.SetActive(true);
         }
     }
     private float GetCollisionRadius() // 충돌용 반지름 계산기
