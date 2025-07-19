@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     public Item[] currentQuickSlot = new Item[4];
     public int killcount = 0; //처치한 악귀 수
 
+    public ItemData[] SlotsData;
+    private bool initialized = false; // 플레이어 무기 받아오기 용
     private void Awake()
     {
         // 현재 씬에 자신과 같은 타입의 오브젝트가 2개 이상 있는 경우 즉시 삭제
@@ -30,6 +32,21 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+    private void Update()
+    {
+        if (!initialized && SceneManager.GetActiveScene().name == "InGame_Scenes")
+        {
+            Player_Item_Use player_Item_Use = FindObjectOfType<Player_Item_Use>();
+            if (player_Item_Use == null) return; // 아직 생성 안 됐다면 다음 프레임 다시 시도
+
+            for (int i = 0; i < player_Item_Use.quickSlots.Length; i++)
+            {
+                if (SlotsData[i] == null) continue;
+                player_Item_Use.quickSlots[i] = new Item(SlotsData[i]);
+            }
+            initialized = true; // 한 번 실행 후 다시 안 하도록
         }
     }
     public void New_Day_date()

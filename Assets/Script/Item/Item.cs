@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "NewItem", menuName = "Item/ItemData")]
 public class Item
 {
     public int id; // ∞Ì¿Ø ID

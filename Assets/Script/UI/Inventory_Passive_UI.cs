@@ -17,7 +17,7 @@ public class Inventory_Passive_UI : MonoBehaviour
 	void Start()
 	{
 		passiveItemManager = FindObjectOfType<PassiveItemManager>();
-		//chrlghk();
+		chrlghk();
 		UpdateInventoryIcons();
 	}
     private void Update()

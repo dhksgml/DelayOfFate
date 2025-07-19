@@ -96,9 +96,9 @@ public class PassiveItemManager : MonoBehaviour
 		{
 			case "1_1": return "천하장사";
 			case "1_2": return "정정당당";
-			case "2_1": return "문전박대";
-			case "2_2": return "백발백중";
-			case "2_3": return "쾌도난마";
+			//case "2_1": return "문전박대";
+			//case "2_2": return "백발백중";
+			//case "2_3": return "쾌도난마";
 			case "3_1": return "금의환향";
 			case "3_2": return "다다익선";
 			case "4_1": return "금강불괴";
@@ -106,7 +106,7 @@ public class PassiveItemManager : MonoBehaviour
 			case "4_3": return "외유내강";
 			case "5_1": return "가담항설";
 			case "5_2": return "취사선택";
-			case "6_1": return "등용문";
+			//case "6_1": return "등용문";
 			case "6_2": return "승승장구";
 			case "6_3": return "선견지명";
 			case "7_1": return "구사일생";
@@ -121,9 +121,9 @@ public class PassiveItemManager : MonoBehaviour
 		{
 			case "1_1": return "물건의 무게로 인한 이동속도 감속이 제거됨";
 			case "1_2": return "악귀에게 주는 피해가 10할 증가 악귀의 약점을 공격 할 수 없음";
-			case "2_1": return "방망이의 공격 범위가 10할 증가 방망이가 즉시 시전 방망이의 피해량이 5할 증가";
-			case "2_2": return "부적의 추격 범위가 20할 증가 부적의 피해량이 5할 증가";
-			case "2_3": return "환도의 공격속도 5할 증가 환도의 피해가 5할 증가";
+			//case "2_1": return "방망이의 공격 범위가 10할 증가 방망이가 즉시 시전 방망이의 피해량이 5할 증가";
+			//case "2_2": return "부적의 추격 범위가 20할 증가 부적의 피해량이 5할 증가";
+			//case "2_3": return "환도의 공격속도 5할 증가 환도의 피해가 5할 증가";
 			case "3_1": return "약값 지불 후 보유한 냥의 1할 만큼 획득";
 			case "3_2": return "무기를 0혼 으로 구매 가능";
 			case "4_1": return "악귀로 받는 체력피해가 5할 감소";
@@ -131,7 +131,7 @@ public class PassiveItemManager : MonoBehaviour
 			case "4_3": return "정신이 75 증가 체력이 25 감소";
 			case "5_1": return "가장 가까운 물건의 위치를 파악함";
 			case "5_2": return "비어 있는 손 만큼 이동속도 1할 증가";
-			case "6_1": return "즉시 판매시 이동속도 1할 증가 (최대 3할) 하루가 지나면 초기화";
+			//case "6_1": return "즉시 판매시 이동속도 1할 증가 (최대 3할) 하루가 지나면 초기화";
 			case "6_2": return "악귀를 처치시 영구적으로 피해량 1할 증가";
 			case "6_3": return "하루가 지날때 들고 있던 물건의 가치가 5할 증가";
 			case "7_1": return "부활 시 물건을 떨어뜨리지 않고 부활";
@@ -146,9 +146,9 @@ public class PassiveItemManager : MonoBehaviour
 		{
 			case "1_1": return 1;
 			case "1_2": return 3;
-			case "2_1": return 1;
-			case "2_2": return 1;
-			case "2_3": return 1;
+			//case "2_1": return 1;
+			//case "2_2": return 1;
+			//case "2_3": return 1;
 			case "3_1": return 3;
 			case "3_2": return 1;
 			case "4_1": return 4;
@@ -156,7 +156,7 @@ public class PassiveItemManager : MonoBehaviour
 			case "4_3": return 1;
 			case "5_1": return 1;
 			case "5_2": return 2;
-			case "6_1": return 1;
+			//case "6_1": return 1;
 			case "6_2": return 2;
 			case "6_3": return 3;
 			case "7_1": return 2;

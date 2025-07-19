@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
 using System.Linq;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
@@ -15,8 +15,6 @@ public class Shop : MonoBehaviour
     private const int lantern_1 = 750;
     private const int lantern_2 = 1500;
 
-    // 테스트용 무기/영혼 데이터
-    private List<string> weaponNames = new List<string> { "Sword", "Axe", "Bow", "Spear", "Gun" };
     private List<int> weaponPrices = new List<int>();
 
     private List<string> soulNames = new List<string>();
@@ -28,22 +26,38 @@ public class Shop : MonoBehaviour
     public Image[] soulIcons; // UI에 보여줄 아이콘 4개
 
     public TMP_Text[] weaponSlots; // 상품 목록들 무기, 영혼, 초롱
-    public Item[] weaponData; // 무기 데이터
+    public ItemData[] weaponData; // 무기 데이터
     public QuickSlotUI quickSlotUI; // 퀵슬롯 연결
     private PassiveItemManager passiveItemManager;
     void Awake()
     {
         passiveItemManager = FindObjectOfType<PassiveItemManager>();
 
-        // 초기 아이템 ID 리스트 구성
+        allSoulIds.Clear();
+
+        // Build base list: groups 1..7, numbers 1..2
         for (int g = 1; g <= 7; g++)
+        {
+            // Skip all group 2 (refining, temporary)
+            if (g == 2) continue;
+
             for (int n = 1; n <= 2; n++)
+            {
+                // Skip 6_1 only (temporary)
+                if (g == 6 && n == 1) continue;
+
                 allSoulIds.Add($"Soul_Add_{g}_{n}");
-        allSoulIds.Add($"Soul_Add_{2}_{3}");
-        allSoulIds.Add($"Soul_Add_{4}_{3}");
-        allSoulIds.Add($"Soul_Add_{6}_{3}");
-        RerollSouls(); // Start()보다 먼저 실행되도록
+            }
+        }
+
+        // Manually add known _3 variants (except 2_3 which we are excluding)
+        allSoulIds.Add("Soul_Add_4_3");
+        allSoulIds.Add("Soul_Add_6_3"); // allowed; only 6_1 is excluded
+
+        RerollSouls(); // run before Start
     }
+
+
     void Start()
     {
         InitializeShop();
@@ -57,7 +71,7 @@ public class Shop : MonoBehaviour
     void InitializeShop()
     {
         weaponPrices.Clear();
-        for (int i = 0; i < weaponNames.Count; i++)
+        for (int i = 0; i < 3; i++)
         {
             weaponPrices.Add(GameManager.Instance.Day * 100);
             weaponSlots_text(i, GameManager.Instance.Day * 100, "Soul");
@@ -85,7 +99,7 @@ public class Shop : MonoBehaviour
     }
     public void BuyWeapon(int index) // 무기 구매
     {
-        if (index < 0 || index >= weaponNames.Count) return;
+        if (index < 0 || index >= 3) return;
 
         int price = weaponPrices[index];
         if (Soul >= price)
@@ -97,20 +111,20 @@ public class Shop : MonoBehaviour
             if (btn != null) btn.interactable = false;
 
             // 내부에서 바로 퀵슬롯 참조
-            Player_Item_Use playerItemUse = FindObjectOfType<Player_Item_Use>();
-            print(playerItemUse);
-            if (playerItemUse == null) return;
+            ShopQuickSlot shopQuickSlot = FindObjectOfType<ShopQuickSlot>();
+            print(shopQuickSlot);
+            if (shopQuickSlot == null) return;
 
             bool slotFilled = false;
-            for (int i = 0; i < playerItemUse.quickSlots.Length; i++)
+            for (int i = 0; i < shopQuickSlot.quickSlots.Length; i++)
             {
-                Item item = playerItemUse.quickSlots[i];
+                ItemData item = shopQuickSlot.SlotsData[i]; // 여기를 바꿈
                 if (item == null || string.IsNullOrEmpty(item.itemName))
                 {
-                    playerItemUse.quickSlots[i] = weaponData[index];
+                    shopQuickSlot.SlotsData[i] = weaponData[index];
+                    if (weaponData[index].id == 997) { shopQuickSlot.SlotsData[i].Count = 10; }//부적의 경우
                     OnItemHover(i, weaponData[index]);
                     slotFilled = true;
-                    quickSlotUI.UpdateUI();
                     break;
                 }
             }
@@ -122,7 +136,7 @@ public class Shop : MonoBehaviour
         }
     }
 
-    public void OnItemHover(int i, Item item)
+    public void OnItemHover(int i, ItemData item)
     {
         QuickSlotUI quickSlotUI = FindObjectOfType<QuickSlotUI>();
         if (quickSlotUI != null)

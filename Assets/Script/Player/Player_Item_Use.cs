@@ -20,9 +20,11 @@ public class Player_Item_Use : MonoBehaviour
     {
         itemUsageManager = GetComponent<ItemUsageManager>();
         playercontroller = GetComponent<PlayerController>();
+        
     }
     void Update()
     {
+        print(quickSlots[selectedSlotIndex]);
         HandleSlotSelection(); // 슬롯 변경 처리
         float weight = GetTotalItemWeight();
         if (Input.GetMouseButtonDown(0))
@@ -194,24 +196,20 @@ public class Player_Item_Use : MonoBehaviour
         }
     }
 
-    public void PickUpItem()
+    public void PickUpItem()//줍기
     {
-        print("줍기시도");
         Collider2D[] itemColliders = Physics2D.OverlapCircleAll(transform.position, 1f, itemLayer);
 
         foreach (Collider2D collider in itemColliders)
         {
             ItemObject itemObject = collider.GetComponent<ItemObject>();
-            print("줍기시도1");
             if (itemObject != null)
             {
                 Item droppedItem = itemObject.itemData;
                 Item slotItem = quickSlots[selectedSlotIndex];
-                print("줍기시도2");
                 // 슬롯이 비어있는 경우
                 if (slotItem == null || string.IsNullOrEmpty(slotItem.itemName))
                 {
-                    print("줍기시도3");
                     quickSlots[selectedSlotIndex] = droppedItem;
                     Destroy(itemObject.gameObject);
                     UpdateQuickSlotUI();

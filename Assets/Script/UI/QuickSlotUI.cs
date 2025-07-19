@@ -37,7 +37,7 @@ public class QuickSlotUI : MonoBehaviour
         angleUnit = Mathf.FloorToInt(time / 20f); // 20초마다 1각
     }
 
-    public void DisplayItemInfo(int index, Item item)
+    public void DisplayItemInfo(int index, ItemData item)
     {
         print(item);
         if (index < 0 || index >= 4) return;

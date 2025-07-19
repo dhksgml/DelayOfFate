@@ -55,18 +55,19 @@ MonoBehaviour:
     flashLightLevel: 1
     gold: 0
     soul: 0
-    quickSlots:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    damageTakenMultiplier: 1
+    damageMultiplier: 1
+    speedMultiplier: 1
+    isDropWhenRevive: 0
+    isFindNearestItem: 0
   Day: 1
   Gold: 1500
   Soul: 1500
   N_Day_Add_Soul: 0
   N_Day_Time: 0
   N_Day_Cost: 0
-  currentQuickSlot:
+  killcount: 0
+  SlotsData:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 7
   itemName: "\uC0AC\uC9C4"
-  InGameSprite: {fileID: -322435216, guid: 51fc66902a0daa54a914208c397ebc9f, type: 3}
+  InGameSprite: {fileID: 21300000, guid: b3863276e34db7446b9a564f37b70271, type: 3}
   icon: {fileID: 21300000, guid: fdd866e72f2805b45936f7b417565067, type: 3}
   Coin: 17
   Weight: 20
