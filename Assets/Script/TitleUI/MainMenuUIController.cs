@@ -6,12 +6,12 @@ public class MainMenuUIController : MonoBehaviour
 {
     public void OnClickStartButton(string loadSceneName)
     {
-        //GameManager.Instance.LoadScene(loadSceneName);
+        GameManager.Instance.LoadScene(loadSceneName);
     }
 
 
     public void OnClickExitButton()
     {
-        //GameManager.Instance.QuitGame();
+        GameManager.Instance.QuitGame();
     }
 }

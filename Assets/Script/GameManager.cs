@@ -90,4 +90,15 @@ public class GameManager : MonoBehaviour
     {
         return currentQuickSlot;
     }
+
+    public void LoadScene(string loadSceneName)
+    {
+        // 지정한 씬으로 이동
+        SceneManager.LoadScene(loadSceneName);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }

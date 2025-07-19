@@ -1,4 +1,3 @@
-using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class Stage_Manager : MonoBehaviour
@@ -12,6 +11,6 @@ public class Stage_Manager : MonoBehaviour
     }
     public void Shop_end() // 상점 전부 고른 후 전투씬으로 넘어가기
     {
-        SceneManager.LoadScene("InGame_Scenes");
+        GameManager.Instance.LoadScene("InGame_Scenes");
     }
 }
