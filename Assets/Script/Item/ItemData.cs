@@ -10,6 +10,10 @@ public class ItemData : ScriptableObject
     public Sprite InGameSprite;
     public Sprite icon;
 
+    [Header("아이템 사용 SP")]
+    public float spendSPAmount;
+
+    [Space(10)]
     public int Coin;  // 코인
     public int Weight;
     [Header("점수")]

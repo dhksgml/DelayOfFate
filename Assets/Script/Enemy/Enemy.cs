@@ -224,7 +224,7 @@ public abstract class Enemy     : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
 
-        EnemyCorpseSummon();
+        //EnemyCorpseSummon();
     }
 
     //적이 죽을떄 시체를 소환하는 메서드
