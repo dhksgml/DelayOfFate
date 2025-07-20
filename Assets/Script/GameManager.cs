@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public float N_Day_Add_Soul; //당일에 번 총 소울
     public int N_Day_Time; // 당일에 클리어한 각(시간)
     public float N_Day_Cost; //해당 정산일에 낼 돈
+    public float[] Cost_list = { 300, 500, 1000 };
     public Item[] currentQuickSlot = new Item[4];
     public int killcount = 0; //처치한 악귀 수
 
@@ -53,6 +54,7 @@ public class GameManager : MonoBehaviour
     {
         N_Day_Add_Soul = 0;
         N_Day_Time = 0;
+        N_Day_Cost = Cost_list[Day - 1];
     }
     public void Add_Gold(float val)
     {
