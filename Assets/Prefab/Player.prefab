@@ -714,7 +714,7 @@ MonoBehaviour:
   - {x: -0.05387208, y: -0.22353303, z: 0}
   m_ShapePathHash: -1562121249
   m_Mesh: {fileID: 0}
-  m_InstanceId: 62182
+  m_InstanceId: 39154
   m_LocalBounds:
     m_Center: {x: 0.0002822429, y: -0.064456046, z: 0}
     m_Extent: {x: 0.114839226, y: 0.39820114, z: 0}
@@ -1224,7 +1224,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1239,12 +1239,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.66571784, y: 3.7727888}
-      - {x: -0.49980456, y: 3.7500162}
-      - {x: -1.5401988, y: 3.3275077}
+    - - {x: 0.967118, y: 6.3805532}
+      - {x: -0.61774325, y: 6.5543456}
+      - {x: -2.1954155, y: 5.306264}
       - {x: -0.2252681, y: -0.02208972}
       - {x: 0.17221698, y: -0.030931473}
-      - {x: 1.5503919, y: 3.2917109}
+      - {x: 1.9042091, y: 5.0214844}
   m_UseDelaunayMesh: 0
 --- !u!114 &1658551752753831148
 MonoBehaviour:

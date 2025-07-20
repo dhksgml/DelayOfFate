@@ -80,10 +80,8 @@ public class Reaper : Enemy
         //추적하는 타겟의 위치 - 자신의 위치를 구한 후 정규화를 해준다
         enemyTargetDir = (player.transform.position - transform.position).normalized;
 
-        //EnemyTraceTurn2();
-
-        //에니메이션, 추적 true 바꾸어줌
-        //anim.SetBool("isTrace", true);
+        // 스프라이트 회전 처리
+        EnemyTraceTurn2();
 
         rigid.MovePosition(transform.position + enemyTargetDir * enemyMoveSpeed * Time.deltaTime);
     }
