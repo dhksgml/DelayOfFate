@@ -136,10 +136,32 @@ public class Eo_dook_jwi : Enemy
                 //∫˚ø° ¥Í¿∏∏È true∑Œ «ÿ¡÷∞Ì µµ∏¡∞°∞‘ «ÿ¡‹
                 isLighting = true;
             }
-
-
         }
     }
+
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision != null)
+        {
+            if (collision.gameObject.CompareTag("Wall"))
+            {
+                WallCollOrigin();
+            }
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision != null)
+        {
+            if (collision.gameObject.CompareTag("Wall"))
+            {
+                WallNotCross();
+            }
+        }
+    }
+
 
     void OnTriggerExit2D(Collider2D collision)
     {

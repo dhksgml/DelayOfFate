@@ -76,6 +76,7 @@ public abstract class Enemy     : MonoBehaviour
     public Animator             anim;
     public GameObject           enemyCorpse; //적 시체
     public GameObject           enemySelf;
+    public Collider2D           enemyColl;
 
     [HideInInspector] public Vector3       enemyTargetDir; //적의 타겟 방향
 
@@ -279,6 +280,22 @@ public abstract class Enemy     : MonoBehaviour
         if (enemyTargetDir.x < 0) { sp.flipX = false; }
         else if (enemyTargetDir.x > 0) { sp.flipX = true; }
     }
+    #endregion
+
+    #region 벽 충돌 처리
+
+    //  벽을 못넘게 해주는 메서드
+    public void WallNotCross()
+    {
+        enemyColl.isTrigger = false;
+    }
+
+    // 다시 원래대로 해주는 메서드
+    public void WallCollOrigin()
+    {
+        enemyColl.isTrigger = true;
+    }
+
     #endregion
 
 
