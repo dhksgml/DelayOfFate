@@ -166,5 +166,40 @@ public class LandShark : Enemy
 
         yield return null;
     }
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision != null)
+        {
+            if (collision.gameObject.CompareTag("Wall"))
+            {
+                WallCollOrigin();
+            }
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision != null)
+        {
+            if (collision.gameObject.CompareTag("Wall"))
+            {
+                WallNotCross();
+            }
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision != null)
+        {
+
+            if (collision.gameObject.CompareTag("Wall"))
+            {
+                WallNotCross();
+            }
+        }
+    }
+
+
 
 }
