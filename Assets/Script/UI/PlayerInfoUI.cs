@@ -29,7 +29,19 @@ public class PlayerInfoUI : MonoBehaviour
 
         if (playerController == null) // 플레이어가 없는 경우 (상점, 스테이지 선택)
         {
+            coin_text.text = $"냥: {GameManager.Instance.Gold}";
+            soul_text.text = $"혼: {GameManager.Instance.Soul}";
 
+            float hpRatio = GameManager.Instance.playerData.currentHp / GameManager.Instance.playerData.maxHp;
+            float spRatio = GameManager.Instance.playerData.currentSp / GameManager.Instance.playerData.maxSp;
+
+            Vector2 hpSize = playerHpBar.rectTransform.sizeDelta;
+            hpSize.x = maxHpBarWidth * Mathf.Clamp01(hpRatio);
+            playerHpBar.rectTransform.sizeDelta = hpSize;
+
+            Vector2 spSize = playerSpBar.rectTransform.sizeDelta;
+            spSize.x = maxSpBarWidth * Mathf.Clamp01(spRatio);
+            playerSpBar.rectTransform.sizeDelta = spSize;
         }
         else // 인게임 에서 보여줄것
         {
