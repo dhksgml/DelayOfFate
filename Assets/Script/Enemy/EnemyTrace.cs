@@ -171,23 +171,25 @@ public class EnemyTrace : MonoBehaviour
     {
         if (collision != null)
         {
-            //땅상어 전용
-            if(landShark != null)
+            //벗어나면 false로 변경
+            if (collision.gameObject.CompareTag("Player"))
             {
-                //벗어나면 false로 변경
-                if (collision.gameObject.CompareTag("Player"))
+                enemy.isTrace = false;
+
+                //땅상어 전용
+                if (landShark != null)
                 {
-                    enemy.isTrace = false;
                     //돌출로 변환
                     landShark.isHideOut();
                 }
-            }
 
-            // 무면귀 전용
-            if (mumyeon_Gwi != null)
-            {
-                // 벗어나면 시간 초기화
-                mumyeon_Gwi_Stay_Time = 0f;
+                // 무면귀 전용
+                if (mumyeon_Gwi != null)
+                {
+                    // 벗어나면 시간 초기화
+                    mumyeon_Gwi_Stay_Time = 0f;
+                }
+
             }
         }
     }

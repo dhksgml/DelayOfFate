@@ -253,6 +253,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   enemyCorpse: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
   enemySelf: {fileID: 5341648827927804214}
+  enemyColl: {fileID: 3569553528630324326}
   enemyTargetDir: {x: 0, y: 0, z: 0}
   isDie: 0
   rigid: {fileID: 0}
