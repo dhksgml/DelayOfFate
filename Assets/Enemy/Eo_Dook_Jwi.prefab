@@ -149,6 +149,7 @@ MonoBehaviour:
   isLighting: 0
   isAction: 0
   isStop: 0
+  enemyDamage: 10
 --- !u!58 &1472219931956189055
 CircleCollider2D:
   m_ObjectHideFlags: 0

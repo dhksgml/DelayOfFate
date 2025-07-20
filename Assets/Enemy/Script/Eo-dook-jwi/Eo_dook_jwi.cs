@@ -10,7 +10,10 @@ public class Eo_dook_jwi : Enemy
     [SerializeField] bool isLighting;
     [SerializeField] bool isAction;
     [SerializeField] bool isStop;
+    [SerializeField] int enemyDamage;
     PlayerController player;
+
+
 
     void Awake()
     {
@@ -135,6 +138,12 @@ public class Eo_dook_jwi : Enemy
             {
                 //빛에 닿으면 true로 해주고 도망가게 해줌
                 isLighting = true;
+            }
+
+            // 충돌 시 데미지를 부여
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                player.DamagedHP(enemyDamage);
             }
         }
     }
