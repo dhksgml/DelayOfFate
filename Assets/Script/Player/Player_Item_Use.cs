@@ -24,7 +24,7 @@ public class Player_Item_Use : MonoBehaviour
     }
     void Update()
     {
-        print(quickSlots[selectedSlotIndex]);
+        //print(quickSlots[selectedSlotIndex]);
         HandleSlotSelection(); // 슬롯 변경 처리
         float weight = GetTotalItemWeight();
         if (Input.GetMouseButtonDown(0))
@@ -132,6 +132,16 @@ public class Player_Item_Use : MonoBehaviour
 
         UpdateQuickSlotUI();
     }
+
+    void TryUseItem(Item selectedItem)
+    {
+        if(selectedItem.spendSPAmount < playercontroller.currentSp)
+        {
+            playercontroller.SpendSp(selectedItem.spendSPAmount);
+            itemUsageManager.UseItem(selectedItem.itemName);
+        }
+    }
+
     void UseItem(string itemName)
     {
         if (playercontroller.Player_Usage_cu_cool_down > 0f)
@@ -167,28 +177,29 @@ public class Player_Item_Use : MonoBehaviour
                 }
 
                 // 아이템 사용 처리
-                itemUsageManager.UseItem(selectedItem.itemName);
+                TryUseItem(selectedItem);
+                //itemUsageManager.UseItem(selectedItem.itemName);
 
                 // 쿨다운 적용
                 playercontroller.Player_Usage_cu_cool_down = selectedItem.Usage_cool_down;
-                switch (selectedItem.itemName) // 무기 사용시 기력 소모
-                {
-                    case "환도":
-                        playercontroller.SpendSp(10);
-                        break;
-                    case "방망이":
-                        playercontroller.SpendSp(20);
-                        break;
-                    case "부적":
-                        playercontroller.SpendSp(5);
-                        break;
-                    case "족자":
-                        playercontroller.SpendSp(10);
-                        break;
-                    case "호리병":
-                        playercontroller.SpendSp(5);
-                        break;
-                }
+                //switch (selectedItem.itemName) // 무기 사용시 기력 소모
+                //{
+                //    case "환도":
+                //        playercontroller.SpendSp(10);
+                //        break;
+                //    case "방망이":
+                //        playercontroller.SpendSp(20);
+                //        break;
+                //    case "부적":
+                //        playercontroller.SpendSp(5);
+                //        break;
+                //    case "족자":
+                //        playercontroller.SpendSp(10);
+                //        break;
+                //    case "호리병":
+                //        playercontroller.SpendSp(5);
+                //        break;
+                //}
 
                 // UI 갱신
                 UpdateQuickSlotUI();

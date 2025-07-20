@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewItem", menuName = "Item/ItemData")]
+//[CreateAssetMenu(fileName = "NewItem", menuName = "Item/ItemData")]
 public class Item
 {
     public int id; // 고유 ID
@@ -10,6 +10,10 @@ public class Item
     public Sprite InGameSprite;
     public Sprite icon;
 
+    [Header("아이템 사용 SP")]
+    public float spendSPAmount;
+
+    [Space(10)]
     public int Coin;  // 코인
     public int Weight;
     [Header("점수")]
@@ -47,6 +51,8 @@ public class Item
         this.itemName = itemData.itemName;
         this.InGameSprite = itemData.InGameSprite;
         this.icon = itemData.icon;
+
+        this.spendSPAmount = itemData.spendSPAmount;
 
         this.Coin = itemData.Coin;
         this.Weight = itemData.Weight;
