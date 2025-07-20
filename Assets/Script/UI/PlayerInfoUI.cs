@@ -26,12 +26,10 @@ public class PlayerInfoUI : MonoBehaviour
 
     private void Update()
     {
-
+        coin_text.text = $"냥: {GameManager.Instance.Gold}";
+        soul_text.text = $"혼: {GameManager.Instance.Soul} / {GameManager.Instance.N_Day_Cost}";
         if (playerController == null) // 플레이어가 없는 경우 (상점, 스테이지 선택)
         {
-            coin_text.text = $"냥: {GameManager.Instance.Gold}";
-            soul_text.text = $"혼: {GameManager.Instance.Soul} / {GameManager.Instance.N_Day_Cost}";
-
             float hpRatio = GameManager.Instance.playerData.currentHp / GameManager.Instance.playerData.maxHp;
             float spRatio = GameManager.Instance.playerData.currentSp / GameManager.Instance.playerData.maxSp;
 
@@ -45,9 +43,6 @@ public class PlayerInfoUI : MonoBehaviour
         }
         else // 인게임 에서 보여줄것
         {
-            coin_text.text = $"냥: {GameManager.Instance.Gold}";
-            soul_text.text = $"혼: {GameManager.Instance.Soul}";
-
             float hpRatio = playerController.currentHp / playerController.maxHp;
             float spRatio = playerController.currentSp / playerController.maxSp;
 
@@ -94,11 +89,8 @@ public class PlayerInfoUI : MonoBehaviour
                     playerMPSC.sprite = Mp_sc[0];
                     color_sc.a = 0f;
                 }
-
                 playerMPSC.color = color_sc; // 변경된 알파값을 여기서 반영
             }
-
         }
-
     }
 }
