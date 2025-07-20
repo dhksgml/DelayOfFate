@@ -1087,46 +1087,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1221797775}
-    - target: {fileID: 2781264035258140269, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
-      propertyPath: m_fontSize
-      value: 36
-      objectReference: {fileID: 0}
-    - target: {fileID: 2781264035258140269, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
-      propertyPath: m_fontColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2781264035258140269, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
-      propertyPath: m_fontColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2781264035258140269, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
-      propertyPath: m_fontColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2781264035258140269, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 36
-      objectReference: {fileID: 0}
-    - target: {fileID: 2781264035258140269, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 3013978188557668450, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
-      propertyPath: weaponData.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3013978188557668450, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
-      propertyPath: weaponData.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: c39eaf52b2b7d13468c078c0f7b871fd, type: 2}
-    - target: {fileID: 3013978188557668450, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
-      propertyPath: weaponData.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: e14a4dc6e0925b24f8c1f5be47bff2bf, type: 2}
-    - target: {fileID: 3013978188557668450, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
-      propertyPath: weaponData.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 34110f40f422ac646a64baa79dd7bad6, type: 2}
     - target: {fileID: 4195322940929626411, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
