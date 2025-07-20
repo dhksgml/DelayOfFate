@@ -22,6 +22,14 @@ public enum EnemyWeakness
     None
 }
 
+// 적의 등급 노말, 중간보스, 보스로 구성
+public enum EnemyMobType
+{
+    Normal,
+    MiddleBoss,
+    Boss
+}
+
 public abstract class Enemy     : MonoBehaviour
 {
     [Header("적 데이터")]
@@ -45,6 +53,10 @@ public abstract class Enemy     : MonoBehaviour
     public int           enemyHeightMin;
     public int           enemyHeightMax;
     public int           enemyHeight;
+
+    [Space(20f)]
+    // 보스인지 확인하기 위함
+    public EnemyMobType enemyMobType;
 
     [Space(20f)]
     [Range(0f, 10f)]
@@ -89,16 +101,43 @@ public abstract class Enemy     : MonoBehaviour
     public void EnemyInt()
     {
         enemyName = enemyData.Name;
-        //체력도 랜덤 값에서 - 랜덤값 + 랜덤값에서 나온 값으로 할당해줌
-        enemyHp = Random.Range(enemyData.Hp - enemyData.HpDeviation,
-                               enemyData.Hp + enemyData.HpDeviation + 1);
-        //일단 랜덤 값 설정에서 기본 코인값 - 랜덤값 ~~ 코인값 + 랜덤값이렇게 해주었음
-        enemyPrice = Random.Range(enemyData.Coin - enemyData.CoinDeviation, 
-                                  enemyData.Coin + enemyData.CoinDeviation + 1);
         enemyHeight = enemyData.Weight;
         //이거 수정해주었음 enemyData부분
         enemyWeakness = enemyData.weakness;
         enemyType = enemyData.classification;
+
+        // 노말
+        if (enemyMobType == EnemyMobType.Normal)
+        {
+            //체력도 랜덤 값에서 - 랜덤값 + 랜덤값에서 나온 값으로 할당해줌
+            enemyHp = Random.Range(enemyData.Hp - enemyData.HpDeviation,
+                                   enemyData.Hp + enemyData.HpDeviation + 1);
+            //일단 랜덤 값 설정에서 기본 코인값 - 랜덤값 ~~ 코인값 + 랜덤값이렇게 해주었음
+            enemyPrice = Random.Range(enemyData.Coin - enemyData.CoinDeviation,
+                                      enemyData.Coin + enemyData.CoinDeviation + 1);
+        }
+        // 중간 보스
+        else if (enemyMobType == EnemyMobType.MiddleBoss)
+        {
+            // 중간 보스는 2배
+            //체력도 랜덤 값에서 - 랜덤값 + 랜덤값에서 나온 값으로 할당해줌
+            enemyHp = Random.Range((enemyData.Hp - enemyData.HpDeviation) * 2,
+                                   (enemyData.Hp + enemyData.HpDeviation * 2) + 1);
+            //일단 랜덤 값 설정에서 기본 코인값 - 랜덤값 ~~ 코인값 + 랜덤값이렇게 해주었음
+            enemyPrice = Random.Range(enemyData.Coin - enemyData.CoinDeviation * 2,
+                                      (enemyData.Coin + enemyData.CoinDeviation * 2 ) + 1);
+
+            // 크기는 두배로
+            transform.localScale = new Vector3(2, 2, 2);
+        }
+
+        // 보스
+        else if (enemyMobType == EnemyMobType.Boss)
+        {
+
+        }
+
+
     }
 
     //이젠 안씀

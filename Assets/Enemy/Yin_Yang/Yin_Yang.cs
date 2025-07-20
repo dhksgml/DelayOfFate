@@ -30,12 +30,13 @@ public class Yin_Yang : Enemy
     {
         rigid = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        EnemyInt();
     }
 
     void Start()
     {
-        if(type == Yin_Yang_Type.Yang)
+        EnemyInt();
+
+        if (type == Yin_Yang_Type.Yang)
         {
             // 처음에 랜덤한 방향 설정
             ChooseNewDirection();

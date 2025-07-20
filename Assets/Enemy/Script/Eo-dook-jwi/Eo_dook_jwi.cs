@@ -19,11 +19,12 @@ public class Eo_dook_jwi : Enemy
     {
         rigid = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        EnemyInt();
     }
 
     void Start()
     {
+        EnemyInt();
+
         // 처음에 랜덤한 방향 설정
         ChooseNewDirection();
 

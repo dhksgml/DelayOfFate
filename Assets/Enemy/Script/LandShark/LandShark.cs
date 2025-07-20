@@ -23,12 +23,13 @@ public class LandShark : Enemy
     {
         rigid = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        EnemyInt(); // 메서드 안보임 Enemy 스크립트 확인 0603
     }
 
 
     void Start()
     {
+        EnemyInt();
+
         enemyOriginHP = enemyHp;
 
         // 처음에 랜덤한 방향 설정
