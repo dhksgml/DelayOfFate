@@ -133,6 +133,8 @@ public class WomanGhost : Enemy
             // 한번 보지않으면 끝까지 쫒아옴
             isWomanTrace = false;
 
+            isTrace = false;
+
             //반대 방향으로 도망가줌
             rigid.MovePosition(transform.position + -enemyTargetDir * enemyRunSpeed * Time.deltaTime);
         }
@@ -151,7 +153,7 @@ public class WomanGhost : Enemy
         }
 
         //추적중이 아니면
-        else if (!isTrace && !isDie && !isEnemyHit && !isStop)
+        else if (!isTrace && !isDie && !isEnemyHit && !isStop && !isWomanTrace)
         {
             //스프라이트 때문에 이걸 사용해줌
             EnemyNormalTurn2();
