@@ -100,6 +100,8 @@ public abstract class Enemy     : MonoBehaviour
     //시작시 초기화 해주는 함수
     public void EnemyInt()
     {
+        sp = GetComponentInChildren<SpriteRenderer>();
+
         enemyName = enemyData.Name;
         enemyHeight = enemyData.Weight;
         //이거 수정해주었음 enemyData부분
