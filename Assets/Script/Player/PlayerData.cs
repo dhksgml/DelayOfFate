@@ -13,6 +13,9 @@ public class PlayerData
     public float currentMp = 100;
     public float currentSp = 100;
 
+    public float currentExtraHp;
+    public float extraHp;
+
     public int flashLightLevel = 1; //조명레벨
     public float gold = 0; //돈
     public float soul = 0; //영혼
@@ -25,4 +28,13 @@ public class PlayerData
 
     public bool isDropWhenRevive = false; //구사일생 관련
     public bool isFindNearestItem = false; //가담항설 관련
+
+    public void Init()
+    {
+        currentExtraHp = extraHp;
+
+        currentHp = maxHp;
+        currentMp = maxMp;
+        currentSp = maxSp;
+    }
 }

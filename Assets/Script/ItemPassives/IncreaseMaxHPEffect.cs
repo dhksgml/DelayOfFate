@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //최대체력 감소
-public class DecreaseMaxHPEffect : IPassiveEffect
+public class IncreaseMaxHPEffect : IPassiveEffect
 {
     private PlayerData stats;
     private float bonusMaxHP;
 
-    public DecreaseMaxHPEffect(PlayerData stats, float bonus)
+    public IncreaseMaxHPEffect(PlayerData stats, float bonus)
     {
         this.stats = stats;
         this.bonusMaxHP = bonus;
@@ -16,11 +16,11 @@ public class DecreaseMaxHPEffect : IPassiveEffect
 
     public void ApplyEffect()
     {
-        stats.maxHp -= bonusMaxHP;
+        stats.extraHp += bonusMaxHP;
     }
 
     public void RemoveEffect()
     {
-        stats.maxHp += bonusMaxHP;
+        stats.extraHp -= bonusMaxHP;
     }
 }

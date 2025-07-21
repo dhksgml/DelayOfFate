@@ -1,11 +1,13 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerInfoUI : MonoBehaviour
 {
     private PlayerController playerController;
     public Image playerHpBar;
+    public Image playerBonusHpBar;
     public Image playerSpBar;
     public Image playerMPsc;
     public Image playerMPSC;// 가장자리 이미지 지정
@@ -17,6 +19,30 @@ public class PlayerInfoUI : MonoBehaviour
     private float maxHpBarWidth; // 실제 UI에서의 최대 바 너비
     private float maxSpBarWidth;
 
+    [SerializeField] private RectTransform frameRect;
+    [SerializeField] private RectTransform hpBarRect;
+    [SerializeField] private RectTransform extraHpRect;
+
+    private const float HP_WIDTH = 288f;
+    private const float HP_HEIGHT = 32f;
+    private const float TOTAL_WIDTH = 320f;
+    private const float TOTAL_HEIGHT = 40f;
+    
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        GameManager.Instance.playerData.Init();
+    }
+
     private void Start()
     {
         playerController = FindObjectOfType<PlayerController>();
@@ -26,9 +52,10 @@ public class PlayerInfoUI : MonoBehaviour
 
     private void Update()
     {
-
         if (playerController == null) // 플레이어가 없는 경우 (상점, 스테이지 선택)
         {
+            PlayerData playerData = GameManager.Instance.playerData;
+
             coin_text.text = $"냥: {GameManager.Instance.Gold}";
             soul_text.text = $"혼: {GameManager.Instance.Soul} / {GameManager.Instance.N_Day_Cost}";
 
@@ -42,6 +69,8 @@ public class PlayerInfoUI : MonoBehaviour
             Vector2 spSize = playerSpBar.rectTransform.sizeDelta;
             spSize.x = maxSpBarWidth * Mathf.Clamp01(spRatio);
             playerSpBar.rectTransform.sizeDelta = spSize;
+
+            UpdateHealthBar(playerData.currentHp, playerData.maxHp, playerData.currentExtraHp, playerData.extraHp);
         }
         else // 인게임 에서 보여줄것
         {
@@ -58,6 +87,8 @@ public class PlayerInfoUI : MonoBehaviour
             Vector2 spSize = playerSpBar.rectTransform.sizeDelta;
             spSize.x = maxSpBarWidth * Mathf.Clamp01(spRatio);
             playerSpBar.rectTransform.sizeDelta = spSize;
+
+            UpdateHealthBar(playerController.currentHp, playerController.maxHp, playerController.currentExtraHp, playerController.extraHp);
         }
         if (playerMPsc != null && playerController != null)
         {
@@ -100,5 +131,37 @@ public class PlayerInfoUI : MonoBehaviour
 
         }
 
+    }
+
+    public void UpdateHealthBar(float currentHP, float maxHP, float currentExtraHP, float extraHP)
+    {
+        float totalMaxHP = maxHP + extraHP;
+        float totalWidth = HP_WIDTH * (totalMaxHP / maxHP);
+
+        // 기본 체력 바 크기
+        float hpWidth = totalWidth * (currentHP / totalMaxHP);
+        hpBarRect.sizeDelta = new Vector2(hpWidth, HP_HEIGHT);
+
+        // 추가 체력 바
+        if (extraHP > 0)
+        {
+            float extraWidth = totalWidth * (extraHP / totalMaxHP);
+            extraHpRect.sizeDelta = new Vector2(extraWidth, HP_HEIGHT);
+            extraHpRect.gameObject.SetActive(true);
+
+            Vector2 anchored = hpBarRect.anchoredPosition;
+            anchored.x += hpBarRect.sizeDelta.x;
+            extraHpRect.anchoredPosition = new Vector2(anchored.x, hpBarRect.anchoredPosition.y);
+
+            float extraHpRatio = currentExtraHP / extraHP;
+            playerBonusHpBar.fillAmount = extraHpRatio;
+        }
+        else
+        {
+            extraHpRect.gameObject.SetActive(false);
+        }
+
+        float totalFrameWidth = totalWidth + (TOTAL_WIDTH - HP_WIDTH);
+        frameRect.sizeDelta = new Vector2(totalFrameWidth, TOTAL_HEIGHT);
     }
 }
