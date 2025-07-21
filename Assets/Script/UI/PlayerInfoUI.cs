@@ -17,6 +17,7 @@ public class PlayerInfoUI : MonoBehaviour
     private float maxHpBarWidth; // ���� UI������ �ִ� �� �ʺ�
     private float maxSpBarWidth;
 
+<<<<<<< HEAD
     [SerializeField] private RectTransform frameRect;
     [SerializeField] private RectTransform hpBarRect;
     [SerializeField] private RectTransform extraHpRect;
@@ -41,6 +42,8 @@ public class PlayerInfoUI : MonoBehaviour
         GameManager.Instance.playerData.Init();
     }
 
+=======
+>>>>>>> parent of 83c7234 (0721 HP증가 시, UI에도 적용)
     private void Start()
     {
         playerController = FindObjectOfType<PlayerController>();
@@ -50,12 +53,60 @@ public class PlayerInfoUI : MonoBehaviour
 
     private void Update()
     {
+<<<<<<< HEAD
         coin_text.text = $"��: {GameManager.Instance.Gold}";
         soul_text.text = $"ȥ: {GameManager.Instance.Soul} / {GameManager.Instance.N_Day_Cost}";
         if (playerController == null) // �÷��̾ ���� ��� (����, �������� ����)
         {
 
             if (playerController == null) // �÷��̾ ���� ��� (����, �������� ����)
+=======
+
+        if (playerController == null) // �÷��̾ ���� ��� (����, �������� ����)
+        {
+            coin_text.text = $"��: {GameManager.Instance.Gold}";
+            soul_text.text = $"ȥ: {GameManager.Instance.Soul} / {GameManager.Instance.N_Day_Cost}";
+
+            float hpRatio = GameManager.Instance.playerData.currentHp / GameManager.Instance.playerData.maxHp;
+            float spRatio = GameManager.Instance.playerData.currentSp / GameManager.Instance.playerData.maxSp;
+
+            Vector2 hpSize = playerHpBar.rectTransform.sizeDelta;
+            hpSize.x = maxHpBarWidth * Mathf.Clamp01(hpRatio);
+            playerHpBar.rectTransform.sizeDelta = hpSize;
+
+            Vector2 spSize = playerSpBar.rectTransform.sizeDelta;
+            spSize.x = maxSpBarWidth * Mathf.Clamp01(spRatio);
+            playerSpBar.rectTransform.sizeDelta = spSize;
+        }
+        else // �ΰ��� ���� �����ٰ�
+        {
+            coin_text.text = $"��: {GameManager.Instance.Gold}";
+            soul_text.text = $"ȥ: {GameManager.Instance.Soul}";
+
+            float hpRatio = playerController.currentHp / playerController.maxHp;
+            float spRatio = playerController.currentSp / playerController.maxSp;
+
+            Vector2 hpSize = playerHpBar.rectTransform.sizeDelta;
+            hpSize.x = maxHpBarWidth * Mathf.Clamp01(hpRatio);
+            playerHpBar.rectTransform.sizeDelta = hpSize;
+
+            Vector2 spSize = playerSpBar.rectTransform.sizeDelta;
+            spSize.x = maxSpBarWidth * Mathf.Clamp01(spRatio);
+            playerSpBar.rectTransform.sizeDelta = spSize;
+        }
+        if (playerMPsc != null && playerController != null)
+        {
+            float mpRatio = playerController.currentMp / playerController.maxMp;
+
+            // ������ ����
+            float alpha = Mathf.Lerp(0.1f, 0f, mpRatio);
+            Color color = playerMPsc.color;
+            color.a = alpha;
+            playerMPsc.color = color;
+
+            // �̹��� ��������Ʈ ��ü
+            if (Mp_sc != null && Mp_sc.Length >= 3)
+>>>>>>> parent of 83c7234 (0721 HP증가 시, UI에도 적용)
             {
                 PlayerData playerData = GameManager.Instance.playerData;
 
@@ -129,36 +180,5 @@ public class PlayerInfoUI : MonoBehaviour
                 }
             }
         }
-    }
-    public void UpdateHealthBar(float currentHP, float maxHP, float currentExtraHP, float extraHP)
-    {
-        float totalMaxHP = maxHP + extraHP;
-        float totalWidth = HP_WIDTH * (totalMaxHP / maxHP);
-
-        // �⺻ ü�� �� ũ��
-        float hpWidth = totalWidth * (currentHP / totalMaxHP);
-        hpBarRect.sizeDelta = new Vector2(hpWidth, HP_HEIGHT);
-
-        // �߰� ü�� ��
-        if (extraHP > 0)
-        {
-            float extraWidth = totalWidth * (extraHP / totalMaxHP);
-            extraHpRect.sizeDelta = new Vector2(extraWidth, HP_HEIGHT);
-            extraHpRect.gameObject.SetActive(true);
-
-            Vector2 anchored = hpBarRect.anchoredPosition;
-            anchored.x += hpBarRect.sizeDelta.x;
-            extraHpRect.anchoredPosition = new Vector2(anchored.x, hpBarRect.anchoredPosition.y);
-
-            float extraHpRatio = currentExtraHP / extraHP;
-            playerBonusHpBar.fillAmount = extraHpRatio;
-        }
-        else
-        {
-            extraHpRect.gameObject.SetActive(false);
-        }
-
-        float totalFrameWidth = totalWidth + (TOTAL_WIDTH - HP_WIDTH);
-        frameRect.sizeDelta = new Vector2(totalFrameWidth, TOTAL_HEIGHT);
     }
 }
