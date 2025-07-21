@@ -29,11 +29,13 @@ public class WomanGhost : Enemy
     {
         rigid = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        EnemyInt();
     }
 
     void Start()
     {
+
+        EnemyInt();
+
         // 처음에 랜덤한 방향 설정
         ChooseNewDirection();
 
@@ -211,9 +213,10 @@ public class WomanGhost : Enemy
         anim.SetBool("isAttack", true);
         Color color = sp.color;
         //각각 -3 ~ -5, -8 ~ -12, -10 ~ -11로 해주었다
-        int randomHpDamage = Random.Range(3, 6);
-        int randomMpDamage = Random.Range(8, 13);
-        int randomSpDamage = Random.Range(10, 12);
+        // 이거 나중에 외부로 뺼 예정
+        int randomHpDamage = Random.Range(10, 16);
+        int randomMpDamage = Random.Range(10, 16);
+        int randomSpDamage = 3;
 
         //플레이어가 이동 못하게 해줌. 이부분은 스크립트 가져오는걸로
         player.isFreeze = true;

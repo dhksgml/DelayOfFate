@@ -261,6 +261,7 @@ MonoBehaviour:
   moveDirection: {x: 0, y: 0, z: 0}
   isAttack: 0
   isStealGold: 0
+  runTime: 5
 --- !u!1 &2581753709897334888
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,7 +352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12393b941cb573a4c914f97058608949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyDamage: 0
+  enemyDamage: 20
   enemyAttackSpeed: 3
   enemyAttackRange: 0
   enemyAttackType: 3
