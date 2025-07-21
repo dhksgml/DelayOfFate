@@ -1366,7 +1366,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shop
       objectReference: {fileID: 0}
-<<<<<<< HEAD
 
     - target: {fileID: 7442329142679205211, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
       propertyPath: m_Pivot.x
