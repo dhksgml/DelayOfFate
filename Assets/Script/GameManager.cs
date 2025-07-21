@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     public float N_Day_Add_Soul; //당일에 번 총 소울
     public int N_Day_Time; // 당일에 클리어한 각(시간)
     public float N_Day_Cost; //해당 정산일에 낼 돈
+    public float cu_soul; // 정산금을 내기 전 (ui 표기용)
+    public float[] Cost_list = { 300, 500, 1000 };
     public Item[] currentQuickSlot = new Item[4];
     public int killcount = 0; //처치한 악귀 수
 
@@ -33,6 +35,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        N_Day_Cost = Cost_list[Day - 1];
     }
     private void Update()
     {
@@ -48,11 +51,6 @@ public class GameManager : MonoBehaviour
             }
             initialized = true; // 한 번 실행 후 다시 안 하도록
         }
-    }
-    public void New_Day_date()
-    {
-        N_Day_Add_Soul = 0;
-        N_Day_Time = 0;
     }
     public void Add_Gold(float val)
     {
@@ -73,7 +71,10 @@ public class GameManager : MonoBehaviour
     }
     public void Next_Day()
     {
+        N_Day_Add_Soul = 0;
+        N_Day_Time = 0;
         Day++;
+        N_Day_Cost = Cost_list[Day - 1];
     }
 
     public void SavePlayerInfo(PlayerController player)
@@ -94,7 +95,13 @@ public class GameManager : MonoBehaviour
         playerData.quickSlots = this.currentQuickSlot;
 
     }
-
+    public void Escape(int time)
+    {
+        N_Day_Cost = Cost_list[Day - 1];
+        N_Day_Time = time;
+        cu_soul = Soul; //약 값 내기전의 금액
+        Sub_Soul(N_Day_Cost);
+    }
     public void SaveCurrentQuickSlot(Item[] quickSlots)
     {
         if (quickSlots.Length != 4) return;
@@ -104,18 +111,15 @@ public class GameManager : MonoBehaviour
             currentQuickSlot[i] = quickSlots[i];
         }
     }
-
     public Item[] GetCurrentQuickSlot()
     {
         return currentQuickSlot;
     }
-
     public void LoadScene(string loadSceneName)
     {
         // 지정한 씬으로 이동
         SceneManager.LoadScene(loadSceneName);
     }
-
     public void QuitGame()
     {
         Application.Quit();
