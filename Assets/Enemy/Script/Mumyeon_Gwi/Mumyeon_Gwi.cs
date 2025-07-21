@@ -11,12 +11,11 @@ public class Mumyeon_Gwi : Enemy
     {
         rigid = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        EnemyInt(); // 메서드 안보임 Enemy 스크립트 확인 0603
     }
 
     void Start()
     {
-        EnemyInt();
-
         // 처음에 랜덤한 방향 설정
         ChooseNewDirection();
 

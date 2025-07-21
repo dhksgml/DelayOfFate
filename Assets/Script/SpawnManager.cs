@@ -116,21 +116,6 @@ public class SpawnManager : MonoBehaviour
             coinRemain -= edata.Coin;
         }
 
-        // 중간보스 소환
-        if (validEnemies.Count > 0 && enemySpawnPoints.Count > 0)
-        {
-            GameObject extraEnemy = validEnemies[Random.Range(0, validEnemies.Count)];
-            int index = Random.Range(0, enemySpawnPoints.Count);
-            Transform spawnPoint = enemySpawnPoints[index];
-            enemySpawnPoints.RemoveAt(index);
-
-            GameObject enemy  = Instantiate(extraEnemy, spawnPoint.position, Quaternion.identity);
-            Enemy enemyScript = enemy.GetComponentInChildren<Enemy>();
-            enemyScript.enemyMobType = EnemyMobType.MiddleBoss;
-
-            Debug.Log("추가 적 한 명을 강제 소환했습니다." + extraEnemy);
-        }
-
 
         // 4. 아이템 스폰
         while (coinRemain >= minItemCoin && itemSpawnPoints.Count > 0)
