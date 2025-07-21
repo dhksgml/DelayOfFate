@@ -81,9 +81,7 @@ public class GameManager : MonoBehaviour
     {
         playerData.maxHp = player.maxHp;
         playerData.maxMp = player.maxMp;
-        playerData.maxSp = player.maxSp;
-
-        playerData.extraHp = player.extraHp;
+        playerData.maxSp= player.maxSp;
 
         playerData.currentHp = player.currentHp;
         playerData.currentMp = player.currentMp;

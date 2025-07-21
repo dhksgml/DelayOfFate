@@ -40,30 +40,28 @@ public class Eo_dook_jwi : Enemy
             isDie = true;
             StartCoroutine(EnemyDie());
         }
-        else
+
+        if (!isStop) { EnemyMove(); }
+
+        // 10초 움직이고 5초 멈춰줌
+        if (moveTime >= 10f)
         {
-            if (!isStop) { EnemyMove(); }
+            //멈춰준 후
+            isStop = true;
 
-            // 10초 움직이고 5초 멈춰줌
-            if (moveTime >= 10f)
+            // 대기 시간을 더해줌
+            waitTime += Time.deltaTime;
+
+            //5초가 지나면 false로 바꾸어 줌
+            if (waitTime >= 5f)
             {
-                //멈춰준 후
-                isStop = true;
+                // bool 초기화
+                isArrive = false;
+                isStop = false;
 
-                // 대기 시간을 더해줌
-                waitTime += Time.deltaTime;
-
-                //5초가 지나면 false로 바꾸어 줌
-                if (waitTime >= 5f)
-                {
-                    // bool 초기화
-                    isArrive = false;
-                    isStop = false;
-
-                    // 초기화
-                    waitTime = 0f;
-                    moveTime = 0f;
-                }
+                // 초기화
+                waitTime = 0f;
+                moveTime = 0f;
             }
         }
     }

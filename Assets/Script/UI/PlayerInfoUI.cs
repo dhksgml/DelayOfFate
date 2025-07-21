@@ -1,22 +1,20 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class PlayerInfoUI : MonoBehaviour
 {
     private PlayerController playerController;
     public Image playerHpBar;
-    public Image playerBonusHpBar;
     public Image playerSpBar;
     public Image playerMPsc;
-    public Image playerMPSC;// °¡ÀåÀÚ¸® ÀÌ¹ÌÁö ÁöÁ¤
-    public Sprite[] Mp_sc; // °¡ÀåÀÚ¸® ÀÌ¹ÌÁö 3°³
+    public Image playerMPSC;// ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public Sprite[] Mp_sc; // ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ 3ï¿½ï¿½
 
     public TMP_Text coin_text;
     public TMP_Text soul_text;
 
-    private float maxHpBarWidth; // ½ÇÁ¦ UI¿¡¼­ÀÇ ÃÖ´ë ¹Ù ³Êºñ
+    private float maxHpBarWidth; // ï¿½ï¿½ï¿½ï¿½ UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ ï¿½Êºï¿½
     private float maxSpBarWidth;
 
     [SerializeField] private RectTransform frameRect;
@@ -52,16 +50,16 @@ public class PlayerInfoUI : MonoBehaviour
 
     private void Update()
     {
-        coin_text.text = $"³É: {GameManager.Instance.Gold}";
+        coin_text.text = $"ï¿½ï¿½: {GameManager.Instance.Gold}";
         soul_text.text = $"È¥: {GameManager.Instance.Soul} / {GameManager.Instance.N_Day_Cost}";
-        if (playerController == null) // ÇÃ·¹ÀÌ¾î°¡ ¾ø´Â °æ¿ì (»óÁ¡, ½ºÅ×ÀÌÁö ¼±ÅÃ)
+        if (playerController == null) // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
         {
 
-            if (playerController == null) // ÇÃ·¹ÀÌ¾î°¡ ¾ø´Â °æ¿ì (»óÁ¡, ½ºÅ×ÀÌÁö ¼±ÅÃ)
+            if (playerController == null) // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
             {
                 PlayerData playerData = GameManager.Instance.playerData;
 
-                coin_text.text = $"³É: {GameManager.Instance.Gold}";
+                coin_text.text = $"ï¿½ï¿½: {GameManager.Instance.Gold}";
                 soul_text.text = $"È¥: {GameManager.Instance.Soul} / {GameManager.Instance.N_Day_Cost}";
 
                 float hpRatio = GameManager.Instance.playerData.currentHp / GameManager.Instance.playerData.maxHp;
@@ -77,7 +75,7 @@ public class PlayerInfoUI : MonoBehaviour
 
                 UpdateHealthBar(playerData.currentHp, playerData.maxHp, playerData.currentExtraHp, playerData.extraHp);
             }
-            else // ÀÎ°ÔÀÓ ¿¡¼­ º¸¿©ÁÙ°Í
+            else // ï¿½Î°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ù°ï¿½
             {
                 float hpRatio = playerController.currentHp / playerController.maxHp;
                 float spRatio = playerController.currentSp / playerController.maxSp;
@@ -96,13 +94,13 @@ public class PlayerInfoUI : MonoBehaviour
             {
                 float mpRatio = playerController.currentMp / playerController.maxMp;
 
-                // Åõ¸íµµ Á¶Àý
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 float alpha = Mathf.Lerp(0.1f, 0f, mpRatio);
                 Color color = playerMPsc.color;
                 color.a = alpha;
                 playerMPsc.color = color;
 
-                // ÀÌ¹ÌÁö ½ºÇÁ¶óÀÌÆ® ±³Ã¼
+                // ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Ã¼
                 if (Mp_sc != null && Mp_sc.Length >= 3)
                 {
                     Color color_sc = playerMPSC.color;
@@ -127,7 +125,7 @@ public class PlayerInfoUI : MonoBehaviour
                         playerMPSC.sprite = Mp_sc[0];
                         color_sc.a = 0f;
                     }
-                    playerMPSC.color = color_sc; // º¯°æµÈ ¾ËÆÄ°ªÀ» ¿©±â¼­ ¹Ý¿µ
+                    playerMPSC.color = color_sc; // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¼­ ï¿½Ý¿ï¿½
                 }
             }
         }
@@ -137,11 +135,11 @@ public class PlayerInfoUI : MonoBehaviour
         float totalMaxHP = maxHP + extraHP;
         float totalWidth = HP_WIDTH * (totalMaxHP / maxHP);
 
-        // ±âº» Ã¼·Â ¹Ù Å©±â
+        // ï¿½âº» Ã¼ï¿½ï¿½ ï¿½ï¿½ Å©ï¿½ï¿½
         float hpWidth = totalWidth * (currentHP / totalMaxHP);
         hpBarRect.sizeDelta = new Vector2(hpWidth, HP_HEIGHT);
 
-        // Ãß°¡ Ã¼·Â ¹Ù
+        // ï¿½ß°ï¿½ Ã¼ï¿½ï¿½ ï¿½ï¿½
         if (extraHP > 0)
         {
             float extraWidth = totalWidth * (extraHP / totalMaxHP);
