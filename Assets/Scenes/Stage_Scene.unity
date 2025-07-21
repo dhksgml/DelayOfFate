@@ -1282,22 +1282,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1221797775}
-    - target: {fileID: 1778066791689730827, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1778066791689730827, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1778066791689730827, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1778066791689730827, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 4195322940929626411, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1382,6 +1366,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shop
       objectReference: {fileID: 0}
+<<<<<<< HEAD
 
     - target: {fileID: 7442329142679205211, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
       propertyPath: m_Pivot.x
@@ -1417,6 +1402,11 @@ PrefabInstance:
       objectReference: {fileID: 1279578817}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
+=======
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+>>>>>>> parent of eda38d6 (Jwh (#17))
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
 --- !u!114 &1994387570 stripped
