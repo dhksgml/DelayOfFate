@@ -21,10 +21,6 @@ public class PlayerController : MonoBehaviour
     public float attackDamage = 1;
     public float attackCoolTime;
 
-    //public float originalMaxHp = 100;
-    public float extraHp;
-    public float currentExtraHp;
-
     public float maxHp = 100; //최대 체력
     public float maxMp = 100; //최대 정신력
     public float maxSp = 100; //최대 기력
@@ -117,28 +113,9 @@ public class PlayerController : MonoBehaviour
 
     public void Init()
     {
-        if(GameManager.Instance != null)
-        {
-            if (GameManager.Instance.playerData != null)
-            {
-                PlayerData playerData = GameManager.Instance.playerData;
-                extraHp = playerData.extraHp;
-                currentExtraHp = extraHp;
-
-                currentHp = playerData.maxHp;
-
-                currentMp = playerData.maxMp;
-                currentSp = playerData.maxSp;
-            }
-        }
-        else
-        {
-            currentHp = maxHp;
-            currentExtraHp = extraHp;
-
-            currentMp = maxMp;
-            currentSp = maxSp;
-        }
+        currentHp = maxHp;
+        currentMp = maxMp;
+        currentSp = maxSp;
     }
     // Update is called once per frame
     void Update()
@@ -538,7 +515,7 @@ public class PlayerController : MonoBehaviour
             UpdateMoveSpeedByWeight(); // 추가
             transform.position += moveDir * currentMoveSpeed * speedMultiplier * Time.fixedDeltaTime;
 
-            if (nearestItemFinder != null && GameManager.Instance != null && GameManager.Instance.playerData.isFindNearestItem)
+            if(nearestItemFinder != null && GameManager.Instance != null && GameManager.Instance.playerData.isFindNearestItem)
                 nearestItemFinder.FindNearestItem();
         }
     }
@@ -548,7 +525,7 @@ public class PlayerController : MonoBehaviour
         {
             float currentWeight = player_Item_Use.GetTotalItemWeight();
             float penalty = currentWeight * 0.02f;
-
+            
             if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_1_1"))//천하장사 보유시
             {
                 penalty = 0f;
@@ -678,32 +655,17 @@ public class PlayerController : MonoBehaviour
             animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f
         );
 
-        float totalMaxHp = maxHp + extraHp;
-        float hpPerSecond = totalMaxHp / hpRecoveryDuration;
+        float hpPerSecond = maxHp / hpRecoveryDuration;
         float mpPerSecond = maxMp / mpRecoveryDuration;
 
-        while ((currentHp + currentExtraHp < totalMaxHp || currentMp < maxMp || currentSp < maxSp) && isRecovering)
+        while ((currentHp < maxHp || currentMp < maxMp || currentSp < maxSp) && isRecovering)
         {
             float delta = Time.deltaTime;
 
-            float totalHp = currentHp + currentExtraHp;
-            totalHp += hpPerSecond * delta;
-            totalHp = Mathf.Min(totalHp, totalMaxHp);
-
-            if(totalHp <= maxHp)
-            {
-                currentHp = totalHp;
-                currentExtraHp = 0;
-            }
-            else
-            {
-                currentHp = maxHp;
-                currentExtraHp = totalHp - maxHp;
-            }
-            //currentHp += hpPerSecond * delta;
+            currentHp += hpPerSecond * delta;
             currentMp += mpPerSecond * delta;
 
-            //currentHp = Mathf.Min(currentHp, maxHp);
+            currentHp = Mathf.Min(currentHp, maxHp);
             currentMp = Mathf.Min(currentMp, maxMp);
 
             yield return null;
@@ -755,22 +717,11 @@ public class PlayerController : MonoBehaviour
         float spRatio = currentSp / maxSp;
         float damageMultiplier = Mathf.Lerp(1, 2, 1 - spRatio);
 
-        float totalDamage = value * damageMultiplier;
-
-        if (currentExtraHp > 0)
-        {
-            float damageToExtra = Mathf.Min(currentExtraHp, totalDamage);
-            currentExtraHp -= damageToExtra;
-            value -= damageToExtra;
-        }
-
-        if (value > 0)
-        {
-            currentHp = Mathf.Max(currentHp - value, 0);
-        }
+        currentHp -= value * damageMultiplier;
 
         if (currentHp <= 0)
         {
+            currentHp = 0;
             Die();
         }
     }
@@ -811,7 +762,7 @@ public class PlayerController : MonoBehaviour
         Instantiate(corpse, gameObject.transform.position, Quaternion.identity);
 
         //구사일생 활성화 시
-        if (GameManager.Instance != null && !GameManager.Instance.playerData.isDropWhenRevive)
+        if(GameManager.Instance != null && !GameManager.Instance.playerData.isDropWhenRevive)
             player_Item_Use.Drop_All_Item();
 
         yield return new WaitForSeconds(0.1f);
@@ -842,5 +793,5 @@ public class PlayerController : MonoBehaviour
         transform.position = targetPosition;
     }
 
-
+    
 }
