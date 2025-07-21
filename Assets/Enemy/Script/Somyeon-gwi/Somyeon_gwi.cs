@@ -33,13 +33,9 @@ public class Somyeon_gwi : Enemy
         {
             isDie = true;
             StartCoroutine(EnemyDie());
-
         }
-        else
-        {
-            eatTime += Time.deltaTime;
-            EnemyMove();
-        }
+        eatTime += Time.deltaTime;
+        EnemyMove();
     }
 
     public override void EnemyMove()
