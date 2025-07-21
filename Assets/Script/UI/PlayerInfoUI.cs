@@ -158,7 +158,5 @@ public class PlayerInfoUI : MonoBehaviour
             extraHpRect.gameObject.SetActive(false);
         }
 
-        float totalFrameWidth = totalWidth + (TOTAL_WIDTH - HP_WIDTH);
-        frameRect.sizeDelta = new Vector2(totalFrameWidth, TOTAL_HEIGHT);
     }
 }
