@@ -10,20 +10,15 @@ public class StealEnemy : Enemy
     bool isChasing = false;
     bool hasStolen = false; // 돈 훔친 후 최초 1회만 차감하기 위한 변수
 
-    [SerializeField] float runTime;
-    bool isReadyRun = false;
-
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        
+        EnemyInt();
     }
 
     void Start()
     {
-        EnemyInt();
-
         // 처음에 랜덤한 방향 설정
         ChooseNewDirection();
 
@@ -41,17 +36,9 @@ public class StealEnemy : Enemy
             StartCoroutine(EnemyDie());
         }
 
-        // 도주
-        if (isEnemyRun)
-        {
-            StartCoroutine(EnemyDie());
-        }
-
         EnemyMove();
 
     }
-
-    float currentRunTime = 0f;
 
     public override void EnemyMove()
     {
@@ -73,15 +60,6 @@ public class StealEnemy : Enemy
 
             // 반대 방향으로 이동
             rigid.MovePosition(transform.position + -enemyTargetDir * enemyRunSpeed * Time.deltaTime);
-
-
-            currentRunTime += Time.deltaTime;
-
-            if (currentRunTime >= runTime)
-            {
-                isEnemyRun = true;
-            }
-
         }
 
 
@@ -113,7 +91,6 @@ public class StealEnemy : Enemy
         }
 
     }
-
 
     //원래 이동속도를 저장할 변수
     //이부분은 플레이어의 빛의 범위에 Collder를 달아줘야 할 것 같음

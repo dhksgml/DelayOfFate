@@ -17,13 +17,8 @@ public class Somyeon_gwi : Enemy
     {
         rigid = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-    }
-
-    void Start()
-    {
         EnemyInt();
     }
-
     float eatTime;
 
     void Update()

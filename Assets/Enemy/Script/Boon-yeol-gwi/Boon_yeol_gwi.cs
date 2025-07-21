@@ -29,12 +29,11 @@ public class Boon_yeol_gwi : Enemy
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        EnemyInt();
     }
 
     void Start()
     {
-        EnemyInt();
-
         //분열체일떄
         if (type == Boon_yeol_gwi_Type.Copy)
         {
