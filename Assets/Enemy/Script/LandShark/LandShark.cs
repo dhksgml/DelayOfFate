@@ -23,12 +23,13 @@ public class LandShark : Enemy
     {
         rigid = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        EnemyInt(); // 메서드 안보임 Enemy 스크립트 확인 0603
     }
 
 
     void Start()
     {
+        EnemyInt();
+
         enemyOriginHP = enemyHp;
 
         // 처음에 랜덤한 방향 설정
@@ -166,5 +167,40 @@ public class LandShark : Enemy
 
         yield return null;
     }
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision != null)
+        {
+            if (collision.gameObject.CompareTag("Wall"))
+            {
+                WallCollOrigin();
+            }
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision != null)
+        {
+            if (collision.gameObject.CompareTag("Wall"))
+            {
+                WallNotCross();
+            }
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision != null)
+        {
+
+            if (collision.gameObject.CompareTag("Wall"))
+            {
+                WallNotCross();
+            }
+        }
+    }
+
+
 
 }

@@ -10,17 +10,21 @@ public class Eo_dook_jwi : Enemy
     [SerializeField] bool isLighting;
     [SerializeField] bool isAction;
     [SerializeField] bool isStop;
+    [SerializeField] int enemyDamage;
     PlayerController player;
+
+
 
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        EnemyInt();
     }
 
     void Start()
     {
+        EnemyInt();
+
         // 처음에 랜덤한 방향 설정
         ChooseNewDirection();
 
@@ -137,9 +141,37 @@ public class Eo_dook_jwi : Enemy
                 isLighting = true;
             }
 
-
+            // 충돌 시 데미지를 부여
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                player.DamagedHP(enemyDamage);
+            }
         }
     }
+
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision != null)
+        {
+            if (collision.gameObject.CompareTag("Wall"))
+            {
+                WallCollOrigin();
+            }
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision != null)
+        {
+            if (collision.gameObject.CompareTag("Wall"))
+            {
+                WallNotCross();
+            }
+        }
+    }
+
 
     void OnTriggerExit2D(Collider2D collision)
     {
