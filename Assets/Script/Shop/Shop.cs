@@ -34,7 +34,7 @@ public class Shop : MonoBehaviour
     void Awake()
     {
         passiveItemManager = FindObjectOfType<PassiveItemManager>();
-
+        //SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/"));
         allSoulIds.Clear();
 
         // Build base list: groups 1..7, numbers 1..2
