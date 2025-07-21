@@ -101,6 +101,6 @@ public class Place : MonoBehaviour
     {
         registered = true;
         if (holdGauge != null) holdGauge.gameObject.SetActive(false);
-        placeManager.Go_to_escape();
+        placeManager.Go_to_escape();//¿Âº“∑Œ ≈ª√‚
     }
 }

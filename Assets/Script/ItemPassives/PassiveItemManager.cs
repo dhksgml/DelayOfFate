@@ -56,7 +56,33 @@ public class PassiveItemManager : MonoBehaviour
 					ApplyPassiveEffect(id);
 			}
 		}
-		for (int n = 2; n <= 6; n+=2)
+		for (int n = 1; n <= 3; n+=1)
+		{
+			string a_id = $"Weapon_{n}";
+			string b_id = $"Light_{n}";
+			string a_name = Get_W_L_Name(a_id);
+			string b_name = Get_W_L_Name(b_id);
+			string a_desc = Get_W_L_Description(a_id);
+			string b_desc = Get_W_L_Description(b_id);
+			int a_emdrmq = Get_W_L_Emdrmq(a_id);
+			int b_emdrmq = Get_W_L_Emdrmq(b_id);
+
+			passiveItems.Add(new PassiveItemData
+			{
+				id = a_id,
+				itemName = a_name,
+				description = a_desc,
+				rating = a_emdrmq
+			});
+			passiveItems.Add(new PassiveItemData
+			{
+				id = b_id,
+				itemName = b_name,
+				description = b_desc,
+				rating = b_emdrmq
+			});
+		}
+		for (int n = 2; n <= 6; n += 2)
 		{
 			string a_id = $"Soul_Add_{n}_{3}";
 			string a_name = GetPassiveName(n, 3);
@@ -162,6 +188,54 @@ public class PassiveItemManager : MonoBehaviour
 			case "7_1": return 2;
 			case "7_2": return 1;
 			// ...
+			default: return 0;
+		}
+	}
+	string Get_W_L_Name(string num)
+	{
+		switch (num)
+		{
+			case "Weapon_1": return "환도";
+			case "Weapon_2": return "방망이";
+			case "Weapon_3": return "부적 20장";
+		}
+		switch (num)
+		{
+			case "Light_1": return "빛 강화 1단계";
+			case "Light_2": return "빛 강화 2단계";
+			case "Light_3": return "빛 강화 3단계";
+			default: return "알 수 없음";
+		}
+	}
+	string Get_W_L_Description(string num)
+	{
+		switch (num)
+		{
+			case "Weapon_1": return "전방을 공격해 피해를 입힘\n약점의 경우 즉사";
+			case "Weapon_2": return "모아서 전방을 공격해 강력한 피해를 입힘\n약점의 경우 즉사";
+			case "Weapon_3": return "원하는 방향으로 부적을 던져 약한 피해를 입힘\n약점의 경우 대신 체력의 5할의 피해를 입힘";
+		}
+		switch (num)
+		{
+			case "Light_1": return "빛강화설명1";
+			case "Light_2": return "빛강화설명2";
+			case "Light_3": return "빛강화설명3";
+			default: return "알 수 없음";
+		}
+	}
+	int Get_W_L_Emdrmq(string num) //아이템의 등급
+	{
+		switch (num)
+		{
+			case "Weapon_1": return 5;
+			case "Weapon_2": return 5;
+			case "Weapon_3": return 5;
+		}
+		switch (num)
+		{
+			case "Light_1": return 6;
+			case "Light_2": return 6;
+			case "Light_3": return 6;
 			default: return 0;
 		}
 	}

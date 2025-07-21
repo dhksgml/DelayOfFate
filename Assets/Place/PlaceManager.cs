@@ -15,6 +15,8 @@ public class PlaceManager : MonoBehaviour
     {
         //게임매니저에 플레이어 정보 저장
         GameManager.Instance.SaveCurrentQuickSlot(FindObjectOfType<Player_Item_Use>().quickSlots);
+        GameManager.Instance.Escape(FindObjectOfType<QuickSlotUI>().angleUnit);
+
         GameManager.Instance.SavePlayerInfo(FindObjectOfType<PlayerController>());
         SceneManager.LoadScene("Result_Scene");
     }

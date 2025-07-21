@@ -23,7 +23,9 @@ public class Shop : MonoBehaviour
 
     private List<string> allSoulIds = new List<string>();
 
-    public Image[] soulIcons; // UI에 보여줄 아이콘 4개
+    public Image[] soulIcons; // 혼령강화 4개
+    public Image[] weaponIcons; // 무기 5(3)개
+    public Image LightIcon;
 
     public TMP_Text[] weaponSlots; // 상품 목록들 무기, 영혼, 초롱
     public ItemData[] weaponData; // 무기 데이터
@@ -32,7 +34,7 @@ public class Shop : MonoBehaviour
     void Awake()
     {
         passiveItemManager = FindObjectOfType<PassiveItemManager>();
-
+        //SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/"));
         allSoulIds.Clear();
 
         // Build base list: groups 1..7, numbers 1..2
@@ -62,6 +64,16 @@ public class Shop : MonoBehaviour
     {
         InitializeShop();
         passiveItemManager = FindObjectOfType<PassiveItemManager>();
+        for (int i = 1; i < 4; i++) //무기들에게 설명 작성
+        {
+            Soul_in_text slot = weaponIcons[i-1].GetComponentInParent<Soul_in_text>();
+            Soul_in_text l_slot = LightIcon.GetComponentInParent<Soul_in_text>();
+            if (slot != null)
+            {
+                slot.itemId = "Weapon_" + i;
+                l_slot.itemId = "Light_" + i;
+            }
+        }
     }
     void Update()
     {
@@ -200,7 +212,8 @@ public class Shop : MonoBehaviour
         {
             GameManager.Instance.Sub_Gold(price);
             lanternBuyCount++;
-
+            Soul_in_text l_slot = LightIcon.GetComponentInParent<Soul_in_text>();
+            l_slot.itemId = "Light_" + lanternBuyCount+1;
             // 다음 단계 가격 표시 또는 "구매 완료"
             if (lanternBuyCount == 2)
             {

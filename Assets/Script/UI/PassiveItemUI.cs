@@ -23,8 +23,11 @@ public class PassiveItemUI : MonoBehaviour
 			case 4:
 				EMDRMQ = "특급";
 				break;
-			default:
-				EMDRMQ = "오류";
+			case 5:
+				EMDRMQ = "무기";
+				break;
+			case 6:
+				EMDRMQ = "강화";
 				break;
 		}
 
