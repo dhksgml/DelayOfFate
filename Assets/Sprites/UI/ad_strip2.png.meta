@@ -111,39 +111,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-<<<<<<< Updated upstream
-      spriteID: d4851c97c1536204eb4bfcb7cfd89ebe
-      internalID: 159913471
-=======
-      spriteID: ef68716b9dba8f94e9b1527b56887a24
-      internalID: 847088556
->>>>>>> Stashed changes
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ad_strip2_1
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 0
-        width: 96
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-<<<<<<< Updated upstream
-      spriteID: 033759d72c943dc43b197fa803df7535
-      internalID: -1641252139
-=======
-      spriteID: b7c3c35ebd93ee54080bb947e91a2a25
-      internalID: -1911415270
->>>>>>> Stashed changes
+      spriteID: 15e08c1e7c033b460800000000000000
+      internalID: 7256197059668610641
       vertices: []
       indices: 
       edges: []
@@ -151,7 +120,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -159,13 +128,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-<<<<<<< Updated upstream
-      ad_strip2_0: 159913471
-      ad_strip2_1: -1641252139
-=======
-      ad_strip2_0: 847088556
-      ad_strip2_1: -1911415270
->>>>>>> Stashed changes
+      ad_strip2_0: 7256197059668610641
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
