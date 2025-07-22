@@ -182,7 +182,6 @@ public class PlayerController : MonoBehaviour
         if (currentState != PlayerState.Recovery && currentState != PlayerState.Resting)
             yield break;
 
-        isRecovering = false;
         currentState = PlayerState.GettingUp;
         animator.SetTrigger("Rest_out");
 
@@ -191,6 +190,7 @@ public class PlayerController : MonoBehaviour
             animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f
         );
 
+        isRecovering = false;
         EndRecovery(); // 상태 복구
     }
 
@@ -617,8 +617,8 @@ public class PlayerController : MonoBehaviour
 
     private void EndRecovery()
     {
-        isRecovering = false;
         isMoveAble = true;
+        isRecovering = false;
         currentState = PlayerState.Idle;
     }
 
