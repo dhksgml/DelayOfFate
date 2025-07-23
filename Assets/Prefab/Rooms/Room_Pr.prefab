@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad135899d6c2c8040b2fe7fb319ae13f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 4
-  height: 4
-  roomCount: 10
+  width: 3
+  height: 3
+  roomCount: 8
   spacing: 50
   allRoomPrefabs:
   - {fileID: 3463885864821706135, guid: dc9c7e8004619b740851cc4651805fe9, type: 3}
@@ -89,8 +89,7 @@ MonoBehaviour:
   enemyPrefabs:
   - {fileID: 3039830139207019956, guid: 9fe4e69a5ff9a7047b72360722901466, type: 3}
   - {fileID: 4761938672998679258, guid: 65e021d223a8ef448b21b8aeec0568f1, type: 3}
-  - {fileID: 6855693868523006174, guid: 4ef109ffa44477b4090f1889547ebfb4, type: 3}
-  - {fileID: 2403785873192651292, guid: afd07d35aee54174a9fe36a7fa167301, type: 3}
+  - {fileID: 85314243712649985, guid: bb2f424bdfe2bea40bb9a84119b74bca, type: 3}
   - {fileID: 5341648827927804214, guid: 5f574d2733588d14cb13d1408db7bb3b, type: 3}
   - {fileID: 4938018955128738630, guid: ff1860d460efcb44aab43ca99ce98552, type: 3}
   itemPrefab: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
