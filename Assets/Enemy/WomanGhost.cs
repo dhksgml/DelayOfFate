@@ -25,10 +25,13 @@ public class WomanGhost : Enemy
     [SerializeField] float dontSeeTime;
 
     PlayerController player; //플레이어
+    WomanGhostKey womanGhostKey;
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        womanGhostKey = GameObject.FindGameObjectWithTag("Player").GetComponent<WomanGhostKey>();
     }
 
     void Start()
@@ -210,6 +213,9 @@ public class WomanGhost : Enemy
 
     public IEnumerator PlayerPossession()
     {
+        // 플레이어 ui를 활성화 해줌
+        womanGhostKey.isActive = true;
+
         anim.SetBool("isAttack", true);
         Color color = sp.color;
         //각각 -3 ~ -5, -8 ~ -12, -10 ~ -11로 해주었다
@@ -257,5 +263,8 @@ public class WomanGhost : Enemy
         isStop = false;
         //10번을 다채우면 다시 나타나게 해줌
         anim.SetBool("isAttack", false);
+
+        // 플레이어 ui를 비활성화 해줌
+        womanGhostKey.isActive = false;
     }
 }
