@@ -25,21 +25,27 @@ public class Yin_YangTrace : EnemyAttack
         {
             //Yin_Yang 스크립트를 가져온 후
             Yin_Yang yinYang = collision.GetComponent<Yin_Yang>();
-
-            if (yinyang.type == Yin_Yang_Type.Yin && yinYang.type == Yin_Yang_Type.Yang)
+            
+            if (yinYang != null)
             {
-                //타겟의 좌표를 가져오고 bool값을 true로 해준다.
-                target = collision.transform.position;
-                yinyang.isFind = true;
+
+                if (yinyang.type == Yin_Yang_Type.Yin && yinYang.type == Yin_Yang_Type.Yang)
+                {
+                    //타겟의 좌표를 가져오고 bool값을 true로 해준다.
+                    target = collision.transform.position;
+                    yinyang.isFind = true;
+                }
+
+                else if (yinyang.type == Yin_Yang_Type.Yang && yinYang.type == Yin_Yang_Type.Yin)
+                {
+                    //타겟의 좌표를 가져오고 bool값을 true로 해준다.
+                    target = collision.transform.position;
+                    yinyang.isFind = true;
+                }
             }
 
-            else if (yinyang.type == Yin_Yang_Type.Yang && yinYang.type == Yin_Yang_Type.Yin)
-            {
-                //타겟의 좌표를 가져오고 bool값을 true로 해준다.
-                target = collision.transform.position;
-                yinyang.isFind = true;
-            }
         }
+
         //공격 시간은 1초로 해주었음. 필요시 수정
         if (collision.gameObject.CompareTag("Player") && attackTime >= attackDelay)
         {

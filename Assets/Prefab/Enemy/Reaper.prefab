@@ -85,6 +85,7 @@ MonoBehaviour:
   enemyHeightMin: 444
   enemyHeightMax: 444
   enemyHeight: 0
+  enemyMobType: 0
   enemyHitTime: 0
   enemyWeakness: 0
   enemyType: 0
@@ -102,6 +103,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   enemyCorpse: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
   enemySelf: {fileID: 6662224187615437836}
+  enemyColl: {fileID: 0}
   enemyTargetDir: {x: 0, y: 0, z: 0}
   isDie: 0
   rigid: {fileID: 0}
@@ -254,7 +256,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b10fe1490a3ee2c42a17541b902eef43, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0

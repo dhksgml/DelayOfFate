@@ -20,8 +20,14 @@ public class Yin_Yang : Enemy
     [SerializeField] Yin_YangTrace yin_YangTrace;
     [SerializeField] GameObject summonReaper;
     public bool isFind;
+    bool isSpawn = false;
+    [SerializeField] GameObject yinObj;
 
     PlayerController player; //플레이어
+
+    // 바로 합체되는걸 막아주기 위함
+    float delay;
+    float fusionTime = 5.0f;
 
     // static으로 두 오브젝트가 공유하는 충돌 여부
     static bool hasFusion = false; 
@@ -44,6 +50,7 @@ public class Yin_Yang : Enemy
             // 주기적으로 방향 전환
             StartCoroutine(ChangeDirectionRoutine());
         }
+        Debug.Log(gameObject);
     }
 
     void Update()
@@ -54,6 +61,18 @@ public class Yin_Yang : Enemy
             isDie = true;
             StartCoroutine(EnemyDie());
         }
+
+        if (!isSpawn)
+        {
+            if (type == Yin_Yang_Type.Yang)
+            {
+                isSpawn = true;
+                // 음 0,0,0에 소환
+                GameObject test = Instantiate(yinObj, new Vector3(0, 0, 0), Quaternion.identity);
+            }
+        }
+
+        delay += Time.deltaTime;
 
         EnemyMove();
     }
@@ -95,12 +114,15 @@ public class Yin_Yang : Enemy
 
             if(yinYang != null)
             {
-                if(!hasFusion)
+                if(delay >= fusionTime)
                 {
-                    SummonReaper();
-                    hasFusion = true;
+                    if (!hasFusion)
+                    {
+                        SummonReaper();
+                        hasFusion = true;
+                    }
+                    Destroy(transform.parent.gameObject);
                 }
-                Destroy(transform.parent.gameObject);
             }
         }
 
@@ -131,6 +153,7 @@ public class Yin_Yang : Enemy
     //사신 소환 메서드
     void SummonReaper()
     {
+        Debug.Log("음양합체");
         Instantiate(summonReaper, transform.position, Quaternion.identity);
     }
 
