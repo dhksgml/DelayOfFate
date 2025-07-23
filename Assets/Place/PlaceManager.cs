@@ -3,13 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class PlaceManager : MonoBehaviour
 {
-    public Vector2 escape_pos;
+    [HideInInspector] public Vector2 escape_pos;
 
-    public bool resurrection; // 부활가능 상태
-    public Vector2 resurrection_pos;
+    [HideInInspector] public bool resurrection; // 부활가능 상태
+    [HideInInspector] public Vector2 resurrection_pos;
 
-    public bool sale; // 판매
-    public Vector2 sale_pos;
+    [HideInInspector] public bool sale; // 판매
+    [HideInInspector] public Vector2 sale_pos;
 
     public void Go_to_escape()
     {

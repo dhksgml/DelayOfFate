@@ -101,7 +101,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemDataTemplate: {fileID: 0}
-  item_soul: {fileID: 0}
   infoPanel: {fileID: 7750523744315632086}
   coin_text: {fileID: 7692328861986335090}
   holdGaugeUI: {fileID: 8682206281395705518}
@@ -256,41 +255,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3628200422215434074, guid: 7c6a1e0c8bdc5844a8016a6cb8d6ee69, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 5357645014982782193, guid: 7c6a1e0c8bdc5844a8016a6cb8d6ee69, type: 3}
       propertyPath: m_Name
       value: Item_Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 5357645014982782193, guid: 7c6a1e0c8bdc5844a8016a6cb8d6ee69, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6460463236110652297, guid: 7c6a1e0c8bdc5844a8016a6cb8d6ee69, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6971907221279951835, guid: 7c6a1e0c8bdc5844a8016a6cb8d6ee69, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6971907221279951835, guid: 7c6a1e0c8bdc5844a8016a6cb8d6ee69, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7677105959794288096, guid: 7c6a1e0c8bdc5844a8016a6cb8d6ee69, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7677105959794288096, guid: 7c6a1e0c8bdc5844a8016a6cb8d6ee69, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 4040373799313428833, guid: 7c6a1e0c8bdc5844a8016a6cb8d6ee69, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c6a1e0c8bdc5844a8016a6cb8d6ee69, type: 3}
