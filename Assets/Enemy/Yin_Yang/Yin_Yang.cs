@@ -25,6 +25,10 @@ public class Yin_Yang : Enemy
 
     PlayerController player; //플레이어
 
+    // 바로 합체되는걸 막아주기 위함
+    float delay;
+    float fusionTime = 5.0f;
+
     // static으로 두 오브젝트가 공유하는 충돌 여부
     static bool hasFusion = false; 
 
@@ -46,6 +50,7 @@ public class Yin_Yang : Enemy
             // 주기적으로 방향 전환
             StartCoroutine(ChangeDirectionRoutine());
         }
+        Debug.Log(gameObject);
     }
 
     void Update()
@@ -66,6 +71,8 @@ public class Yin_Yang : Enemy
                 GameObject test = Instantiate(yinObj, new Vector3(0, 0, 0), Quaternion.identity);
             }
         }
+
+        delay += Time.deltaTime;
 
         EnemyMove();
     }
@@ -107,12 +114,15 @@ public class Yin_Yang : Enemy
 
             if(yinYang != null)
             {
-                if(!hasFusion)
+                if(delay >= fusionTime)
                 {
-                    SummonReaper();
-                    hasFusion = true;
+                    if (!hasFusion)
+                    {
+                        SummonReaper();
+                        hasFusion = true;
+                    }
+                    Destroy(transform.parent.gameObject);
                 }
-                Destroy(transform.parent.gameObject);
             }
         }
 
