@@ -20,6 +20,8 @@ public class Yin_Yang : Enemy
     [SerializeField] Yin_YangTrace yin_YangTrace;
     [SerializeField] GameObject summonReaper;
     public bool isFind;
+    bool isSpawn = false;
+    [SerializeField] GameObject yinObj;
 
     PlayerController player; //플레이어
 
@@ -53,6 +55,16 @@ public class Yin_Yang : Enemy
         {
             isDie = true;
             StartCoroutine(EnemyDie());
+        }
+
+        if (!isSpawn)
+        {
+            if (type == Yin_Yang_Type.Yang)
+            {
+                isSpawn = true;
+                // 음 0,0,0에 소환
+                GameObject test = Instantiate(yinObj, new Vector3(0, 0, 0), Quaternion.identity);
+            }
         }
 
         EnemyMove();
@@ -131,6 +143,7 @@ public class Yin_Yang : Enemy
     //사신 소환 메서드
     void SummonReaper()
     {
+        Debug.Log("음양합체");
         Instantiate(summonReaper, transform.position, Quaternion.identity);
     }
 
