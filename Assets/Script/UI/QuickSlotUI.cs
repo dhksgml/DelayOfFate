@@ -22,6 +22,7 @@ public class QuickSlotUI : MonoBehaviour
     public int angleUnit = 0;
     int day = 1;
 
+   
     void Start()
     {
         Item_Name.text = null;

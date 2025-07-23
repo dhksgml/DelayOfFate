@@ -24,6 +24,12 @@ public class Reaper : Enemy
         EnemyInt();
     }
 
+    void Start()
+    {
+        // 저승사자 소환시 투명상태였다가 alpha값 회복
+        StartCoroutine("ReaperAlpha");
+    }
+
     void Update()
     {
         EnemyMove();
@@ -102,6 +108,24 @@ public class Reaper : Enemy
 
             // 콜라이더 크기 증가
             circleCollider.radius += colliderUpValue;
+        }
+    }
+
+    // 저승사자 툼명도 조절
+    public IEnumerator ReaperAlpha()
+    {
+        Color color = sp.color;
+
+        // 알파를 0으로 시작
+        color.a = 0f;
+        sp.color = color;
+
+        // 알파를 0.0 → 1.0까지 증가시킴
+        for (float i = 0.0f; i <= 1.0f; i += 0.01f)
+        {
+            color.a = i;
+            sp.color = color;
+            yield return new WaitForSeconds(0.05f);
         }
     }
 }

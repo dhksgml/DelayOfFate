@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class RoomRandomPlacement : MonoBehaviour
 {
@@ -22,6 +23,9 @@ public class RoomRandomPlacement : MonoBehaviour
     private List<Vector2Int> roomPositions = new();
     private Dictionary<Vector2Int, string> roomDirections = new();
     private Dictionary<Vector2Int, GameObject> roomObjects = new();
+
+    // 사신 소환을 위함
+    public List<Vector3> randomPlace;
 
     void Start()
     {
@@ -74,10 +78,14 @@ public class RoomRandomPlacement : MonoBehaviour
         player.transform.position = room1.position;
 
         // 오브젝트 배치
-        Instantiate(Place_Resurrection, room2.position, Quaternion.identity); placeManager.resurrection_pos = room2.position;
-        Instantiate(Place_Sale, room3.position, Quaternion.identity); placeManager.sale_pos = room3.position;
-        Instantiate(Place_Escape, room4.position, Quaternion.identity); placeManager.escape_pos = room4.position;
+       GameObject roomPlace1 = Instantiate(Place_Resurrection, room2.position, Quaternion.identity); placeManager.resurrection_pos = room2.position;
+       GameObject roomPlace2 = Instantiate(Place_Sale, room3.position, Quaternion.identity); placeManager.sale_pos = room3.position;
+       GameObject roomPlace3 = Instantiate(Place_Escape, room4.position, Quaternion.identity); placeManager.escape_pos = room4.position;
 
+        // 위치 추출
+        randomPlace.Add(roomPlace1.transform.position);
+        randomPlace.Add(roomPlace2.transform.position);
+        randomPlace.Add(roomPlace3.transform.position);
     }
 
 
