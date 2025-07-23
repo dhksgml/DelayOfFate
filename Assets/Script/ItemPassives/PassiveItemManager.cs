@@ -28,7 +28,7 @@ public class PassiveItemManager : MonoBehaviour
 		{
 			Destroy(gameObject);
 		}
-
+		
 		passiveItems = new List<PassiveItemData>();
 
 		// 종류별 2개씩 총 7종류
@@ -81,15 +81,15 @@ public class PassiveItemManager : MonoBehaviour
 	void Start()
 	{
 		// 저장된 값 불러오기
-		foreach (var item in passiveItems)
-		{
-			if (PlayerPrefs.GetInt(item.id, 0) == 1)
-			{
-				item.isPurchased = true;
-				ApplyPassiveEffect(item.id);
-			}
-		}
-	}
+        foreach (var item in passiveItems)
+        {
+            if (PlayerPrefs.GetInt(item.id, 0) == 1)
+            {
+                item.isPurchased = true;
+                ApplyPassiveEffect(item.id);
+            }
+        }
+    }
 	string GetPassiveName(int group, int number)
 	{
 		switch ($"{group}_{number}")

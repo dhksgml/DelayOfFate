@@ -12,8 +12,8 @@ public class Shop : MonoBehaviour
     private int rerollCost = 30;
     private int lanternBuyCount = 0;
 
-    private const int lantern_1 = 750;
-    private const int lantern_2 = 1500;
+    private const int lantern_1 = 500;
+    private const int lantern_2 = 1000;
 
     private List<int> weaponPrices = new List<int>();
 
@@ -55,6 +55,7 @@ public class Shop : MonoBehaviour
         allSoulIds.Add("Soul_Add_6_3"); // allowed; only 6_1 is excluded
 
         RerollSouls(); // run before Start
+        SoundManager.Instance.PlayBGM(Resources.Load<AudioClip>("BGM/bgm_Shop"));
     }
 
 

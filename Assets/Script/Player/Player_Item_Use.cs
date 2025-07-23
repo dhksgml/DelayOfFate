@@ -182,24 +182,7 @@ public class Player_Item_Use : MonoBehaviour
 
                 // 쿨다운 적용
                 playercontroller.Player_Usage_cu_cool_down = selectedItem.Usage_cool_down;
-                //switch (selectedItem.itemName) // 무기 사용시 기력 소모
-                //{
-                //    case "환도":
-                //        playercontroller.SpendSp(10);
-                //        break;
-                //    case "방망이":
-                //        playercontroller.SpendSp(20);
-                //        break;
-                //    case "부적":
-                //        playercontroller.SpendSp(5);
-                //        break;
-                //    case "족자":
-                //        playercontroller.SpendSp(10);
-                //        break;
-                //    case "호리병":
-                //        playercontroller.SpendSp(5);
-                //        break;
-                //}
+                playercontroller.SetUseItemCooltime(selectedItem.Usage_cool_down);
 
                 // UI 갱신
                 UpdateQuickSlotUI();
