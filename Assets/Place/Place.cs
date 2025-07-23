@@ -14,12 +14,12 @@ public class Place : MonoBehaviour
 
     [SerializeField] private Place_enum place_enum;
     [SerializeField] private float requiredTime = 3f;
-    [SerializeField] private Image holdGauge;
+    [SerializeField] public Image holdGauge;
 
-    [SerializeField] public float sale_max_Time = 10f; //임시 쿨타임
-    public float sale_cu_Time = 0f;
+    [HideInInspector] public float sale_max_Time = 10f; //임시 쿨타임
+    [HideInInspector] public float sale_cu_Time = 0f;
 
-    private float contactTime = 0f;
+    [HideInInspector] public float contactTime = 0f;
     private bool playerInRange = false;
     private bool registered = false;
 
@@ -58,7 +58,7 @@ public class Place : MonoBehaviour
                         EscapeScene();
                         break;
                     case Place_enum.sale:
-                        if (sale_cu_Time == 0) sale_zone_obj.SellItems(); // 판매 쿨타임이 되야 판매 가능
+                        if (sale_cu_Time >= 0) sale_zone_obj.SellItems(); // 판매 쿨타임이 되야 판매 가능
                         break;
                 }
             }
