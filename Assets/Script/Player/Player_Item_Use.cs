@@ -204,6 +204,7 @@ public class Player_Item_Use : MonoBehaviour
                 // 슬롯이 비어있는 경우
                 if (slotItem == null || string.IsNullOrEmpty(slotItem.itemName))
                 {
+                    TutorialEvents.OnItemPickedUp?.Invoke(droppedItem);
                     quickSlots[selectedSlotIndex] = droppedItem;
                     Destroy(itemObject.gameObject);
                     UpdateQuickSlotUI();
