@@ -20,10 +20,17 @@ public class ShopQuickSlot : MonoBehaviour
     public TMP_Text Item_Coin;          // 선택한 아이템의 가치
     public TMP_Text Item_Weight;        // 선택한 아이템의 무게
 
+    private void Start()
+    {
+        Item_Name.text = null;
+        Item_Coin.text = null;
+        Item_Weight.text = null;
+    }
+
     private void Update()
     {
         HandleSlotSelection();
-        UpdateUI();
+        Update_UI();
     }
 
     void HandleSlotSelection()
@@ -42,18 +49,54 @@ public class ShopQuickSlot : MonoBehaviour
         // selectedSlotIndex가 0~3 범위 내로 유지되도록 보장
         selectedSlotIndex = Mathf.Clamp(selectedSlotIndex, 0, 3);
 
-        UpdateQuickSlotUI();
+        //UpdateUI(quickSlots, selectedSlotIndex);
     }
-
-    public void UpdateQuickSlotUI()
+    /*public void UpdateUI(Item[] quickSlots, int selectedIndex)
     {
-        QuickSlotUI quickSlotUI = FindObjectOfType<QuickSlotUI>();
-        if (quickSlotUI != null)
+        for (int i = 0; i < 4; i++)
         {
-            quickSlotUI.UpdateUI(quickSlots, selectedSlotIndex);
+            Item item = quickSlots[i];
+
+            if (item != null && !string.IsNullOrEmpty(item.itemName))
+            {
+                slotImages[i].sprite = item.icon;
+
+                if (item.Count_Check)
+                {
+                    slotCounts[i].gameObject.SetActive(true);
+                    slotCounts[i].text = item.Count.ToString();
+                }
+                else
+                {
+                    slotCounts[i].gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                slotImages[i].sprite = default_Item_Sprite;
+                slotCounts[i].gameObject.SetActive(false);
+            }
+
+            slotBackgrounds[i].sprite = (i == selectedIndex) ? selectedSlotSprite : defaultSlotSprite;
         }
-    }
-    public void UpdateUI()
+
+        Item selectedItem = quickSlots[selectedIndex];
+        if (selectedItem != null && !string.IsNullOrEmpty(selectedItem.itemName))
+        {
+            int total_coin = selectedItem.Coin * selectedItem.Count;
+            int total_Weight = selectedItem.Weight * selectedItem.Count;
+            Item_Name.text = $"[{selectedItem.itemName}]";
+            Item_Coin.text = $"{total_coin} 냥";
+            Item_Weight.text = $"{total_Weight} 근";
+        }
+        else
+        {
+            Item_Name.text = null;
+            Item_Coin.text = null;
+            Item_Weight.text = null;
+        }
+    }*/
+    public void Update_UI()
     {
         for (int i = 0; i < 4; i++)
         {
@@ -61,7 +104,6 @@ public class ShopQuickSlot : MonoBehaviour
             if (item != null && !string.IsNullOrEmpty(item.itemName))
             {
                 // 아이템 아이콘 설정
-
                 slotImages[i].sprite = item.icon;
 
                 // 아이템 곗수 표시 여부
@@ -88,7 +130,7 @@ public class ShopQuickSlot : MonoBehaviour
                 : defaultSlotSprite;
         }
         // 선택된 슬롯의 아이템 정보만 UI에 표시
-        Item selectedItem = quickSlots[selectedSlotIndex];
+        ItemData selectedItem = SlotsData[selectedSlotIndex];
         if (selectedItem != null && !string.IsNullOrEmpty(selectedItem.itemName))
         {
             int total_coin = selectedItem.Coin * selectedItem.Count;
