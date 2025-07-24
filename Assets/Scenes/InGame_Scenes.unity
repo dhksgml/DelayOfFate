@@ -628,7 +628,7 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!43 &1754286200
+--- !u!43 &1512775711
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
