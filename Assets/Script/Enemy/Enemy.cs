@@ -278,8 +278,6 @@ public abstract class Enemy     : MonoBehaviour
         GameObject corpse = Instantiate(this.enemyCorpse, transform.position, transform.rotation);
         ItemObject corpseItemData = corpse.GetComponent<ItemObject>();
 
-
-
         // 2. 弊府绊 流立 itemData 积己
         corpseItemData.itemData = new Item(enemyCorpseData);
 
@@ -288,7 +286,7 @@ public abstract class Enemy     : MonoBehaviour
         {
             Debug.Log("xx");
         }
-        
+
         if (corpseItemData.itemData != null)
         {
             corpseItemData.itemData.itemName = $"{enemyName}狼 康去";
