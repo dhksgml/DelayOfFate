@@ -397,6 +397,7 @@ MonoBehaviour:
   enemyHeightMin: 0
   enemyHeightMax: 0
   enemyHeight: 0
+  enemyMobType: 0
   enemyHitTime: 0.5
   enemyWeakness: 0
   enemyType: 0
@@ -413,6 +414,7 @@ MonoBehaviour:
   sp: {fileID: 0}
   anim: {fileID: 0}
   enemyCorpse: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
+  enemyCorpseData: {fileID: 11400000, guid: 160f2d3033bb9524fa884c730fd94f73, type: 2}
   enemySelf: {fileID: 6855693868523006174}
   enemyColl: {fileID: 3654836320264230940}
   enemyTargetDir: {x: 0, y: 0, z: 0}
