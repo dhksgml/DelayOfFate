@@ -27,7 +27,7 @@ public class SoundManager : MonoBehaviour
 
     private void LoadVolumeSettings()
     {
-        BgmSoundSize = PlayerPrefs.GetFloat("BGMVolume", 0.3f);
+        BgmSoundSize = PlayerPrefs.GetFloat("BGMVolume", 0.15f);
         SfxSoundSize = PlayerPrefs.GetFloat("SFXVolume", 1f);
         ApplyVolumeSettings();
     }
@@ -40,7 +40,6 @@ public class SoundManager : MonoBehaviour
 
     public void SetBGMVolume(float vol) //배경음 소리 설정
     {
-        BgmSoundSize = Mathf.Clamp(vol, 0f, 0.3f);
         if (bgmAudioSource != null)
         {
             bgmAudioSource.volume = BgmSoundSize;
