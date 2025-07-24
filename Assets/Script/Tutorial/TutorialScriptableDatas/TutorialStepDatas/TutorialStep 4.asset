@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 279043592cd29f54e97b9c5bf02607ad, type: 3}
+  m_Name: TutorialStep 4
+  m_EditorClassIdentifier: 
+  stepName: DropItem
+  messages:
+  - "\uC774\uC81C \uC544\uC774\uD15C \uBC84\uB9AC\uB294 \uBC29\uBC95\uC744 \uC54C\uB824\uB4DC\uB9AC\uACA0\uC2B5\uB2C8\uB2E4."
+  - "\uB9C8\uC6B0\uC2A4 \uD720\uC744 \uC774\uC6A9\uD558\uC5EC \uD604\uC7AC \uC2AC\uB86F\uC744
+    \uBCC0\uACBD\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+  - "\uC544\uC774\uD15C\uC774 \uC788\uB294 \uC2AC\uB86F\uC73C\uB85C \uBCC0\uACBD
+    \uD6C4, F\uD0A4\uB97C \uB20C\uB7EC \uC544\uC774\uD15C\uC744 \uBC84\uB9AC\uC138\uC694."
+  waitForInput: 1
+  condition: {fileID: 11400000, guid: c212c51817a1a774eaea6ac104ea4c6e, type: 2}
