@@ -77,7 +77,7 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 871dbd6d0ad338a469b6eccf5e4725e0, type: 2}
   enemyName: "\uC800\uC2B9\uC0AC\uC790"
   enemyHp: 4444
-  enemyMoveSpeed: 1
+  enemyMoveSpeed: 0.5
   enemyRunSpeed: 0
   enemyPriceMin: 4444
   enemyPriceMax: 4444

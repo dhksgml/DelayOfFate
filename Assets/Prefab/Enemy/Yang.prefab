@@ -45,7 +45,6 @@ GameObject:
   - component: {fileID: 3433219668514914643}
   - component: {fileID: 1360868529527927972}
   - component: {fileID: 3377289990007486987}
-  - component: {fileID: 2968811681361324008}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -146,7 +145,7 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 0ebeb15ae615ce746b902131030f82cb, type: 2}
   enemyName: "\uC591"
   enemyHp: 10
-  enemyMoveSpeed: 0.5
+  enemyMoveSpeed: 3
   enemyRunSpeed: 0
   enemyPriceMin: 1
   enemyPriceMax: 1
@@ -185,41 +184,6 @@ MonoBehaviour:
   isFind: 0
   yinObj: {fileID: 958911829622340847, guid: 35dae5fb2b39a254cbf4f9199f0d80c4, type: 3}
   fusionTime: 5
---- !u!58 &2968811681361324008
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3698296050121603009}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!1 &6401074620460399457
 GameObject:
   m_ObjectHideFlags: 0
