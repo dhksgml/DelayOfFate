@@ -821,7 +821,7 @@ MonoBehaviour:
   - {x: -0.05387208, y: -0.22353303, z: 0}
   m_ShapePathHash: -1562121249
   m_Mesh: {fileID: 0}
-  m_InstanceId: 56540
+  m_InstanceId: 36938
   m_LocalBounds:
     m_Center: {x: 0.0002822429, y: -0.064456046, z: 0}
     m_Extent: {x: 0.114839226, y: 0.39820114, z: 0}
@@ -885,6 +885,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   womanGhostKeyCanvas: {fileID: 456099418970359733}
   isActive: 0
+  leftKey: {fileID: 7849976470518531551}
+  rightKey: {fileID: 8307003349619021305}
 --- !u!1 &5451118422819145829
 GameObject:
   m_ObjectHideFlags: 0
@@ -1293,7 +1295,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8873486493140312114
 RectTransform:
   m_ObjectHideFlags: 0
