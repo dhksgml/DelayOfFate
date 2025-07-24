@@ -87,6 +87,7 @@ public abstract class Enemy     : MonoBehaviour
     public SpriteRenderer       sp;
     public Animator             anim;
     public GameObject           enemyCorpse; //적 시체
+    public ItemData             enemyCorpseData;
     public GameObject           enemySelf;
     public Collider2D           enemyColl;
 
@@ -274,19 +275,28 @@ public abstract class Enemy     : MonoBehaviour
     //적이 죽을떄 시체를 소환하는 메서드
     void EnemyCorpseSummon()
     {
-        // 생성한 적 시체 게임오브젝트를 가져와 저장해줌
         GameObject corpse = Instantiate(this.enemyCorpse, transform.position, transform.rotation);
+        ItemObject corpseItemData = corpse.GetComponent<ItemObject>();
 
-        // 그 후 EnemyCorpse 컴포넌트를 가져와줌
-        EnemyCorpse enemyCorpse = corpse.GetComponent<EnemyCorpse>();
 
-        // 이름 정보와 가격을 전달해줌
-        enemyCorpse.corpseName = $"{enemyName}의 영혼";
-        enemyCorpse.corpseGold = enemyPrice;
-        enemyCorpse.corpseHeight = enemyHeight;
 
-        // 마지막으로 자기 자신을 지워줌
-        // 부모 오브젝트도 통으로 지워줌
+        // 2. 그리고 직접 itemData 생성
+        corpseItemData.itemData = new Item(enemyCorpseData);
+
+        // 3. 이름 및 값 수동 설정
+        if (corpseItemData.itemData == null)
+        {
+            Debug.Log("xx");
+        }
+        
+        if (corpseItemData.itemData != null)
+        {
+            corpseItemData.itemData.itemName = $"{enemyName}의 영혼";
+            corpseItemData.itemData.Coin = enemyPrice;
+            corpseItemData.itemData.Weight = enemyHeight;
+        }
+
+        // 시체의 부모 통째로 제거
         Destroy(transform.parent.gameObject);
     }
 

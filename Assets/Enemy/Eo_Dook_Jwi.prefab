@@ -138,6 +138,7 @@ MonoBehaviour:
   sp: {fileID: 0}
   anim: {fileID: 0}
   enemyCorpse: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
+  enemyCorpseData: {fileID: 11400000, guid: 160f2d3033bb9524fa884c730fd94f73, type: 2}
   enemySelf: {fileID: 4761938672998679258}
   enemyColl: {fileID: 534602614189433843}
   enemyTargetDir: {x: 0, y: 0, z: 0}
@@ -247,7 +248,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1151601953497331366}
@@ -351,7 +352,7 @@ MonoBehaviour:
   - {x: 0.28421172, y: -0.33338878, z: 0}
   m_ShapePathHash: -1520891708
   m_Mesh: {fileID: 0}
-  m_InstanceId: -216542
+  m_InstanceId: 38984
   m_LocalBounds:
     m_Center: {x: -0.022697061, y: -0.017022789, z: 0}
     m_Extent: {x: 0.30690885, y: 0.316366, z: 0}

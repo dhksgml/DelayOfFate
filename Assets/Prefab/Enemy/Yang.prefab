@@ -171,6 +171,7 @@ MonoBehaviour:
   sp: {fileID: 0}
   anim: {fileID: 0}
   enemyCorpse: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
+  enemyCorpseData: {fileID: 11400000, guid: 160f2d3033bb9524fa884c730fd94f73, type: 2}
   enemySelf: {fileID: 85314243712649985}
   enemyColl: {fileID: 1360868529527927972}
   enemyTargetDir: {x: 0, y: 0, z: 0}
@@ -183,6 +184,7 @@ MonoBehaviour:
   summonReaper: {fileID: 6662224187615437836, guid: 0917c3b3751b69049966188e4f5ed7ac, type: 3}
   isFind: 0
   yinObj: {fileID: 958911829622340847, guid: 35dae5fb2b39a254cbf4f9199f0d80c4, type: 3}
+  fusionTime: 5
 --- !u!58 &2968811681361324008
 CircleCollider2D:
   m_ObjectHideFlags: 0
