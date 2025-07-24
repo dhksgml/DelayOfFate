@@ -7,6 +7,7 @@ public class DropItemCondition : TutorialCondition
 
     public override void Initialize()
     {
+        dropped = false;
         TutorialEvents.OnItemDropped += OnItemDropped;
     }
 

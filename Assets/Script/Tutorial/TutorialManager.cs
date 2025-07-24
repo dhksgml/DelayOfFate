@@ -17,7 +17,6 @@ public class TutorialManager : MonoBehaviour
     public List<TutorialStep> steps;
 
     private int currentIndex = 0;
-    private bool isStepComplete = false;
 
     private void Start()
     {
@@ -44,11 +43,6 @@ public class TutorialManager : MonoBehaviour
         tutorialBackground.SetActive(false);
     }
 
-    public void CompleteCurrentStep()
-    {
-        isStepComplete = true;
-    }
-
     private IEnumerator HandleStep(TutorialStep step)
     {
         for (int i = 0; i < step.messages.Length; i++)
@@ -64,8 +58,14 @@ public class TutorialManager : MonoBehaviour
         if (step.waitForInput && step.condition != null)
         {
             step.condition.Initialize();
+            StartStep(step);
             yield return new WaitUntil(() => step.condition.IsSatisfied());
         }
         yield return new WaitForSeconds(1f);
+    }
+
+    public void StartStep(TutorialStep step)
+    {
+        step.OnStepEnter();
     }
 }
