@@ -32,6 +32,7 @@ public class Reaper : Enemy
 
     void Update()
     {
+        // 나중에 사망처리도 넣어줘야함
         EnemyMove();
     }
 
