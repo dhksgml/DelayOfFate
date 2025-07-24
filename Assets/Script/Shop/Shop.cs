@@ -268,23 +268,24 @@ public class Shop : MonoBehaviour
             switch (rating)
             {
                 case 1:
-                    soulPrices[i] = 120;
+                    soulPrices[i] = 110;
+                    soulPrices[i] += Random.Range(-10, +11);
                     break;
                 case 2:
-                    soulPrices[i] = 170;
+                    soulPrices[i] = 165;
+                    soulPrices[i] += Random.Range(-15, +16);
                     break;
                 case 3:
-                    soulPrices[i] = 130;
+                    soulPrices[i] = 270;
+                    soulPrices[i] += Random.Range(-20, +21);
                     break;
                 case 4:
-                    soulPrices[i] = 160;
+                    soulPrices[i] = 325;
+                    soulPrices[i] += Random.Range(-25, +26);
                     break;
                 default:
-                    soulPrices[i] = 100;
                     break;
             }
-            soulPrices[i] += Random.Range(-10, +11);
-
             // UI 텍스트 갱신
             weaponSlots_text(5 + i, soulPrices[i], "Soul");
 
