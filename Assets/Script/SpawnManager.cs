@@ -128,6 +128,16 @@ public class SpawnManager : MonoBehaviour
             Enemy enemyScript = enemy.GetComponentInChildren<Enemy>();
             enemyScript.enemyMobType = EnemyMobType.MiddleBoss;
 
+            // 색깔 넣기
+            SpriteRenderer enemyColor = enemy.GetComponentInChildren<SpriteRenderer>();
+
+            if (enemyColor != null)
+            {
+                // 빨강으로
+                enemyColor.color = new Color(1f, 0f, 0f);
+            }
+
+
             Debug.Log("추가 적 한 명을 강제 소환했습니다." + extraEnemy);
         }
 

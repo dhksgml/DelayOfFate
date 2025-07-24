@@ -113,7 +113,7 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 6d702a41f3ee6d34693a7db5dd85bf9a, type: 2}
   enemyName: "\uC74C"
   enemyHp: 10
-  enemyMoveSpeed: 0.5
+  enemyMoveSpeed: 0
   enemyRunSpeed: 0
   enemyPriceMin: 1
   enemyPriceMax: 1
@@ -213,7 +213,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6570745485439542645}
