@@ -27,7 +27,7 @@ public class Yin_Yang : Enemy
 
     // 바로 합체되는걸 막아주기 위함
     float delay;
-    float fusionTime = 5.0f;
+    [SerializeField] float fusionTime = 5.0f;
 
     // static으로 두 오브젝트가 공유하는 충돌 여부
     static bool hasFusion = false; 
