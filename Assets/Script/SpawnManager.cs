@@ -90,11 +90,19 @@ public class SpawnManager : MonoBehaviour
         int dangerRemain = totalD_Point;
         int coinRemain = totalValPoint;
 
+        // 임시로 음 양 한마리만 스폰되게 임시코드
+        bool yangSpawned = false;
+
         while (dangerRemain >= minEnemyDanger && coinRemain >= minEnemyCoin && enemySpawnPoints.Count > 0)
         {
             List<GameObject> spawnables = validEnemies.FindAll(e =>
             {
                 Enemy enemy = e.GetComponentInChildren<Enemy>();
+
+                // "Yang" 프리팹은 이미 소환됐다면 제외 임시코드
+                if (!yangSpawned && e.name == "Yang") return true;
+                if (yangSpawned && e.name == "Yang") return false;
+
                 return enemy != null &&
                        enemy.enemyData != null &&
                        enemy.enemyData.D_Point <= dangerRemain &&
@@ -114,6 +122,13 @@ public class SpawnManager : MonoBehaviour
             Instantiate(randomEnemy, spawnPoint.position, Quaternion.identity);
             dangerRemain -= edata.D_Point;
             coinRemain -= edata.Coin;
+
+            // yang 프리팹이면 플래그 켜기 임시코드
+            if (randomEnemy.name == "Yang")
+            {
+                yangSpawned = true;
+                Debug.Log("yang 프리팹이 한 번 소환되었습니다.");
+            }
         }
 
         // 중간보스 소환

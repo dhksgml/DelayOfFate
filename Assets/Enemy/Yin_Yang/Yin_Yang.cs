@@ -112,20 +112,21 @@ public class Yin_Yang : Enemy
         }
     }
 
-
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             //Yin_Yang 스크립트를 가져온 후
             Yin_Yang yinYang = collision.gameObject.GetComponent<Yin_Yang>();
 
-            if(yinYang != null)
+            if (yinYang != null)
             {
-                if(delay >= fusionTime)
+                if (delay >= fusionTime)
                 {
+                    Debug.Log("준비");
                     if (!hasFusion)
                     {
+                        Debug.Log("합체");
                         SummonReaper();
                         hasFusion = true;
                     }
@@ -133,10 +134,8 @@ public class Yin_Yang : Enemy
                 }
             }
         }
-
-        //충돌시 방향전환
-        ChooseNewDirection();
     }
+
 
     void OnDestroy()
     {
