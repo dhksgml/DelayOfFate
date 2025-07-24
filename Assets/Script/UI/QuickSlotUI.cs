@@ -20,7 +20,6 @@ public class QuickSlotUI : MonoBehaviour
 
     public TMP_Text timeText; // UI 텍스트 오브젝트
     public int angleUnit = 0;
-    int day = 1;
 
    
     void Start()
@@ -68,7 +67,7 @@ public class QuickSlotUI : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Stage_Scene")
         {
-            timeText.text = day + " 일";
+            timeText.text = GameManager.Instance.Day + " 일";
         }
         else
         {
