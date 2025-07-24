@@ -58,6 +58,13 @@ public class Boon_yeol_gwi : Enemy
 
     void Update()
     {
+        //적의 체력이 0이하일시.
+        if (enemyHp <= 0 && !isDie)
+        {
+            isDie = true;
+            StartCoroutine(EnemyDie());
+        }
+
         //본체일때 일정 가격이 되면
         if (enemyPrice >= explosionSelfvalue && type == Boon_yeol_gwi_Type.Entity)
         {
@@ -134,9 +141,10 @@ public class Boon_yeol_gwi : Enemy
         {
             //피격 효과
             Attack_sc attack = collision.GetComponent<Attack_sc>();
-
+            Debug.Log("분열귀 피격 중");
             if (collision.gameObject.CompareTag("Attack") && !isEnemyHit && attack != null)
             {
+                Debug.Log("분열귀 피격");
                 // 타입이 일치하면 즉사
                 if (attack.attackType.ToString() == enemyWeakness.ToString())
                 {

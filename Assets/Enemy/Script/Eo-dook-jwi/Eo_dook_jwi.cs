@@ -98,8 +98,8 @@ public class Eo_dook_jwi : Enemy
         //추적중이 아니면
         if (!isTrace && !isDie && !isEnemyHit)
         {
-            //스프라이트 때문에 이걸 사용해줌
-            //EnemyNormalTurn2();
+            // 스프라이트 때문에 이걸 사용해줌
+            EnemyNormalTurn2();
 
             //에니메이션, 추적 false로 바꾸어줌
             //anim.SetBool("isTrace", false);
@@ -136,12 +136,12 @@ public class Eo_dook_jwi : Enemy
                 EnemyHit();
 
             }
-
-            if (collision.gameObject.CompareTag("Light"))
-            {
-                //빛에 닿으면 true로 해주고 도망가게 해줌
-                isLighting = true;
-            }
+            // 지금은 사용 안함
+            //if (collision.gameObject.CompareTag("Light"))
+            //{
+            //    //빛에 닿으면 true로 해주고 도망가게 해줌
+            //    isLighting = true;
+            //}
 
             // 충돌 시 데미지를 부여
             if (collision.gameObject.CompareTag("Player"))
@@ -174,21 +174,21 @@ public class Eo_dook_jwi : Enemy
         }
     }
 
-
-    void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision != null)
-        {
-            if (collision.gameObject.CompareTag("Light"))
-            {
-                if(!isAction)
-                {
-                    //빛에서 벗어나면 3초 뒹 빛이 꺼지게 해줌
-                    StartCoroutine(Delay());
-                }
-            }
-        }
-    }
+    // 지금은 사용 안함
+    //void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (collision != null)
+    //    {
+    //        if (collision.gameObject.CompareTag("Light"))
+    //        {
+    //            if(!isAction)
+    //            {
+    //                //빛에서 벗어나면 3초 뒹 빛이 꺼지게 해줌
+    //                StartCoroutine(Delay());
+    //            }
+    //        }
+    //    }
+    //}
 
     IEnumerator Delay()
     {
