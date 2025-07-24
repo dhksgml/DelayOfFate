@@ -141,7 +141,6 @@ public class Boon_yeol_gwi : Enemy
         {
             //피격 효과
             Attack_sc attack = collision.GetComponent<Attack_sc>();
-            Debug.Log("분열귀 피격 중");
             if (collision.gameObject.CompareTag("Attack") && !isEnemyHit && attack != null)
             {
                 Debug.Log("분열귀 피격");

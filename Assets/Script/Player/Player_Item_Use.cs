@@ -67,9 +67,10 @@ public class Player_Item_Use : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.F) && !CheckCurrentSlotEmpty()) // 버리기
         {
             //DropItem();
+            TutorialEvents.OnItemDropped?.Invoke(quickSlots[selectedSlotIndex]);
             playercontroller.OnPickUpStart(false);
         }
-        else if (Input.GetKey(KeyCode.E)) // 꾹 눌러서 판매, 줍기
+        else if (Input.GetKey(KeyCode.E) && !playercontroller.isRecovering) // 꾹 눌러서 판매, 줍기
         {
             Collider2D[] itemColliders = Physics2D.OverlapCircleAll(transform.position, 1f, itemLayer);
             
@@ -94,7 +95,7 @@ public class Player_Item_Use : MonoBehaviour
             }
 
         }
-        else if (Input.GetKeyUp(KeyCode.E)) // 키 떼면
+        else if (Input.GetKeyUp(KeyCode.E) && !playercontroller.isRecovering) // 키 떼면
         {
             if (holdTime <= 0.2f) // 짧게 눌렀다면 줍는걸로 인지
             {
@@ -204,6 +205,7 @@ public class Player_Item_Use : MonoBehaviour
                 // 슬롯이 비어있는 경우
                 if (slotItem == null || string.IsNullOrEmpty(slotItem.itemName))
                 {
+                    TutorialEvents.OnItemPickedUp?.Invoke(droppedItem);
                     quickSlots[selectedSlotIndex] = droppedItem;
                     Destroy(itemObject.gameObject);
                     UpdateQuickSlotUI();
