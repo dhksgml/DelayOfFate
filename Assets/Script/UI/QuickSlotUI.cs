@@ -40,7 +40,7 @@ public class QuickSlotUI : MonoBehaviour
 
     public void DisplayItemInfo(int index, ItemData item)
     {
-        print(item);
+
         if (index < 0 || index >= 4) return;
 
         if (item != null && !string.IsNullOrEmpty(item.itemName))
@@ -89,7 +89,6 @@ public class QuickSlotUI : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             Item item = playerItemUse.quickSlots[i];
-
             if (item != null && !string.IsNullOrEmpty(item.itemName))
             {
                 // 아이템 아이콘 설정
