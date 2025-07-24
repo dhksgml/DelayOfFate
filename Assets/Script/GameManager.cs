@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public int killcount = 0; //처치한 악귀 수
 
     public ItemData[] SlotsData;
-    private bool initialized = false; // 플레이어 무기 받아오기 용
+    private bool initialized; // 플레이어 무기 받아오기 용
     private void Awake()
     {
         // 현재 씬에 자신과 같은 타입의 오브젝트가 2개 이상 있는 경우 즉시 삭제
@@ -33,6 +33,16 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if (SceneManager.GetActiveScene().name == "InGame_Scenes")
+        {
+            initialized = false;
+        }
+        else if (SceneManager.GetActiveScene().name == "Stage_Scene")
+        {
+            initialized = true;
+        }
+        
     }
     private void Update()
     {
@@ -47,6 +57,18 @@ public class GameManager : MonoBehaviour
                 player_Item_Use.quickSlots[i] = new Item(SlotsData[i]);
             }
             initialized = true; // 한 번 실행 후 다시 안 하도록
+        }
+        else if (initialized && SceneManager.GetActiveScene().name == "Stage_Scene")
+        {
+            ShopQuickSlot shopQuickSlot = FindObjectOfType<ShopQuickSlot>();
+            if (shopQuickSlot == null) return; // 아직 생성 안 됐다면 다음 프레임 다시 시도
+
+            for (int i = 0; i < shopQuickSlot.quickSlots.Length; i++)
+            {
+                if (SlotsData[i] == null) continue;
+                shopQuickSlot.SlotsData[i] = SlotsData[i];
+            }
+            initialized = false; // 한 번 실행 후 다시 안 하도록
         }
     }
     public void New_Day_date()
@@ -97,11 +119,12 @@ public class GameManager : MonoBehaviour
 
     public void SaveCurrentQuickSlot(Item[] quickSlots)
     {
-        if (quickSlots.Length != 4) return;
-
-        for(int i = 0; i < currentQuickSlot.Length; i++)
+        for (int i = 0; i < SlotsData.Length; i++)
         {
-            currentQuickSlot[i] = quickSlots[i];
+            if (quickSlots[i] != null && quickSlots[i].ToItemData() != null)
+                SlotsData[i] = quickSlots[i].ToItemData();
+            else
+                SlotsData[i] = null;
         }
     }
 

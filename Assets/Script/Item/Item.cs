@@ -75,6 +75,40 @@ public class Item
         this.Drop_item = itemData.Drop_item;
 
     }
+    public ItemData ToItemData()
+    {
+        ItemData data = new ItemData();
+
+        data.id = this.id;
+        data.itemName = this.itemName;
+        data.InGameSprite = this.InGameSprite;
+        data.icon = this.icon;
+
+        data.spendSPAmount = this.spendSPAmount;
+
+        data.Coin = this.Coin;
+        data.Weight = this.Weight;
+        data.ValPoint = this.ValPoint;
+
+        data.Count_Check = this.Count_Check;
+        data.Count = this.Count;
+
+        data.Sell_whether = this.Sell_whether;
+        data.Sell_immediately = this.Sell_immediately;
+
+        data.isUsable = this.isUsable;
+        data.Usage_cool_down = this.Usage_cool_down;
+        data.Charging = this.Charging;
+
+        data.CoinDeviation = this.CoinDeviation;
+        data.WeightDeviation = this.WeightDeviation;
+        data.CountDeviation = this.CountDeviation;
+
+        data.Drop_item = this.Drop_item;
+        if (data == null) return null;
+        return data;
+    } // 매서드를 호출하면 아이템 데이터만 뽑아감
+
     // 랜덤 값 세팅은 외부에서 할 수 있도록 남겨둡니다.
     public Item Clone()
     {

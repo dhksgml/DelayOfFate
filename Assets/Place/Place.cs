@@ -34,6 +34,8 @@ public class Place : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.T))//실험 코드
+            EscapeScene();
         if (sale_cu_Time > 0) { sale_cu_Time -= Time.deltaTime; }
         if (registered) return;
 
