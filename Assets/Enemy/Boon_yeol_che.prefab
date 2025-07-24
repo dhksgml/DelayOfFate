@@ -137,6 +137,7 @@ MonoBehaviour:
   sp: {fileID: 2293600761459408863}
   anim: {fileID: 0}
   enemyCorpse: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
+  enemyCorpseData: {fileID: 11400000, guid: 160f2d3033bb9524fa884c730fd94f73, type: 2}
   enemySelf: {fileID: 7133274805120073796}
   enemyColl: {fileID: 7221030420655169584}
   enemyTargetDir: {x: 0, y: 0, z: 0}

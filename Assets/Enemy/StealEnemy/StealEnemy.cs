@@ -44,6 +44,7 @@ public class StealEnemy : Enemy
         // 도주
         if (isEnemyRun)
         {
+            // 도주시 시체 안남도록 수정
             StartCoroutine(EnemyDie());
         }
 
