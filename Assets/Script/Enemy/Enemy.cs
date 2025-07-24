@@ -267,8 +267,8 @@ public abstract class Enemy     : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
 
-        Destroy(transform.parent.gameObject);
-        //EnemyCorpseSummon();
+        //Destroy(transform.parent.gameObject);
+        EnemyCorpseSummon();
     }
 
     //적이 죽을떄 시체를 소환하는 메서드
@@ -277,11 +277,11 @@ public abstract class Enemy     : MonoBehaviour
         //생성한 적 시체 게임오브젝트를 가져와 저장해줌
         GameObject corpse = Instantiate(this.enemyCorpse, transform.position, transform.rotation);
         //그 후 EnemyCorpse 컴포넌트를 가져와줌
-        EnemyCorpse enemyCorpse = corpse.GetComponent<EnemyCorpse>();
+        //EnemyCorpse enemyCorpse = corpse.GetComponent<EnemyCorpse>();
         //이름 정보와 가격을 전달해줌
-        enemyCorpse.corpseName = $"{enemyName}의 영혼";
-        enemyCorpse.corpseGold = enemyPrice;
-        enemyCorpse.corpseHeight = enemyHeight;
+        //enemyCorpse.corpseName = $"{enemyName}의 영혼";
+        //enemyCorpse.corpseGold = enemyPrice;
+        //enemyCorpse.corpseHeight = enemyHeight;
 
         //마지막으로 자기 자신을 지워줌
         //부모 오브젝트도 통으로 지워줌
