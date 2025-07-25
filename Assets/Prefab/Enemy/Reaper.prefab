@@ -77,7 +77,7 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 871dbd6d0ad338a469b6eccf5e4725e0, type: 2}
   enemyName: "\uC800\uC2B9\uC0AC\uC790"
   enemyHp: 4444
-  enemyMoveSpeed: 1
+  enemyMoveSpeed: 0.5
   enemyRunSpeed: 0
   enemyPriceMin: 4444
   enemyPriceMax: 4444
@@ -111,9 +111,9 @@ MonoBehaviour:
   enemyMoveDir: {x: 0, y: 0, z: 0}
   moveDirection: {x: 0, y: 0, z: 0}
   powerUpTime: 2
-  speedUpValue: 3
+  speedUpValue: 2
   scaleUpValue: {x: 0.1, y: 0.1, z: 0.1}
-  colliderUpValue: 0.1
+  colliderUpValue: 0.05
   circleCollider: {fileID: 6401522816899453545}
 --- !u!58 &6401522816899453545
 CircleCollider2D:
@@ -255,7 +255,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: b10fe1490a3ee2c42a17541b902eef43, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 1

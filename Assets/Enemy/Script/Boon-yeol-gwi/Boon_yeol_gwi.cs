@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Schema;
 using UnityEngine;
 
 public enum Boon_yeol_gwi_Type
@@ -62,6 +63,12 @@ public class Boon_yeol_gwi : Enemy
         if (enemyHp <= 0 && !isDie)
         {
             isDie = true;
+
+            foreach (var boon_yeol_che in copyObjList)
+            {
+                Destroy(boon_yeol_che);
+            }
+
             StartCoroutine(EnemyDie());
         }
 

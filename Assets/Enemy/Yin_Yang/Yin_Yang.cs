@@ -59,6 +59,14 @@ public class Yin_Yang : Enemy
         if (enemyHp <= 0 && !isDie)
         {
             isDie = true;
+
+            Yin_Yang[] yin_yang = FindObjectsOfType<Yin_Yang>();
+
+            foreach (var target in yin_yang)
+            {
+                target.StartCoroutine(target.EnemyDie());
+            }
+
             StartCoroutine(EnemyDie());
         }
 
@@ -104,20 +112,21 @@ public class Yin_Yang : Enemy
         }
     }
 
-
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             //Yin_Yang 스크립트를 가져온 후
             Yin_Yang yinYang = collision.gameObject.GetComponent<Yin_Yang>();
 
-            if(yinYang != null)
+            if (yinYang != null)
             {
-                if(delay >= fusionTime)
+                if (delay >= fusionTime)
                 {
+                    Debug.Log("준비");
                     if (!hasFusion)
                     {
+                        Debug.Log("합체");
                         SummonReaper();
                         hasFusion = true;
                     }
@@ -125,10 +134,8 @@ public class Yin_Yang : Enemy
                 }
             }
         }
-
-        //충돌시 방향전환
-        ChooseNewDirection();
     }
+
 
     void OnDestroy()
     {
@@ -139,12 +146,14 @@ public class Yin_Yang : Enemy
     {
         if(isFind)
         {
+            EnemyNormalTurn2();
             moveDirection = (yin_YangTrace.target - transform.position).normalized;
             transform.Translate(moveDirection * enemyMoveSpeed * Time.deltaTime);
         }
         else if(type == Yin_Yang_Type.Yang)
         {
             // 현재 방향으로 이동
+            EnemyNormalTurn2();
             transform.Translate(moveDirection * enemyMoveSpeed * Time.deltaTime);
         }
     }
