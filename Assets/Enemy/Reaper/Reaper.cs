@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Reaper : Enemy
 {
@@ -17,6 +19,10 @@ public class Reaper : Enemy
     //콜라이더
     [SerializeField] CircleCollider2D circleCollider;
 
+    // 텍스트 바
+    [SerializeField] GameObject summon_Text_Bar;
+    [SerializeField] TextMeshProUGUI summon_Text;
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -28,6 +34,20 @@ public class Reaper : Enemy
     {
         // 저승사자 소환시 투명상태였다가 alpha값 회복
         StartCoroutine("ReaperAlpha");
+
+        // 오브젝트를 찾아와서 저장해줌. 이 방식은 이름으로 찾는 것
+        summon_Text_Bar = GameObject.Find("SummonReaper_Panel");
+        summon_Text = GameObject.Find("Summon_Text").GetComponent<TextMeshProUGUI>();
+
+        if (summon_Text == null || summon_Text_Bar == null)
+        {
+            Debug.Log("둘 중 하나가 존재하지 않음");
+            return;
+        }
+        else
+        {
+            StartCoroutine(SummonText());
+        }
     }
 
     void Update()
@@ -128,5 +148,63 @@ public class Reaper : Enemy
             sp.color = color;
             yield return new WaitForSeconds(0.05f);
         }
+    }
+
+
+    [SerializeField] float summonTextTime;
+
+    public IEnumerator SummonText()
+    {
+        float currentTime = 0f;
+
+        // 컴포넌트 얻기
+        Image barImage = summon_Text_Bar.GetComponent<Image>();
+        Color barColor = barImage.color;
+        Color textColor = summon_Text.color;
+
+        while (currentTime < summonTextTime)
+        {
+            float alpha = Mathf.Lerp(0f, 1f, currentTime / summonTextTime);
+
+            barColor.a = alpha;
+            textColor.a = alpha;
+
+            barImage.color = barColor;
+            summon_Text.color = textColor;
+
+            currentTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // 마지막 값 고정
+        barColor.a = 1f;
+        textColor.a = 1f;
+        barImage.color = barColor;
+        summon_Text.color = textColor;
+
+        // 3초 대기
+        yield return new WaitForSeconds(3f);
+
+        // 1 → 0 : 점점 사라지게
+        currentTime = 0f;
+        while (currentTime < summonTextTime)
+        {
+            float alpha = Mathf.Lerp(1f, 0f, currentTime / summonTextTime);
+
+            barColor.a = alpha;
+            textColor.a = alpha;
+
+            barImage.color = barColor;
+            summon_Text.color = textColor;
+
+            currentTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // 완전 투명하게 마무리
+        barColor.a = 0f;
+        textColor.a = 0f;
+        barImage.color = barColor;
+        summon_Text.color = textColor; 
     }
 }
