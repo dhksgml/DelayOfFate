@@ -103,7 +103,8 @@ public class GameManager : MonoBehaviour
 
     public void Sub_Soul(float val) // 감소
     {
-        Soul = Mathf.Max(Soul - val, 0f);
+        // 게임 오버를 위해 최소값을 조정함
+        Soul = Mathf.Max(Soul - val, -9999f);
     }
 
     public void SavePlayerInfo(PlayerController player)
