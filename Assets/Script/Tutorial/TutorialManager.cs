@@ -8,6 +8,7 @@ public static class TutorialEvents
 {
     public static Action<Item> OnItemPickedUp;
     public static Action<Item> OnItemDropped;
+    public static Action<Item> OnWeaponUsed;
 }
 
 public class TutorialManager : MonoBehaviour
@@ -55,17 +56,41 @@ public class TutorialManager : MonoBehaviour
             }
         }
 
-        if (step.waitForInput && step.condition != null)
+        switch(step.stepType)
         {
-            step.condition.Initialize();
-            StartStep(step);
-            yield return new WaitUntil(() => step.condition.IsSatisfied());
+            case TutorialStepType.ShowDialog:
+                yield return new WaitForSeconds(step.waitTime);
+                break;
+            case TutorialStepType.MoveToPosition:
+                break;
+            case TutorialStepType.SpawnGameObject:
+                StartStep(step);
+                yield return new WaitForSeconds(step.waitTime);
+                EndStep(step);
+                break;
+            case TutorialStepType.SpawnItemObject:
+            case TutorialStepType.WaitForInput:
+                step.condition.Initialize();
+                StartStep(step);
+                yield return new WaitUntil(() => step.condition.IsSatisfied());
+                break;
         }
+        //if (step.waitForInput && step.condition != null)
+        //{
+        //    step.condition.Initialize();
+        //    StartStep(step);
+        //    yield return new WaitUntil(() => step.condition.IsSatisfied());
+        //}
         yield return new WaitForSeconds(1f);
     }
 
     public void StartStep(TutorialStep step)
     {
         step.OnStepEnter();
+    }
+
+    public void EndStep(TutorialStep step)
+    {
+        step.OnStepEnd();
     }
 }

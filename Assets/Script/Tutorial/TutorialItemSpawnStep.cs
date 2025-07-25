@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "TutorialItemSpawnStep", menuName = "Tutorial/ItemSpawnStep")]
+[CreateAssetMenu(fileName = "TutorialItemSpawnStep", menuName = "Tutorial/Step/TutorialItemSpawnStep")]
 public class TutorialItemSpawnStep : TutorialStep
 {
     [Header("Spawn Item")]

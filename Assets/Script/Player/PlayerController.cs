@@ -129,6 +129,8 @@ public class PlayerController : MonoBehaviour
 
                 currentMp = playerData.maxMp;
                 currentSp = playerData.maxSp;
+
+                flashLightLevel = playerData.flashLightLevel;
             }
         }
         else
