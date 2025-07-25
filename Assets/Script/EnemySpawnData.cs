@@ -13,5 +13,6 @@ public class EnemySpawnData
 public class WaveData
 {
 	public List<EnemySpawnData> enemies;
+	public List<EnemySpawnData> middleBoss;
 	public bool hasMidBoss;
 }
