@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public float Gold = 0;
     public float Soul = 0;
     public float N_Day_Add_Soul; //당일에 번 총 소울
+    public float N_Day_current_Soul; //약값을 내기 전 금액
     public int N_Day_Time; // 당일에 클리어한 각(시간)
     public float N_Day_Cost; //해당 정산일에 낼 돈
     public float[] Cost_list = {300,500,1000};
@@ -72,31 +73,37 @@ public class GameManager : MonoBehaviour
         }
         N_Day_Cost = Cost_list[Day-1];
     }
-    public void New_Day_date()
+    public void Next_data_reset()
     {
         N_Day_Add_Soul = 0;
         N_Day_Time = 0;
+        Day++;
+    }
+    public void New_Day_date(int time)
+    {
+        N_Day_Time = time;
+        N_Day_current_Soul = Soul;
+        Sub_Soul(N_Day_Cost);
     }
     public void Add_Gold(float val)
     {
-        Gold += val;
+        Gold = Mathf.Min(Gold + val, 9999f); // 증가: 최대값 제한
     }
-    public void Sub_Gold(float val)//감소
+
+    public void Sub_Gold(float val) // 감소: 최소값 제한
     {
-        Gold -= val;
+        Gold = Mathf.Max(Gold - val, 0f);
     }
+
     public void Add_Soul(float val)
     {
-        Soul += val;
-        N_Day_Add_Soul += val;
+        Soul = Mathf.Min(Soul + val, 9999f);
+        N_Day_Add_Soul = Mathf.Min(N_Day_Add_Soul + val, 9999f);
     }
-    public void Sub_Soul(float val)//감소
+
+    public void Sub_Soul(float val) // 감소
     {
-        Soul -= val;
-    }
-    public void Next_Day()
-    {
-        Day++;
+        Soul = Mathf.Max(Soul - val, 0f);
     }
 
     public void SavePlayerInfo(PlayerController player)
@@ -117,7 +124,6 @@ public class GameManager : MonoBehaviour
         playerData.quickSlots = this.currentQuickSlot;
 
     }
-
     public void SaveCurrentQuickSlot(Item[] quickSlots)
     {
         for (int i = 0; i < SlotsData.Length; i++)
@@ -132,12 +138,10 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
-
     void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
-
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Bgm_on();
