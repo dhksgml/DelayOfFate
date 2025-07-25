@@ -18,6 +18,8 @@ public class PassiveItemManager : MonoBehaviour
 
 	void Awake()
 	{
+		PlayerPrefs.DeleteAll();
+
 		// 현재 씬에 자신과 같은 타입의 오브젝트가 2개 이상 있는 경우 즉시 삭제
 		if (Instance == null)
 		{
@@ -366,12 +368,16 @@ public class PassiveItemManager : MonoBehaviour
 	public void DoPassive_6_3()
 	{
 		var quickSlotItems = GameManager.Instance.currentQuickSlot;
-		int totalGold = 0;
-		foreach(var item in quickSlotItems)
-        {
-			totalGold += item.Coin;
-        }
-		GameManager.Instance.Add_Gold(totalGold * 0.5f);
+		if (quickSlotItems != null)
+		{
+			int totalGold = 0;
+			foreach (var item in quickSlotItems)
+			{
+				if(item != null)
+					totalGold += item.Coin;
+			}
+			GameManager.Instance.Add_Gold(totalGold * 0.5f);
+		}
 	}
 
 	//구사일생
@@ -390,5 +396,5 @@ public class PassiveItemManager : MonoBehaviour
 		}
 	}
 
-	#endregion
+    #endregion
 }

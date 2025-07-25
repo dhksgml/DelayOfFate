@@ -19,5 +19,8 @@ MonoBehaviour:
   - "\uD68C\uBCF5 \uD6C4 \uC544\uBB34 \uD0A4\uB97C \uB204\uB974\uBA74, \uD68C\uBCF5
     \uC0C1\uD0DC\uAC00 \uD574\uC81C\uB429\uB2C8\uB2E4."
   - "C\uD0A4\uB97C \uB20C\uB7EC \uD68C\uBCF5\uD558\uC138\uC694."
-  waitForInput: 1
   condition: {fileID: 11400000, guid: 7ea9e0af3d3008d48b133932cb554319, type: 2}
+  stepType: 3
+  spawnPrefab: {fileID: 0}
+  moveToPosition: {x: 0, y: 0, z: 0}
+  waitTime: 2
