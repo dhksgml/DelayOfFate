@@ -115,6 +115,9 @@ MonoBehaviour:
   scaleUpValue: {x: 0.1, y: 0.1, z: 0.1}
   colliderUpValue: 0.05
   circleCollider: {fileID: 6401522816899453545}
+  summon_Text_Bar: {fileID: 0}
+  summon_Text: {fileID: 0}
+  summonTextTime: 3
 --- !u!58 &6401522816899453545
 CircleCollider2D:
   m_ObjectHideFlags: 0
