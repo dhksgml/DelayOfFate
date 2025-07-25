@@ -1,3 +1,7 @@
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+
 [System.Serializable]
 public class EnemySpawnData
 {
@@ -8,5 +12,6 @@ public class EnemySpawnData
 [System.Serializable]
 public class WaveData
 {
-	public EnemySpawnData[] enemies;
+	public List<EnemySpawnData> enemies;
+	public bool hasMidBoss;
 }
