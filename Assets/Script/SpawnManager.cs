@@ -59,8 +59,44 @@ public class SpawnManager : MonoBehaviour
 		WaveData wave = waveList[waveIndex];
 		int usedCoinTotal = 0;
 
+		// 중간보스 처리
+		if (wave.hasMidBoss && wave.enemies.Count > 0)
+		{
+			EnemySpawnData midBossData = wave.enemies[0];
+
+			if (midBossData.count > 0 && enemyPrefabDict.TryGetValue(midBossData.prefabName, out GameObject bossPrefab))
+			{
+				Enemy bossComp = bossPrefab.GetComponentInChildren<Enemy>();
+				if (bossComp != null && bossComp.enemyData != null && enemySpawnPoints.Count > 0)
+				{
+					int index = Random.Range(0, enemySpawnPoints.Count);
+					Transform spawnPoint = enemySpawnPoints[index];
+					enemySpawnPoints.RemoveAt(index);
+
+					// 중간보스 생성
+					var boss = Instantiate(bossPrefab, spawnPoint.position, Quaternion.identity);
+					usedCoinTotal += bossComp.enemyData.Coin;
+
+					// 색깔 넣기
+					SpriteRenderer enemyColor = boss.GetComponentInChildren<SpriteRenderer>();
+
+					if (enemyColor != null)
+					{
+						// 빨강으로
+						enemyColor.color = new Color(1f, 0f, 0f);
+					}
+
+					// 해당 몬스터 수량 1 감소
+					midBossData.count--;
+				}
+			}
+		}
+
+
+		// 2. 일반 적 스폰
 		foreach (var spawn in wave.enemies)
 		{
+			if (spawn.count <= 0) continue;
 			if (!enemyPrefabDict.TryGetValue(spawn.prefabName, out GameObject prefab)) continue;
 
 			Enemy enemyComp = prefab.GetComponentInChildren<Enemy>();
@@ -79,7 +115,8 @@ public class SpawnManager : MonoBehaviour
 			}
 		}
 
-		// 아이템 스폰
+
+		// 3. 아이템 스폰 (기존 로직 그대로)
 		int coinRemain = totalValPoint - usedCoinTotal;
 
 		List<ItemData> validItems = item_date.Where(i => i != null).ToList();
@@ -106,5 +143,6 @@ public class SpawnManager : MonoBehaviour
 			coinRemain -= randomItem.ValPoint;
 		}
 	}
+
 }
 
