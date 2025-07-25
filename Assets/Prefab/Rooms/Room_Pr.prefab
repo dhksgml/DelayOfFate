@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4707302419557312770}
   - component: {fileID: 7065677994999204319}
   - component: {fileID: 5527380200257563260}
+  - component: {fileID: 1179224993230781712}
   m_Layer: 0
   m_Name: Room_Pr
   m_TagString: Untagged
@@ -74,6 +75,7 @@ MonoBehaviour:
   Place_Resurrection: {fileID: 6373634918162350719, guid: 5e2095dff9d456a43ab46a2190b13978, type: 3}
   Place_Sale: {fileID: 1044354756543004560, guid: 2dc94e4bb87af7043a43e1b85daa30d9, type: 3}
   Place_Escape: {fileID: 6146136370363173489, guid: f67d7223472b9bd43b099ff957901841, type: 3}
+  randomPlace: []
 --- !u!114 &7065677994999204319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,7 +90,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 3039830139207019956, guid: 9fe4e69a5ff9a7047b72360722901466, type: 3}
-  - {fileID: 4761938672998679258, guid: 65e021d223a8ef448b21b8aeec0568f1, type: 3}
+  - {fileID: 1930194308981125956, guid: be3f713959292a749bc0db533d714c03, type: 3}
   - {fileID: 85314243712649985, guid: bb2f424bdfe2bea40bb9a84119b74bca, type: 3}
   - {fileID: 5341648827927804214, guid: 5f574d2733588d14cb13d1408db7bb3b, type: 3}
   - {fileID: 4938018955128738630, guid: ff1860d460efcb44aab43ca99ce98552, type: 3}
@@ -104,8 +106,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ee6f57ace47e05d44a4b7e28ac4c7351, type: 2}
   - {fileID: 11400000, guid: 6d2be83f5ef249d4ea2882c4ce2d12ca, type: 2}
   - {fileID: 11400000, guid: 533d1802ff0ee9546ac9c8e87b4cc9ef, type: 2}
-  totalD_Point: 100
-  totalValPoint: 500
+  spawnPlan: []
+  totalValPoint: 1500
 --- !u!114 &5527380200257563260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,3 +125,20 @@ MonoBehaviour:
   resurrection_pos: {x: 0, y: 0}
   sale: 0
   sale_pos: {x: 0, y: 0}
+--- !u!114 &1179224993230781712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467880456937811478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83043370bdd12db469d18fb73df3259e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: {fileID: 0}
+  roomTransform: {fileID: 4707302419557312770}
+  reaper: {fileID: 6662224187615437836, guid: 0917c3b3751b69049966188e4f5ed7ac, type: 3}
+  isSpawn: 0
+  spawnTime: 18

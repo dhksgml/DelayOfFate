@@ -43,7 +43,6 @@ public class GameManager : MonoBehaviour
         {
             initialized = true;
         }
-        
     }
     private void Update()
     {
@@ -129,7 +128,39 @@ public class GameManager : MonoBehaviour
                 SlotsData[i] = null;
         }
     }
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
 
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Bgm_on();
+    }
+    public void Bgm_on()
+    {
+        if (SceneManager.GetActiveScene().name == "TitleScene")
+        {
+            if (SoundManager.Instance != null) SoundManager.Instance.PlayBGM(Resources.Load<AudioClip>("BGM/bgm_Main_Menu"));
+        }
+        else if (SceneManager.GetActiveScene().name == "Stage_Scene")
+        {
+            if (SoundManager.Instance != null) SoundManager.Instance.PlayBGM(Resources.Load<AudioClip>("BGM/bgm_Shop"));
+        }
+        else if (SceneManager.GetActiveScene().name == "InGame_Scenes")
+        {
+            if (SoundManager.Instance != null) SoundManager.Instance.PlayBGM(Resources.Load<AudioClip>("BGM/bgm_Search"));
+        }
+        else if (SceneManager.GetActiveScene().name == "Result_Scene")
+        {
+            if (SoundManager.Instance != null) SoundManager.Instance.PlayBGM(Resources.Load<AudioClip>("BGM/bgm_Result"));
+        }
+    }
     public Item[] GetCurrentQuickSlot()
     {
         return currentQuickSlot;

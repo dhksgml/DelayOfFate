@@ -55,7 +55,6 @@ public class Shop : MonoBehaviour
         allSoulIds.Add("Soul_Add_6_3"); // allowed; only 6_1 is excluded
 
         RerollSouls(); // run before Start
-        SoundManager.Instance.PlayBGM(Resources.Load<AudioClip>("BGM/bgm_Shop"));
     }
 
 

@@ -33,7 +33,7 @@ public class RoomRandomPlacement : MonoBehaviour
         placeManager = FindObjectOfType<PlaceManager>();
         Manager_Spawn = GetComponent<SpawnManager>();
         GenerateRooms();
-        Manager_Spawn.SpawnAll();
+        Manager_Spawn.SpawnWave(Random.Range(0, Manager_Spawn.waveList.Length));
         MovePlayerToRandomRoom(); // Ãß°¡
     }
 
