@@ -122,6 +122,8 @@ public abstract class Enemy     : MonoBehaviour
         // 중간 보스
         else if (enemyMobType == EnemyMobType.MiddleBoss)
         {
+            Debug.Log("중간보스 스폰 : " + gameObject);
+
             // 중간 보스는 2배
             //체력도 랜덤 값에서 - 랜덤값 + 랜덤값에서 나온 값으로 할당해줌
             enemyHp = Random.Range((enemyData.Hp - enemyData.HpDeviation) * 2,

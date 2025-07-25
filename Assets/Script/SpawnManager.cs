@@ -59,65 +59,85 @@ public class SpawnManager : MonoBehaviour
 		WaveData wave = waveList[waveIndex];
 		int usedCoinTotal = 0;
 
-		// 중간보스 처리
-		if (wave.hasMidBoss && wave.enemies.Count > 0)
-		{
-			EnemySpawnData midBossData = wave.enemies[0];
+        // 2. 일반 적 스폰
+        foreach (var spawn in wave.enemies)
+        {
+            if (spawn.count <= 0) continue;
+            if (!enemyPrefabDict.TryGetValue(spawn.prefabName, out GameObject prefab)) continue;
 
-			if (midBossData.count > 0 && enemyPrefabDict.TryGetValue(midBossData.prefabName, out GameObject bossPrefab))
-			{
-				Enemy bossComp = bossPrefab.GetComponentInChildren<Enemy>();
-				if (bossComp != null && bossComp.enemyData != null && enemySpawnPoints.Count > 0)
-				{
-					int index = Random.Range(0, enemySpawnPoints.Count);
-					Transform spawnPoint = enemySpawnPoints[index];
-					enemySpawnPoints.RemoveAt(index);
+            for (int i = 0; i < spawn.count; i++)
+            {
+                if (enemySpawnPoints.Count == 0) break;
 
-					// 중간보스 생성
-					var boss = Instantiate(bossPrefab, spawnPoint.position, Quaternion.identity);
-					usedCoinTotal += bossComp.enemyData.Coin;
+                int index = Random.Range(0, enemySpawnPoints.Count);
+                Transform spawnPoint = enemySpawnPoints[index];
+                enemySpawnPoints.RemoveAt(index);
 
-					// 색깔 넣기
-					SpriteRenderer enemyColor = boss.GetComponentInChildren<SpriteRenderer>();
+                // 개별 인스턴스 생성
+                GameObject enemyObj = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
 
-					if (enemyColor != null)
-					{
-						// 빨강으로
-						enemyColor.color = new Color(1f, 0f, 0f);
-					}
+                // 컴포넌트 추출
+                Enemy enemyScript = enemyObj.GetComponentInChildren<Enemy>();
+                if (enemyScript == null || enemyScript.enemyData == null) continue;
 
-					// 해당 몬스터 수량 1 감소
-					midBossData.count--;
-				}
-			}
-		}
+                // 반드시 Normal로 설정
+                enemyScript.enemyMobType = EnemyMobType.Normal;
 
+                // 개별 초기화
+                enemyScript.EnemyInt();
 
-		// 2. 일반 적 스폰
-		foreach (var spawn in wave.enemies)
-		{
-			if (spawn.count <= 0) continue;
-			if (!enemyPrefabDict.TryGetValue(spawn.prefabName, out GameObject prefab)) continue;
-
-			Enemy enemyComp = prefab.GetComponentInChildren<Enemy>();
-			if (enemyComp == null || enemyComp.enemyData == null) continue;
-
-			for (int i = 0; i < spawn.count; i++)
-			{
-				if (enemySpawnPoints.Count == 0) break;
-
-				int index = Random.Range(0, enemySpawnPoints.Count);
-				Transform spawnPoint = enemySpawnPoints[index];
-				enemySpawnPoints.RemoveAt(index);
-
-				Instantiate(prefab, spawnPoint.position, Quaternion.identity);
-				usedCoinTotal += enemyComp.enemyData.Coin;
-			}
-		}
+                // 코인 누적
+                usedCoinTotal += enemyScript.enemyData.Coin;
+            }
+        }
 
 
-		// 3. 아이템 스폰 (기존 로직 그대로)
-		int coinRemain = totalValPoint - usedCoinTotal;
+        // 중간보스 처리
+        if (wave.hasMidBoss && wave.middleBoss.Count > 0)
+        {
+            EnemySpawnData midBossData = wave.middleBoss[0];
+
+            if (midBossData.count > 0 && enemyPrefabDict.TryGetValue(midBossData.prefabName, out GameObject bossPrefab))
+            {
+                if (enemySpawnPoints.Count > 0)
+                {
+                    int index = Random.Range(0, enemySpawnPoints.Count);
+                    Transform spawnPoint = enemySpawnPoints[index];
+                    enemySpawnPoints.RemoveAt(index);
+
+                    // 중간보스 인스턴스 생성
+                    GameObject boss = Instantiate(bossPrefab, spawnPoint.position, Quaternion.identity);
+
+                    // 인스턴스에서 Enemy 컴포넌트 추출
+                    Enemy bossComp = boss.GetComponentInChildren<Enemy>();
+
+                    if (bossComp != null && bossComp.enemyData != null)
+                    {
+                        // mobType 설정
+                        bossComp.enemyMobType = EnemyMobType.MiddleBoss;
+
+                        // 초기화
+                        bossComp.EnemyInt();
+
+                        // 코인 사용량 누적
+                        usedCoinTotal += bossComp.enemyData.Coin;
+
+                        // 색상 변경 (빨강)
+                        if (bossComp.sp != null)
+                        {
+                            bossComp.sp.color = new Color(1f, 0f, 0f);
+                        }
+
+                        // 수량 1 감소
+                        midBossData.count--;
+                    }
+                }
+            }
+        }
+
+
+        // 3. 아이템 스폰 (기존 로직 그대로)
+        int coinRemain = totalValPoint - usedCoinTotal;
 
 		List<ItemData> validItems = item_date.Where(i => i != null).ToList();
 		int minItemCoin = validItems.Min(i => i.ValPoint);
