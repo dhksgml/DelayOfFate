@@ -6,7 +6,7 @@ public class SpawnManager : MonoBehaviour
 	public GameObject[] enemyPrefabs;
 	public GameObject itemPrefab;
 	public ItemData[] item_date;
-	public WaveData[] waveList; // ¿þÀÌºêº° ±¸¼º
+	public WaveData[] waveList; // ï¿½ï¿½ï¿½Ìºêº° ï¿½ï¿½ï¿½ï¿½
 	public int totalValPoint;
 
 	private List<Transform> enemySpawnPoints = new List<Transform>();
@@ -16,7 +16,7 @@ public class SpawnManager : MonoBehaviour
 
 	void Awake()
 	{
-		// ÇÁ¸®ÆÕ ÀÌ¸§ ¡æ ÇÁ¸®ÆÕ °´Ã¼ ¸ÅÇÎ
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 		foreach (GameObject prefab in enemyPrefabs)
 		{
 			if (prefab != null && !enemyPrefabDict.ContainsKey(prefab.name))
@@ -55,69 +55,89 @@ public class SpawnManager : MonoBehaviour
 			}
 		}
 
-		// ½ºÆù ½ÃÀÛ
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		WaveData wave = waveList[waveIndex];
 		int usedCoinTotal = 0;
 
-		// Áß°£º¸½º Ã³¸®
-		if (wave.hasMidBoss && wave.enemies.Count > 0)
-		{
-			EnemySpawnData midBossData = wave.enemies[0];
+        // 2. ï¿½Ï¹ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        foreach (var spawn in wave.enemies)
+        {
+            if (spawn.count <= 0) continue;
+            if (!enemyPrefabDict.TryGetValue(spawn.prefabName, out GameObject prefab)) continue;
 
-			if (midBossData.count > 0 && enemyPrefabDict.TryGetValue(midBossData.prefabName, out GameObject bossPrefab))
-			{
-				Enemy bossComp = bossPrefab.GetComponentInChildren<Enemy>();
-				if (bossComp != null && bossComp.enemyData != null && enemySpawnPoints.Count > 0)
-				{
-					int index = Random.Range(0, enemySpawnPoints.Count);
-					Transform spawnPoint = enemySpawnPoints[index];
-					enemySpawnPoints.RemoveAt(index);
+            for (int i = 0; i < spawn.count; i++)
+            {
+                if (enemySpawnPoints.Count == 0) break;
 
-					// Áß°£º¸½º »ý¼º
-					var boss = Instantiate(bossPrefab, spawnPoint.position, Quaternion.identity);
-					usedCoinTotal += bossComp.enemyData.Coin;
+                int index = Random.Range(0, enemySpawnPoints.Count);
+                Transform spawnPoint = enemySpawnPoints[index];
+                enemySpawnPoints.RemoveAt(index);
 
-					// »ö±ò ³Ö±â
-					SpriteRenderer enemyColor = boss.GetComponentInChildren<SpriteRenderer>();
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                GameObject enemyObj = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
 
-					if (enemyColor != null)
-					{
-						// »¡°­À¸·Î
-						enemyColor.color = new Color(1f, 0f, 0f);
-					}
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+                Enemy enemyScript = enemyObj.GetComponentInChildren<Enemy>();
+                if (enemyScript == null || enemyScript.enemyData == null) continue;
 
-					// ÇØ´ç ¸ó½ºÅÍ ¼ö·® 1 °¨¼Ò
-					midBossData.count--;
-				}
-			}
-		}
+                // ï¿½Ýµï¿½ï¿½ Normalï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                enemyScript.enemyMobType = EnemyMobType.Normal;
 
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
+                enemyScript.EnemyInt();
 
-		// 2. ÀÏ¹Ý Àû ½ºÆù
-		foreach (var spawn in wave.enemies)
-		{
-			if (spawn.count <= 0) continue;
-			if (!enemyPrefabDict.TryGetValue(spawn.prefabName, out GameObject prefab)) continue;
-
-			Enemy enemyComp = prefab.GetComponentInChildren<Enemy>();
-			if (enemyComp == null || enemyComp.enemyData == null) continue;
-
-			for (int i = 0; i < spawn.count; i++)
-			{
-				if (enemySpawnPoints.Count == 0) break;
-
-				int index = Random.Range(0, enemySpawnPoints.Count);
-				Transform spawnPoint = enemySpawnPoints[index];
-				enemySpawnPoints.RemoveAt(index);
-
-				Instantiate(prefab, spawnPoint.position, Quaternion.identity);
-				usedCoinTotal += enemyComp.enemyData.Coin;
-			}
-		}
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                usedCoinTotal += enemyScript.enemyData.Coin;
+            }
+        }
 
 
-		// 3. ¾ÆÀÌÅÛ ½ºÆù (±âÁ¸ ·ÎÁ÷ ±×´ë·Î)
-		int coinRemain = totalValPoint - usedCoinTotal;
+        // ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
+        if (wave.hasMidBoss && wave.middleBoss.Count > 0)
+        {
+            EnemySpawnData midBossData = wave.middleBoss[0];
+
+            if (midBossData.count > 0 && enemyPrefabDict.TryGetValue(midBossData.prefabName, out GameObject bossPrefab))
+            {
+                if (enemySpawnPoints.Count > 0)
+                {
+                    int index = Random.Range(0, enemySpawnPoints.Count);
+                    Transform spawnPoint = enemySpawnPoints[index];
+                    enemySpawnPoints.RemoveAt(index);
+
+                    // ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                    GameObject boss = Instantiate(bossPrefab, spawnPoint.position, Quaternion.identity);
+
+                    // ï¿½Î½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½ Enemy ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+                    Enemy bossComp = boss.GetComponentInChildren<Enemy>();
+
+                    if (bossComp != null && bossComp.enemyData != null)
+                    {
+                        // mobType ï¿½ï¿½ï¿½ï¿½
+                        bossComp.enemyMobType = EnemyMobType.MiddleBoss;
+
+                        // ï¿½Ê±ï¿½È­
+                        bossComp.EnemyInt();
+
+                        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ë·® ï¿½ï¿½ï¿½ï¿½
+                        usedCoinTotal += bossComp.enemyData.Coin;
+
+                        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½)
+                        if (bossComp.sp != null)
+                        {
+                            bossComp.sp.color = new Color(1f, 0f, 0f);
+                        }
+
+                        // ï¿½ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½
+                        midBossData.count--;
+                    }
+                }
+            }
+        }
+
+
+        // 3. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×´ï¿½ï¿½)
+        int coinRemain = totalValPoint - usedCoinTotal;
 
 		List<ItemData> validItems = item_date.Where(i => i != null).ToList();
 		int minItemCoin = validItems.Min(i => i.ValPoint);

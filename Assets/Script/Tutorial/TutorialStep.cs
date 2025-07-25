@@ -10,7 +10,8 @@ public enum TutorialStepType
     SpawnGameObject,
     MoveToPosition,
     WaitForInput,
-    SpawnItemObject
+    SpawnItemObject,
+    HightlightUI
 }
 
 [CreateAssetMenu(fileName = "TutorialStep", menuName ="Tutorial/Step/TutorialStep")]
