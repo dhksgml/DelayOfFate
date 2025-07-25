@@ -1,187 +1,110 @@
 using UnityEngine;
 using System.Collections.Generic;
-
+using System.Linq;
 public class SpawnManager : MonoBehaviour
 {
-    [Header("Spawn Settings")]
-    public GameObject[] enemyPrefabs; // 적 프리팹
-    public GameObject itemPrefab;     // 공통 아이템 프리팹
-    public ItemData[] item_date;          // ScriptableObject 기반 아이템 데이터 배열
+	public GameObject[] enemyPrefabs;
+	public GameObject itemPrefab;
+	public ItemData[] item_date;
+	public WaveData[] waveList; // 웨이브별 구성
+	public int totalValPoint;
 
-    public int totalD_Point;          // 위험 점수 총합
-    public int totalValPoint;         // 코인 점수 총합
+	private List<Transform> enemySpawnPoints = new List<Transform>();
+	private List<Transform> itemSpawnPoints = new List<Transform>();
 
-    private List<Transform> enemySpawnPoints = new List<Transform>();
-    private List<Transform> itemSpawnPoints = new List<Transform>();
+	private Dictionary<string, GameObject> enemyPrefabDict = new Dictionary<string, GameObject>();
 
-    public void SpawnAll()
-    {
-        enemySpawnPoints.Clear();
-        itemSpawnPoints.Clear();
+	void Awake()
+	{
+		// 프리팹 이름 → 프리팹 객체 매핑
+		foreach (GameObject prefab in enemyPrefabs)
+		{
+			if (prefab != null && !enemyPrefabDict.ContainsKey(prefab.name))
+			{
+				enemyPrefabDict.Add(prefab.name, prefab);
+			}
+		}
+	}
 
-        // 1. 스폰 위치 수집
-        GameObject[] enemyPoints = GameObject.FindGameObjectsWithTag("EnemyPoint");
-        foreach (GameObject obj in enemyPoints)
-        {
-            if (obj.name.Contains("EnemyPoint"))
-            {
-                enemySpawnPoints.Add(obj.transform);
+	public void SpawnWave(int waveIndex)
+	{
+		if (waveIndex < 0 || waveIndex >= waveList.Length)
+		{
+			Debug.LogWarning("Wave index out of range.");
+			return;
+		}
 
-                Create_Disable disabler = obj.GetComponent<Create_Disable>();
-                if (disabler != null)
-                    disabler.Disable();
-                else
-                    Debug.LogWarning($"{obj.name}에 Create_Disable 컴포넌트가 없습니다.");
-            }
-        }
+		enemySpawnPoints.Clear();
+		itemSpawnPoints.Clear();
 
-        GameObject[] itemPoints = GameObject.FindGameObjectsWithTag("ItemPoint");
-        foreach (GameObject obj in itemPoints)
-        {
-            if (obj.name.Contains("ItemPoint"))
-            {
-                itemSpawnPoints.Add(obj.transform);
+		foreach (GameObject obj in GameObject.FindGameObjectsWithTag("EnemyPoint"))
+		{
+			if (obj.name.Contains("EnemyPoint"))
+			{
+				enemySpawnPoints.Add(obj.transform);
+				obj.GetComponent<Create_Disable>()?.Disable();
+			}
+		}
 
-                Create_Disable disabler = obj.GetComponent<Create_Disable>();
-                if (disabler != null)
-                    disabler.Disable();
-                else
-                    Debug.LogWarning($"{obj.name}에 Create_Disable 컴포넌트가 없습니다.");
-            }
-        }
+		foreach (GameObject obj in GameObject.FindGameObjectsWithTag("ItemPoint"))
+		{
+			if (obj.name.Contains("ItemPoint"))
+			{
+				itemSpawnPoints.Add(obj.transform);
+				obj.GetComponent<Create_Disable>()?.Disable();
+			}
+		}
 
-        // 2. 적과 아이템 최소 점수 계산
-        int minEnemyDanger = int.MaxValue;
-        int minEnemyCoin = int.MaxValue;
-        int minItemCoin = int.MaxValue;
+		// 스폰 시작
+		WaveData wave = waveList[waveIndex];
+		int usedCoinTotal = 0;
 
-        List<GameObject> validEnemies = new List<GameObject>();
-        List<ItemData> validItems = new List<ItemData>();
+		foreach (var spawn in wave.enemies)
+		{
+			if (!enemyPrefabDict.TryGetValue(spawn.prefabName, out GameObject prefab)) continue;
 
-        foreach (GameObject prefab in enemyPrefabs)
-        {
-            if (prefab == null) continue;
+			Enemy enemyComp = prefab.GetComponentInChildren<Enemy>();
+			if (enemyComp == null || enemyComp.enemyData == null) continue;
 
-            Enemy enemy = prefab.GetComponentInChildren<Enemy>();
-            if (enemy != null && enemy.enemyData != null)
-            {
-                validEnemies.Add(prefab);
+			for (int i = 0; i < spawn.count; i++)
+			{
+				if (enemySpawnPoints.Count == 0) break;
 
-                if (enemy.enemyData.D_Point < minEnemyDanger)
-                    minEnemyDanger = enemy.enemyData.D_Point;
+				int index = Random.Range(0, enemySpawnPoints.Count);
+				Transform spawnPoint = enemySpawnPoints[index];
+				enemySpawnPoints.RemoveAt(index);
 
-                if (enemy.enemyData.Coin < minEnemyCoin)
-                    minEnemyCoin = enemy.enemyData.Coin;
-            }
-        }
+				Instantiate(prefab, spawnPoint.position, Quaternion.identity);
+				usedCoinTotal += enemyComp.enemyData.Coin;
+			}
+		}
 
+		// 아이템 스폰
+		int coinRemain = totalValPoint - usedCoinTotal;
 
-        foreach (ItemData item in item_date)
-        {
-            if (item != null)
-            {
-                validItems.Add(item);
-                if (item.ValPoint < minItemCoin)
-                    minItemCoin = item.ValPoint;
-            }
-        }
+		List<ItemData> validItems = item_date.Where(i => i != null).ToList();
+		int minItemCoin = validItems.Min(i => i.ValPoint);
 
-        // 3. 적 스폰
-        int dangerRemain = totalD_Point;
-        int coinRemain = totalValPoint;
+		while (coinRemain >= minItemCoin && itemSpawnPoints.Count > 0)
+		{
+			List<ItemData> spawnables = validItems.FindAll(i => i.ValPoint <= coinRemain);
+			if (spawnables.Count == 0) break;
 
-        // 임시로 음 양 한마리만 스폰되게 임시코드
-        bool yangSpawned = false;
+			ItemData randomItem = spawnables[Random.Range(0, spawnables.Count)];
+			int index = Random.Range(0, itemSpawnPoints.Count);
+			Transform spawnPoint = itemSpawnPoints[index];
+			itemSpawnPoints.RemoveAt(index);
 
-        while (dangerRemain >= minEnemyDanger && coinRemain >= minEnemyCoin && enemySpawnPoints.Count > 0)
-        {
-            List<GameObject> spawnables = validEnemies.FindAll(e =>
-            {
-                Enemy enemy = e.GetComponentInChildren<Enemy>();
+			GameObject itemObj = Instantiate(itemPrefab, spawnPoint.position, Quaternion.identity);
+			ItemObject itemObjComp = itemObj.GetComponentInChildren<ItemObject>();
+			if (itemObjComp != null)
+			{
+				itemObjComp.itemDataTemplate = randomItem;
+				itemObjComp.itemData = new Item(randomItem);
+			}
 
-                // "Yang" 프리팹은 이미 소환됐다면 제외 임시코드
-                if (!yangSpawned && e.name == "Yang") return true;
-                if (yangSpawned && e.name == "Yang") return false;
-
-                return enemy != null &&
-                       enemy.enemyData != null &&
-                       enemy.enemyData.D_Point <= dangerRemain &&
-                       enemy.enemyData.Coin <= coinRemain;
-            });
-
-            if (spawnables.Count == 0) break;
-
-            GameObject randomEnemy = spawnables[Random.Range(0, spawnables.Count)];
-            Enemy enemyComponent = randomEnemy.GetComponentInChildren<Enemy>();
-            Enemy_data edata = enemyComponent.enemyData;
-
-            int index = Random.Range(0, enemySpawnPoints.Count);
-            Transform spawnPoint = enemySpawnPoints[index];
-            enemySpawnPoints.RemoveAt(index);
-
-            Instantiate(randomEnemy, spawnPoint.position, Quaternion.identity);
-            dangerRemain -= edata.D_Point;
-            coinRemain -= edata.Coin;
-
-            // yang 프리팹이면 플래그 켜기 임시코드
-            if (randomEnemy.name == "Yang")
-            {
-                yangSpawned = true;
-                Debug.Log("yang 프리팹이 한 번 소환되었습니다.");
-            }
-        }
-
-        // 중간보스 소환
-        if (validEnemies.Count > 0 && enemySpawnPoints.Count > 0)
-        {
-            GameObject extraEnemy = validEnemies[Random.Range(0, validEnemies.Count)];
-            int index = Random.Range(0, enemySpawnPoints.Count);
-            Transform spawnPoint = enemySpawnPoints[index];
-            enemySpawnPoints.RemoveAt(index);
-
-            GameObject enemy  = Instantiate(extraEnemy, spawnPoint.position, Quaternion.identity);
-            Enemy enemyScript = enemy.GetComponentInChildren<Enemy>();
-            enemyScript.enemyMobType = EnemyMobType.MiddleBoss;
-
-            // 색깔 넣기
-            SpriteRenderer enemyColor = enemy.GetComponentInChildren<SpriteRenderer>();
-
-            if (enemyColor != null)
-            {
-                // 빨강으로
-                enemyColor.color = new Color(1f, 0f, 0f);
-            }
-
-
-            Debug.Log("추가 적 한 명을 강제 소환했습니다." + extraEnemy);
-        }
-
-
-        // 4. 아이템 스폰
-        while (coinRemain >= minItemCoin && itemSpawnPoints.Count > 0)
-        {
-            List<ItemData> spawnables = validItems.FindAll(i => i.ValPoint <= coinRemain);
-            if (spawnables.Count == 0) break;
-
-            ItemData randomItemData = spawnables[Random.Range(0, spawnables.Count)];
-
-            int index = Random.Range(0, itemSpawnPoints.Count);
-            Transform spawnPoint = itemSpawnPoints[index];
-            itemSpawnPoints.RemoveAt(index);
-
-            GameObject itemObj = Instantiate(itemPrefab, spawnPoint.position, Quaternion.identity);
-            ItemObject itemObjComp = itemObj.GetComponentInChildren<ItemObject>();
-            if (itemObjComp != null)
-            {
-                itemObjComp.itemDataTemplate = randomItemData;
-                itemObjComp.itemData = new Item(randomItemData);
-            }
-            else
-            {
-                Debug.LogWarning($"{itemObj.name}에 ItemObject 컴포넌트가 없습니다.");
-            }
-
-            coinRemain -= randomItemData.ValPoint;
-        }
-    }
+			coinRemain -= randomItem.ValPoint;
+		}
+	}
 }
+
