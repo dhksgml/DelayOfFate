@@ -131,6 +131,7 @@ public class PlayerController : MonoBehaviour
                 currentSp = playerData.maxSp;
 
                 flashLightLevel = playerData.flashLightLevel;
+                UpdateFlashLight();
             }
         }
         else
@@ -149,8 +150,6 @@ public class PlayerController : MonoBehaviour
             DamagedHP(25f);
         if (Input.GetKeyDown(KeyCode.Z))//실험 코드
             DamagedMP(25f);
-        if (Input.GetKeyDown(KeyCode.T))
-            UpgradeFlashLight();
 
         if (isFreeze)
         {
@@ -351,11 +350,8 @@ public class PlayerController : MonoBehaviour
         };
     }
 
-    private void UpgradeFlashLight()
+    private void UpdateFlashLight()
     {
-        if (flashLightLevel < 3)
-            flashLightLevel += 1;
-
         Light2D lightCircleLight = lightCircleObject.GetComponent<Light2D>();
         Light2D flashLight = flashLightObject.GetComponent<Light2D>();
 

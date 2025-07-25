@@ -200,7 +200,7 @@ public class Shop : MonoBehaviour
         {
             GameManager.Instance.Sub_Gold(price);
             lanternBuyCount++;
-            Mathf.Clamp(GameManager.Instance.playerData.flashLightLevel + 1, 1, 3);
+            GameManager.Instance.playerData.flashLightLevel = Mathf.Clamp(GameManager.Instance.playerData.flashLightLevel + 1, 1, 3);
 
             // 다음 단계 가격 표시 또는 "구매 완료"
             if (lanternBuyCount == 2)
