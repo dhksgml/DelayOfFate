@@ -60,7 +60,8 @@ public class Place : MonoBehaviour
                         EscapeScene();
                         break;
                     case Place_enum.sale:
-                        if (sale_cu_Time >= 0) sale_zone_obj.SellItems(); // 판매 쿨타임이 되야 판매 가능
+                        if (sale_cu_Time <= 0)  // 쿨타임이 0 이하일 때만 판매 가능
+                            sale_zone_obj.SellItems();
                         break;
                 }
             }
