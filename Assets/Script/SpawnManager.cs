@@ -6,7 +6,7 @@ public class SpawnManager : MonoBehaviour
 	public GameObject[] enemyPrefabs;
 	public GameObject itemPrefab;
 	public ItemData[] item_date;
-	public WaveData[] waveList; // ¿þÀÌºêº° ±¸¼º
+	public WaveData[] waveList; // ï¿½ï¿½ï¿½Ìºêº° ï¿½ï¿½ï¿½ï¿½
 	public int totalValPoint;
 
 	private List<Transform> enemySpawnPoints = new List<Transform>();
@@ -16,7 +16,7 @@ public class SpawnManager : MonoBehaviour
 
 	void Awake()
 	{
-		// ÇÁ¸®ÆÕ ÀÌ¸§ ¡æ ÇÁ¸®ÆÕ °´Ã¼ ¸ÅÇÎ
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 		foreach (GameObject prefab in enemyPrefabs)
 		{
 			if (prefab != null && !enemyPrefabDict.ContainsKey(prefab.name))
@@ -55,11 +55,11 @@ public class SpawnManager : MonoBehaviour
 			}
 		}
 
-		// ½ºÆù ½ÃÀÛ
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		WaveData wave = waveList[waveIndex];
 		int usedCoinTotal = 0;
 
-        // 2. ÀÏ¹Ý Àû ½ºÆù
+        // 2. ï¿½Ï¹ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         foreach (var spawn in wave.enemies)
         {
             if (spawn.count <= 0) continue;
@@ -73,26 +73,26 @@ public class SpawnManager : MonoBehaviour
                 Transform spawnPoint = enemySpawnPoints[index];
                 enemySpawnPoints.RemoveAt(index);
 
-                // °³º° ÀÎ½ºÅÏ½º »ý¼º
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 GameObject enemyObj = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
 
-                // ÄÄÆ÷³ÍÆ® ÃßÃâ
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
                 Enemy enemyScript = enemyObj.GetComponentInChildren<Enemy>();
                 if (enemyScript == null || enemyScript.enemyData == null) continue;
 
-                // ¹Ýµå½Ã Normal·Î ¼³Á¤
+                // ï¿½Ýµï¿½ï¿½ Normalï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 enemyScript.enemyMobType = EnemyMobType.Normal;
 
-                // °³º° ÃÊ±âÈ­
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
                 enemyScript.EnemyInt();
 
-                // ÄÚÀÎ ´©Àû
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 usedCoinTotal += enemyScript.enemyData.Coin;
             }
         }
 
 
-        // Áß°£º¸½º Ã³¸®
+        // ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
         if (wave.hasMidBoss && wave.middleBoss.Count > 0)
         {
             EnemySpawnData midBossData = wave.middleBoss[0];
@@ -105,30 +105,30 @@ public class SpawnManager : MonoBehaviour
                     Transform spawnPoint = enemySpawnPoints[index];
                     enemySpawnPoints.RemoveAt(index);
 
-                    // Áß°£º¸½º ÀÎ½ºÅÏ½º »ý¼º
+                    // ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½
                     GameObject boss = Instantiate(bossPrefab, spawnPoint.position, Quaternion.identity);
 
-                    // ÀÎ½ºÅÏ½º¿¡¼­ Enemy ÄÄÆ÷³ÍÆ® ÃßÃâ
+                    // ï¿½Î½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½ Enemy ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
                     Enemy bossComp = boss.GetComponentInChildren<Enemy>();
 
                     if (bossComp != null && bossComp.enemyData != null)
                     {
-                        // mobType ¼³Á¤
+                        // mobType ï¿½ï¿½ï¿½ï¿½
                         bossComp.enemyMobType = EnemyMobType.MiddleBoss;
 
-                        // ÃÊ±âÈ­
+                        // ï¿½Ê±ï¿½È­
                         bossComp.EnemyInt();
 
-                        // ÄÚÀÎ »ç¿ë·® ´©Àû
+                        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ë·® ï¿½ï¿½ï¿½ï¿½
                         usedCoinTotal += bossComp.enemyData.Coin;
 
-                        // »ö»ó º¯°æ (»¡°­)
+                        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½)
                         if (bossComp.sp != null)
                         {
                             bossComp.sp.color = new Color(1f, 0f, 0f);
                         }
 
-                        // ¼ö·® 1 °¨¼Ò
+                        // ï¿½ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½
                         midBossData.count--;
                     }
                 }
@@ -136,7 +136,7 @@ public class SpawnManager : MonoBehaviour
         }
 
 
-        // 3. ¾ÆÀÌÅÛ ½ºÆù (±âÁ¸ ·ÎÁ÷ ±×´ë·Î)
+        // 3. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×´ï¿½ï¿½)
         int coinRemain = totalValPoint - usedCoinTotal;
 
 		List<ItemData> validItems = item_date.Where(i => i != null).ToList();

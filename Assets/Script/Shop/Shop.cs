@@ -316,16 +316,32 @@ public class Shop : MonoBehaviour
             soulIcons[slotIndex].sprite = icon;
     }
 
-    public void Soul_c_Gold()//100혼 을 > 50 전으로
+    public void Soul_c_Gold() // 100 혼 → 50 전
     {
-        GameManager.Instance.Sub_Soul(100);
-        GameManager.Instance.Add_Gold(50);
+        if (Soul >= 100f)
+        {
+            GameManager.Instance.Sub_Soul(100);
+            GameManager.Instance.Add_Gold(50);
+        }
+        else
+        {
+            Debug.Log("혼이 부족합니다.");
+        }
     }
-    public void Goul_c_Soul()//100전 을 > 50 혼으로
+
+    public void Goul_c_Soul() // 100 전 → 50 혼
     {
-        GameManager.Instance.Sub_Gold(100);
-        GameManager.Instance.Add_Soul(50);
+        if (Gold >= 100f)
+        {
+            GameManager.Instance.Sub_Gold(100);
+            GameManager.Instance.Add_Soul(50);
+        }
+        else
+        {
+            Debug.Log("전이 부족합니다.");
+        }
     }
+
 
     public void Reroll()
     {
