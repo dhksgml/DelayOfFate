@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 994
   itemName: "\uC758 \uC601\uD63C"
-  InGameSprite: {fileID: 21300000, guid: 284aca34cc3792a40b1bf08d5d14b8bf, type: 3}
-  icon: {fileID: 21300000, guid: 284aca34cc3792a40b1bf08d5d14b8bf, type: 3}
+  InGameSprite: {fileID: 21300000, guid: af2fd8a84812ab94a879a0f9690f9f85, type: 3}
+  icon: {fileID: 21300000, guid: af2fd8a84812ab94a879a0f9690f9f85, type: 3}
+  spendSPAmount: 0
   Coin: 0
   Weight: 21
   ValPoint: 5
@@ -28,4 +29,5 @@ MonoBehaviour:
   Charging: 0
   CoinDeviation: 0
   WeightDeviation: 0
+  CountDeviation: 0
   Drop_item: 0
