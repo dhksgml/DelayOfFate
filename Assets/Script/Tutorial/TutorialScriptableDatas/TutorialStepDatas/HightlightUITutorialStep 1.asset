@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 279043592cd29f54e97b9c5bf02607ad, type: 3}
-  m_Name: TutorialStep 1
+  m_Name: HightlightUITutorialStep 1
   m_EditorClassIdentifier: 
-  stepName: Run
+  stepName: HightlightTimeUI
   messages:
-  - "\uC774\uB3D9 \uC911\uC5D0 Shift\uD0A4 \uB20C\uB7EC \uB2EC\uB824\uBCF4\uC138\uC694."
-  condition: {fileID: 11400000, guid: 6403a047fd03ce54a8cd3add4d0272ac, type: 2}
-  stepType: 3
+  - "\uAC00\uB9CC\uD788 \uC788\uC744 \uACBD\uC6B0, \uD604\uC7AC \uC2DC\uAC04\uC744
+    \uD655\uC778\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+  condition: {fileID: 0}
+  stepType: 5
   spawnPrefab: {fileID: 0}
   moveToPosition: {x: 0, y: 0, z: 0}
   waitTime: 2
