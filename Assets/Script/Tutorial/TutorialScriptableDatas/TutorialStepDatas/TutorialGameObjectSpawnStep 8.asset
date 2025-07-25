@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e628f567a6e62904aba8d4353cd5b38d, type: 3}
+  m_Name: TutorialGameObjectSpawnStep 8
+  m_EditorClassIdentifier: 
+  stepName: IntroducePlace3
+  messages:
+  - "\uB2E4\uC74C\uC740 \uD0C8\uCD9C\uC7A5\uC18C\uC5D0 \uB300\uD574\uC11C \uC124\uBA85\uB4DC\uB9AC\uACA0\uC2B5\uB2C8\uB2E4."
+  - "\uB9F5\uC5D0 \uC228\uACA8\uC9C4 \uD0C8\uCD9C\uC7A5\uC18C\uB97C \uCC3E\uC544\uC11C,
+    \uD574\uB2F9 \uC77C\uCC28\uB97C \uC885\uB8CC\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+  condition: {fileID: 0}
+  stepType: 1
+  spawnPrefab: {fileID: 6146136370363173489, guid: df340d70f04c63b44948f2cb12e360be, type: 3}
+  moveToPosition: {x: 0, y: 0, z: 0}
+  waitTime: 3

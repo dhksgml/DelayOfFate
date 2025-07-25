@@ -140,6 +140,7 @@ public class Player_Item_Use : MonoBehaviour
         {
             playercontroller.SpendSp(selectedItem.spendSPAmount);
             itemUsageManager.UseItem(selectedItem.itemName);
+            TutorialEvents.OnWeaponUsed?.Invoke(selectedItem);
         }
     }
 
