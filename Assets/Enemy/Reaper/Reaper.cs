@@ -177,13 +177,13 @@ public class Reaper : Enemy
         }
 
         // 마지막 값 고정
-        barColor.a = 1f;
-        textColor.a = 1f;
+        barColor.a = 0.5f;
+        textColor.a = 0.5f;
         barImage.color = barColor;
         summon_Text.color = textColor;
 
         // 3초 대기
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f);
 
         // 1 → 0 : 점점 사라지게
         currentTime = 0f;

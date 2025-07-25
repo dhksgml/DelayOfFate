@@ -24,13 +24,16 @@ public class Result_Text : MonoBehaviour
 
     public void Next_button() // 스테이지 선택 씬 이동
     {
+        GameManager.Instance.Next_data_reset();
         SceneManager.LoadScene("Stage_Scene");
     }
     private void Start()
     {
         getGold = GameManager.Instance.N_Day_Add_Soul;
         time = GameManager.Instance.N_Day_Time;
+        currentGold = GameManager.Instance.N_Day_current_Soul;
         cost = GameManager.Instance.N_Day_Cost;
+        finalGold = GameManager.Instance.Soul;
         day = GameManager.Instance.Day;
     }
     void Update()
