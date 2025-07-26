@@ -20,7 +20,7 @@ public class QuickSlotUI : MonoBehaviour
 
     public TMP_Text timeText; // UI 텍스트 오브젝트
     public int angleUnit = 0;
-
+    private float angleStartTime;
    
     void Start()
     {
@@ -29,12 +29,15 @@ public class QuickSlotUI : MonoBehaviour
         Item_Weight.text = null;
         playerItemUse = FindObjectOfType<Player_Item_Use>();
         playerController = FindObjectOfType<PlayerController>();
+        angleStartTime = Time.time;
+        ResetAngleUnit();
         UpdateUI();
     }
     void Update()
     {
-        float time = Time.time; // 경과 시간 (초)
-        angleUnit = Mathf.FloorToInt(time / 20f); // 20초마다 1각
+        float elapsed = Time.time - angleStartTime;
+        //float time = Time.time; // 경과 시간 (초)
+        angleUnit = Mathf.FloorToInt(elapsed / 20f); // 20초마다 1각
     }
 
     public void DisplayItemInfo(int index, ItemData item)
@@ -177,5 +180,10 @@ public class QuickSlotUI : MonoBehaviour
             Item_Coin.text = null;
             Item_Weight.text = null;
         }
+    }
+
+    public void ResetAngleUnit()
+    {
+        angleStartTime = Time.time;
     }
 }
