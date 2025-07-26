@@ -40,7 +40,10 @@ public class ItemSaleZone : MonoBehaviour
 
             //µ·, ¿µÈ¥ È¹µæ
             GameManager.Instance?.Add_Gold(itemObject.itemData.Coin);
-            GameManager.Instance?.Add_Soul(itemObject.itemData.Coin * 2);
+
+            //¿±Àü ¾Æ´Ò °æ¿ì
+            if(!(itemObject.itemData.id == 3))
+                GameManager.Instance?.Add_Soul(itemObject.itemData.Coin * 2);
 
             Destroy(itemObject.gameObject);
 
