@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class Place : MonoBehaviour
 {
     private PlaceManager placeManager;
-    private ItemSaleZone sale_zone_obj; // ÆÇ¸Å±¸¿ª
+    private ItemSaleZone sale_zone_obj; // ï¿½Ç¸Å±ï¿½ï¿½ï¿½
     private enum Place_enum
     {
         escape,
@@ -16,7 +16,7 @@ public class Place : MonoBehaviour
     [SerializeField] private float requiredTime = 3f;
     [SerializeField] public Image holdGauge;
 
-    [HideInInspector] public float sale_max_Time = 10f; //ÀÓ½Ã ÄðÅ¸ÀÓ
+    [HideInInspector] public float sale_max_Time = 10f; //ï¿½Ó½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½
     [HideInInspector] public float sale_cu_Time = 0f;
 
     [HideInInspector] public float contactTime = 0f;
@@ -28,7 +28,7 @@ public class Place : MonoBehaviour
         placeManager = FindObjectOfType<PlaceManager>();
 
         Transform saleZoneTransform = transform.Find("Sale_zone");
-        if (saleZoneTransform != null) sale_zone_obj = saleZoneTransform.GetComponent<ItemSaleZone>(); // ÆÇ¸Å Àå¼Ò¸¸ º¸À¯ÇÏ°í ÀÖÀ½
+        if (saleZoneTransform != null) sale_zone_obj = saleZoneTransform.GetComponent<ItemSaleZone>(); // ï¿½Ç¸ï¿½ ï¿½ï¿½Ò¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (holdGauge != null)holdGauge.gameObject.SetActive(false);
     }
 
@@ -39,7 +39,7 @@ public class Place : MonoBehaviour
 
         playerInRange = IsPlayerNearby();
 
-        if (playerInRange) // ÇÃ·¹ÀÌ¾î°¡ ÁÖº¯¿¡ ÀÖÀ¸¸é
+        if (playerInRange) // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Öºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         {
             ActivateGauge();
 
@@ -58,7 +58,7 @@ public class Place : MonoBehaviour
                         EscapeScene();
                         break;
                     case Place_enum.sale:
-                        if (sale_cu_Time <= 0)  // ÄðÅ¸ÀÓÀÌ 0 ÀÌÇÏÀÏ ¶§¸¸ ÆÇ¸Å °¡´É
+                        if (sale_cu_Time <= 0)  // ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½
                         {
                             sale_zone_obj.SellItems();
                             sale_cu_Time = requiredTime;
@@ -67,7 +67,7 @@ public class Place : MonoBehaviour
                 }
             }
         }
-        else // ÇÃ·¹ÀÌ¾î°¡ ÁÖº¯¿¡ ¾ø´Ù¸é ±â´É ÀÛµ¿ ÃÊ±âÈ­ ( °ÔÀÌÁö ºñÈ°¼ºÈ­ )
+        else // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Öºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ ï¿½Ûµï¿½ ï¿½Ê±ï¿½È­ ( ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ )
         {
             contactTime = 0f;
             if (holdGauge != null)
@@ -91,17 +91,17 @@ public class Place : MonoBehaviour
     {
         if (holdGauge != null && !holdGauge.gameObject.activeSelf) holdGauge.gameObject.SetActive(true);
     }
-    private void UpdateGaugeFill(float ratio) // °ÔÀÌÁö Ç¥±â·®
+    private void UpdateGaugeFill(float ratio) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½â·®
     {
         if (holdGauge != null) holdGauge.fillAmount = Mathf.Clamp01(ratio);
     }
-    private void RegisterResurrection() //ºÎÈ° µî·Ï ¿Ï·á
+    private void RegisterResurrection() //ï¿½ï¿½È° ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½
     {
         registered = true;
         if (holdGauge != null) holdGauge.gameObject.SetActive(false);
         placeManager.resurrection = true;
     }
-    private void EscapeScene() // Å»Ãâ
+    private void EscapeScene() // Å»ï¿½ï¿½
     {
         registered = true;
         if (holdGauge != null) holdGauge.gameObject.SetActive(false);
