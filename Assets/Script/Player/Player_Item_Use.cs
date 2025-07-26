@@ -87,6 +87,7 @@ public class Player_Item_Use : MonoBehaviour
                     holdTime += Time.deltaTime;
                     if (holdTime >= requiredHoldTime)
                     {
+                        TutorialEvents.OnItemSelled.Invoke(itemObject.itemData);
                         RemoveItem();
                         isHolding = false; // 한 번 실행 후 다시 대기
                         holdTime = 0f;

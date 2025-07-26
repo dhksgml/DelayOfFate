@@ -16,6 +16,12 @@ public class TutorialItemSpawnStep : TutorialStep
 
     public void SpawnTutorialItem()
     {
+        ItemObject itemObject = FindObjectOfType<ItemObject>();
+        if (itemObject != null)
+        {
+            Destroy(itemObject.gameObject);
+        }
+
         GameObject playerController = FindObjectOfType<PlayerController>().gameObject;
         GameObject itemObj = Instantiate(itemPrefab, playerController.transform.position + Vector3.up, Quaternion.identity);
         ItemObject itemObjComp = itemObj.GetComponentInChildren<ItemObject>();
