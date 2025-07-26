@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 
     public PlayerData playerData = new PlayerData();
 
+    public bool isTutorial = true;
+
     //게임 관련 데이터
     public int Day = 1;
     public float Gold = 0;
