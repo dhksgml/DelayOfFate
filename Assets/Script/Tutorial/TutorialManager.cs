@@ -45,6 +45,8 @@ public class TutorialManager : MonoBehaviour
         Debug.Log("Tutorial Á¾·á");
         tutorialText.gameObject.SetActive(false);
         tutorialBackground.SetActive(false);
+        GameManager.Instance.isTutorial = false;
+        GameManager.Instance.LoadScene("Stage_Scene");
     }
 
     private IEnumerator HandleStep(TutorialStep step)
