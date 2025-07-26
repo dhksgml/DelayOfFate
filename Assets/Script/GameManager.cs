@@ -73,6 +73,29 @@ public class GameManager : MonoBehaviour
         }
         N_Day_Cost = Cost_list[Day-1];
     }
+    public void AlldataReset()
+    {
+        playerData.maxHp = 100;
+        playerData.maxMp = 100;
+        playerData.maxSp = 100;
+        playerData.currentHp = 100;
+        playerData.currentMp = 100;
+        playerData.currentSp = 100;
+        playerData.flashLightLevel = 1;
+        playerData.gold = 0;
+        playerData.soul = 0;
+
+        Day = 1;
+        Gold = 0;
+        Soul = 0;
+        N_Day_Add_Soul = 0;
+        N_Day_current_Soul = 0;
+        N_Day_Time = 0;
+        N_Day_Cost = 0;
+        currentQuickSlot = new Item[4];
+        killcount = 0;
+        SlotsData = new ItemData[4];
+    }
     public void Next_data_reset()
     {
         N_Day_Add_Soul = 0;
@@ -152,6 +175,7 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "TitleScene")
         {
             if (SoundManager.Instance != null) SoundManager.Instance.PlayBGM(Resources.Load<AudioClip>("BGM/bgm_Main_Menu"));
+            AlldataReset();
         }
         else if (SceneManager.GetActiveScene().name == "Stage_Scene")
         {
