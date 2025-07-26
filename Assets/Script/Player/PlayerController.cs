@@ -321,6 +321,7 @@ public class PlayerController : MonoBehaviour
             {
                 currentState = PlayerState.Walk;
                 currentMoveSpeed = moveSpeed;
+
             }
         }
         else
