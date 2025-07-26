@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Result_Text : MonoBehaviour
 {
-    [Header("ÅØ½ºÆ®")]
+    [Header("ï¿½Ø½ï¿½Æ®")]
     [SerializeField] TextMeshProUGUI getGoldText;
     [SerializeField] TextMeshProUGUI timeText;
     [SerializeField] TextMeshProUGUI currentGoldText;
@@ -13,8 +13,8 @@ public class Result_Text : MonoBehaviour
     [SerializeField] TextMeshProUGUI finalGoldText;
     [SerializeField] TextMeshProUGUI dayText;
 
-    [Header("¼öÄ¡")]
-    // ÀÌ°É ¹Ý¿µÇØÁÙ·Á¸é ¾îµò°¡¿¡¼­ ÀÌ °ªÀ»µé ÀúÀåÇØ ÁÖ¾î¾ß ÇÒ °Í °°À½
+    [Header("ï¿½ï¿½Ä¡")]
+    // ï¿½Ì°ï¿½ ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½Ù·ï¿½ï¿½ï¿½ ï¿½ï¿½ò°¡¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     [HideInInspector] public float getGold;
     [HideInInspector] public int time;
     [HideInInspector] public float currentGold;
@@ -22,8 +22,21 @@ public class Result_Text : MonoBehaviour
     [HideInInspector] public float finalGold;
     [HideInInspector] public int day;
 
-    public void Next_button() // ½ºÅ×ÀÌÁö ¼±ÅÃ ¾À ÀÌµ¿
+    public void Next_button() // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ìµï¿½
     {
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+        if(finalGold < 0)
+        {
+            SceneManager.LoadScene("Gameover_Scene");
+            return;
+        }
+        // Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+        else if (day >= 3)
+        {
+            SceneManager.LoadScene("Clear_Scene");
+            return;
+        }
+
         GameManager.Instance.Next_data_reset();
         SceneManager.LoadScene("Stage_Scene");
     }
@@ -38,11 +51,11 @@ public class Result_Text : MonoBehaviour
     }
     void Update()
     {
-        getGoldText.text = "¹ú¾î¿Â µ· : " + getGold;
-        timeText.text = "¼Ò¸ð ½Ã°£ : " + time;
-        currentGoldText.text = "ÇöÀç ÀÚ»ê : " + currentGold;
-        costText.text = "¾à °ª : -" + cost;
-        finalGoldText.text = "ÃÑ ÀÚ»ê : " + finalGold;
-        dayText.text = GameManager.Instance.Day + " ÀÏÂ÷";
+        getGoldText.text = "ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ : " + getGold;
+        timeText.text = "ï¿½Ò¸ï¿½ ï¿½Ã°ï¿½ : " + time + "ï¿½ï¿½";
+        currentGoldText.text = "ï¿½ï¿½ï¿½ï¿½ ï¿½Ú»ï¿½ : " + currentGold;
+        costText.text = "ï¿½ï¿½ ï¿½ï¿½ : -" + cost;
+        finalGoldText.text = "ï¿½ï¿½ ï¿½Ú»ï¿½ : " + finalGold;
+        dayText.text = GameManager.Instance.Day + " ï¿½ï¿½ï¿½ï¿½";
     }
 }

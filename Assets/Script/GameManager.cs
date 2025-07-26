@@ -9,23 +9,23 @@ public class GameManager : MonoBehaviour
 
     public PlayerData playerData = new PlayerData();
 
-    //°ÔÀÓ °ü·Ã µ¥ÀÌÅÍ
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public int Day = 1;
     public float Gold = 0;
     public float Soul = 0;
-    public float N_Day_Add_Soul; //´çÀÏ¿¡ ¹ø ÃÑ ¼Ò¿ï
-    public float N_Day_current_Soul; //¾à°ªÀ» ³»±â Àü ±Ý¾×
-    public int N_Day_Time; // ´çÀÏ¿¡ Å¬¸®¾îÇÑ °¢(½Ã°£)
-    public float N_Day_Cost; //ÇØ´ç Á¤»êÀÏ¿¡ ³¾ µ·
+    public float N_Day_Add_Soul; //ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ò¿ï¿½
+    public float N_Day_current_Soul; //ï¿½à°ªï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ý¾ï¿½
+    public int N_Day_Time; // ï¿½ï¿½ï¿½Ï¿ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½(ï¿½Ã°ï¿½)
+    public float N_Day_Cost; //ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ ï¿½ï¿½
     public float[] Cost_list = {300,500,1000};
     public Item[] currentQuickSlot = new Item[4];
-    public int killcount = 0; //Ã³Ä¡ÇÑ ¾Ç±Í ¼ö
+    public int killcount = 0; //Ã³Ä¡ï¿½ï¿½ ï¿½Ç±ï¿½ ï¿½ï¿½
 
     public ItemData[] SlotsData;
-    private bool initialized; // ÇÃ·¹ÀÌ¾î ¹«±â ¹Þ¾Æ¿À±â ¿ë
+    private bool initialized; // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½ ï¿½ï¿½
     private void Awake()
     {
-        // ÇöÀç ¾À¿¡ ÀÚ½Å°ú °°Àº Å¸ÀÔÀÇ ¿ÀºêÁ§Æ®°¡ 2°³ ÀÌ»ó ÀÖ´Â °æ¿ì Áï½Ã »èÁ¦
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½Å°ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ 2ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (Instance == null)
         {
             Instance = this;
@@ -50,26 +50,26 @@ public class GameManager : MonoBehaviour
         if (!initialized && SceneManager.GetActiveScene().name == "InGame_Scenes")
         {
             Player_Item_Use player_Item_Use = FindObjectOfType<Player_Item_Use>();
-            if (player_Item_Use == null) return; // ¾ÆÁ÷ »ý¼º ¾È µÆ´Ù¸é ´ÙÀ½ ÇÁ·¹ÀÓ ´Ù½Ã ½Ãµµ
+            if (player_Item_Use == null) return; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Æ´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½Ãµï¿½
 
             for (int i = 0; i < player_Item_Use.quickSlots.Length; i++)
             {
                 if (SlotsData[i] == null) continue;
                 player_Item_Use.quickSlots[i] = new Item(SlotsData[i]);
             }
-            initialized = true; // ÇÑ ¹ø ½ÇÇà ÈÄ ´Ù½Ã ¾È ÇÏµµ·Ï
+            initialized = true; // ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ ï¿½Ïµï¿½ï¿½ï¿½
         }
         else if (initialized && SceneManager.GetActiveScene().name == "Stage_Scene")
         {
             ShopQuickSlot shopQuickSlot = FindObjectOfType<ShopQuickSlot>();
-            if (shopQuickSlot == null) return; // ¾ÆÁ÷ »ý¼º ¾È µÆ´Ù¸é ´ÙÀ½ ÇÁ·¹ÀÓ ´Ù½Ã ½Ãµµ
+            if (shopQuickSlot == null) return; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Æ´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½Ãµï¿½
 
             for (int i = 0; i < shopQuickSlot.quickSlots.Length; i++)
             {
                 if (SlotsData[i] == null) continue;
                 shopQuickSlot.SlotsData[i] = SlotsData[i];
             }
-            initialized = false; // ÇÑ ¹ø ½ÇÇà ÈÄ ´Ù½Ã ¾È ÇÏµµ·Ï
+            initialized = false; // ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ ï¿½Ïµï¿½ï¿½ï¿½
         }
         N_Day_Cost = Cost_list[Day-1];
     }
@@ -87,10 +87,10 @@ public class GameManager : MonoBehaviour
     }
     public void Add_Gold(float val)
     {
-        Gold = Mathf.Min(Gold + val, 9999f); // Áõ°¡: ÃÖ´ë°ª Á¦ÇÑ
+        Gold = Mathf.Min(Gold + val, 9999f); // ï¿½ï¿½ï¿½ï¿½: ï¿½Ö´ë°ª ï¿½ï¿½ï¿½ï¿½
     }
 
-    public void Sub_Gold(float val) // °¨¼Ò: ÃÖ¼Ò°ª Á¦ÇÑ
+    public void Sub_Gold(float val) // ï¿½ï¿½ï¿½ï¿½: ï¿½Ö¼Ò°ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         Gold = Mathf.Max(Gold - val, 0f);
     }
@@ -101,9 +101,10 @@ public class GameManager : MonoBehaviour
         N_Day_Add_Soul = Mathf.Min(N_Day_Add_Soul + val, 9999f);
     }
 
-    public void Sub_Soul(float val) // °¨¼Ò
+    public void Sub_Soul(float val) // ï¿½ï¿½ï¿½ï¿½
     {
-        Soul = Mathf.Max(Soul - val, 0f);
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼Ò°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        Soul = Mathf.Max(Soul - val, -9999f);
     }
 
     public void SavePlayerInfo(PlayerController player)
@@ -172,7 +173,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadScene(string loadSceneName)
     {
-        // ÁöÁ¤ÇÑ ¾ÀÀ¸·Î ÀÌµ¿
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
         SceneManager.LoadScene(loadSceneName);
     }
 

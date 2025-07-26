@@ -115,31 +115,36 @@ public class Boon_yeol_gwi : Enemy
 
     public override void EnemyMove()
     {
-        // 본체 발견
-        if (isEntityFind)
+        if (type == Boon_yeol_gwi_Type.Copy)
         {
-            Vector3 target = (targetTrs - transform.position).normalized;
-            transform.Translate(target * enemyMoveSpeed * Time.deltaTime);
+            // 본체 발견
+            if (isEntityFind)
+            {
+                Vector3 target = (targetTrs - transform.position).normalized;
+                transform.Translate(target * enemyMoveSpeed * Time.deltaTime);
+            }
+
+            // 아이템 가치 소멸 후 복귀
+            else if (isItemEat)
+            {
+                Vector3 entity = (entityTrs - transform.position).normalized;
+                transform.Translate(entity * enemyMoveSpeed * Time.deltaTime);
+            }
+
+            // 아이템 발견
+            else if (isItemFind)
+            {
+                Vector3 itemPos = (itemTrs - transform.position).normalized;
+                transform.Translate(itemPos * enemyMoveSpeed * Time.deltaTime);
+            }
+            // 그 외
+            else if (!isItemEat && !isItemFind && !isEntityFind)
+            {
+
+                transform.Translate(moveDirection * enemyMoveSpeed * Time.deltaTime);
+            }
         }
 
-        // 아이템 가치 소멸 후 복귀
-        else if (isItemFind && isItemEat)
-        {
-            Vector3 entity = (entityTrs - transform.position).normalized;
-            transform.Translate(entity * enemyMoveSpeed * Time.deltaTime);
-        }
-
-        // 아이템 발견
-        else if (isItemFind)
-        {
-            Vector3 itemPos = (itemTrs - transform.position).normalized;
-            transform.Translate(itemPos * enemyMoveSpeed * Time.deltaTime);
-        }
-        // 그 외
-        else if (!isItemEat && !isItemFind && !isEntityFind)
-        {
-            transform.Translate(moveDirection * enemyMoveSpeed * Time.deltaTime);
-        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)

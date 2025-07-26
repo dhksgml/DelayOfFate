@@ -69,15 +69,8 @@ public class EnemyTrace : MonoBehaviour
                 //item을 가져와준 후
                 ItemObject item = collision.gameObject.GetComponent<ItemObject>();
 
-                //찾은게 아이템이면
-                if (collision.gameObject.CompareTag("Item") && item.itemData.Coin != 0)
-                {
-                    boon_yeol_gwi.isItemFind = true;
-                    boon_yeol_gwi.itemTrs = collision.gameObject.transform.position;
-                }
-
                 //아이템을 찾고 가치를 먹었고, 충돌한 오브젝트가 적이면
-                else if (boon_yeol_gwi.isItemFind && boon_yeol_gwi.isItemEat && collision.gameObject.CompareTag("Enemy"))
+                if (boon_yeol_gwi.isItemFind && boon_yeol_gwi.isItemEat && collision.gameObject.CompareTag("Enemy"))
                 {
                     //컴포넌트를 가져온 후
                     Boon_yeol_gwi entity = collision.GetComponent<Boon_yeol_gwi>();
@@ -91,6 +84,15 @@ public class EnemyTrace : MonoBehaviour
                         boon_yeol_gwi.targetTrs = entity.transform.position;
                     }
                 }
+
+                //찾은게 아이템이면
+                if (collision.gameObject.CompareTag("Item") && item.itemData.Coin != 0)
+                {
+                    boon_yeol_gwi.isItemFind = true;
+                    boon_yeol_gwi.itemTrs = collision.gameObject.transform.position;
+                }
+
+
             }
         }
     }
@@ -105,8 +107,38 @@ public class EnemyTrace : MonoBehaviour
     {
         if (collision != null)
         {
+            //분열귀 전용
+            if (boon_yeol_gwi != null)
+            {
+                //item을 가져와준 후
+                ItemObject item = collision.gameObject.GetComponent<ItemObject>();
+
+                if (boon_yeol_gwi.isItemEat)
+                {
+                    if (collision.gameObject.CompareTag("Item") && item.itemData.Coin == 0)
+                    {
+                        boon_yeol_gwi.isItemFind = false;
+                        return;
+                    }
+                }
+
+                //찾은게 아이템이면
+                if (collision.gameObject.CompareTag("Item") && item.itemData.Coin != 0)
+                {
+                    boon_yeol_gwi.isItemFind = true;
+                    boon_yeol_gwi.itemTrs = collision.gameObject.transform.position;
+                }
+                
+                else if (collision.gameObject.CompareTag("Item") && item.itemData.Coin == 0)
+                {
+                    boon_yeol_gwi.isItemFind = false;
+                }
+
+
+            }
+
             //플레이어가 범위 안에 들어오면 쫒아가줌
-            if(collision.gameObject.CompareTag("Player"))
+            if (collision.gameObject.CompareTag("Player"))
             {
                 targetPos = collision.gameObject.transform.position;
                 enemy.isTrace = true;
