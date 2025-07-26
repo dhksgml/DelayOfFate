@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Result_Text : MonoBehaviour
 {
-    [Header("�ؽ�Ʈ")]
+    [Header("텍스트")]
     [SerializeField] TextMeshProUGUI getGoldText;
     [SerializeField] TextMeshProUGUI timeText;
     [SerializeField] TextMeshProUGUI currentGoldText;
@@ -13,8 +13,8 @@ public class Result_Text : MonoBehaviour
     [SerializeField] TextMeshProUGUI finalGoldText;
     [SerializeField] TextMeshProUGUI dayText;
 
-    [Header("��ġ")]
-    // �̰� �ݿ����ٷ��� ��򰡿��� �� ������ ������ �־�� �� �� ����
+    [Header("수치")]
+    // 이걸 반영해줄려면 어딘가에서 이 값을들 저장해 주어야 할 것 같음
     [HideInInspector] public float getGold;
     [HideInInspector] public int time;
     [HideInInspector] public float currentGold;
@@ -22,15 +22,15 @@ public class Result_Text : MonoBehaviour
     [HideInInspector] public float finalGold;
     [HideInInspector] public int day;
 
-    public void Next_button() // �������� ���� �� �̵�
+    public void Next_button() // 스테이지 선택 씬 이동
     {
-        // ���� ���� ��
-        if(finalGold < 0)
+        // 게임 오버 씬
+        if (finalGold < 0)
         {
             SceneManager.LoadScene("Gameover_Scene");
             return;
         }
-        // Ŭ���� ��
+        // 클리어 씬
         else if (day >= 3)
         {
             SceneManager.LoadScene("Clear_Scene");
@@ -51,11 +51,11 @@ public class Result_Text : MonoBehaviour
     }
     void Update()
     {
-        getGoldText.text = "����� �� : " + getGold;
-        timeText.text = "�Ҹ� �ð� : " + time + "��";
-        currentGoldText.text = "���� �ڻ� : " + currentGold;
-        costText.text = "�� �� : -" + cost;
-        finalGoldText.text = "�� �ڻ� : " + finalGold;
-        dayText.text = GameManager.Instance.Day + " ����";
+        getGoldText.text = "벌어온 돈 : " + getGold;
+        timeText.text = "소모 시간 : " + time + "각";
+        currentGoldText.text = "현재 자산 : " + currentGold;
+        costText.text = "약 값 : -" + cost;
+        finalGoldText.text = "총 자산 : " + finalGold;
+        dayText.text = day + " 일차";
     }
 }
