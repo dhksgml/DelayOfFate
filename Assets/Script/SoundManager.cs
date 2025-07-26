@@ -84,6 +84,15 @@ public class SoundManager : MonoBehaviour
     {
         if (clip == null) return;
 
+        // 이미 재생 중인 효과음이면 무시
+        if (activeSFX.TryGetValue(clip, out var sources))
+        {
+            foreach (var s in sources)
+            {
+                if (s != null && s.isPlaying)
+                    return;
+            }
+        }
         AudioSource source = gameObject.AddComponent<AudioSource>();
         source.clip = clip;
         source.volume = SfxSoundSize;
