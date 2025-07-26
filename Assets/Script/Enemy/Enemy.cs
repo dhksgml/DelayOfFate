@@ -269,7 +269,7 @@ public abstract class Enemy     : MonoBehaviour
             //딜레이를 위해 코루틴을 사용해줌
             yield return new WaitForSeconds(0.01f);
         }
-
+        if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_ghost_death"));
         //Destroy(transform.parent.gameObject);
         EnemyCorpseSummon();
     }

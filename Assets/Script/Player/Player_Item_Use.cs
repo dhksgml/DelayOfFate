@@ -209,6 +209,7 @@ public class Player_Item_Use : MonoBehaviour
                 {
                     TutorialEvents.OnItemPickedUp?.Invoke(droppedItem);
                     quickSlots[selectedSlotIndex] = droppedItem;
+                    if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_pickup"));
                     Destroy(itemObject.gameObject);
                     UpdateQuickSlotUI();
                 }
@@ -216,6 +217,7 @@ public class Player_Item_Use : MonoBehaviour
                 else if (slotItem.itemName == droppedItem.itemName && slotItem.Count_Check)
                 {
                     slotItem.Count += droppedItem.Count;
+                    if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_pickup"));
                     Destroy(itemObject.gameObject);
                     UpdateQuickSlotUI();
                 }
@@ -240,7 +242,7 @@ public class Player_Item_Use : MonoBehaviour
 
             // 빈 아이템 프리팹을 기반으로 새로운 아이템 생성
             GameObject newItem = Instantiate(item_Prefab, dropPoint.position, Quaternion.identity);
-
+            if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_drop"));
             // 새로 생성된 아이템에 ItemObject 스크립트 추가 후 데이터 복사
             ItemObject newItemComponent = newItem.GetComponent<ItemObject>();
             if (newItemComponent != null)
@@ -291,6 +293,7 @@ public class Player_Item_Use : MonoBehaviour
                 int itemValue = itemObject.itemData.Coin; // 아이템의 가치 가져오기
                 //player.coin += itemValue; // 플레이어 코인 증가 나중에 매서드로 분리
                 GameManager.Instance.Add_Soul(itemValue);
+                if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_now_sell"));
                 Destroy(itemObject.gameObject); // 아이템 오브젝트 삭제
             }
         }

@@ -109,7 +109,7 @@ public class Result_UI : MonoBehaviour
     {
         // 도장 이미지 활성화
         stampImage.gameObject.SetActive(true);
-
+        if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_stamp"));
         // 초기 설정: 2배 크기 + 랜덤 회전
         stampImage.localScale = Vector3.one * 2f;
         float randomZ = Random.Range(-30f, 30f);

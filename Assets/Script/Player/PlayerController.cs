@@ -770,7 +770,7 @@ public class PlayerController : MonoBehaviour
         if (value > 0)
         {
             currentHp = Mathf.Max(currentHp - value, 0);
-            if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_player_hit"));
+            if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_player_die"));
         }
 
         if (currentHp <= 0)
@@ -807,7 +807,7 @@ public class PlayerController : MonoBehaviour
     {
         //죽었을 때 행동
         Debug.Log("Player Die..");
-        if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_player_hit"));
+        if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_player_die"));
         StartCoroutine(ReviveRoutine(Vector3.zero));
     }
 
