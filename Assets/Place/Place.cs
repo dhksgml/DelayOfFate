@@ -60,7 +60,6 @@ public class Place : MonoBehaviour
                     case Place_enum.sale:
                         if (sale_cu_Time <= 0)  // 쿨타임이 0 이하일 때만 판매 가능
                         {
-                            Debug.Log(sale_cu_Time);
                             sale_zone_obj.SellItems();
                             sale_cu_Time = requiredTime;
                         }
