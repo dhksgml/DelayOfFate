@@ -9,6 +9,7 @@ public static class TutorialEvents
     public static Action<Item> OnItemPickedUp;
     public static Action<Item> OnItemDropped;
     public static Action<Item> OnWeaponUsed;
+    public static Action<Item> OnItemSelled;
 }
 
 public class TutorialManager : MonoBehaviour
@@ -46,6 +47,7 @@ public class TutorialManager : MonoBehaviour
         tutorialText.gameObject.SetActive(false);
         tutorialBackground.SetActive(false);
         GameManager.Instance.isTutorial = false;
+        GameManager.Instance.AlldataReset();
         GameManager.Instance.LoadScene("Stage_Scene");
     }
 
@@ -83,14 +85,9 @@ public class TutorialManager : MonoBehaviour
                 step.condition.Initialize();
                 StartStep(step);
                 yield return new WaitUntil(() => step.condition.IsSatisfied());
+                EndStep(step);
                 break;
         }
-        //if (step.waitForInput && step.condition != null)
-        //{
-        //    step.condition.Initialize();
-        //    StartStep(step);
-        //    yield return new WaitUntil(() => step.condition.IsSatisfied());
-        //}
         yield return new WaitForSeconds(1f);
     }
 
