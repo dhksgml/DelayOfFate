@@ -52,6 +52,8 @@ public class ItemUsageManager : MonoBehaviour
             Vector3 spawnPos = spawnPoint.position + spawnDir.normalized * spawnOffset;
 
             GameObject go = Instantiate(at_Prefab, spawnPos, rotation);
+            if (type == Attack_sc.AttackType.Sword) if(SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_Sword_1"));
+            if (type == Attack_sc.AttackType.Bat) if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_Bat_1"));
             // 방향에 따라 좌우 반전 (135도 ~ 225도 사이면 왼쪽 방향)
             if (snappedAngle >= 135f && snappedAngle <= 225f)
             {
@@ -81,6 +83,7 @@ public class ItemUsageManager : MonoBehaviour
             Quaternion paperRotation = Quaternion.Euler(0f, 0f, paperAngle);
             // 생성
             GameObject go = Instantiate(Paper, spawnPos, paperRotation);
+            if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_throw"));
             // 좌우 반전 (필요 시)
             if (direction.x < 0f)
             {

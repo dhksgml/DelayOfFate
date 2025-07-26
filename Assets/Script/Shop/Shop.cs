@@ -112,13 +112,13 @@ public class Shop : MonoBehaviour
 
             // 내부에서 바로 퀵슬롯 참조
             ShopQuickSlot shopQuickSlot = FindObjectOfType<ShopQuickSlot>();
-            print(shopQuickSlot);
             if (shopQuickSlot == null) return;
 
             bool slotFilled = false;
             for (int i = 0; i < shopQuickSlot.quickSlots.Length; i++)
             {
                 ItemData item = shopQuickSlot.SlotsData[i]; // 여기를 바꿈
+                if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
                 if (item == null || string.IsNullOrEmpty(item.itemName))
                 {
                     shopQuickSlot.SlotsData[i] = weaponData[index];
@@ -163,7 +163,7 @@ public class Shop : MonoBehaviour
                 btn.interactable = false;
                 slot.show = false; // 구매 완료 한건 살펴 보기 해도 안보이고 인벤토리 가서 봐야함
             }
-
+            if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_2"));
             // 구매 효과 적용 신호 보내기
             string itemId = soulNames[index]; // ← 이미 RerollSouls()에서 할당됨
             passiveItemManager.PurchaseItem(itemId);
@@ -174,9 +174,6 @@ public class Shop : MonoBehaviour
             Debug.Log("Not enough coins to buy soul.");
         }
     }
-
-
-
     public void BuyLantern() // 호롱 업글
     {
         if (lanternBuyCount >= 2)
@@ -201,7 +198,7 @@ public class Shop : MonoBehaviour
             GameManager.Instance.Sub_Gold(price);
             lanternBuyCount++;
             GameManager.Instance.playerData.flashLightLevel = Mathf.Clamp(GameManager.Instance.playerData.flashLightLevel + 1, 1, 3);
-
+            if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_2"));
             // 다음 단계 가격 표시 또는 "구매 완료"
             if (lanternBuyCount == 2)
             {
@@ -322,6 +319,7 @@ public class Shop : MonoBehaviour
         {
             GameManager.Instance.Sub_Soul(100);
             GameManager.Instance.Add_Gold(50);
+            if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
         }
         else
         {
@@ -335,6 +333,7 @@ public class Shop : MonoBehaviour
         {
             GameManager.Instance.Sub_Gold(100);
             GameManager.Instance.Add_Soul(50);
+            if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
         }
         else
         {
@@ -351,6 +350,7 @@ public class Shop : MonoBehaviour
             rerollCost += 30;
             weaponSlots_text(10, rerollCost, "Gold");
             RerollSouls();
+            if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
             Debug.Log($"Rerolled souls. Next reroll cost: {rerollCost}");
         }
         else

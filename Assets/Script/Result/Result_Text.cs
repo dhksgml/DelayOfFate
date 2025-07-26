@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Result_Text : MonoBehaviour
 {
-    [Header("ÅØ½ºÆ®")]
+    [Header("í…ìŠ¤íŠ¸")]
     [SerializeField] TextMeshProUGUI getGoldText;
     [SerializeField] TextMeshProUGUI timeText;
     [SerializeField] TextMeshProUGUI currentGoldText;
@@ -13,8 +13,8 @@ public class Result_Text : MonoBehaviour
     [SerializeField] TextMeshProUGUI finalGoldText;
     [SerializeField] TextMeshProUGUI dayText;
 
-    [Header("¼öÄ¡")]
-    // ÀÌ°É ¹İ¿µÇØÁÙ·Á¸é ¾îµò°¡¿¡¼­ ÀÌ °ªÀ»µé ÀúÀåÇØ ÁÖ¾î¾ß ÇÒ °Í °°À½
+    [Header("ìˆ˜ì¹˜")]
+    // ì´ê±¸ ë°˜ì˜í•´ì¤„ë ¤ë©´ ì–´ë”˜ê°€ì—ì„œ ì´ ê°’ì„ë“¤ ì €ì¥í•´ ì£¼ì–´ì•¼ í•  ê²ƒ ê°™ìŒ
     [HideInInspector] public float getGold;
     [HideInInspector] public int time;
     [HideInInspector] public float currentGold;
@@ -22,15 +22,15 @@ public class Result_Text : MonoBehaviour
     [HideInInspector] public float finalGold;
     [HideInInspector] public int day;
 
-    public void Next_button() // ½ºÅ×ÀÌÁö ¼±ÅÃ ¾À ÀÌµ¿
+    public void Next_button() // ìŠ¤í…Œì´ì§€ ì„ íƒ ì”¬ ì´ë™
     {
-        // °ÔÀÓ ¿À¹ö ¾À
-        if(finalGold < 0)
+        // ê²Œì„ ì˜¤ë²„ ì”¬
+        if (finalGold < 0)
         {
             SceneManager.LoadScene("Gameover_Scene");
             return;
         }
-        // Å¬¸®¾î ¾À
+        // í´ë¦¬ì–´ ì”¬
         else if (day >= 3)
         {
             SceneManager.LoadScene("Clear_Scene");
@@ -51,11 +51,11 @@ public class Result_Text : MonoBehaviour
     }
     void Update()
     {
-        getGoldText.text = "¹ú¾î¿Â µ· : " + getGold;
-        timeText.text = "¼Ò¸ğ ½Ã°£ : " + time + "°¢";
-        currentGoldText.text = "ÇöÀç ÀÚ»ê : " + currentGold;
-        costText.text = "¾à °ª : -" + cost;
-        finalGoldText.text = "ÃÑ ÀÚ»ê : " + finalGold;
-        dayText.text = GameManager.Instance.Day + " ÀÏÂ÷";
+        getGoldText.text = "ë²Œì–´ì˜¨ ëˆ : " + getGold;
+        timeText.text = "ì†Œëª¨ ì‹œê°„ : " + time + "ê°";
+        currentGoldText.text = "í˜„ì¬ ìì‚° : " + currentGold;
+        costText.text = "ì•½ ê°’ : -" + cost;
+        finalGoldText.text = "ì´ ìì‚° : " + finalGold;
+        dayText.text = day + " ì¼ì°¨";
     }
 }

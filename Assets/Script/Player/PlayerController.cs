@@ -215,9 +215,6 @@ public class PlayerController : MonoBehaviour
             player_Item_Use.DropItem();
         }
     }
-
-
-
     public void OnPickUpFinished()
     {
         isActing = false;
@@ -579,18 +576,26 @@ public class PlayerController : MonoBehaviour
         switch (currentState)
         {
             case PlayerState.Run:
+                if (SoundManager.Instance != null) SoundManager.Instance.StopSFX(Resources.Load<AudioClip>("SFX/sfx_slow_move"));
+                if (SoundManager.Instance != null) SoundManager.Instance.Play_stop_ok_SFX(Resources.Load<AudioClip>("SFX/sfx_run_move"));
                 animator.SetBool("isWalk", false);
                 animator.SetBool("isRun", true);
                 break;
             case PlayerState.Idle:
+                if (SoundManager.Instance != null) SoundManager.Instance.StopSFX(Resources.Load<AudioClip>("SFX/sfx_slow_move"));
+                if (SoundManager.Instance != null) SoundManager.Instance.StopSFX(Resources.Load<AudioClip>("SFX/sfx_run_move"));
                 animator.SetBool("isWalk", false);
                 animator.SetBool("isRun", false);
                 break;
             case PlayerState.Walk:
+                if (SoundManager.Instance != null) SoundManager.Instance.StopSFX(Resources.Load<AudioClip>("SFX/sfx_run_move"));
+                if (SoundManager.Instance != null) SoundManager.Instance.Play_stop_ok_SFX(Resources.Load<AudioClip>("SFX/sfx_slow_move"));
                 animator.SetBool("isWalk", true);
                 animator.SetBool("isRun", false);
                 break;
             case PlayerState.Recovery:
+                if (SoundManager.Instance != null) SoundManager.Instance.StopSFX(Resources.Load<AudioClip>("SFX/sfx_slow_move"));
+                if (SoundManager.Instance != null) SoundManager.Instance.StopSFX(Resources.Load<AudioClip>("SFX/sfx_run_move"));
                 animator.SetBool("isRun", false);
                 animator.SetBool("isWalk", false);
                 break;
@@ -604,6 +609,8 @@ public class PlayerController : MonoBehaviour
         {
             isRun = false;
             currentState = PlayerState.Recovery;
+            if (SoundManager.Instance != null) SoundManager.Instance.Play_stop_ok_SFX(Resources.Load<AudioClip>("SFX/sfx_player_breathing"));
+            if (SoundManager.Instance != null) SoundManager.Instance.PauseBGM();
             StartCoroutine(RecoverOverTime());
         }
     }
@@ -612,6 +619,8 @@ public class PlayerController : MonoBehaviour
     {
         isMoveAble = true;
         isRecovering = false;
+        if (SoundManager.Instance != null) SoundManager.Instance.StopSFX(Resources.Load<AudioClip>("SFX/sfx_player_breathing"));
+        if (SoundManager.Instance != null) SoundManager.Instance.UnPause();
         currentState = PlayerState.Idle;
     }
 
@@ -760,6 +769,7 @@ public class PlayerController : MonoBehaviour
         if (value > 0)
         {
             currentHp = Mathf.Max(currentHp - value, 0);
+            if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_player_hit"));
         }
 
         if (currentHp <= 0)
@@ -796,6 +806,7 @@ public class PlayerController : MonoBehaviour
     {
         //죽었을 때 행동
         Debug.Log("Player Die..");
+        if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_player_hit"));
         StartCoroutine(ReviveRoutine(Vector3.zero));
     }
 
