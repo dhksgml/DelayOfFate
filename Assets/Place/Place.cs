@@ -34,8 +34,6 @@ public class Place : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))//실험 코드
-            EscapeScene();
         if (sale_cu_Time > 0) { sale_cu_Time -= Time.deltaTime; }
         if (registered) return;
 
@@ -61,7 +59,11 @@ public class Place : MonoBehaviour
                         break;
                     case Place_enum.sale:
                         if (sale_cu_Time <= 0)  // 쿨타임이 0 이하일 때만 판매 가능
+                        {
+                            Debug.Log(sale_cu_Time);
                             sale_zone_obj.SellItems();
+                            sale_cu_Time = requiredTime;
+                        }
                         break;
                 }
             }
