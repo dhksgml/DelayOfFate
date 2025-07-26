@@ -146,11 +146,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))//실험 코드
-            DamagedHP(25f);
-        if (Input.GetKeyDown(KeyCode.Z))//실험 코드
-            DamagedMP(25f);
-
         if (isFreeze)
         {
             FreezingCancle();
