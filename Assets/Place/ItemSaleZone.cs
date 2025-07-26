@@ -36,6 +36,8 @@ public class ItemSaleZone : MonoBehaviour
         {
             ItemObject itemObject = collider.GetComponent<ItemObject>();
 
+            if (itemObject.itemData.isUsable) continue;
+
             //µ·, ¿µÈ¥ È¹µæ
             GameManager.Instance?.Add_Gold(itemObject.itemData.Coin);
             GameManager.Instance?.Add_Soul(itemObject.itemData.Coin * 2);
