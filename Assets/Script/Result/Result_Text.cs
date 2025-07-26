@@ -24,6 +24,19 @@ public class Result_Text : MonoBehaviour
 
     public void Next_button() // 스테이지 선택 씬 이동
     {
+        // 게임 오버 씬
+        if(finalGold < 0)
+        {
+            SceneManager.LoadScene("Gameover_Scene");
+            return;
+        }
+        // 클리어 씬
+        else if (day >= 3)
+        {
+            SceneManager.LoadScene("Clear_Scene");
+            return;
+        }
+
         GameManager.Instance.Next_data_reset();
         SceneManager.LoadScene("Stage_Scene");
     }
@@ -39,7 +52,7 @@ public class Result_Text : MonoBehaviour
     void Update()
     {
         getGoldText.text = "벌어온 돈 : " + getGold;
-        timeText.text = "소모 시간 : " + time;
+        timeText.text = "소모 시간 : " + time + "각";
         currentGoldText.text = "현재 자산 : " + currentGold;
         costText.text = "약 값 : -" + cost;
         finalGoldText.text = "총 자산 : " + finalGold;
