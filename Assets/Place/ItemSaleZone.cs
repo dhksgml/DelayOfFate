@@ -44,7 +44,7 @@ public class ItemSaleZone : MonoBehaviour
             //¿±Àü ¾Æ´Ò °æ¿ì
             if(!(itemObject.itemData.id == 3))
                 GameManager.Instance?.Add_Soul(itemObject.itemData.Coin * 2);
-
+            if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_all_selling"));
             Destroy(itemObject.gameObject);
 
             sale_place.sale_cu_Time = sale_place.sale_max_Time;

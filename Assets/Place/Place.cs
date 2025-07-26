@@ -98,6 +98,7 @@ public class Place : MonoBehaviour
     private void RegisterResurrection() //��Ȱ ��� �Ϸ�
     {
         registered = true;
+        if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_resurrection_registration"));
         if (holdGauge != null) holdGauge.gameObject.SetActive(false);
         placeManager.resurrection = true;
     }
