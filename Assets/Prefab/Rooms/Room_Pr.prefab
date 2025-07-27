@@ -106,7 +106,32 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ee6f57ace47e05d44a4b7e28ac4c7351, type: 2}
   - {fileID: 11400000, guid: 6d2be83f5ef249d4ea2882c4ce2d12ca, type: 2}
   - {fileID: 11400000, guid: 533d1802ff0ee9546ac9c8e87b4cc9ef, type: 2}
-  spawnPlan: []
+  waveList:
+  - enemies:
+    - prefabName: Eo_Dook_Gwi
+      count: 5
+    middleBoss: []
+    hasMidBoss: 1
+  - enemies:
+    - prefabName: Boon_yeol_gwi
+      count: 5
+    middleBoss: []
+    hasMidBoss: 1
+  - enemies:
+    - prefabName: Yang
+      count: 5
+    middleBoss: []
+    hasMidBoss: 1
+  - enemies:
+    - prefabName: StealEnemy
+      count: 5
+    middleBoss: []
+    hasMidBoss: 1
+  - enemies:
+    - prefabName: WomanmGhost
+      count: 5
+    middleBoss: []
+    hasMidBoss: 1
   totalValPoint: 1500
 --- !u!114 &5527380200257563260
 MonoBehaviour:

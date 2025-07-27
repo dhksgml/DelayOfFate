@@ -128,7 +128,7 @@ public class ItemObject : MonoBehaviour
         if (coin_text != null)
         {
             int total_coin = itemData.Coin * itemData.Count;
-            coin_text.text = string.Format("[{0}] {1} ³É", itemData.itemName, total_coin);
+            coin_text.text = string.Format("[{0}] {1} °ª", itemData.itemName, total_coin);
         }
     }
 }

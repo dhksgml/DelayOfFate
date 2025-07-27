@@ -922,7 +922,7 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!43 &1547780301
+--- !u!43 &1915369240
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1095,6 +1095,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1080896599292874791, guid: d958a2ab5a163de448ef93dfb29f51ab, type: 3}
+      propertyPath: isTutorial
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2129524968966117579, guid: d958a2ab5a163de448ef93dfb29f51ab, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1230,154 +1234,6 @@ PrefabInstance:
     - target: {fileID: 6118702571318767708, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: spawnPlan.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: midBossPacks.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[0].hasMidBoss
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[1].hasMidBoss
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[2].hasMidBoss
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[3].hasMidBoss
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[4].hasMidBoss
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[0].enemies.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[1].enemies.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[2].enemies.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[3].enemies.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[4].enemies.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: midBossPacks.Array.data[0].enemies.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[0].midBossPack.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[0].enemies.Array.data[0].count
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[1].enemies.Array.data[0].count
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[2].enemies.Array.data[0].count
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[3].enemies.Array.data[0].count
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[4].enemies.Array.data[0].count
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[0].midBossCandidates.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[1].midBossCandidates.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[2].midBossCandidates.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[3].midBossCandidates.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[4].midBossCandidates.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[0].midBossCandidates.Array.data[0]
-      value: Eo_Dook_Gwi
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[1].midBossCandidates.Array.data[0]
-      value: Boon_yeol_gwi
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[2].midBossCandidates.Array.data[0]
-      value: Yang
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[3].midBossCandidates.Array.data[0]
-      value: StealEnemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[4].midBossCandidates.Array.data[0]
-      value: WomanmGhost
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[0].enemies.Array.data[0].prefabName
-      value: Eo_Dook_Gwi
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[1].enemies.Array.data[0].prefabName
-      value: Boon_yeol_gwi
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[2].enemies.Array.data[0].prefabName
-      value: Yang
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[3].enemies.Array.data[0].prefabName
-      value: StealEnemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[4].enemies.Array.data[0].prefabName
-      value: WomanmGhost
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[0].midBossPack.Array.data[0].packName
-      value: Eo_Dook_Gwi
-      objectReference: {fileID: 0}
-    - target: {fileID: 7065677994999204319, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: waveList.Array.data[0].midBossPack.Array.data[0].enemies.Array.size
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
