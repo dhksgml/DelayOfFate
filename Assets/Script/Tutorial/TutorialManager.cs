@@ -40,7 +40,7 @@ public class TutorialManager : MonoBehaviour
         while (currentIndex < steps.Count)
         {
             yield return StartCoroutine(HandleStep(steps[currentIndex]));
-            currentIndex = Mathf.Clamp(currentIndex + 1, 0, steps.Count - 1);
+            currentIndex = Mathf.Clamp(currentIndex + 1, 0, steps.Count);
         }
 
         Debug.Log("Tutorial Á¾·á");
