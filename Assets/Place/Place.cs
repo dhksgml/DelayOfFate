@@ -15,7 +15,7 @@ public class Place : MonoBehaviour
     [SerializeField] private Place_enum place_enum;
     [SerializeField] private float requiredTime = 3f;
     [SerializeField] public Image holdGauge;
-
+    
     [HideInInspector] public float sale_max_Time = 10f; //�ӽ� ��Ÿ��
     [HideInInspector] public float sale_cu_Time = 0f;
 
@@ -98,7 +98,7 @@ public class Place : MonoBehaviour
     private void RegisterResurrection() //��Ȱ ��� �Ϸ�
     {
         registered = true;
-        if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_resurrection_registration"));
+        if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_resurrection_register"));
         if (holdGauge != null) holdGauge.gameObject.SetActive(false);
         placeManager.resurrection = true;
     }

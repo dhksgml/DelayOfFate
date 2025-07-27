@@ -148,7 +148,7 @@ public class Shop : MonoBehaviour
                 if (item == null || string.IsNullOrEmpty(item.itemName))
                 {
                     shopQuickSlot.SlotsData[i] = weaponData[index];
-                    if (weaponData[index].id == 997) { shopQuickSlot.SlotsData[i].Count = 10; }//何利狼 版快
+                    if (weaponData[index].id == 997) { shopQuickSlot.SlotsData[i].Count = 20; }//何利狼 版快
                     OnItemHover(i, weaponData[index]);
                     slotFilled = true;
                     break;

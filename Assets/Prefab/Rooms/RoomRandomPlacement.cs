@@ -10,10 +10,10 @@ public class RoomRandomPlacement : MonoBehaviour
     public int roomCount;
     public float spacing;//룸 거리 (이제 사실상 고정)
 
-    [HideInInspector] public int[] Cost_list = { 300, 500, 1000 }; //약값
+    [HideInInspector] public int[] Cost_list = { 500, 1200, 2000 }; //약값
     [HideInInspector] public int[] map_structure = { 3, 4, 5 }; //맵구조
     [HideInInspector] public int[] room_count = { 8, 12, 16 }; //방 곗수 (오차1)
-    [HideInInspector] public int[] value_points = { 350, 600, 1150 }; //바닥에 깔리는 그 가치
+    [HideInInspector] public int[] value_points = { 250, 400, 850 }; //바닥에 깔리는 그 가치
     [HideInInspector] public int[] value_error = { 50, 100, 200 }; //바닥에 깔리는 가치의 오차
 
     public GameObject[] allRoomPrefabs;

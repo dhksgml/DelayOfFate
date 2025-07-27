@@ -293,7 +293,7 @@ public class Player_Item_Use : MonoBehaviour
                 int itemValue = itemObject.itemData.Coin; // 아이템의 가치 가져오기
                 //player.coin += itemValue; // 플레이어 코인 증가 나중에 매서드로 분리
                 GameManager.Instance.Add_Soul(itemValue);
-                if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_now_sell"));
+                if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
                 Destroy(itemObject.gameObject); // 아이템 오브젝트 삭제
             }
         }
