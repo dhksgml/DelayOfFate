@@ -13,7 +13,7 @@ public class RoomRandomPlacement : MonoBehaviour
     [HideInInspector] public int[] Cost_list = { 300, 500, 1000 }; //¾à°ª
     [HideInInspector] public int[] map_structure = { 3, 4, 5 }; //¸Ê±¸Á¶
     [HideInInspector] public int[] room_count = { 8, 12, 16 }; //¹æ °ì¼ö (¿ÀÂ÷1)
-    [HideInInspector] public int[] value_points = { 450, 750, 1500 }; //¹Ù´Ú¿¡ ±ò¸®´Â ±× °¡Ä¡
+    [HideInInspector] public int[] value_points = { 350, 600, 1150 }; //¹Ù´Ú¿¡ ±ò¸®´Â ±× °¡Ä¡
     [HideInInspector] public int[] value_error = { 50, 100, 200 }; //¹Ù´Ú¿¡ ±ò¸®´Â °¡Ä¡ÀÇ ¿ÀÂ÷
 
     public GameObject[] allRoomPrefabs;

@@ -67,6 +67,18 @@ public class Shop : MonoBehaviour
     {
         Gold = GameManager.Instance.Gold;
         Soul = GameManager.Instance.Soul;
+        for (int i = 0; i < 3; i++)//프로토타입 용
+        {
+            weaponPrices.Add(GameManager.Instance.Day * 100);
+            if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_3_2")) //다다익선 보유시
+            {
+                weaponSlots_text(i, 0, "Soul");
+            }
+            else
+            {
+                weaponSlots_text(i, GameManager.Instance.Day * 100, "Soul");
+            }
+        }
     }
     void InitializeShop()
     {
@@ -74,7 +86,14 @@ public class Shop : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             weaponPrices.Add(GameManager.Instance.Day * 100);
-            weaponSlots_text(i, GameManager.Instance.Day * 100, "Soul");
+            if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_3_2")) //다다익선 보유시
+            {
+                weaponSlots_text(i, 0, "Soul");
+            }
+            else
+            {
+                weaponSlots_text(i, GameManager.Instance.Day * 100, "Soul");
+            }
         }
 
         weaponSlots_text(9, lantern_1, "Gold"); // 초롱가격
@@ -104,7 +123,14 @@ public class Shop : MonoBehaviour
         int price = weaponPrices[index];
         if (Soul >= price)
         {
-            GameManager.Instance.Sub_Soul(price);
+            if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_3_2"))//다다익선 보유시
+            {
+                
+            }
+            else
+            {
+                GameManager.Instance.Sub_Soul(price);
+            }
             weaponSlots[index].text = "구매 완료";
 
             Button btn = weaponSlots[index].GetComponentInParent<Button>();
