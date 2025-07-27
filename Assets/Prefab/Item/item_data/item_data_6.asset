@@ -16,8 +16,9 @@ MonoBehaviour:
   itemName: "\uB450\uB8E8\uB9C8\uB9AC"
   InGameSprite: {fileID: 21300000, guid: d2a1bccdb1feed742bc63046ca8a2835, type: 3}
   icon: {fileID: 21300000, guid: fdd866e72f2805b45936f7b417565067, type: 3}
+  spendSPAmount: 0
   Coin: 75
-  Weight: 25
+  Weight: 10
   ValPoint: 10
   Count_Check: 0
   Count: 1

@@ -757,7 +757,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!43 &1498990541
+--- !u!43 &1480470546
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -922,7 +922,7 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!43 &1915369240
+--- !u!43 &1498990541
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1095,10 +1095,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1080896599292874791, guid: d958a2ab5a163de448ef93dfb29f51ab, type: 3}
-      propertyPath: isTutorial
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2129524968966117579, guid: d958a2ab5a163de448ef93dfb29f51ab, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -126,7 +126,7 @@ public class QuickSlotUI : MonoBehaviour
             int total_coin = selectedItem.Coin * selectedItem.Count;
             int total_Weight = selectedItem.Weight * selectedItem.Count;
             Item_Name.text = string.Format("[{0}]", selectedItem.itemName);
-            Item_Coin.text = total_coin.ToString() + " 냥";
+            Item_Coin.text = total_coin.ToString() + " 값";
             Item_Weight.text = total_Weight.ToString() + " 근";
         }
         else
@@ -171,7 +171,7 @@ public class QuickSlotUI : MonoBehaviour
             int total_coin = selectedItem.Coin * selectedItem.Count;
             int total_Weight = selectedItem.Weight * selectedItem.Count;
             Item_Name.text = $"[{selectedItem.itemName}]";
-            Item_Coin.text = $"{total_coin} 냥";
+            Item_Coin.text = $"{total_coin} 값";
             Item_Weight.text = $"{total_Weight} 근";
         }
         else

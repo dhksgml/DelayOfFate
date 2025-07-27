@@ -88,8 +88,8 @@ public class GameManager : MonoBehaviour
         playerData.soul = 0;
 
         Day = 1;
-        Gold = 0;
-        Soul = 0;
+        Gold = 100;
+        Soul = 250;
         N_Day_Add_Soul = 0;
         N_Day_current_Soul = 0;
         N_Day_Time = 0;

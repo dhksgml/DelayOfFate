@@ -770,7 +770,7 @@ public class PlayerController : MonoBehaviour
         if (value > 0)
         {
             currentHp = Mathf.Max(currentHp - value, 0);
-            if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_player_die"));
+            if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_player_hit"));
         }
 
         if (currentHp <= 0)

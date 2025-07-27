@@ -52,6 +52,8 @@ MonoBehaviour:
     currentHp: 100
     currentMp: 100
     currentSp: 100
+    currentExtraHp: 0
+    extraHp: 0
     flashLightLevel: 1
     gold: 0
     soul: 0
@@ -60,12 +62,18 @@ MonoBehaviour:
     speedMultiplier: 1
     isDropWhenRevive: 0
     isFindNearestItem: 0
+  isTutorial: 1
   Day: 1
-  Gold: 1500
-  Soul: 1500
+  Gold: 100
+  Soul: 250
   N_Day_Add_Soul: 0
+  N_Day_current_Soul: 0
   N_Day_Time: 0
   N_Day_Cost: 0
+  Cost_list:
+  - 300
+  - 500
+  - 1000
   killcount: 0
   SlotsData:
   - {fileID: 0}
