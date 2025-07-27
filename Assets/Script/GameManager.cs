@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     public float N_Day_current_Soul; //�ప�� ���� �� �ݾ�
     public int N_Day_Time; // ���Ͽ� Ŭ������ ��(�ð�)
     public float N_Day_Cost; //�ش� �����Ͽ� �� ��
-    public float[] Cost_list = {300,500,1000};
+    public float[] Cost_list = {500,1200,2000};
     public Item[] currentQuickSlot = new Item[4];
     public int killcount = 0; //óġ�� �Ǳ� ��
 
@@ -183,13 +183,17 @@ public class GameManager : MonoBehaviour
         {
             if (SoundManager.Instance != null) SoundManager.Instance.PlayBGM(Resources.Load<AudioClip>("BGM/bgm_Shop"));
         }
-        else if (SceneManager.GetActiveScene().name == "InGame_Scenes")
+        else if (SceneManager.GetActiveScene().name == "InGame_Scenes" || SceneManager.GetActiveScene().name == "Tutorial_Scenes")
         {
             if (SoundManager.Instance != null) SoundManager.Instance.PlayBGM(Resources.Load<AudioClip>("BGM/bgm_Search"));
         }
         else if (SceneManager.GetActiveScene().name == "Result_Scene")
         {
             if (SoundManager.Instance != null) SoundManager.Instance.PlayBGM(Resources.Load<AudioClip>("BGM/bgm_Result"));
+        }
+        else if (SceneManager.GetActiveScene().name == "Clear_Scene" || SceneManager.GetActiveScene().name == "Gameover_Scene")
+        {
+            if (SoundManager.Instance != null) SoundManager.Instance.StopBGM();
         }
     }
     public Item[] GetCurrentQuickSlot()

@@ -80,7 +80,7 @@ public class Attack_sc : MonoBehaviour
         {
             case AttackType.Sword: return 12f;
             case AttackType.Bat: return 25f;
-            case AttackType.Paper: return 7f;
+            case AttackType.Paper: return 12f;
             default: return 0f;
         }
     }

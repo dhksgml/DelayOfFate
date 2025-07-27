@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Paper : MonoBehaviour
 {
-    private float moveSpeed; // 속력
-    private float moveDuration; // 이동 후 덫 변화시간
+    private float moveSpeed = 12f; // 속력
+    private float moveDuration = 0.6f; // 이동 후 덫 변화시간
     private float vanishDelay; // 덫 지속시간
     public SpriteRenderer spriteRenderer;
     public GameObject Attack_Paper;
@@ -23,8 +23,8 @@ public class Paper : MonoBehaviour
 
     private void Awake()
     {
-        moveSpeed = Random.Range(10.5f, 12.5f);
-        moveDuration = Random.Range(1.5f, 2.6f);
+        moveSpeed += Random.Range(-1.5f, +1.5f);
+        moveDuration += Random.Range(-0.15f, +0.16f);
         vanishDelay = Random.Range(55, 61); 
         rb = GetComponent<Rigidbody2D>();
         moveTimer = moveDuration;
