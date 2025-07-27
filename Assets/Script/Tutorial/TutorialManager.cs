@@ -40,7 +40,7 @@ public class TutorialManager : MonoBehaviour
         while (currentIndex < steps.Count)
         {
             yield return StartCoroutine(HandleStep(steps[currentIndex]));
-            currentIndex++;
+            currentIndex = Mathf.Clamp(currentIndex + 1, 0, steps.Count - 1);
         }
 
         Debug.Log("Tutorial Á¾·á");
@@ -63,7 +63,7 @@ public class TutorialManager : MonoBehaviour
             }
         }
 
-        switch(step.stepType)
+        switch (step.stepType)
         {
             case TutorialStepType.ShowDialog:
                 yield return new WaitForSeconds(step.waitTime);
@@ -103,7 +103,7 @@ public class TutorialManager : MonoBehaviour
 
     public void HighlightingUI()
     {
-        if(highlightUIs[highlightUIObjectIndex] != null)
+        if (highlightUIs[highlightUIObjectIndex] != null)
             highlightUIs[highlightUIObjectIndex].SetActive(true);
     }
 
@@ -112,5 +112,24 @@ public class TutorialManager : MonoBehaviour
         if (highlightUIs[highlightUIObjectIndex] != null)
             highlightUIs[highlightUIObjectIndex].SetActive(false);
         Mathf.Clamp(highlightUIObjectIndex += 1, 0, highlightUIs.Length);
+    }
+
+    public void SkipTutorial()
+    {
+        StopCoroutine(PlayTutorial());
+        StartCoroutine(SkipTutorialRoutine());
+    }
+    private IEnumerator SkipTutorialRoutine()
+    {
+        //HighlightingOffUI();
+        currentIndex = steps.Count - 1;
+
+        yield return StartCoroutine(HandleStep(steps[currentIndex]));
+
+        tutorialText.gameObject.SetActive(false);
+        tutorialBackground.SetActive(false);
+        GameManager.Instance.isTutorial = false;
+        GameManager.Instance.AlldataReset();
+        GameManager.Instance.LoadScene("Stage_Scene");
     }
 }
