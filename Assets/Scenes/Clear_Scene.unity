@@ -179,8 +179,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "BIC \uAE30\uC900\uC73C\uB860 \uC5EC\uAE30\uAE4C\uC9C0 \uC785\uB2C8\uB2E4\n\uD50C\uB808\uC774
-    \uD574\uC8FC\uC154\uC11C \uAC10\uC0AC\uD569\uB2C8\uB2E4!"
+  m_text: "BIC \uAE30\uC900\uC73C\uB860 \uC5EC\uAE30\uAE4C\uC9C0 \uC785\uB2C8\uB2E4\n\uAC10\uC0AC\uD569\uB2C8\uB2E4!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 97ab37a4de3e47a449ededabd0045bb5, type: 2}
   m_sharedMaterial: {fileID: -1625775781952263435, guid: 97ab37a4de3e47a449ededabd0045bb5, type: 2}
@@ -875,7 +874,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uD0C0\uC774\uD2C0\uB85C"
+  m_text: "\uCC98\uC74C\uC73C\uB85C"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 97ab37a4de3e47a449ededabd0045bb5, type: 2}
   m_sharedMaterial: {fileID: -1625775781952263435, guid: 97ab37a4de3e47a449ededabd0045bb5, type: 2}
