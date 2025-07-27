@@ -23,30 +23,31 @@ public class SpawnManager : MonoBehaviour
 		Dictionary<int, List<List<List<int>>>> wavePoolByDay = new Dictionary<int, List<List<List<int>>>>()
 		{
 			{ 0, new List<List<List<int>>> {
-				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 8 } },
-				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 5 } },
-				new List<List<int>> { new List<int> { 1, 10 } },
-				new List<List<int>> { new List<int> { 1, 4 }, new List<int> { 3, 3 } },
-				new List<List<int>> { new List<int> { 3, 3 }, new List<int> { 4, 1 } },
-				new List<List<int>> { new List<int> { 3, 5 }, new List<int> { 4, 1 } }
+				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 8 } }, // 115 + 41*8 = 443
+				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 5 } }, // 115 + 41*5 = 320
+				new List<List<int>> { new List<int> { 1, 10 } }, // 41*10 = 410
+				new List<List<int>> { new List<int> { 1, 4 }, new List<int> { 3, 3 } }, // 41*4 + 50*3 = 164 + 150 = 314
+				new List<List<int>> { new List<int> { 1, 3 }, new List<int> { 3, 3 }, new List<int> { 4, 1 } },
+				new List<List<int>> { new List<int> { 3, 5 }, new List<int> { 4, 1 } }  // 50*5 + 85 = 250 + 85 = 335
 			}},
 			{ 1, new List<List<List<int>>> {
-				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 10 } },
-				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 6 } , new List<int> { 4, 1 } },
-				new List<List<int>> { new List<int> { 2, 1 }, new List<int> { 4, 2 } },
-				new List<List<int>> { new List<int> { 1, 5 }, new List<int> { 3, 3 }, new List<int> { 4, 1 } },
-				new List<List<int>> { new List<int> { 1, 7 }, new List<int> { 3, 2 }, new List<int> { 2, 1 } },
-				new List<List<int>> { new List<int> { 1, 9 }, new List<int> { 3, 3 }, new List<int> { 4, 1 } }
+				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 10 } }, // 115 + 410 = 525
+				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 6 }, new List<int> { 4, 1 } }, // 115 + 246 + 85 = 446
+				new List<List<int>> { new List<int> { 1, 5 }, new List<int> { 2, 1 }, new List<int> { 4, 2 } }, 
+				new List<List<int>> { new List<int> { 1, 5 }, new List<int> { 3, 3 }, new List<int> { 4, 1 } }, // 205 + 150 + 85 = 440
+				new List<List<int>> { new List<int> { 1, 7 }, new List<int> { 3, 2 }, new List<int> { 2, 1 } }, // 287 + 100 + 82 = 469
+				new List<List<int>> { new List<int> { 1, 9 }, new List<int> { 3, 3 }, new List<int> { 4, 1 } }  // 369 + 150 + 85 = 604
 			}},
 			{ 2, new List<List<List<int>>> {
-				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 10 }, new List<int> { 2, 1 }, new List<int> { 4, 2 } },
-				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 5 }, new List<int> { 2, 1 }, new List<int> { 4, 1 } },
-				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 3 }, new List<int> { 3, 4 }, new List<int> { 4, 3 } },
-				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 2 }, new List<int> { 3, 3 }, new List<int> { 4, 1 } },
-				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 5 }, new List<int> { 3, 5 }, new List<int> { 4, 2 } },
-				new List<List<int>> { new List<int> { 1, 10 }, new List<int> { 2, 1 }, new List<int> { 3, 5 } }
-			}},
+				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 10 }, new List<int> { 2, 1 }, new List<int> { 4, 2 } }, // 115 + 410 + 82 + 170 = 777
+				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 8 }, new List<int> { 2, 1 }, new List<int> { 4, 1 } },
+				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 3 }, new List<int> { 3, 4 }, new List<int> { 4, 3 } }, // 115 + 123 + 200 + 255 = 693
+				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 7 }, new List<int> { 3, 3 }, new List<int> { 4, 1 } },
+				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 5 }, new List<int> { 3, 5 }, new List<int> { 4, 2 } }, // 115 + 205 + 250 + 170 = 740
+				new List<List<int>> { new List<int> { 1, 10 }, new List<int> { 2, 1 }, new List<int> { 3, 5 } } // 410 + 82 + 250 = 742
+			}}
 		};
+
 
 		if (!wavePoolByDay.ContainsKey(day))
 		{

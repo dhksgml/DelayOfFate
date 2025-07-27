@@ -16,9 +16,9 @@ MonoBehaviour:
   Coin: 119
   Weight: 7
   classification: 1
-  Hp: 12
+  Hp: 120
   D_Point: 18
-  weakness: 3
+  weakness: 2
   population: 1
   CoinDeviation: 11
   HpDeviation: 0
