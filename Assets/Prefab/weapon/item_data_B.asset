@@ -18,7 +18,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: e6f99322bf5d9584eadac3f6c781a803, type: 3}
   spendSPAmount: 20
   Coin: 0
-  Weight: 80
+  Weight: 50
   ValPoint: 0
   Count_Check: 0
   Count: 1

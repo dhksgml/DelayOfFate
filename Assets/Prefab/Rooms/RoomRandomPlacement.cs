@@ -8,12 +8,18 @@ public class RoomRandomPlacement : MonoBehaviour
     public int width;
     public int height;
     public int roomCount;
-    public float spacing;
+    public float spacing;//룸 거리 (이제 사실상 고정)
+
+    [HideInInspector] public int[] Cost_list = { 300, 500, 1000 }; //약값
+    [HideInInspector] public int[] map_structure = { 3, 4, 5 }; //맵구조
+    [HideInInspector] public int[] room_count = { 8, 12, 16 }; //방 곗수 (오차1)
+    [HideInInspector] public int[] value_points = { 350, 600, 1150 }; //바닥에 깔리는 그 가치
+    [HideInInspector] public int[] value_error = { 50, 100, 200 }; //바닥에 깔리는 가치의 오차
 
     public GameObject[] allRoomPrefabs;
     public GameObject corridorPrefab;
     public float corridorThickness = 1f;
-    private SpawnManager Manager_Spawn;
+    private SpawnManager spawnManager;
     private PlayerController player;
     public GameObject Place_Resurrection; // 부활 장소
     public GameObject Place_Sale; // 판매 장소
@@ -31,12 +37,32 @@ public class RoomRandomPlacement : MonoBehaviour
     {
         player = FindObjectOfType<PlayerController>();
         placeManager = FindObjectOfType<PlaceManager>();
-        Manager_Spawn = GetComponent<SpawnManager>();
+        spawnManager = GetComponent<SpawnManager>();
+        Room_re_data(); // 현재 날짜에 맞게 값 재조정
         GenerateRooms();
-        Manager_Spawn.SpawnWave(Random.Range(0, Manager_Spawn.waveList.Length-1));
+        spawnManager.SpawnWave_ByPattern(GameManager.Instance.Day - 1); //요소들 스폰
         MovePlayerToRandomRoom(); // 추가
+        
     }
+    void Room_re_data()
+    {
+        int Day = GameManager.Instance.Day - 1;
+        int baseValue = map_structure[Day];
+        width = baseValue;
+        height = baseValue;
 
+        if (Day+1 % 2 == 1)//홀수 날 일 경우 가로 세로 둘중 하나만 +1을 함
+        {
+            (width, height) = Random.Range(0, 2) == 0
+                ? (baseValue + 1, baseValue)
+                : (baseValue, baseValue + 1);
+        }
+        roomCount = room_count[Day];
+        roomCount += Random.Range(-1, +2);
+        spawnManager.totalValPoint = value_points[Day];
+        int error = value_error[Day];
+        spawnManager.totalValPoint += Random.Range(-error, +error+1);
+    }
     void GenerateRooms()
     {
         while (true)
