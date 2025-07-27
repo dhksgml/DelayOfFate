@@ -6,7 +6,10 @@ public class MainMenuUIController : MonoBehaviour
 {
     public void OnClickStartButton(string loadSceneName)
     {
-        GameManager.Instance.LoadScene(loadSceneName);
+        if(GameManager.Instance.isTutorial)
+            GameManager.Instance.LoadScene("Tutorial_Scenes");
+        else
+            GameManager.Instance.LoadScene(loadSceneName);
     }
     public void OnClickExitButton()
     {
