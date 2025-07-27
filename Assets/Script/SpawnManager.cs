@@ -1,39 +1,67 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+
 public class SpawnManager : MonoBehaviour
 {
 	public GameObject[] enemyPrefabs;
 	public GameObject itemPrefab;
 	public ItemData[] item_date;
-	public WaveData[] waveList; // ���̺꺰 ����
 	public int totalValPoint;
 
 	private List<Transform> enemySpawnPoints = new List<Transform>();
 	private List<Transform> itemSpawnPoints = new List<Transform>();
 
-	private Dictionary<string, GameObject> enemyPrefabDict = new Dictionary<string, GameObject>();
-
-	void Awake()
+	void Start()
 	{
-		// ������ �̸� �� ������ ��ü ����
-		foreach (GameObject prefab in enemyPrefabs)
-		{
-			if (prefab != null && !enemyPrefabDict.ContainsKey(prefab.name))
-			{
-				enemyPrefabDict.Add(prefab.name, prefab);
-			}
-		}
+		//SpawnWave_ByPattern(GameManager.Instance.Day - 1);
 	}
 
-	public void SpawnWave(int waveIndex)
+	public List<List<int>> Wave_Data(int day)
 	{
-		if (waveIndex < 0 || waveIndex >= waveList.Length)
+		// 0: 분열귀(1), 1: 어둑쥐(10), 2: 양(1), 3: 약탈귀(5), 4: 처녀귀신(3)
+		Dictionary<int, List<List<List<int>>>> wavePoolByDay = new Dictionary<int, List<List<List<int>>>>()
 		{
-			Debug.LogWarning("Wave index out of range.");
-			return;
+			{ 0, new List<List<List<int>>> {
+				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 8 } },
+				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 5 } },
+				new List<List<int>> { new List<int> { 1, 10 } },
+				new List<List<int>> { new List<int> { 1, 4 }, new List<int> { 3, 3 } },
+				new List<List<int>> { new List<int> { 3, 3 }, new List<int> { 4, 1 } },
+				new List<List<int>> { new List<int> { 3, 5 }, new List<int> { 4, 1 } }
+			}},
+			{ 1, new List<List<List<int>>> {
+				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 10 } },
+				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 6 } , new List<int> { 4, 1 } },
+				new List<List<int>> { new List<int> { 2, 1 }, new List<int> { 4, 2 } },
+				new List<List<int>> { new List<int> { 1, 5 }, new List<int> { 3, 3 }, new List<int> { 4, 1 } },
+				new List<List<int>> { new List<int> { 1, 7 }, new List<int> { 3, 2 }, new List<int> { 2, 1 } },
+				new List<List<int>> { new List<int> { 1, 9 }, new List<int> { 3, 3 }, new List<int> { 4, 1 } }
+			}},
+			{ 2, new List<List<List<int>>> {
+				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 10 }, new List<int> { 2, 1 }, new List<int> { 4, 2 } },
+				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 5 }, new List<int> { 2, 1 }, new List<int> { 4, 1 } },
+				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 3 }, new List<int> { 3, 4 }, new List<int> { 4, 3 } },
+				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 2 }, new List<int> { 3, 3 }, new List<int> { 4, 1 } },
+				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 5 }, new List<int> { 3, 5 }, new List<int> { 4, 2 } },
+				new List<List<int>> { new List<int> { 1, 10 }, new List<int> { 2, 1 }, new List<int> { 3, 5 } }
+			}},
+		};
+
+		if (!wavePoolByDay.ContainsKey(day))
+		{
+			Debug.LogWarning($"[Wave_Data] day {day}는 정의되어 있지 않습니다.");
+			return new List<List<int>>();
 		}
 
+		List<List<List<int>>> pool = wavePoolByDay[day];
+		int index = Random.Range(0, pool.Count);
+		Debug.Log($"[SpawnWave_ByPattern] Day {day + 1} - Selected Pattern Index: {index}");
+		return pool[index];
+	}
+
+	public void SpawnWave_ByPattern(int day)
+	{
 		enemySpawnPoints.Clear();
 		itemSpawnPoints.Clear();
 
@@ -55,91 +83,85 @@ public class SpawnManager : MonoBehaviour
 			}
 		}
 
-		// ���� ����
-		WaveData wave = waveList[waveIndex];
+		List<List<int>> pattern = Wave_Data(day);
+		if (pattern == null || pattern.Count == 0) return;
+
 		int usedCoinTotal = 0;
 
-        // 2. �Ϲ� �� ����
-        foreach (var spawn in wave.enemies)
-        {
-            if (spawn.count <= 0) continue;
-            if (!enemyPrefabDict.TryGetValue(spawn.prefabName, out GameObject prefab)) continue;
+		// 일반 몬스터 소환
+		foreach (var enemyInfo in pattern)
+		{
+			int prefabIndex = enemyInfo[0];
+			int count = enemyInfo[1];
 
-            for (int i = 0; i < spawn.count; i++)
-            {
-                if (enemySpawnPoints.Count == 0) break;
+			if (prefabIndex < 0 || prefabIndex >= enemyPrefabs.Length) continue;
+			GameObject prefab = enemyPrefabs[prefabIndex];
 
-                int index = Random.Range(0, enemySpawnPoints.Count);
-                Transform spawnPoint = enemySpawnPoints[index];
-                enemySpawnPoints.RemoveAt(index);
+			for (int i = 0; i < count; i++)
+			{
+				if (enemySpawnPoints.Count == 0) break;
 
-                // ���� �ν��Ͻ� ����
-                GameObject enemyObj = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
+				int index = Random.Range(0, enemySpawnPoints.Count);
+				Transform spawnPoint = enemySpawnPoints[index];
+				enemySpawnPoints.RemoveAt(index);
 
-                // ������Ʈ ����
-                Enemy enemyScript = enemyObj.GetComponentInChildren<Enemy>();
-                if (enemyScript == null || enemyScript.enemyData == null) continue;
+				GameObject enemyObj = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
+				Enemy enemyScript = enemyObj.GetComponentInChildren<Enemy>();
+				if (enemyScript == null || enemyScript.enemyData == null) continue;
 
-                // �ݵ�� Normal�� ����
-                enemyScript.enemyMobType = EnemyMobType.Normal;
+				enemyScript.enemyMobType = EnemyMobType.Normal;
+				enemyScript.EnemyInt();
 
-                // ���� �ʱ�ȭ
-                enemyScript.EnemyInt();
+				usedCoinTotal += enemyScript.enemyData.Coin;
+			}
+		}
 
-                // ���� ����
-                usedCoinTotal += enemyScript.enemyData.Coin;
-            }
-        }
+		// -------------------
+		// 중간보스 소환 예시 - 현재 코드에 맞게 변형
+		// -------------------
 
+		// 예시용 중간보스 정보 (외부에서 받아와야 함)
+		bool hasMidBoss = true; // 중간보스 존재 여부 (실제론 외부 변수 또는 파라미터)
+		int midBossCount = 1; // 중간보스 수량
+		int midBossPrefabIndex = 0; // enemyPrefabs에서 중간보스가 있다고 가정
 
-        // �߰����� ó��
-        if (wave.hasMidBoss && wave.middleBoss.Count > 0)
-        {
-            EnemySpawnData midBossData = wave.middleBoss[0];
+		if (hasMidBoss && midBossCount > 0)
+		{
+			if (midBossPrefabIndex >= 0 && midBossPrefabIndex < enemyPrefabs.Length)
+			{
+				GameObject bossPrefab = enemyPrefabs[midBossPrefabIndex];
 
-            if (midBossData.count > 0 && enemyPrefabDict.TryGetValue(midBossData.prefabName, out GameObject bossPrefab))
-            {
-                if (enemySpawnPoints.Count > 0)
-                {
-                    int index = Random.Range(0, enemySpawnPoints.Count);
-                    Transform spawnPoint = enemySpawnPoints[index];
-                    enemySpawnPoints.RemoveAt(index);
+				if (enemySpawnPoints.Count > 0)
+				{
+					int index = Random.Range(0, enemySpawnPoints.Count);
+					Transform spawnPoint = enemySpawnPoints[index];
+					enemySpawnPoints.RemoveAt(index);
 
-                    // �߰����� �ν��Ͻ� ����
-                    GameObject boss = Instantiate(bossPrefab, spawnPoint.position, Quaternion.identity);
+					GameObject boss = Instantiate(bossPrefab, spawnPoint.position, Quaternion.identity);
+					Enemy bossComp = boss.GetComponentInChildren<Enemy>();
 
-                    // �ν��Ͻ����� Enemy ������Ʈ ����
-                    Enemy bossComp = boss.GetComponentInChildren<Enemy>();
+					if (bossComp != null && bossComp.enemyData != null)
+					{
+						bossComp.enemyMobType = EnemyMobType.MiddleBoss;
+						bossComp.EnemyInt();
 
-                    if (bossComp != null && bossComp.enemyData != null)
-                    {
-                        // mobType ����
-                        bossComp.enemyMobType = EnemyMobType.MiddleBoss;
+						usedCoinTotal += bossComp.enemyData.Coin;
 
-                        // �ʱ�ȭ
-                        bossComp.EnemyInt();
+						if (bossComp.sp != null)
+						{
+							bossComp.sp.color = new Color(1f, 0f, 0f);
+						}
 
-                        // ���� ��뷮 ����
-                        usedCoinTotal += bossComp.enemyData.Coin;
+						midBossCount--;
+					}
+				}
+			}
+		}
 
-                        // ���� ���� (����)
-                        if (bossComp.sp != null)
-                        {
-                            bossComp.sp.color = new Color(1f, 0f, 0f);
-                        }
-
-                        // ���� 1 ����
-                        midBossData.count--;
-                    }
-                }
-            }
-        }
-
-
-        // 3. ������ ���� (���� ���� �״��)
-        int coinRemain = totalValPoint - usedCoinTotal;
-
+		// 남은 코인으로 아이템 소환
+		int coinRemain = totalValPoint - usedCoinTotal;
 		List<ItemData> validItems = item_date.Where(i => i != null).ToList();
+		if (validItems.Count == 0) return;
 		int minItemCoin = validItems.Min(i => i.ValPoint);
 
 		while (coinRemain >= minItemCoin && itemSpawnPoints.Count > 0)
@@ -163,6 +185,4 @@ public class SpawnManager : MonoBehaviour
 			coinRemain -= randomItem.ValPoint;
 		}
 	}
-
 }
-
