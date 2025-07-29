@@ -2,6 +2,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class Result_Text : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class Result_Text : MonoBehaviour
 
     public void Next_button() // 스테이지 선택 씬 이동
     {
+        GameEvents.CallNextDay();
         // 게임 오버 씬
         if (finalGold < 0)
         {
@@ -36,7 +38,7 @@ public class Result_Text : MonoBehaviour
             SceneManager.LoadScene("Clear_Scene");
             return;
         }
-
+        
         GameManager.Instance.Next_data_reset();
         SceneManager.LoadScene("Stage_Scene");
     }
