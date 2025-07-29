@@ -80,7 +80,17 @@ public class PassiveItemManager : MonoBehaviour
 		}
 	}
 
-	void Start()
+    private void OnEnable()
+    {
+		GameEvents.OnNextDay += HandleNextDay;
+	}
+
+    private void OnDisable()
+    {
+		GameEvents.OnNextDay-= HandleNextDay;
+	}
+
+    void Start()
 	{
 		// 저장된 값 불러오기
         foreach (var item in passiveItems)
@@ -306,7 +316,7 @@ public class PassiveItemManager : MonoBehaviour
 	//금의환향
 	public void DoPassive_3_1()
 	{
-		GameManager.Instance.playerData.gold *= 1.1f;
+		GameManager.Instance.Soul *= 1.1f;
 	}
 
 	//다다익선
@@ -396,5 +406,13 @@ public class PassiveItemManager : MonoBehaviour
 		}
 	}
 
-    #endregion
+	public void HandleNextDay()
+    {
+		if(HasEffect("Soul_Add_3_1"))
+        {
+			DoPassive_3_1();
+        }
+    }
+
+	#endregion
 }
