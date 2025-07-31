@@ -93,6 +93,7 @@ public class PlayerController : MonoBehaviour
     private Coroutine recoveryCoroutine;
 
     private NearestItemFinder nearestItemFinder; //가까운 아이템 탐지
+    public NearestItemFinder NearestItemFinder => nearestItemFinder;
 
     public enum PlayerState
     {
@@ -847,5 +848,11 @@ public class PlayerController : MonoBehaviour
         transform.position = targetPosition;
     }
 
+    public Vector3? GetNearestItemDir()
+    {
+        if (nearestItemFinder != null && nearestItemFinder.nearestItem != null)
+            return nearestItemFinder.nearestItem.position;
 
+        return null;
+    }
 }

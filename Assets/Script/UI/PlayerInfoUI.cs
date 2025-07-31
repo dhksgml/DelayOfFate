@@ -23,11 +23,16 @@ public class PlayerInfoUI : MonoBehaviour
     [SerializeField] private RectTransform hpBarRect;
     [SerializeField] private RectTransform extraHpRect;
 
+    //ItemFinderArrow Item
+    [SerializeField] private RectTransform UIArrow;
+    [SerializeField] private float distanceFromPlayer;
+    [SerializeField] private float hideUIArrowDistance;
+
     private const float HP_WIDTH = 288f;
     private const float HP_HEIGHT = 32f;
     private const float TOTAL_WIDTH = 320f;
     private const float TOTAL_HEIGHT = 40f;
-    
+
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -87,6 +92,14 @@ public class PlayerInfoUI : MonoBehaviour
             playerSpBar.rectTransform.sizeDelta = spSize;
 
             UpdateHealthBar(playerController.currentHp, playerController.maxHp, playerController.currentExtraHp, playerController.extraHp);
+            //if(PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_5_1"))
+            if (GameManager.Instance != null && GameManager.Instance.playerData.isFindNearestItem)
+            {
+                if (playerController.GetNearestItemDir() != null)
+                    ShowDirectionToItem((Vector3)playerController.GetNearestItemDir());
+                else
+                    HideDirectionToItem();
+            }
         }
         if (playerMPsc != null && playerController != null)
         {
@@ -161,5 +174,35 @@ public class PlayerInfoUI : MonoBehaviour
 
         float totalFrameWidth = totalWidth + (TOTAL_WIDTH - HP_WIDTH);
         frameRect.sizeDelta = new Vector2(totalFrameWidth, TOTAL_HEIGHT);
+    }
+
+    public void ShowDirectionToItem(Vector3 itemWorldPosition)
+    {
+        Transform playerTransform = playerController.gameObject.transform;
+        Vector3 dir = (itemWorldPosition - playerTransform.position);
+        float distance = dir.magnitude;
+
+        if (distance < hideUIArrowDistance)
+        {
+            UIArrow.gameObject.SetActive(false);
+        }
+        else
+        {
+            UIArrow.gameObject.SetActive(true);
+
+            dir.Normalize();
+            Vector3 offset = dir * distanceFromPlayer;
+
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(playerTransform.position);
+            UIArrow.position = screenPos + offset;
+
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            UIArrow.rotation = Quaternion.Euler(0, 0, angle);
+        }
+    }
+
+    public void HideDirectionToItem()
+    {
+        UIArrow.gameObject.SetActive(false);
     }
 }
