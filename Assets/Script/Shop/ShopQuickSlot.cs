@@ -53,8 +53,7 @@ public class ShopQuickSlot : MonoBehaviour
     }
     public void Update_UI()
     {
-        timeText.text = GameManager.Instance.Day + " ¿œ";
-
+        timeText.text = GameManager.Instance.Day + " / 7 ¿œ";
         for (int i = 0; i < 4; i++)
         {
             ItemData item = SlotsData[i];
