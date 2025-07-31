@@ -15,6 +15,7 @@ public class PassiveItemManager : MonoBehaviour
 	public Sprite[] Passive_Item_Icon_7;
 
 	private List<IPassiveEffect> activeEffects = new();
+	private int passive_6_1_count = 0;
 
 	void Awake()
 	{
@@ -83,11 +84,13 @@ public class PassiveItemManager : MonoBehaviour
     private void OnEnable()
     {
 		GameEvents.OnNextDay += HandleNextDay;
+		GameEvents.OnSaleItemImmediately += HandleSaleItemImmediately;
 	}
 
     private void OnDisable()
     {
 		GameEvents.OnNextDay-= HandleNextDay;
+		GameEvents.OnSaleItemImmediately -= HandleSaleItemImmediately;
 	}
 
     void Start()
@@ -267,7 +270,7 @@ public class PassiveItemManager : MonoBehaviour
 				DoPassive_6_2();
 				break;
 			case "Soul_Add_6_3":// 
-				DoPassive_6_3();
+				//DoPassive_6_3();
 				break;
 			case "Soul_Add_7_1":// 
 				DoPassive_7_1();
@@ -286,6 +289,12 @@ public class PassiveItemManager : MonoBehaviour
 	{
 		if (effect == null) return;
 		effect.ApplyEffect();
+	}
+
+	private void TryRemoveEffect(IPassiveEffect effect)
+	{
+		if (effect == null) return;
+		effect.RemoveEffect();
 	}
 
 	//정정당당
@@ -317,12 +326,6 @@ public class PassiveItemManager : MonoBehaviour
 	public void DoPassive_3_1()
 	{
 		GameManager.Instance.Soul *= 1.1f;
-	}
-
-	//다다익선
-	public void DoPassive_3_2()
-	{
-
 	}
 
 	//금강불괴
@@ -366,7 +369,11 @@ public class PassiveItemManager : MonoBehaviour
 	//등용문
 	public void DoPassive_6_1()
 	{
-
+		if (passive_6_1_count < 3)
+		{
+			passive_6_1_count += 1;
+			TryApplyEffect(new IncreaseMoveSpeedEffect(GameManager.Instance.playerData, 0.1f * passive_6_1_count));
+		}
 	}
 
 	//승승장구
@@ -408,11 +415,34 @@ public class PassiveItemManager : MonoBehaviour
 
 	public void HandleNextDay()
     {
+		//금의환향
 		if(HasEffect("Soul_Add_3_1"))
         {
 			DoPassive_3_1();
         }
+
+		//등용문
+		if (HasEffect("Soul_Add_6_1"))
+		{
+			TryRemoveEffect(new IncreaseMoveSpeedEffect(GameManager.Instance.playerData, 0.1f * passive_6_1_count));
+			passive_6_1_count = 0;
+		}
+
+		//선견지명
+		if (HasEffect("Soul_Add_6_3"))
+        {
+			DoPassive_6_3();
+		}
     }
+
+	public void HandleSaleItemImmediately()
+    {
+		//등용문
+		if (HasEffect("Soul_Add_6_1"))
+		{
+			DoPassive_6_1();
+		}
+	}
 
 	#endregion
 }
