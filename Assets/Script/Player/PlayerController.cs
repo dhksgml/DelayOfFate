@@ -16,7 +16,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float mpRecoveryDuration = 10f;
     [SerializeField] private float spRecoveryDuration = 10f;
 
-    const float runThreshold = 1f; //달리기에 필요한 최소 sp
+    const float runThreshold = 10f; //달리기에 필요한 최소 sp
+    private bool isEmptySP;
 
     public float attackDamage = 1;
     public float attackCoolTime;
@@ -118,7 +119,7 @@ public class PlayerController : MonoBehaviour
 
     public void Init()
     {
-        if(GameManager.Instance != null)
+        if (GameManager.Instance != null)
         {
             if (GameManager.Instance.playerData != null)
             {
@@ -313,7 +314,7 @@ public class PlayerController : MonoBehaviour
 
         if (isMoveAble && isMoving)
         {
-            if (currentSp > 0 && isRun)
+            if ((currentSp > 0) && isRun)
             {
                 currentState = PlayerState.Run;
                 currentMoveSpeed = runSpeed;
@@ -338,7 +339,7 @@ public class PlayerController : MonoBehaviour
         if (flashLightObject != null)
         {
             if (isRecovering) flashLightObject.SetActive(false);
-            else if (flashLightLevel < 3 && isRun) flashLightObject.SetActive(false);
+            else if (flashLightLevel < 3 && isRun && !isEmptySP) flashLightObject.SetActive(false);
             else flashLightObject.SetActive(isHavingFlashLight);
             SetflashLightPosition();
         };
@@ -420,19 +421,38 @@ public class PlayerController : MonoBehaviour
     }
     void HandleRunInput()
     {
-        if (currentSp < runThreshold)
+        //if ((currentSp < runThreshold) && !isEmptySP)
+        //{
+        //    isRun = false;
+        //    isEmptySP = true;
+        //    return;
+        //}
+
+        //if(currentSp > runThreshold)
+        //{
+        //    isEmptySP = false;
+        //}
+
+        //if(Input.GetKey(KeyCode.LeftShift) && isMoving)
+        //{
+        //    isRun = true;
+        //}
+        //else
+        //{
+        //    isRun = false;
+        //}
+        if ((currentSp > runThreshold))
         {
+            isEmptySP = false;
+        }
+        if (currentSp <= 0)
+        {
+            isEmptySP = true;
             isRun = false;
-            return;
         }
-        else if (isRun == false)
+        else if(!isEmptySP)
         {
-            if (Input.GetKeyDown(KeyCode.LeftShift))
-                isRun = true;
-        }
-        else
-        {
-            isRun = Input.GetKey(KeyCode.LeftShift);
+            isRun = Input.GetKey(KeyCode.LeftShift) && isMoving;
         }
     }
 
@@ -694,7 +714,7 @@ public class PlayerController : MonoBehaviour
             totalHp += hpPerSecond * delta;
             totalHp = Mathf.Min(totalHp, totalMaxHp);
 
-            if(totalHp <= maxHp)
+            if (totalHp <= maxHp)
             {
                 currentHp = totalHp;
                 currentExtraHp = 0;
