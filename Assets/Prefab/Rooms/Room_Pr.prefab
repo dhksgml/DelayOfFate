@@ -51,6 +51,11 @@ MonoBehaviour:
   height: 3
   roomCount: 8
   spacing: 50
+  Cost_list: 2c010000f4010000e8030000
+  map_structure: 030000000400000005000000
+  room_count: 080000000c00000010000000
+  value_points: c2010000ee020000dc050000
+  value_error: 3200000064000000c8000000
   allRoomPrefabs:
   - {fileID: 3463885864821706135, guid: dc9c7e8004619b740851cc4651805fe9, type: 3}
   - {fileID: 3463885864821706135, guid: b6bc6b094b9a04e419f1d2b8615cb6ab, type: 3}
@@ -106,32 +111,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ee6f57ace47e05d44a4b7e28ac4c7351, type: 2}
   - {fileID: 11400000, guid: 6d2be83f5ef249d4ea2882c4ce2d12ca, type: 2}
   - {fileID: 11400000, guid: 533d1802ff0ee9546ac9c8e87b4cc9ef, type: 2}
-  waveList:
-  - enemies:
-    - prefabName: Eo_Dook_Gwi
-      count: 5
-    middleBoss: []
-    hasMidBoss: 1
-  - enemies:
-    - prefabName: Boon_yeol_gwi
-      count: 5
-    middleBoss: []
-    hasMidBoss: 1
-  - enemies:
-    - prefabName: Yang
-      count: 5
-    middleBoss: []
-    hasMidBoss: 1
-  - enemies:
-    - prefabName: StealEnemy
-      count: 5
-    middleBoss: []
-    hasMidBoss: 1
-  - enemies:
-    - prefabName: WomanmGhost
-      count: 5
-    middleBoss: []
-    hasMidBoss: 1
+  - {fileID: 11400000, guid: 73dd8d864feedc84ca6423c1872167b2, type: 2}
+  - {fileID: 11400000, guid: 617856691e902c14a8462a86190a8614, type: 2}
+  - {fileID: 11400000, guid: fb741837648f6524e94b766acf97b89f, type: 2}
+  - {fileID: 11400000, guid: 67f44444bfba241429ac7cea369bc3bb, type: 2}
+  - {fileID: 11400000, guid: d669f6e70e3faef4c956b3375e71e2a0, type: 2}
+  - {fileID: 11400000, guid: 028d8368d43df1143a7332fa5fbc8c70, type: 2}
+  - {fileID: 11400000, guid: fec6f5dfa15e20241a44e25710aae47a, type: 2}
+  - {fileID: 11400000, guid: b95e7bd4f3c03a54cb45a92794b6b71b, type: 2}
+  - {fileID: 11400000, guid: b53eb795f40c47e47846fd33d8cd1ca5, type: 2}
   totalValPoint: 1500
 --- !u!114 &5527380200257563260
 MonoBehaviour:
