@@ -61,7 +61,7 @@ public class ShopQuickSlot : MonoBehaviour
             {
                 // 아이템 아이콘 설정
                 slotImages[i].sprite = item.icon;
-
+                slotImages[i].color = new Color(1f, 1f, 1f, 1f);
                 // 아이템 곗수 표시 여부
                 if (item.Count_Check)
                 {
@@ -77,6 +77,7 @@ public class ShopQuickSlot : MonoBehaviour
             {
                 // 빈 슬롯 처리
                 slotImages[i].sprite = default_Item_Sprite;
+                slotImages[i].color = new Color(1f, 1f, 1f, 0.3f);
                 slotCounts[i].gameObject.SetActive(false);
             }
 
@@ -92,7 +93,7 @@ public class ShopQuickSlot : MonoBehaviour
             int total_coin = selectedItem.Coin * selectedItem.Count;
             int total_Weight = selectedItem.Weight * selectedItem.Count;
             Item_Name.text = string.Format("[{0}]", selectedItem.itemName);
-            Item_Coin.text = total_coin.ToString() + " 냥";
+            Item_Coin.text = total_coin.ToString() + " 값";
             Item_Weight.text = total_Weight.ToString() + " 근";
         }
         else
