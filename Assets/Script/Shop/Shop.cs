@@ -121,46 +121,54 @@ public class Shop : MonoBehaviour
         if (index < 0 || index >= 3) return;
 
         int price = weaponPrices[index];
-        if (Soul >= price)
+        if (Soul < price) return;
+
+        // 내부에서 바로 퀵슬롯 참조
+        ShopQuickSlot shopQuickSlot = FindObjectOfType<ShopQuickSlot>();
+        if (shopQuickSlot == null) return;
+
+        // 빈 슬롯 찾기
+        int emptySlotIndex = -1;
+        for (int i = 0; i < shopQuickSlot.quickSlots.Length; i++)
         {
-            if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_3_2"))//다다익선 보유시
+            ItemData item = shopQuickSlot.SlotsData[i];
+            if (item == null || string.IsNullOrEmpty(item.itemName))
             {
-                
-            }
-            else
-            {
-                GameManager.Instance.Sub_Soul(price);
-            }
-            weaponSlots[index].text = "구매 완료";
-
-            Button btn = weaponSlots[index].GetComponentInParent<Button>();
-            if (btn != null) btn.interactable = false;
-
-            // 내부에서 바로 퀵슬롯 참조
-            ShopQuickSlot shopQuickSlot = FindObjectOfType<ShopQuickSlot>();
-            if (shopQuickSlot == null) return;
-
-            bool slotFilled = false;
-            for (int i = 0; i < shopQuickSlot.quickSlots.Length; i++)
-            {
-                ItemData item = shopQuickSlot.SlotsData[i]; // 여기를 바꿈
-                if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
-                if (item == null || string.IsNullOrEmpty(item.itemName))
-                {
-                    shopQuickSlot.SlotsData[i] = weaponData[index];
-                    if (weaponData[index].id == 997) { shopQuickSlot.SlotsData[i].Count = 20; }//부적의 경우
-                    OnItemHover(i, weaponData[index]);
-                    slotFilled = true;
-                    break;
-                }
-            }
-
-            if (!slotFilled)
-            {
-                Debug.Log("퀵슬롯이 모두 찼습니다.");
+                emptySlotIndex = i;
+                break;
             }
         }
+
+        if (emptySlotIndex == -1)
+        {
+            Debug.Log("퀵슬롯이 모두 찼습니다.");
+            return;
+        }
+
+        // 다다익선 효과가 없을 때만 소울 차감
+        bool hasSoulAddEffect = PassiveItemManager.Instance != null &&
+                                PassiveItemManager.Instance.HasEffect("Soul_Add_3_2");
+        if (!hasSoulAddEffect)
+        {
+            GameManager.Instance.Sub_Soul(price);
+        }
+
+        weaponSlots[index].text = "구매 완료";
+
+        Button btn = weaponSlots[index].GetComponentInParent<Button>();
+        if (btn != null) btn.interactable = false;
+
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
+
+        shopQuickSlot.SlotsData[emptySlotIndex] = weaponData[index];
+        if (weaponData[index].id == 997)
+        {
+            shopQuickSlot.SlotsData[emptySlotIndex].Count = 20;
+        }
+        OnItemHover(emptySlotIndex, weaponData[index]);
     }
+
 
     public void OnItemHover(int i, ItemData item)
     {
