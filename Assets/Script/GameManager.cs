@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour
         playerData.flashLightLevel = 1;
         playerData.gold = 0;
         playerData.soul = 0;
+        playerData.isFindNearestItem = false;
 
         Day = 1;
         Gold = 100;

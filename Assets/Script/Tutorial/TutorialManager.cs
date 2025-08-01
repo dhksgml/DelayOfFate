@@ -16,7 +16,9 @@ public class TutorialManager : MonoBehaviour
 {
     public GameObject tutorialBackground;
     public TextMeshProUGUI tutorialText;
+    public float messageWaitTime;
     public List<TutorialStep> steps;
+    
 
     public GameObject[] highlightUIs;
     private int highlightUIObjectIndex;
@@ -35,6 +37,7 @@ public class TutorialManager : MonoBehaviour
 
     private IEnumerator PlayTutorial()
     {
+        GameManager.Instance.playerData.isFindNearestItem = true;
         tutorialBackground.SetActive(true);
 
         while (currentIndex < steps.Count)
@@ -59,7 +62,7 @@ public class TutorialManager : MonoBehaviour
 
             if (i < step.messages.Length - 1)
             {
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(messageWaitTime);
             }
         }
 
