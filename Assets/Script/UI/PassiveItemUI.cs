@@ -23,6 +23,12 @@ public class PassiveItemUI : MonoBehaviour
 			case 4:
 				EMDRMQ = "특급";
 				break;
+			case 5:
+				EMDRMQ = "무기";
+				break;
+			case 6:
+				EMDRMQ = "강화";
+				break;
 			default:
 				EMDRMQ = "오류";
 				break;
@@ -41,7 +47,7 @@ public class PassiveItemUI : MonoBehaviour
 
 	public void SetPosition(Vector3 worldPos)
 	{
-		worldPos.x -= 64f;
+		worldPos.x -= 96f;
 		transform.position = worldPos;
 	}
 

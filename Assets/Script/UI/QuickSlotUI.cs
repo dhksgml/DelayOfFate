@@ -48,7 +48,7 @@ public class QuickSlotUI : MonoBehaviour
         if (item != null && !string.IsNullOrEmpty(item.itemName))
         {
             slotImages[index].sprite = item.icon;
-
+            slotImages[index].color = new Color(1f, 1f, 1f, 1f);
             if (item.Count_Check)
             {
                 slotCounts[index].gameObject.SetActive(true);
@@ -63,6 +63,7 @@ public class QuickSlotUI : MonoBehaviour
         {
             // ºó ½½·Ô Ã³¸®
             slotImages[index].sprite = default_Item_Sprite;
+            slotImages[index].color = new Color(1f, 1f, 1f, 0.3f);
             slotCounts[index].gameObject.SetActive(false);
         }
     }
