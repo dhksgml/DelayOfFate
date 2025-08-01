@@ -39,49 +39,27 @@ public class PassiveItemManager : MonoBehaviour
 		{
 			for (int n = 1; n <= 2; n++)
 			{
-				string id = $"Soul_Add_{g}_{n}";
-				string name = GetPassiveName(g, n);
-				string desc = GetPassiveDescription(g, n);
-				int emdrmq = GetPassiveEmdrmq(g, n);
-
-				bool purchased = PlayerPrefs.GetInt(id, 0) == 1;
-
-				passiveItems.Add(new PassiveItemData
-				{
-					id = id,
-					itemName = name,
-					description = desc,
-					isPurchased = purchased,
-					rating = emdrmq
-				});
-
-				if (purchased)
-					ApplyPassiveEffect(id);
+				AddPassiveItem(g, n);
 			}
 		}
-		for (int n = 2; n <= 6; n+=2)
+		// 3번째 효과 Soul_Add_2_3, Soul_Add_4_3, Soul_Add_6_3
+		for (int n = 2; n <= 6; n += 2)
 		{
-			string a_id = $"Soul_Add_{n}_{3}";
-			string a_name = GetPassiveName(n, 3);
-			string a_desc = GetPassiveDescription(n, 3);
-			int emdrmq = GetPassiveEmdrmq(n, 3);
-
-			bool a_purchased = PlayerPrefs.GetInt(a_id, 0) == 1;
-
-			passiveItems.Add(new PassiveItemData
-			{
-				id = a_id,
-				itemName = a_name,
-				description = a_desc,
-				isPurchased = a_purchased,
-				rating = emdrmq
-			});
-
-			if (a_purchased) ApplyPassiveEffect(a_id);
+			AddPassiveItem(n, 3);
+		}
+		// Soul_Add_8_1 ~ Soul_Add_8_3
+		for (int n = 1; n <= 3; n++)
+		{
+			AddPassiveItem(8, n);
+		}
+		// Soul_Add_9_1 ~ Soul_Add_9_2
+		for (int n = 1; n <= 3; n++)
+		{
+			AddPassiveItem(9, n);
 		}
 	}
 
-    private void OnEnable()
+	private void OnEnable()
     {
 		GameEvents.OnNextDay += HandleNextDay;
 		GameEvents.OnSaleItemImmediately += HandleSaleItemImmediately;
@@ -105,6 +83,28 @@ public class PassiveItemManager : MonoBehaviour
             }
         }
     }
+	private void AddPassiveItem(int g, int n)
+	{
+		string id = $"Soul_Add_{g}_{n}";
+		string name = GetPassiveName(g, n);
+		string desc = GetPassiveDescription(g, n);
+		int emdrmq = GetPassiveEmdrmq(g, n);
+
+		bool purchased = PlayerPrefs.GetInt(id, 0) == 1;
+
+		passiveItems.Add(new PassiveItemData
+		{
+			id = id,
+			itemName = name,
+			description = desc,
+			isPurchased = purchased,
+			rating = emdrmq
+		});
+
+		if (purchased)
+			ApplyPassiveEffect(id);
+	}
+
 	string GetPassiveName(int group, int number)
 	{
 		switch ($"{group}_{number}")
@@ -126,31 +126,44 @@ public class PassiveItemManager : MonoBehaviour
 			case "6_3": return "선견지명";
 			case "7_1": return "구사일생";
 			case "7_2": return "궁여지책";
+				//패시브 아님
+			case "8_1": return "환도";
+			case "8_2": return "방망이";
+			case "8_3": return "부적 20개";
+			case "9_1": return "호롱";
+			case "9_2": return "호롱";
 			// ...
 			default: return "알 수 없음";
 		}
 	}
 	string GetPassiveDescription(int group, int number)
 	{
+		//16글자 마다 줄 바꿈이 됨
 		switch ($"{group}_{number}")
 		{
-			case "1_1": return "물건의 무게로 인한 이동속도 감속이 제거됨";
-			case "1_2": return "악귀에게 주는 피해가 10할 증가 악귀의 약점을 공격 할 수 없음";
-			//case "2_1": return "방망이의 공격 범위가 10할 증가 방망이가 즉시 시전 방망이의 피해량이 5할 증가";
-			//case "2_2": return "부적의 추격 범위가 20할 증가 부적의 피해량이 5할 증가";
-			//case "2_3": return "환도의 공격속도 5할 증가 환도의 피해가 5할 증가";
-			case "3_1": return "약값 지불 후 보유한 냥의 1할 만큼 획득";
+			case "1_1": return "물건의 무게로 인한 이동속도\n감속이 제거됨";
+			case "1_2": return "악귀에게 주는 피해가 10할 증가\n악귀의 약점을 공격 할 수 없음";
+			//case "2_1": return "방망이의 공격 범위가 10할 증가\n방망이가 즉시 시전 방망이의 피해량이 5할 증가";
+			//case "2_2": return "부적의 추격 범위가 20할 증가\n부적의 피해량이 5할 증가";
+			//case "2_3": return "환도의 공격속도 5할 증가\n환도의 피해가 5할 증가";
+			case "3_1": return "약값 지불 후 보유한 냥의\n1할 만큼 획득";
 			case "3_2": return "무기를 0혼 으로 구매 가능";
-			case "4_1": return "악귀로 받는 체력피해가 5할 감소";
-			case "4_2": return "체력이 75 증가 정신이 25 감소";
-			case "4_3": return "정신이 75 증가 체력이 25 감소";
-			case "5_1": return "가장 가까운 물건의 위치를 파악함";
-			case "5_2": return "비어 있는 손 만큼 이동속도 1할 증가";
-			//case "6_1": return "즉시 판매시 이동속도 1할 증가 (최대 3할) 하루가 지나면 초기화";
-			case "6_2": return "악귀를 처치시 영구적으로 피해량 1할 증가";
-			case "6_3": return "하루가 지날때 들고 있던 물건의 가치가 5할 증가";
-			case "7_1": return "부활 시 물건을 떨어뜨리지 않고 부활";
-			case "7_2": return "18각 이상시 달리기 속도가 5할 증가";
+			case "4_1": return "악귀로 받는 체력피해가\n5할 감소";
+			case "4_2": return "체력이 75 증가\n정신이 25 감소";
+			case "4_3": return "정신이 75 증가\n체력이 25 감소";
+			case "5_1": return "가장 가까운 물건의\n위치를 파악함";
+			case "5_2": return "비어 있는 손 만큼\n이동속도 1할 증가";
+			//case "6_1": return "즉시 판매시 이동속도 1할 증가\n하루가 지나면 초기화\n(최대 3할)";
+			case "6_2": return "악귀를 처치시\n영구적으로 피해량 1할 증가";
+			case "6_3": return "하루가 지날때 들고 있던 물건의\n가치가 5할 증가";
+			case "7_1": return "부활 시\n물건을 떨어뜨리지 않고 부활";
+			case "7_2": return "18각 이상시\n달리기 속도가 5할 증가";
+				//패시브 아님
+			case "8_1": return "전방을 공격해 12의 피해를 입힘\n약점의 경우 즉사시킴";
+			case "8_2": return "전방을 공격해 25의 피해를 입힘\n약점의 경우 즉사시킴";
+			case "8_3": return "[소모형]\n전방에 부적을 던져 7의 피해를 입힘\n약점의 경우\n최대체력 5할의 피해를 입힘";
+			case "9_1": return "빛이 더 강해짐";
+			case "9_2": return "달려도 빛이 꺼지지 않음";
 			// ...
 			default: return "설명이 없습니다.";
 		}
@@ -176,6 +189,12 @@ public class PassiveItemManager : MonoBehaviour
 			case "6_3": return 3;
 			case "7_1": return 2;
 			case "7_2": return 1;
+				//패시브 아님
+			case "8_1": return 5;
+			case "8_2": return 5;
+			case "8_3": return 5;
+			case "9_1": return 6;
+			case "9_2": return 6;
 			// ...
 			default: return 0;
 		}
