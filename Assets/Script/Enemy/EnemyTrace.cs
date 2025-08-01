@@ -19,6 +19,8 @@ public class EnemyTrace : MonoBehaviour
     [SerializeField] Somyeon_gwi somyeon_Gwi;
     [SerializeField] Boon_yeol_gwi boon_yeol_gwi;
     [SerializeField] Mumyeon_Gwi mumyeon_Gwi;
+    [SerializeField] Death_Jangseung death_Jangseung;
+    [SerializeField] Death_Jangseung_Attack death_Jangseung_Attack;
 
     void Awake()
     {
@@ -30,6 +32,11 @@ public class EnemyTrace : MonoBehaviour
     {
         //수정하면서. 자식이 아닌 다른걸로 분리해줬기에 따라가게 해줌
         transform.position = enemy.transform.position;
+
+        if (death_Jangseung_Attack != null && !death_Jangseung_Attack.isAttack)
+        {
+            jangseungtime += Time.deltaTime;
+        }
     }
 
     //땅상어 전용
@@ -102,6 +109,11 @@ public class EnemyTrace : MonoBehaviour
 
     // 무면귀 전용
     float mumyeon_Gwi_Stay_Time;
+
+    // 죽음 장승 전용
+    private Vector3 jangseungTargetTrs;
+    private float jangseungtime = 0f;
+
 
     void OnTriggerStay2D(Collider2D collision)
     {
@@ -179,19 +191,38 @@ public class EnemyTrace : MonoBehaviour
                     }
                 }
 
-                // 무면귀 전용
-                if (mumyeon_Gwi != null)
+            }
+
+            // 무면귀 전용
+            if (mumyeon_Gwi != null)
+            {
+                if (collision.gameObject.CompareTag("Player"))
                 {
-                    if (collision.gameObject.CompareTag("Player"))
+                    mumyeon_Gwi_Stay_Time += Time.deltaTime;
+                    // 무면귀가 추적하는 시간
+                    if (mumyeon_Gwi_Stay_Time >= 5f)
                     {
-                        mumyeon_Gwi_Stay_Time += Time.deltaTime;
-                        // 무면귀가 추적하는 시간
-                        if (mumyeon_Gwi_Stay_Time >= 5f)
-                        {
-                            // 추적을 활성화 해줌
-                            mumyeon_Gwi.isTrace = true;
-                        }
+                        // 추적을 활성화 해줌
+                        mumyeon_Gwi.isTrace = true;
                     }
+                }
+            }
+            // 죽음 장승 전용
+            if (death_Jangseung != null)
+            {
+                if (collision.gameObject.CompareTag("Player"))
+                {
+                    jangseungTargetTrs = collision.transform.position;
+
+                    if (jangseungtime >= death_Jangseung.attackSeeTime && !death_Jangseung.isAttackReady)
+                    {
+                        death_Jangseung.attackTargetTrs = jangseungTargetTrs;
+
+                        death_Jangseung.isAttackReady = true;
+
+                        jangseungtime = 0f;
+                    }
+
                 }
             }
 
