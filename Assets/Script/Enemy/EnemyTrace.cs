@@ -14,13 +14,21 @@ public class EnemyTrace : MonoBehaviour
     public Vector3   targetPos; //플레이어의 위치
     [SerializeField]
     Enemy            enemy;
+    // 땅상어
     [SerializeField] LandShark landShark;
     [SerializeField] LandSharkAttack landSharkAttack;
+    // 소면귀
     [SerializeField] Somyeon_gwi somyeon_Gwi;
+    // 분열귀
     [SerializeField] Boon_yeol_gwi boon_yeol_gwi;
+    // 무면귀
     [SerializeField] Mumyeon_Gwi mumyeon_Gwi;
+    // 죽음장승
     [SerializeField] Death_Jangseung death_Jangseung;
     [SerializeField] Death_Jangseung_Attack death_Jangseung_Attack;
+    // 두억시니
+    [SerializeField] Duoksini duoksini;
+    [SerializeField] Duoksini_Attack duoksini_Attack;
 
     void Awake()
     {
@@ -33,9 +41,15 @@ public class EnemyTrace : MonoBehaviour
         //수정하면서. 자식이 아닌 다른걸로 분리해줬기에 따라가게 해줌
         transform.position = enemy.transform.position;
 
+        // 죽음 장승 전용
         if (death_Jangseung_Attack != null && !death_Jangseung_Attack.isAttack)
         {
             jangseungtime += Time.deltaTime;
+        }
+        // 두억시니 전용
+        else if (duoksini_Attack != null && !duoksini_Attack.isAttack)
+        {
+            duoksinitime += Time.deltaTime;
         }
     }
 
@@ -111,9 +125,12 @@ public class EnemyTrace : MonoBehaviour
     float mumyeon_Gwi_Stay_Time;
 
     // 죽음 장승 전용
-    private Vector3 jangseungTargetTrs;
-    private float jangseungtime = 0f;
+    Vector3 jangseungTargetTrs;
+    float jangseungtime = 0f;
 
+    // 두억시니 전용
+    Vector3 duoksiniTargetTrs;
+    float duoksinitime = 0f;
 
     void OnTriggerStay2D(Collider2D collision)
     {
@@ -212,7 +229,7 @@ public class EnemyTrace : MonoBehaviour
             {
                 if (collision.gameObject.CompareTag("Player"))
                 {
-                    jangseungTargetTrs = collision.transform.position;
+                    duoksiniTargetTrs = collision.transform.position;
 
                     if (jangseungtime >= death_Jangseung.attackSeeTime && !death_Jangseung.isAttackReady)
                     {
@@ -221,6 +238,26 @@ public class EnemyTrace : MonoBehaviour
                         death_Jangseung.isAttackReady = true;
 
                         jangseungtime = 0f;
+                    }
+
+                }
+            }
+            // 두억시니 전용
+            if (duoksini != null)
+            {
+                if (collision.gameObject.CompareTag("Player"))
+                {
+                    duoksiniTargetTrs = collision.transform.position;
+
+                    if (duoksinitime >= duoksini.attackSeeTime && !duoksini.isAttackReady)
+                    {
+                        duoksini.isAttack = true;   
+
+                        duoksini.attackTargetTrs = duoksiniTargetTrs;
+
+                        duoksini.isAttackReady = true;
+
+                        duoksinitime = 0f;
                     }
 
                 }
