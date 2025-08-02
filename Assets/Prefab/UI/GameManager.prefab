@@ -62,7 +62,7 @@ MonoBehaviour:
     speedMultiplier: 1
     isDropWhenRevive: 0
     isFindNearestItem: 0
-  isTutorial: 1
+  isTutorial: 0
   Day: 1
   Gold: 100
   Soul: 250
@@ -71,9 +71,9 @@ MonoBehaviour:
   N_Day_Time: 0
   N_Day_Cost: 0
   Cost_list:
-  - 300
   - 500
   - 1000
+  - 2000
   killcount: 0
   SlotsData:
   - {fileID: 0}
