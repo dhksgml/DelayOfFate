@@ -102,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemDataTemplate: {fileID: 0}
   infoPanel: {fileID: 7750523744315632086}
+  name_text: {fileID: 6321159847687174672}
   coin_text: {fileID: 7692328861986335090}
   holdGaugeUI: {fileID: 8682206281395705518}
   holdGauge: {fileID: 3047897727720876106}
@@ -259,6 +260,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Item_Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5357645014982782193, guid: 7c6a1e0c8bdc5844a8016a6cb8d6ee69, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -278,6 +283,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6321159847687174672 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8533209596280586039, guid: 7c6a1e0c8bdc5844a8016a6cb8d6ee69, type: 3}
+  m_PrefabInstance: {fileID: 2437935627217995047}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &7692328861986335090 stripped

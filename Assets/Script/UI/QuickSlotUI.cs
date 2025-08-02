@@ -13,6 +13,8 @@ public class QuickSlotUI : MonoBehaviour
     public Sprite selectedSlotSprite;   // 선택된 슬롯 배경
     public TMP_Text Item_Name;          // 선택한 아이템의 이름
     public TMP_Text Item_Coin;          // 선택한 아이템의 가치
+    public TMP_Text Use_text;           // 사용 가능한 아이템이라면 표기될 텍스트
+    public TMP_Text Discard_text;       // 아이템을 들고 있다면 버리기 텍스트 표기
     public TMP_Text Item_Weight;        // 선택한 아이템의 무게
 
     public Player_Item_Use playerItemUse;
@@ -129,12 +131,16 @@ public class QuickSlotUI : MonoBehaviour
             Item_Name.text = string.Format("[{0}]", selectedItem.itemName);
             Item_Coin.text = total_coin.ToString() + " 값";
             Item_Weight.text = total_Weight.ToString() + " 근";
+            if (selectedItem.isUsable) { Use_text.text = "[<space=15><voffset=14><sprite=1><voffset=0><space=-25>] 사용</voffset>"; } else { Use_text.text = null; } //사용 가능한 경우만 표기
+            Discard_text.text = "[<b>F</b>] 버리기";
         }
         else
         {
             Item_Name.text = null;
             Item_Coin.text = null;
             Item_Weight.text = null;
+            Use_text.text = null;
+            Discard_text.text = null;
         }
     }
     public void UpdateUI(Item[] quickSlots, int selectedIndex)
