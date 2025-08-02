@@ -11,6 +11,7 @@ public class ItemObject : MonoBehaviour
     private Player_Item_Use player_item_use;
     //public GameObject item_soul;
     public GameObject infoPanel; // 월드 UI (Canvas) 참조
+    public TMP_Text name_text; // 텍스트 참조
     public TMP_Text coin_text; // 텍스트 참조
     public GameObject holdGaugeUI; // 판매 키 게이지 UI
     public Image holdGauge; // 게이지 이미지 (Fill Amount 방식)
@@ -125,10 +126,14 @@ public class ItemObject : MonoBehaviour
         {
             holdGauge.fillAmount = progress;
         }
+
+        if (name_text != null) name_text.text = string.Format("[{0}]", itemData.itemName);
+
         if (coin_text != null)
         {
             int total_coin = itemData.Coin * itemData.Count;
-            coin_text.text = string.Format("[{0}] {1} 값", itemData.itemName, total_coin);
+            if (itemData.Sell_immediately) { coin_text.text = string.Format("[<b>E</b>] 줍기\n[<b>E~</b>] 즉시 판매: {0} 혼", total_coin); }
+            else {coin_text.text = string.Format("[<b>E</b>] 줍기\n{0} 값", total_coin);} //즉시 판매가 불가능한 아이템의 경우
         }
     }
 }
