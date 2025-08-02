@@ -17,7 +17,6 @@ public class StealEnemy : Enemy
     {
         rigid = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        
     }
 
     void Start()
