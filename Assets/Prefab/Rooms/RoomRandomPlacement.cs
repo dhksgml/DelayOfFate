@@ -10,11 +10,11 @@ public class RoomRandomPlacement : MonoBehaviour
     public int roomCount;
     public float spacing;//룸 거리 (이제 사실상 고정)
 
-    [HideInInspector] public int[] Cost_list = { 500, 1200, 2000 }; //약값
-    [HideInInspector] public int[] map_structure = { 3, 4, 5 }; //맵구조
-    [HideInInspector] public int[] room_count = { 8, 12, 16 }; //방 곗수 (오차1)
-    [HideInInspector] public int[] value_points = { 250, 400, 850 }; //바닥에 깔리는 그 가치
-    [HideInInspector] public int[] value_error = { 50, 100, 200 }; //바닥에 깔리는 가치의 오차
+    [HideInInspector] public int[] Cost_list; //약값
+    [HideInInspector] public int[] map_structure; //맵구조
+    [HideInInspector] public int[] room_count; //방 곗수 (오차1)
+    [HideInInspector] public int[] value_points; //바닥에 깔리는 그 가치
+    [HideInInspector] public int[] value_error; //바닥에 깔리는 가치의 오차
 
     public GameObject[] allRoomPrefabs;
     public GameObject corridorPrefab;
@@ -32,6 +32,15 @@ public class RoomRandomPlacement : MonoBehaviour
 
     // 사신 소환을 위함
     public List<Vector3> randomPlace;
+
+    private void Awake() //배열 초기화
+    {
+        Cost_list = new int[] { 500, 1200, 2000, 2900, 4000 }; //약값
+        map_structure = new int[] { 3, 4, 4, 5, 5 }; //맵구조
+        room_count = new int[] { 8, 12, 16, 20, 24 }; //방 곗수 (오차1)
+        value_points = new int[] { 350, 750, 1200, 1800, 2500 }; //바닥에 깔리는 그 가치
+        value_error = new int[] { 50, 100, 200, 350, 550 }; //바닥에 깔리는 가치의 오차
+    }
 
     void Start()
     {
@@ -51,7 +60,7 @@ public class RoomRandomPlacement : MonoBehaviour
         width = baseValue;
         height = baseValue;
 
-        if (Day+1 % 2 == 1)//홀수 날 일 경우 가로 세로 둘중 하나만 +1을 함
+        if ((Day + 1) % 2 == 1)//홀수 날 일 경우 가로 세로 둘중 하나만 +1을 함
         {
             (width, height) = Random.Range(0, 2) == 0
                 ? (baseValue + 1, baseValue)
