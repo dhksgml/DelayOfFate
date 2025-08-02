@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public int N_Day_Time; // ���Ͽ� Ŭ������ ��(�ð�)
     public float N_Day_Cost; //�ش� �����Ͽ� �� ��
     [HideInInspector] public float[] Cost_list;
+
     public Item[] currentQuickSlot = new Item[4];
     public int killcount = 0; //óġ�� �Ǳ� ��
 
