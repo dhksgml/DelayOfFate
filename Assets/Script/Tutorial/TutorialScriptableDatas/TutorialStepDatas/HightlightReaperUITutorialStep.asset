@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 279043592cd29f54e97b9c5bf02607ad, type: 3}
-  m_Name: HightlightUITutorialStep
+  m_Name: HightlightReaperUITutorialStep
   m_EditorClassIdentifier: 
-  stepName: HightlightGoalGoldUI
+  stepName: HightlightReaperUI
   messages:
-  - "\uBAA9\uD45C\uB294 \uC0DD\uC874\uC785\uB2C8\uB2E4."
-  - "\uC0DD\uC874\uBE44\uC6A9\uC744 \uB0A9\uBD80\uD558\uC138\uC694."
-  condition: {fileID: 0}
+  - "18\uAC01 \uC774\uD6C4\uC5D0\uB294 \uCC98\uCE58\uBD88\uAC00\uB2A5\uD55C \uC800\uC2B9\uC0AC\uC790\uAC00
+    \uB4F1\uC7A5\uD569\uB2C8\uB2E4."
+  waitForInput: 0
+  condition: {fileID: 11400000, guid: 70fbec192ce53c043b2d3bf316fc6e7e, type: 2}
   stepType: 5
   spawnPrefab: {fileID: 0}
   moveToPosition: {x: 0, y: 0, z: 0}
-  waitTime: 2
+  waitTime: 3

@@ -10,14 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 279043592cd29f54e97b9c5bf02607ad, type: 3}
-  m_Name: TutorialStep
+  m_Name: TutorialExplainSPBarStep
   m_EditorClassIdentifier: 
-  stepName: HelloWorld
+  stepName: ExplainSPBar
   messages:
-  - "\uD29C\uD1A0\uB9AC\uC5BC\uC5D0 \uC624\uC2E0 \uAC78 \uD658\uC601\uD569\uB2C8\uB2E4."
+  - "\uAE30\uB825\uC740 \uB2EC\uB9AC\uAE30 \uD560 \uB54C \uC0AC\uC6A9\uB429\uB2C8\uB2E4."
+  - "\uAE30\uB825\uC740 \uB2EC\uB9AC\uC9C0 \uC54A\uC744 \uACBD\uC6B0, \uC790\uB3D9\uD68C\uBCF5
+    \uB429\uB2C8\uB2E4."
+  - "\uAE30\uB825\uC774 \uB0AE\uC744\uC218\uB85D \uBC1B\uB294 \uCCB4\uB825 \uD53C\uD574\uAC00
+    \uC99D\uAC00\uD569\uB2C8\uB2E4."
   waitForInput: 0
   condition: {fileID: 0}
   stepType: 0
   spawnPrefab: {fileID: 0}
   moveToPosition: {x: 0, y: 0, z: 0}
-  waitTime: 3
+  waitTime: 4.5
