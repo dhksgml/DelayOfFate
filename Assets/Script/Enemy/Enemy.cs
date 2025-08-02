@@ -90,6 +90,7 @@ public abstract class Enemy     : MonoBehaviour
     public ItemData             enemyCorpseData;
     public GameObject           enemySelf;
     public Collider2D           enemyColl;
+    public GameObject           enemyDeathEffect; // 사망 이펙트
 
     [HideInInspector] public Vector3       enemyTargetDir; //적의 타겟 방향
 
@@ -254,6 +255,9 @@ public abstract class Enemy     : MonoBehaviour
     //적이 죽을떄 실행됨
     public IEnumerator EnemyDie()
     {
+        // 사망시 이펙트 
+        Instantiate(enemyDeathEffect, transform.position, quaternion.identity);
+
         Color color = sp.color;
 
         //먼저 추적 범위와 공격 범위를 지워줌.
