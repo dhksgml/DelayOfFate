@@ -12,7 +12,7 @@ public class Mental_Power_Mp : MonoBehaviour
     private void Start()
     {
         state = PickTwoDistinctNumbers();
-        print(state);
+        //print(state);
     }
     int[] PickTwoDistinctNumbers()
     {

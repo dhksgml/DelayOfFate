@@ -7,7 +7,7 @@ public class SpawnManager : MonoBehaviour
 	public GameObject[] enemyPrefabs;
 	public GameObject itemPrefab;
 	public ItemData[] item_date;
-	public int totalValPoint;
+	[HideInInspector] public int totalValPoint;
 
 	private List<Transform> enemySpawnPoints = new List<Transform>();
 	private List<Transform> itemSpawnPoints = new List<Transform>();
@@ -160,15 +160,26 @@ public class SpawnManager : MonoBehaviour
 		}
 
 		// 남은 코인으로 아이템 소환
-		int coinRemain = totalValPoint - usedCoinTotal;
+		int coinRemain = totalValPoint /*- usedCoinTotal*/;
 		List<ItemData> validItems = item_date.Where(i => i != null).ToList();
+
+		Debug.Log($"[아이템 소환] 전체 포인트: {totalValPoint}, 몬스터 사용 포인트: {usedCoinTotal}, 남은 포인트: {coinRemain}");
+		Debug.Log($"[아이템 소환] 사용 가능한 아이템 개수: {validItems.Count}");
 		if (validItems.Count == 0) return;
+
 		int minItemCoin = validItems.Min(i => i.ValPoint);
+		Debug.Log($"[아이템 소환] 가장 저렴한 아이템 포인트: {minItemCoin}");
 
 		while (coinRemain >= minItemCoin && itemSpawnPoints.Count > 0)
 		{
 			List<ItemData> spawnables = validItems.FindAll(i => i.ValPoint <= coinRemain);
-			if (spawnables.Count == 0) break;
+			Debug.Log($"[아이템 소환] 현재 남은 포인트: {coinRemain}, 생성 가능한 아이템 수: {spawnables.Count}, 남은 스폰 지점 수: {itemSpawnPoints.Count}");
+
+			if (spawnables.Count == 0)
+			{
+				Debug.Log("[아이템 소환] 남은 포인트로 생성 가능한 아이템이 없습니다.");
+				break;
+			}
 
 			ItemData randomItem = spawnables[Random.Range(0, spawnables.Count)];
 			int index = Random.Range(0, itemSpawnPoints.Count);
@@ -177,13 +188,21 @@ public class SpawnManager : MonoBehaviour
 
 			GameObject itemObj = Instantiate(itemPrefab, spawnPoint.position, Quaternion.identity);
 			ItemObject itemObjComp = itemObj.GetComponentInChildren<ItemObject>();
+
+			Debug.Log($"[아이템 소환] 아이템 생성: {randomItem.name}, 위치: {spawnPoint.position}, 소모 포인트: {randomItem.ValPoint}");
+
 			if (itemObjComp != null)
 			{
 				itemObjComp.itemDataTemplate = randomItem;
 				itemObjComp.itemData = new Item(randomItem);
 			}
+			else
+			{
+				Debug.LogWarning("[아이템 소환] 프리팹에 ItemObject 컴포넌트가 없습니다.");
+			}
 
 			coinRemain -= randomItem.ValPoint;
 		}
+
 	}
 }
