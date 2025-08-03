@@ -124,7 +124,7 @@ public class Somyeon_gwi : Enemy
 
                 isHit = true;
 
-                EnemyHit();
+                EnemyHit(attack.damage);
                 Invoke("EnemyHitRegen", enemyHitTime);
             }
         }

@@ -106,7 +106,7 @@ public class Yin_Yang : Enemy
                     enemyHp -= attack.damage;
                 }
 
-                EnemyHit();
+                EnemyHit(attack.damage);
 
             }
         }

@@ -89,7 +89,7 @@ public class WomanGhost : Enemy
                     enemyHp -= attack.damage;
                 }
 
-                EnemyHit();
+                EnemyHit(attack.damage);
                 Invoke("EnemyHitRegen", enemyHitTime);
             }
 
