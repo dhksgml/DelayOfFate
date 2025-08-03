@@ -88,4 +88,9 @@ public class Intro : MonoBehaviour
             yield return new WaitForSeconds(textDelay);
         }
     }
+
+    public void SkipIntroButton()
+    {
+        SceneManager.LoadScene("Stage_Scene"); // 다음 씬으로 이동
+    }
 }
