@@ -262,7 +262,7 @@ public abstract class Enemy     : MonoBehaviour
     public IEnumerator EnemyDie()
     {
         // ªÁ∏¡Ω√ ¿Ã∆Â∆Æ 
-        Instantiate(enemyDeathEffect, transform.position, quaternion.identity);
+        Instantiate(enemyDeathEffect, transform.position, Quaternion.identity);
 
         Color color = sp.color;
 
