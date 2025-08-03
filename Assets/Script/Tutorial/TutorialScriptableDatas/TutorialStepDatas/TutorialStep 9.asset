@@ -15,8 +15,9 @@ MonoBehaviour:
   stepName: End
   messages:
   - "\uD29C\uD1A0\uB9AC\uC5BC\uC744 \uC885\uB8CC\uD569\uB2C8\uB2E4."
+  waitForInput: 0
   condition: {fileID: 0}
   stepType: 0
   spawnPrefab: {fileID: 0}
   moveToPosition: {x: 0, y: 0, z: 0}
-  waitTime: 2
+  waitTime: 3

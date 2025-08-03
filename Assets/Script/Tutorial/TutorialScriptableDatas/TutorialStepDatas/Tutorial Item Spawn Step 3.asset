@@ -17,10 +17,11 @@ MonoBehaviour:
   - "\uC774\uC81C \uC544\uC774\uD15C\uC744 \uC90D\uB294 \uBC29\uBC95\uC744 \uC54C\uB824\uB4DC\uB9AC\uACA0\uC2B5\uB2C8\uB2E4."
   - "\uC544\uC774\uD15C \uC8FC\uBCC0\uC5D0\uC11C E\uD0A4\uB97C \uB20C\uB7EC \uC544\uC774\uD15C\uC744
     \uC8FC\uC6B0\uC138\uC694."
+  waitForInput: 0
   condition: {fileID: 11400000, guid: e16ed9afd6fda32489086aa074dea4b2, type: 2}
   stepType: 3
   spawnPrefab: {fileID: 0}
   moveToPosition: {x: 0, y: 0, z: 0}
-  waitTime: 2
+  waitTime: 3
   itemPrefab: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
   spawnItemData: {fileID: 11400000, guid: c39eaf52b2b7d13468c078c0f7b871fd, type: 2}

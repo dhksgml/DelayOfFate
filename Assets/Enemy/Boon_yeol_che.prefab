@@ -140,6 +140,7 @@ MonoBehaviour:
   enemyCorpseData: {fileID: 11400000, guid: 160f2d3033bb9524fa884c730fd94f73, type: 2}
   enemySelf: {fileID: 7133274805120073796}
   enemyColl: {fileID: 7221030420655169584}
+  enemyDeathEffect: {fileID: 5642766282230003982, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
   enemyTargetDir: {x: 0, y: 0, z: 0}
   isDie: 0
   rigid: {fileID: 0}
@@ -247,6 +248,10 @@ MonoBehaviour:
   somyeon_Gwi: {fileID: 0}
   boon_yeol_gwi: {fileID: 2740049800136490371}
   mumyeon_Gwi: {fileID: 0}
+  death_Jangseung: {fileID: 0}
+  death_Jangseung_Attack: {fileID: 0}
+  duoksini: {fileID: 0}
+  duoksini_Attack: {fileID: 0}
   landSharkAttackTime: 0
 --- !u!50 &4044964465058124117
 Rigidbody2D:

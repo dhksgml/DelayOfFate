@@ -19,7 +19,7 @@ public class TutorialStep : ScriptableObject
 {
     public string stepName;
     [TextArea] public string[] messages;
-    //public bool waitForInput = true;
+    public bool waitForInput;
     public TutorialCondition condition;
 
     public virtual void OnStepEnter() { }

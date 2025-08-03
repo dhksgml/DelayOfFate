@@ -15,8 +15,9 @@ MonoBehaviour:
   stepName: Run
   messages:
   - "\uC774\uB3D9 \uC911\uC5D0 Shift\uD0A4 \uB20C\uB7EC \uB2EC\uB824\uBCF4\uC138\uC694."
+  waitForInput: 0
   condition: {fileID: 11400000, guid: 6403a047fd03ce54a8cd3add4d0272ac, type: 2}
   stepType: 3
   spawnPrefab: {fileID: 0}
   moveToPosition: {x: 0, y: 0, z: 0}
-  waitTime: 2
+  waitTime: 3

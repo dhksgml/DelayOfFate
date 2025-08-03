@@ -18,8 +18,8 @@ public class TutorialManager : MonoBehaviour
     public TextMeshProUGUI tutorialText;
     public float messageWaitTime;
     public List<TutorialStep> steps;
-    
 
+    public GameObject lowlightUI;
     public GameObject[] highlightUIs;
     private int highlightUIObjectIndex;
 
@@ -62,7 +62,7 @@ public class TutorialManager : MonoBehaviour
 
             if (i < step.messages.Length - 1)
             {
-                yield return new WaitForSeconds(messageWaitTime);
+                yield return new WaitForSeconds(step.waitTime);
             }
         }
 
@@ -79,8 +79,13 @@ public class TutorialManager : MonoBehaviour
                 EndStep(step);
                 break;
             case TutorialStepType.HightlightUI:
+                LowlightingUI();
                 HighlightingUI();
-                yield return new WaitForSeconds(step.waitTime);
+                if(step.waitForInput)
+                    yield return new WaitUntil(() => step.condition.IsSatisfied());
+                else
+                    yield return new WaitForSeconds(step.waitTime);
+                LowlightingOffUI();
                 HighlightingOffUI();
                 break;
             case TutorialStepType.SpawnItemObject:
@@ -102,6 +107,18 @@ public class TutorialManager : MonoBehaviour
     public void EndStep(TutorialStep step)
     {
         step.OnStepEnd();
+    }
+
+    public void LowlightingUI()
+    {
+        if (lowlightUI != null)
+            lowlightUI.SetActive(true);
+    }
+
+    public void LowlightingOffUI()
+    {
+        if (lowlightUI != null)
+            lowlightUI.SetActive(false);
     }
 
     public void HighlightingUI()
