@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 279043592cd29f54e97b9c5bf02607ad, type: 3}
+  m_Name: TutorialStep 3
+  m_EditorClassIdentifier: 
+  stepName: QuickSlotWheel
+  messages:
+  - "\uB2E4\uC74C\uC740 \uC544\uC774\uD15C \uC2AC\uB86F\uC744 \uC870\uC791\uD574\uBCF4\uACA0\uC2B5\uB2C8\uB2E4."
+  - "\uB9C8\uC6B0\uC2A4 \uD720 \uB610\uB294 \uD0A4\uBCF4\uB4DC \uC0C1\uB2E8\uC758
+    1, 2, 3, 4\uD0A4\uB97C \uB20C\uB7EC \uC544\uC774\uD15C \uC2AC\uB86F\uC744 \uBCC0\uACBD\uD558\uC138\uC694."
+  waitForInput: 0
+  condition: {fileID: 11400000, guid: e97beaee8c73c0c4d987ec414451d3c8, type: 2}
+  stepType: 3
+  spawnPrefab: {fileID: 0}
+  moveToPosition: {x: 0, y: 0, z: 0}
+  waitTime: 3
