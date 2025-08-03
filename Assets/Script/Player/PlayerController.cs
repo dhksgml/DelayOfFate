@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
 
     public bool isSpendingSp = false;
     public bool isRecovering = false;
+    public bool isAutoSPRegen = true;
 
     public bool isPickUpableItem = false;   //아이템 주울 수 있는지 여부
     public bool isHavingFlashLight = false; //손전등 획득 유무
@@ -154,7 +155,7 @@ public class PlayerController : MonoBehaviour
         }
         UpdateItemCooldown();
 
-        if (!isFreeze && !IsRun) HandleSpRegen(); //자동 회복
+        if (isAutoSPRegen && (!isFreeze && !IsRun)) HandleSpRegen(); //자동 회복
 
         if ((currentState == PlayerState.Recovery || currentState == PlayerState.Resting) && Input.anyKeyDown)
         {
