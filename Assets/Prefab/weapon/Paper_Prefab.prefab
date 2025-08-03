@@ -101,8 +101,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 3501484898468493900}
   Attack_Paper: {fileID: 7376049397237019146, guid: f74c37dcad7a94846bf916c3b41db338, type: 3}
-  detectionRadius: 0.25
   dashSpeed: 12
+  targetEnemy: {fileID: 0}
 --- !u!50 &5790509580892166352
 Rigidbody2D:
   serializedVersion: 4

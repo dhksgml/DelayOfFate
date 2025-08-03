@@ -129,7 +129,7 @@ public class PassiveItemManager : MonoBehaviour
 				//패시브 아님
 			case "8_1": return "환도";
 			case "8_2": return "방망이";
-			case "8_3": return "부적 20개";
+			case "8_3": return "부적 20장";
 			case "9_1": return "호롱";
 			case "9_2": return "호롱";
 			// ...
@@ -159,9 +159,9 @@ public class PassiveItemManager : MonoBehaviour
 			case "7_1": return "부활 시\n물건을 떨어뜨리지 않고 부활";
 			case "7_2": return "18각 이상시\n달리기 속도가 5할 증가";
 				//패시브 아님
-			case "8_1": return "전방을 공격해 12의 피해를 입힘\n약점의 경우 즉사시킴";
-			case "8_2": return "전방을 공격해 25의 피해를 입힘\n약점의 경우 즉사시킴";
-			case "8_3": return "[소모형]\n전방에 부적을 던져 7의 피해를 입힘\n약점의 경우\n최대체력 5할의 피해를 입힘";
+			case "8_1": return "전방을 공격해 10~14의 피해를 입힘\n약점의 경우 즉사시킴";
+			case "8_2": return "전방을 공격해 20~30의 피해를 입힘\n약점의 경우 즉사시킴";
+			case "8_3": return "[소모형]\n전방에 부적을 던져 10~12의 피해를 입힘\n약점의 경우\n최대체력 5할의 피해를 입힘";
 			case "9_1": return "빛이 더 강해짐";
 			case "9_2": return "달려도 빛이 꺼지지 않음";
 			// ...

@@ -98,7 +98,7 @@ public class QuickSlotUI : MonoBehaviour
             {
                 // 아이템 아이콘 설정
                 slotImages[i].sprite = item.icon;
-
+                slotImages[i].color = new Color(1f, 1f, 1f, 1f);
                 // 아이템 곗수 표시 여부
                 if (item.Count_Check)
                 {
@@ -114,6 +114,7 @@ public class QuickSlotUI : MonoBehaviour
             {
                 // 빈 슬롯 처리
                 slotImages[i].sprite = default_Item_Sprite;
+                slotImages[i].color = new Color(1f, 1f, 1f, 0.3f);
                 slotCounts[i].gameObject.SetActive(false);
             }
 

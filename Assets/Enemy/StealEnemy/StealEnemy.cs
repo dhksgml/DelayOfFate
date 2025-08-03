@@ -11,6 +11,7 @@ public class StealEnemy : Enemy
     bool hasStolen = false; // 돈 훔친 후 최초 1회만 차감하기 위한 변수
 
     [SerializeField] float runTime;
+    bool isSteal = false;
     bool isReadyRun = false;
 
     void Awake()
@@ -41,14 +42,16 @@ public class StealEnemy : Enemy
         }
 
         // 도주
-        if (isEnemyRun)
+        if (isEnemyRun && !isSteal)
         {
+            isSteal = true;
             // 도주시 시체 안남도록 수정
             StartCoroutine(EnemyDie());
         }
-
-        EnemyMove();
-
+        else if (!isDie)
+        {
+            EnemyMove();
+        }
     }
 
     float currentRunTime = 0f;
@@ -71,8 +74,12 @@ public class StealEnemy : Enemy
             // 스프라이트 회전
             EnemyTraceTurn();
 
-            // 반대 방향으로 이동
-            rigid.MovePosition(transform.position + -enemyTargetDir * enemyRunSpeed * Time.deltaTime);
+            if(rigid != null)
+            {
+                // 반대 방향으로 이동
+                rigid.MovePosition(transform.position + -enemyTargetDir * enemyRunSpeed * Time.deltaTime);
+            }
+
 
 
             currentRunTime += Time.deltaTime;

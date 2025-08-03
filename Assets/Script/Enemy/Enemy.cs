@@ -269,10 +269,15 @@ public abstract class Enemy     : MonoBehaviour
         //먼저 추적 범위와 공격 범위를 지워줌.
         Destroy(enemyTrace);
         Destroy(enemyAttack);
+        Destroy(enemyColl);
+        Destroy(rigid);
+
+        // 이동속도 0으로 해서 움직이지 못하게
+        enemyMoveSpeed = 0;
 
 
         //투명도 값을 1.0에서 0.01씩 뺴주면서 천천히 투명하게 해줌
-        for (float i = 1.0f; i >= 0.0f; i -= 0.01f )
+        for (float i = 1.0f; i >= 0.0f; i -= 0.02f )
         {
             color.a = i;
             sp.color = color;
