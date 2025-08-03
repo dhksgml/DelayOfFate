@@ -78,9 +78,9 @@ public class Attack_sc : MonoBehaviour
     {
         switch (type)
         {
-            case AttackType.Sword: return 12f;
-            case AttackType.Bat: return 25f;
-            case AttackType.Paper: return 12f;
+            case AttackType.Sword: return Mathf.FloorToInt(Random.Range(10f, 14f+1));
+            case AttackType.Bat: return Mathf.FloorToInt(Random.Range(20f, 30f+1));
+            case AttackType.Paper: return Mathf.FloorToInt(Random.Range(10f, 12f+1));
             default: return 0f;
         }
     }
