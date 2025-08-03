@@ -141,7 +141,7 @@ public class StealEnemy : Enemy
                     enemyHp -= attack.damage;
                 }
 
-                EnemyHit();
+                EnemyHit(attack.damage);
                 Invoke("EnemyHitRegen", enemyHitTime);
             }
 

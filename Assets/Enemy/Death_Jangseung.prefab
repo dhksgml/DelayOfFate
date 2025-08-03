@@ -326,6 +326,8 @@ MonoBehaviour:
   enemyCorpseData: {fileID: 11400000, guid: 160f2d3033bb9524fa884c730fd94f73, type: 2}
   enemySelf: {fileID: 8018078762037570581}
   enemyColl: {fileID: 6247268231170617652}
+  enemyDeathEffect: {fileID: 5642766282230003982, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
+  Damage_text: {fileID: 467691442841209291, guid: e4e0e37a16a362a4aabe4d4e6b8d17a0, type: 3}
   enemyTargetDir: {x: 0, y: 0, z: 0}
   isDie: 0
   rigid: {fileID: 0}
@@ -565,4 +567,6 @@ MonoBehaviour:
   mumyeon_Gwi: {fileID: 0}
   death_Jangseung: {fileID: 5464365044572587841}
   death_Jangseung_Attack: {fileID: 3071702741024031839}
+  duoksini: {fileID: 0}
+  duoksini_Attack: {fileID: 0}
   landSharkAttackTime: 0

@@ -35,7 +35,7 @@ public class EnemyHit : MonoBehaviour
                     enemy.enemyHp -= attack.damage;
                 }
 
-                enemy.EnemyHit();
+                enemy.EnemyHit(attack.damage);
 
             }
         }

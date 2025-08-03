@@ -110,7 +110,7 @@ public class Duoksini : Enemy
                     enemyHp -= attack.damage;
                 }
 
-                EnemyHit();
+                EnemyHit(attack.damage);
                 Invoke("EnemyHitRegen", enemyHitTime);
             }
         }

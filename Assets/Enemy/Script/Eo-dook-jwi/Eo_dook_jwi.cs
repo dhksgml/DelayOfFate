@@ -133,7 +133,7 @@ public class Eo_dook_jwi : Enemy
                     enemyHp -= attack.damage;
                 }
 
-                EnemyHit();
+                EnemyHit(attack.damage);
 
             }
             // 지금은 사용 안함

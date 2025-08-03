@@ -97,7 +97,7 @@ public class Reaper : Enemy
             // 데미지 처리
             enemyHp -= attack.damage;
 
-            EnemyHit();
+            EnemyHit(attack.damage);
             Invoke("EnemyHitRegen", enemyHitTime);
         }
     }

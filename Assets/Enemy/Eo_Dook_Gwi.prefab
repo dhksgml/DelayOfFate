@@ -136,7 +136,7 @@ MonoBehaviour:
   - {x: 0.049784884, y: -0.14356571, z: 0}
   m_ShapePathHash: -1231964092
   m_Mesh: {fileID: 0}
-  m_InstanceId: 41390
+  m_InstanceId: 48930
   m_LocalBounds:
     m_Center: {x: 0.013412923, y: -0.0078026652, z: 0}
     m_Extent: {x: 0.18918885, y: 0.13747492, z: 0}
@@ -322,6 +322,8 @@ MonoBehaviour:
   enemyCorpseData: {fileID: 11400000, guid: 160f2d3033bb9524fa884c730fd94f73, type: 2}
   enemySelf: {fileID: 1930194308981125956}
   enemyColl: {fileID: 2902647822814001550}
+  enemyDeathEffect: {fileID: 5642766282230003982, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
+  Damage_text: {fileID: 467691442841209291, guid: e4e0e37a16a362a4aabe4d4e6b8d17a0, type: 3}
   enemyTargetDir: {x: 0, y: 0, z: 0}
   isDie: 0
   rigid: {fileID: 0}
