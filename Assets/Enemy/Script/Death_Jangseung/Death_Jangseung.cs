@@ -53,7 +53,7 @@ public class Death_Jangseung : Enemy
                     enemyHp -= attack.damage;
                 }
 
-                EnemyHit();
+                EnemyHit(attack.damage);
                 Invoke("EnemyHitRegen", enemyHitTime);
             }
         }

@@ -141,6 +141,7 @@ MonoBehaviour:
   enemySelf: {fileID: 7133274805120073796}
   enemyColl: {fileID: 7221030420655169584}
   enemyDeathEffect: {fileID: 5642766282230003982, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
+  Damage_text: {fileID: 467691442841209291, guid: e4e0e37a16a362a4aabe4d4e6b8d17a0, type: 3}
   enemyTargetDir: {x: 0, y: 0, z: 0}
   isDie: 0
   rigid: {fileID: 0}

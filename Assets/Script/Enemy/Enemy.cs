@@ -39,6 +39,7 @@ public abstract class Enemy     : MonoBehaviour
     [Header("Enemy Stat")]
     public string        enemyName; //적의 이름
     public float         enemyHp;  //적의 체력
+    public float         enemyMaxHp;  //적의 체력
     public float         enemyMoveSpeed; //적의 이동속도
     public float         enemyRunSpeed; //도망치는 적의 이동속도
     
@@ -91,6 +92,7 @@ public abstract class Enemy     : MonoBehaviour
     public GameObject           enemySelf;
     public Collider2D           enemyColl;
     public GameObject           enemyDeathEffect; // 사망 이펙트
+    public GameObject           Damage_text; // 피해량 텍스트
 
     [HideInInspector] public Vector3       enemyTargetDir; //적의 타겟 방향
 
@@ -116,6 +118,7 @@ public abstract class Enemy     : MonoBehaviour
             //체력도 랜덤 값에서 - 랜덤값 + 랜덤값에서 나온 값으로 할당해줌
             enemyHp = Random.Range(enemyData.Hp - enemyData.HpDeviation,
                                    enemyData.Hp + enemyData.HpDeviation + 1);
+            enemyMaxHp = enemyHp;
             //일단 랜덤 값 설정에서 기본 코인값 - 랜덤값 ~~ 코인값 + 랜덤값이렇게 해주었음
             enemyPrice = Random.Range(enemyData.Coin - enemyData.CoinDeviation,
                                       enemyData.Coin + enemyData.CoinDeviation + 1);
@@ -129,6 +132,7 @@ public abstract class Enemy     : MonoBehaviour
             //체력도 랜덤 값에서 - 랜덤값 + 랜덤값에서 나온 값으로 할당해줌
             enemyHp = Random.Range((enemyData.Hp - enemyData.HpDeviation) * 2,
                                    (enemyData.Hp + enemyData.HpDeviation * 2) + 1);
+            enemyMaxHp = enemyHp;
             //일단 랜덤 값 설정에서 기본 코인값 - 랜덤값 ~~ 코인값 + 랜덤값이렇게 해주었음
             enemyPrice = Random.Range(enemyData.Coin - enemyData.CoinDeviation * 2,
                                       (enemyData.Coin + enemyData.CoinDeviation * 2 ) + 1);
@@ -221,7 +225,7 @@ public abstract class Enemy     : MonoBehaviour
 
     #region 피격
     //적이 플레이어에게 피격당했을떄. 
-    public void EnemyHit()
+    public void EnemyHit(float Damage)
     {
         isEnemyHit = true;
 
@@ -232,7 +236,9 @@ public abstract class Enemy     : MonoBehaviour
         //Color color = sp.color;
         //color.a = 0.5f;
         //sp.color = color;
-
+        GameObject obj = Instantiate(Damage_text, transform.position, Quaternion.identity);
+        DamageText damageText = obj.GetComponent<DamageText>();
+        damageText.Init(Damage.ToString(), Color.red, enemyMaxHp, enemyHp);
         Invoke("EnemyHitRegen", enemyHitTime);
     }
 
