@@ -229,7 +229,7 @@ public class EnemyTrace : MonoBehaviour
             {
                 if (collision.gameObject.CompareTag("Player"))
                 {
-                    duoksiniTargetTrs = collision.transform.position;
+                    jangseungTargetTrs = collision.transform.position;
 
                     if (jangseungtime >= death_Jangseung.attackSeeTime && !death_Jangseung.isAttackReady)
                     {
