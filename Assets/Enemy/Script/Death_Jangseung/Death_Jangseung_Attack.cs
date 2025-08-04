@@ -22,12 +22,20 @@ public class Death_Jangseung_Attack : EnemyAttack
 
     private void Update()
     {
+        if (death_Jangseung.isSpawnReaper) 
+        { 
+            attackRange.SetActive(false);
+            enemyAttackCollider.enabled = false;
+            return; 
+        }
+
         // 공격 중엔 시간이 안오름
         if (!isAttack) time += Time.deltaTime;
 
         // 공격 준비가 다 되었음면 공격
         if (time >= enemyAttackSpeed && death_Jangseung.isAttackReady)
         {
+            Debug.Log("사거리 표시");
             isAttack = true;
 
             // 위치를 공격 범위 쪽으로 옳겨줌

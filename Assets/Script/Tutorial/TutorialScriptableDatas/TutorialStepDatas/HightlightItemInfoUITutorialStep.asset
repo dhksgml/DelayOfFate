@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 279043592cd29f54e97b9c5bf02607ad, type: 3}
-  m_Name: TutorialStep 1
+  m_Name: HightlightItemInfoUITutorialStep
   m_EditorClassIdentifier: 
-  stepName: Run
+  stepName: HightlightItemInfoUI
   messages:
   - "\uC88B\uC2B5\uB2C8\uB2E4."
-  - "\uB2E4\uC74C\uC740 \uB2EC\uB9AC\uAE30\uB97C \uC54C\uB824\uB4DC\uB9AC\uACA0\uC2B5\uB2C8\uB2E4."
-  - "\uC774\uB3D9 \uC911\uC5D0 Shift\uD0A4 \uB20C\uB7EC \uB2EC\uB824\uBCF4\uC138\uC694."
+  - "\uD558\uB2E8\uC5D0 \uD604\uC7AC \uB4E4\uACE0\uC788\uB294 \uC544\uC774\uD15C\uC5D0
+    \uAD00\uD55C \uC815\uBCF4\uAC00 \uD45C\uC2DC\uB429\uB2C8\uB2E4."
   waitForInput: 0
-  condition: {fileID: 11400000, guid: 6403a047fd03ce54a8cd3add4d0272ac, type: 2}
-  stepType: 3
+  condition: {fileID: 11400000, guid: 70fbec192ce53c043b2d3bf316fc6e7e, type: 2}
+  stepType: 5
   spawnPrefab: {fileID: 0}
   moveToPosition: {x: 0, y: 0, z: 0}
   waitTime: 3
