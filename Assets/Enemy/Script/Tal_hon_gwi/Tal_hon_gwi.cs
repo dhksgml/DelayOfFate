@@ -6,6 +6,7 @@ public class Tal_hon_gwi : Enemy
 {
     [Header("탈혼귀")]
     [SerializeField] Sprite[] randomImages;
+    [SerializeField] Sprite[] talhongwiOriginSprite;
     [HideInInspector] public bool isSeek = false;
     [SerializeField] bool isDestroy = false;
     [SerializeField] int talhongwiDamage = 20;
@@ -45,16 +46,21 @@ public class Tal_hon_gwi : Enemy
         if (enemyHp <= 0 && !isDie)
         {
             isDie = true;
+
+            sp.sprite = talhongwiOriginSprite[1];
+
             StartCoroutine(EnemyDie());
         }
 
         // 플레이어가 E키를 누르면 
         if (isSeek && !isDestroy)
         {
-            Debug.Log("test");
             isDestroy = true;
 
             if (player == null) { return; }
+
+            // 본모습 등장
+            sp.sprite = talhongwiOriginSprite[0];
 
             // 정신 데미지
             player.DamagedMP(talhongwiDamage);

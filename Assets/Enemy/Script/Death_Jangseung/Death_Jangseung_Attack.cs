@@ -8,7 +8,9 @@ public class Death_Jangseung_Attack : EnemyAttack
     [SerializeField] Death_Jangseung death_Jangseung;
     [HideInInspector] PlayerController player;
     [SerializeField] GameObject attackRange;
+    public GameObject attackSprite;
     [HideInInspector] public bool isAttack = false;
+    
         
     // 장승이 공격 범위를 보여주고 몇 초 뒤에 공격할지 정함
     [SerializeField] float jangseungAttackDelay;
@@ -51,6 +53,8 @@ public class Death_Jangseung_Attack : EnemyAttack
             if(jangseungAttackTime >= jangseungAttackDelay)
             {
                 Debug.Log("공격");
+                attackSprite.SetActive(true);
+
                 // 사거리 비활성화
                 attackRange.SetActive(false);
 
@@ -83,6 +87,7 @@ public class Death_Jangseung_Attack : EnemyAttack
 
     void Dealy()
     {
+        attackSprite.SetActive(false);
         enemyAttackCollider.enabled = false;
     }
 }
