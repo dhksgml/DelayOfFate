@@ -12,7 +12,7 @@ public class MainMenuUIController : MonoBehaviour
     public void OnClickTutorialButton()
     {
         GameManager.Instance.isTutorial = true;
-        GameManager.Instance.LoadScene("Tutorial_ShopScenes");
+        GameManager.Instance.LoadScene("Tutorial_Scenes");
     }
 
     public void OnClickExitButton()
