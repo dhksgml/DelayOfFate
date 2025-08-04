@@ -32,6 +32,7 @@ public class PlayerInfoUI : MonoBehaviour
     private const float HP_HEIGHT = 32f;
     private const float TOTAL_WIDTH = 320f;
     private const float TOTAL_HEIGHT = 40f;
+    private const float MAX_BAR_WIDTH = 500f;
 
     private void OnEnable()
     {
@@ -147,7 +148,7 @@ public class PlayerInfoUI : MonoBehaviour
     public void UpdateHealthBar(float currentHP, float maxHP, float currentExtraHP, float extraHP)
     {
         float totalMaxHP = maxHP + extraHP;
-        float totalWidth = HP_WIDTH * (totalMaxHP / maxHP);
+        float totalWidth = Mathf.Min(HP_WIDTH * (totalMaxHP / maxHP), MAX_BAR_WIDTH);
 
         // 기본 체력 바 크기
         float hpWidth = totalWidth * (currentHP / totalMaxHP);
