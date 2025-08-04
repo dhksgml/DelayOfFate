@@ -251,10 +251,6 @@ public class Player_Item_Use : MonoBehaviour
             {
                 newItemComponent.itemData = selectedItem.Clone(); // 객체 복사
                 newItemComponent.itemData = selectedItem; // 객체 데이터 복사후 떨구기
-                /*newItemComponent.itemData.Count_Check = selectedItem.Count_Check; // **기존 금액 유지**
-                newItemComponent.itemData.Count = selectedItem.Count; // **기존 곗수 유지**
-                newItemComponent.itemData.Coin = selectedItem.Coin; // **기존 금액 유지**
-                newItemComponent.itemData.Weight = selectedItem.Weight; // **기존 무게 유지***/
                 newItemComponent.itemData.Drop_item = true; // *떨어트린 적 있는 아이템 으로 변경*
             }
 
@@ -292,11 +288,7 @@ public class Player_Item_Use : MonoBehaviour
 
             if (itemObject != null && itemObject.itemData != null)
             {
-                int itemValue = itemObject.itemData.Coin; // 아이템의 가치 가져오기
-                //player.coin += itemValue; // 플레이어 코인 증가 나중에 매서드로 분리
-                GameManager.Instance.Add_Soul(itemValue);
-                if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
-                Destroy(itemObject.gameObject); // 아이템 오브젝트 삭제
+                itemObject.Sale("one");
             }
         }
     }
