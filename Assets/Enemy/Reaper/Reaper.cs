@@ -60,6 +60,7 @@ public class Reaper : Enemy
     void OnEnable()
     {
         StartCoroutine(ScaleAndSpeedUp());
+        DeathJangseungStop();
     }
 
     //플레이어가 닿았을 시
@@ -147,6 +148,16 @@ public class Reaper : Enemy
             color.a = i;
             sp.color = color;
             yield return new WaitForSeconds(0.05f);
+        }
+    }
+
+    public void DeathJangseungStop()
+    {
+        Death_Jangseung[] death_Jangseungs = FindObjectsOfType<Death_Jangseung>();
+
+        foreach (var js in death_Jangseungs)
+        {
+            js.isSpawnReaper = true;
         }
     }
 

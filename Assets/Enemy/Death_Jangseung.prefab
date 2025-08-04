@@ -298,6 +298,7 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 87c784fb19a6f4647a7a16b038578026, type: 2}
   enemyName: 
   enemyHp: 0
+  enemyMaxHp: 0
   enemyMoveSpeed: 0
   enemyRunSpeed: 0
   enemyPriceMin: 0
@@ -336,6 +337,7 @@ MonoBehaviour:
   attackSeeTime: 2
   attackTargetTrs: {x: 0, y: 0, z: 0}
   isAttackReady: 0
+  isSpawnReaper: 0
 --- !u!1 &4338982509080967033
 GameObject:
   m_ObjectHideFlags: 0
