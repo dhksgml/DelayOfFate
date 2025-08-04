@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 279043592cd29f54e97b9c5bf02607ad, type: 3}
   m_Name: TutorialStep
   m_EditorClassIdentifier: 
-  stepName: 
+  stepName: HelloWorld
   messages:
-  - "\uC774 \uACF3\uC740 \uC804\uD22C\uD654\uBA74\uC785\uB2C8\uB2E4."
+  - "\uD29C\uD1A0\uB9AC\uC5BC\uC5D0 \uC624\uC2E0 \uAC78 \uD658\uC601\uD569\uB2C8\uB2E4."
   waitForInput: 0
   condition: {fileID: 0}
   stepType: 0
   spawnPrefab: {fileID: 0}
   moveToPosition: {x: 0, y: 0, z: 0}
-  waitTime: 2
+  waitTime: 3

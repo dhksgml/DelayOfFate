@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 279043592cd29f54e97b9c5bf02607ad, type: 3}
-  m_Name: TutorialStep
+  m_Name: TutorialExplainPassiveUIStep
   m_EditorClassIdentifier: 
-  stepName: 
+  stepName: ExplainPassiveUI
   messages:
-  - "\uC774 \uACF3\uC740 \uC804\uD22C\uD654\uBA74\uC785\uB2C8\uB2E4."
+  - "\uC601\uD63C\uAC15\uD654\uB97C \uD1B5\uD574 \uB2A5\uB825\uCE58\uB294 \uB298\uB9AC\uAC70\uB098,
+    \uD2B9\uC218\uD55C \uAE30\uB2A5\uC744 \uCD94\uAC00\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
   waitForInput: 0
   condition: {fileID: 0}
   stepType: 0
   spawnPrefab: {fileID: 0}
   moveToPosition: {x: 0, y: 0, z: 0}
-  waitTime: 2
+  waitTime: 4.5
