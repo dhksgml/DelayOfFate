@@ -51,7 +51,13 @@ public class ItemSaleZone : MonoBehaviour
 		{
 			ItemObject itemObject = collider.GetComponent<ItemObject>();
 			if (itemObject.itemData.isUsable) continue;
-			itemObject.Sale("all");
+
+			GameManager.Instance?.Add_Gold(itemObject.itemData.Coin);
+
+			if (itemObject.itemData.id != 3)
+				GameManager.Instance?.Add_Soul(itemObject.itemData.Coin * 2);
+
+			Destroy(itemObject.gameObject);
 
 			sale_place.sale_cu_Time = sale_place.sale_max_Time;
 			sale_place.contactTime = 0f;

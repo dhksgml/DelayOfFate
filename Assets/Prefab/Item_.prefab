@@ -102,7 +102,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemDataTemplate: {fileID: 0}
   infoPanel: {fileID: 7750523744315632086}
-  Sale_Effect: {fileID: 8897711660315164129, guid: 688a73bcb2a05e64fb2f70898fc84aa7, type: 3}
   name_text: {fileID: 6321159847687174672}
   coin_text: {fileID: 7692328861986335090}
   holdGaugeUI: {fileID: 8682206281395705518}
