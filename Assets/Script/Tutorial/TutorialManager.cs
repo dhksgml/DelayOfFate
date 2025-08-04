@@ -14,6 +14,8 @@ public static class TutorialEvents
 
 public class TutorialManager : MonoBehaviour
 {
+    public string nextSceneName;
+
     public GameObject tutorialBackground;
     public TextMeshProUGUI tutorialText;
     public float messageWaitTime;
@@ -51,7 +53,7 @@ public class TutorialManager : MonoBehaviour
         tutorialBackground.SetActive(false);
         GameManager.Instance.isTutorial = false;
         GameManager.Instance.AlldataReset();
-        GameManager.Instance.LoadScene("Stage_Scene");
+        GameManager.Instance.LoadScene(nextSceneName);
     }
 
     private IEnumerator HandleStep(TutorialStep step)
