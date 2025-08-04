@@ -4,13 +4,14 @@ using TMPro;
 
 public class ItemObject : MonoBehaviour
 {
-    
     public ItemData itemDataTemplate;
+    private Transform uiCanvas; // 플레이어 캔버스에 넣어야함
     public Item itemData;
     private SpriteRenderer spriteRenderer;
     private Player_Item_Use player_item_use;
     //public GameObject item_soul;
     public GameObject infoPanel; // 월드 UI (Canvas) 참조
+    public GameObject Sale_Effect; // 판매 연출
     public TMP_Text name_text; // 텍스트 참조
     public TMP_Text coin_text; // 텍스트 참조
     public GameObject holdGaugeUI; // 판매 키 게이지 UI
@@ -33,7 +34,7 @@ public class ItemObject : MonoBehaviour
         }
         if (itemData != null && itemData.Drop_item == false) { itemData.SetRandomValues(); } // 값이 없으면 랜덤 값 적용
 
-        
+        uiCanvas = GameObject.Find("Player_Canvas")?.transform;
         infoPanel?.SetActive(false);
         holdGaugeUI?.SetActive(false);
     }
@@ -112,6 +113,57 @@ public class ItemObject : MonoBehaviour
             infoPanel?.SetActive(false);
             holdGaugeUI?.SetActive(false); // 플레이어가 멀어지면 UI 숨김
             other.GetComponent<PlayerController>().isPickUpableItem = false;
+        }
+    }
+    public void Sale(string ty) // "one" or "all"
+    {
+        int itemValue = itemData.Coin;
+
+        if (ty == "one")
+        {
+            // Soul 이펙트 단 1회 (가치 분해 X)
+            SpawnEffectParts(itemValue, "Soul");
+
+            GameManager.Instance.Add_Soul(itemValue);
+            SoundManager.Instance?.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
+        }
+        else if (ty == "all")
+        {
+            // 실제 게임상 재화 증가
+            GameManager.Instance?.Add_Gold(itemValue);
+            if (itemData.id != 3)
+            {
+                // 2. Soul 이펙트: 원래 가치의 2배만큼
+                SpawnEffectParts(itemValue * 2, "Soul");
+                SpawnEffectParts(itemValue, "Coin");
+                GameManager.Instance?.Add_Soul(itemValue * 2);
+            }
+            else
+            {
+                // 1. Coin 이펙트: 원래 가치만큼
+                SpawnEffectParts(itemValue, "Coin");
+            }
+        }
+
+        Destroy(gameObject); // 아이템 오브젝트 제거
+    }
+
+    private void SpawnEffectParts(int totalValue, string type)
+    {
+        int remainingValue = totalValue;
+
+        while (remainingValue > 0)
+        {
+            int shardValue = Random.Range(10, 21);
+            if (shardValue > remainingValue)
+                shardValue = remainingValue;
+
+            GameObject fx = Instantiate(Sale_Effect, transform.position, Quaternion.identity);
+            fx.transform.SetParent(uiCanvas, false);
+            MoneyEffect effect = fx.GetComponent<MoneyEffect>();
+            effect.ty = type;
+
+            remainingValue -= shardValue;
         }
     }
 
