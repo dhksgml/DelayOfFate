@@ -10,6 +10,7 @@ public class Death_Jangseung : Enemy
     // 적 추적 코드에서 가져올 예정
     [HideInInspector] public Vector3 attackTargetTrs; // 공격 위치
     [HideInInspector] public bool isAttackReady = false;
+    [HideInInspector] public bool isSpawnReaper = false;
     
 
     void Awake()
@@ -30,6 +31,11 @@ public class Death_Jangseung : Enemy
         {
             isDie = true;
             StartCoroutine(EnemyDie());
+        }
+
+        if (isSpawnReaper)
+        {
+            enemyColl.enabled = false;
         }
     }
 

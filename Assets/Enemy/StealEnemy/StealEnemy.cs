@@ -12,7 +12,7 @@ public class StealEnemy : Enemy
 
     [SerializeField] float runTime;
     bool isSteal = false;
-    bool isReadyRun = false;
+
 
     void Awake()
     {
