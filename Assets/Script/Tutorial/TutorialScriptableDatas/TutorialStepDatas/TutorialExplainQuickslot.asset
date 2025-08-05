@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stepName: ExplainQuickslot
   messages:
-  - "\uD604\uC7AC \uB4E4\uACE0\uC788\uB294 \uC544\uC774\uD15C\uC774 \uC5C6\uB294
-    \uACBD\uC6B0 \uBE48\uC190\uC73C\uB85C \uD45C\uC2DC\uB429\uB2C8\uB2E4."
+  - "\uD604\uC7AC \uB4E4\uACE0\uC788\uB294 \uBB3C\uAC74\uC774 \uC5C6\uB294 \uACBD\uC6B0
+    \uBE48\uC190\uC73C\uB85C \uD45C\uC2DC\uB429\uB2C8\uB2E4."
   waitForInput: 0
   condition: {fileID: 0}
   stepType: 0

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stepName: HightlightReaperUI
   messages:
-  - "18\uAC01 \uC774\uD6C4\uC5D0\uB294 \uCC98\uCE58\uBD88\uAC00\uB2A5\uD55C \uC800\uC2B9\uC0AC\uC790\uAC00
-    \uB4F1\uC7A5\uD569\uB2C8\uB2E4."
+  - "18\uAC01 \uC774\uD6C4\uC5D0\uB294 \uC800\uC2B9\uC0AC\uC790\uAC00 \uCD9C\uD604\uD569\uB2C8\uB2E4.\n\uBE60\uB974\uAC8C
+    \uD0C8\uCD9C\uD558\uC138\uC694"
   waitForInput: 0
   condition: {fileID: 11400000, guid: 70fbec192ce53c043b2d3bf316fc6e7e, type: 2}
   stepType: 5
