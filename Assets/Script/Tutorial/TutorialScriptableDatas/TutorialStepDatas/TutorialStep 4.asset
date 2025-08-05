@@ -15,10 +15,10 @@ MonoBehaviour:
   stepName: UseWeapon
   messages:
   - "\uC774\uC81C \uBB34\uAE30\uC5D0 \uB300\uD574\uC11C \uC54C\uC544\uBD05\uC2DC\uB2E4."
-  - "\uBB34\uAE30\uB294 \uC0C1\uC810\uC744 \uD1B5\uD574 \uAD6C\uB9E4 \uAC00\uB2A5\uD558\uBA70,
-    \uD310\uB9E4 \uBD88\uAC00\uB2A5\uD569\uB2C8\uB2E4."
-  - "\uB9C8\uC6B0\uC2A4 \uC88C\uD074\uB9AD\uC744 \uD1B5\uD574 \uBB34\uAE30\uB97C
-    \uC0AC\uC6A9\uD558\uC138\uC694."
+  - "\uC545\uADC0\uC758 \uC57D\uC810\uC744 \uC54C \uB9DE\uB294 \uBB34\uAE30\uB85C
+    \uACF5\uACA9\uD558\uBA74\n\uCE58\uBA85\uC801\uC778 \uACF5\uACA9\uC744 \uAC00\uD569\uB2C8\uB2E4."
+  - "<size=64><space=15><voffset=14><sprite=1><voffset=0><space=-25></voffset></size=48>\uC744
+    \uD1B5\uD574 \uBB34\uAE30\uB97C \uC0AC\uC6A9\uD558\uC138\uC694."
   waitForInput: 0
   condition: {fileID: 11400000, guid: ae55357686edc754eb8555f21a228d30, type: 2}
   stepType: 3
