@@ -136,7 +136,7 @@ MonoBehaviour:
   - {x: 0.049784884, y: -0.14356571, z: 0}
   m_ShapePathHash: -1231964092
   m_Mesh: {fileID: 0}
-  m_InstanceId: 48930
+  m_InstanceId: 70206
   m_LocalBounds:
     m_Center: {x: 0.013412923, y: -0.0078026652, z: 0}
     m_Extent: {x: 0.18918885, y: 0.13747492, z: 0}
@@ -294,7 +294,8 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 6bdec621c8ade7743a681e889b2df1f4, type: 2}
   enemyName: 
   enemyHp: 0
-  enemyMoveSpeed: 2
+  enemyMaxHp: 0
+  enemyMoveSpeed: 3.5
   enemyRunSpeed: 0
   enemyPriceMin: 0
   enemyPriceMax: 0
