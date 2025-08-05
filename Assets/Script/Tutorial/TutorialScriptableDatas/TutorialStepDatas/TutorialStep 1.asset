@@ -14,9 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stepName: Run
   messages:
-  - "\uC88B\uC2B5\uB2C8\uB2E4."
-  - "\uB2E4\uC74C\uC740 \uB2EC\uB9AC\uAE30\uB97C \uC54C\uB824\uB4DC\uB9AC\uACA0\uC2B5\uB2C8\uB2E4."
-  - "\uC774\uB3D9 \uC911\uC5D0 Shift\uD0A4 \uB20C\uB7EC \uB2EC\uB824\uBCF4\uC138\uC694."
+  - "\uB2E4\uC74C\uC740 \uB2EC\uB9AC\uAE30\uB97C \uC54C\uB824\uB4DC\uB9AC\uACA0\uC2B5\uB2C8\uB2E4.\n\uC774\uB3D9
+    \uC911\uC5D0 [Shift]\uC744 \uB20C\uB7EC \uB2EC\uB824\uBCF4\uC138\uC694."
   waitForInput: 0
   condition: {fileID: 11400000, guid: 6403a047fd03ce54a8cd3add4d0272ac, type: 2}
   stepType: 3

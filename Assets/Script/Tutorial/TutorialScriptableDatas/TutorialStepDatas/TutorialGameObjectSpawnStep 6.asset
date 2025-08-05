@@ -15,8 +15,9 @@ MonoBehaviour:
   stepName: IntroducePlace1
   messages:
   - "\uB2E4\uC74C\uC740 \uBD80\uD65C\uC7A5\uC18C\uC5D0 \uB300\uD574\uC11C \uC124\uBA85\uB4DC\uB9AC\uACA0\uC2B5\uB2C8\uB2E4."
-  - "\uB9F5\uC5D0 \uC228\uACA8\uC9C4 \uBD80\uD65C\uC7A5\uC18C\uB97C \uCC3E\uC544\uC11C
-    \uB4F1\uB85D\uD55C \uACBD\uC6B0, 1\uD68C \uBD80\uD65C \uAC00\uB2A5\uD569\uB2C8\uB2E4."
+  - "\uBD80\uD65C\uC7A5\uC18C\uB97C \uCC3E\uC544\uC11C \uB4F1\uB85D\uD55C \uACBD\uC6B0,\n1\uD68C
+    \uBD80\uD65C \uAC00\uB2A5\uD569\uB2C8\uB2E4."
+  waitForInput: 0
   condition: {fileID: 0}
   stepType: 1
   spawnPrefab: {fileID: 6373634918162350719, guid: 1163184fb83f9e546b700f087a9b687a, type: 3}

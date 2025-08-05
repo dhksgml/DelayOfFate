@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stepName: 
   messages:
-  - "\uC774 \uACF3\uC740 \uC804\uD22C\uD654\uBA74\uC785\uB2C8\uB2E4."
+  - "\uC774 \uACF3\uC740 \uC804\uD22C\uD654\uBA74\uC785\uB2C8\uB2E4.\n"
   waitForInput: 0
   condition: {fileID: 0}
   stepType: 0

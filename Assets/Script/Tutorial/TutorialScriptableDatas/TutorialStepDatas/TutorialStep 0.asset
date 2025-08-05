@@ -15,7 +15,7 @@ MonoBehaviour:
   stepName: Move
   messages:
   - "\uB2E4\uC74C\uC740 \uC870\uC791\uBC95\uC744 \uC54C\uB824\uB4DC\uB9AC\uACA0\uC2B5\uB2C8\uB2E4."
-  - "WASD \uD0A4\uB85C \uC6C0\uC9C1\uC5EC\uBCF4\uC138\uC694.\n"
+  - "[WASD]\uB85C \uC6C0\uC9C1\uC5EC\uBCF4\uC138\uC694.\n"
   waitForInput: 0
   condition: {fileID: 11400000, guid: eddaf7070c70a784c80b8fcb218806e6, type: 2}
   stepType: 3

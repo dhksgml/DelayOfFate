@@ -14,9 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stepName: QuickSlotWheel
   messages:
-  - "\uB2E4\uC74C\uC740 \uC544\uC774\uD15C \uC2AC\uB86F\uC744 \uC870\uC791\uD574\uBCF4\uACA0\uC2B5\uB2C8\uB2E4."
-  - "\uB9C8\uC6B0\uC2A4 \uD720 \uB610\uB294 \uD0A4\uBCF4\uB4DC \uC0C1\uB2E8\uC758
-    1, 2, 3, 4\uD0A4\uB97C \uB20C\uB7EC \uC544\uC774\uD15C \uC2AC\uB86F\uC744 \uBCC0\uACBD\uD558\uC138\uC694."
+  - "\uB2E4\uC74C\uC740 \uBB3C\uAC74 \uCE78\uC744 \uC870\uC791\uD574\uBCF4\uACA0\uC2B5\uB2C8\uB2E4.\n<size=64><space=15><voffset=14><sprite=3><voffset=0><space=-25></voffset></size=48>
+    \uB610\uB294 1, 2, 3, 4\uB85C\uB97C \uB20C\uB7EC \uBB3C\uAC74 \uCE78\uC744 \uBCC0\uACBD\uD558\uC138\uC694."
   waitForInput: 0
   condition: {fileID: 11400000, guid: e97beaee8c73c0c4d987ec414451d3c8, type: 2}
   stepType: 3
