@@ -812,6 +812,7 @@ public class PlayerController : MonoBehaviour
         if (currentMp <= 0)
         {
             currentMp = 0;
+            Die();
         }
     }
 
