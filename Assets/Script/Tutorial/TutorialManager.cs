@@ -18,6 +18,7 @@ public class TutorialManager : MonoBehaviour
 
     public GameObject tutorialBackground;
     public TextMeshProUGUI tutorialText;
+    public GameObject tutorialPressSpaceText;
     public float messageWaitTime;
     public List<TutorialStep> steps;
 
@@ -64,41 +65,58 @@ public class TutorialManager : MonoBehaviour
 
             if (i < step.messages.Length - 1)
             {
-                yield return new WaitForSeconds(step.waitTime);
+                yield return null;
+                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
             }
         }
 
         switch (step.stepType)
         {
             case TutorialStepType.ShowDialog:
-                yield return new WaitForSeconds(step.waitTime);
+                tutorialPressSpaceText.SetActive(true);
+                yield return null;
+                if(currentIndex == steps.Count - 1)
+                {
+                    tutorialPressSpaceText.SetActive(false);
+                    yield return new WaitForSeconds(step.waitTime);
+                }
+                else
+                {
+                    yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+                }
                 break;
             case TutorialStepType.MoveToPosition:
                 break;
             case TutorialStepType.SpawnGameObject:
+                tutorialPressSpaceText.SetActive(true);
                 StartStep(step);
-                yield return new WaitForSeconds(step.waitTime);
+                yield return null;
+                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
                 EndStep(step);
                 break;
             case TutorialStepType.HightlightUI:
                 LowlightingUI();
                 HighlightingUI();
-                if(step.waitForInput)
-                    yield return new WaitUntil(() => step.condition.IsSatisfied());
-                else
-                    yield return new WaitForSeconds(step.waitTime);
+                //if(step.waitForInput)
+                //    yield return new WaitUntil(() => step.condition.IsSatisfied());
+                //else
+                yield return null;
+                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
                 LowlightingOffUI();
                 HighlightingOffUI();
                 break;
             case TutorialStepType.SpawnItemObject:
             case TutorialStepType.WaitForInput:
+                tutorialPressSpaceText.SetActive(false);
                 step.condition.Initialize();
                 StartStep(step);
+                yield return null;
                 yield return new WaitUntil(() => step.condition.IsSatisfied());
                 EndStep(step);
+                tutorialPressSpaceText.SetActive(true);
                 break;
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.3f);
     }
 
     public void StartStep(TutorialStep step)
