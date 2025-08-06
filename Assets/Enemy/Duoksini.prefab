@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1012ac5d27190124a967338753a66355, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyDamage: 50
+  enemyDamage: 40
   enemyAttackSpeed: 10
   enemyAttackRange: 0
   enemyAttackType: 0
@@ -373,6 +373,7 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 448fc983726968e41ba2df90873c4879, type: 2}
   enemyName: 
   enemyHp: 0
+  enemyMaxHp: 0
   enemyMoveSpeed: 1
   enemyRunSpeed: 0
   enemyPriceMin: 0

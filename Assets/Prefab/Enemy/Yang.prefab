@@ -145,6 +145,7 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 0ebeb15ae615ce746b902131030f82cb, type: 2}
   enemyName: "\uC591"
   enemyHp: 10
+  enemyMaxHp: 0
   enemyMoveSpeed: 3
   enemyRunSpeed: 0
   enemyPriceMin: 1
@@ -185,7 +186,7 @@ MonoBehaviour:
   summonReaper: {fileID: 6662224187615437836, guid: 0917c3b3751b69049966188e4f5ed7ac, type: 3}
   isFind: 0
   yinObj: {fileID: 958911829622340847, guid: 35dae5fb2b39a254cbf4f9199f0d80c4, type: 3}
-  fusionTime: 5
+  fusionTime: 1
 --- !u!1 &6401074620460399457
 GameObject:
   m_ObjectHideFlags: 0

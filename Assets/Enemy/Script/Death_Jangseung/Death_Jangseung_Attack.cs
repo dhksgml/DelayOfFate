@@ -24,7 +24,7 @@ public class Death_Jangseung_Attack : EnemyAttack
 
     private void Update()
     {
-        if (death_Jangseung.isSpawnReaper) 
+        if (death_Jangseung.isSpawnReaper || death_Jangseung.isDie) 
         { 
             attackRange.SetActive(false);
             enemyAttackCollider.enabled = false;
@@ -68,7 +68,7 @@ public class Death_Jangseung_Attack : EnemyAttack
                 time = 0;
 
                 // 콜라이더 비활성화
-                Invoke("Dealy", 0.1f);
+                Invoke("Dealy", 1f);
             }
         }
     }
