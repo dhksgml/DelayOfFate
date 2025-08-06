@@ -170,6 +170,7 @@ public class Eo_dook_jwi : Enemy
             if (collision.gameObject.CompareTag("Wall"))
             {
                 WallNotCross();
+                WallKnuckBack();
             }
         }
     }

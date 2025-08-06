@@ -366,6 +366,11 @@ public abstract class Enemy     : MonoBehaviour
         enemyColl.isTrigger = true;
     }
 
+    public void WallKnuckBack()
+    {
+        moveDirection = -moveDirection;
+    }
+
     #endregion
 
 
