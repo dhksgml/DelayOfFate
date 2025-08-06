@@ -36,6 +36,8 @@ public class EnemyTrace : MonoBehaviour
         if (enemyTraceCollider is CircleCollider2D circleColl) circleColl.radius = enemyTraceRange;
     }
 
+    float boon_yeol_gwi_itemTime = 0;
+
     void Update()
     {
         //수정하면서. 자식이 아닌 다른걸로 분리해줬기에 따라가게 해줌
@@ -51,6 +53,18 @@ public class EnemyTrace : MonoBehaviour
         {
             duoksinitime += Time.deltaTime;
         }
+        // 분열귀
+        else if (boon_yeol_gwi != null)
+        {
+            boon_yeol_gwi_itemTime += Time.deltaTime;
+
+            if (boon_yeol_gwi_itemTime >= 1f)
+            {
+                boon_yeol_gwi_itemTime = 0;
+                boon_yeol_gwi.isItemFind = false;
+            }
+        }
+
     }
 
     //땅상어 전용
@@ -157,13 +171,6 @@ public class EnemyTrace : MonoBehaviour
                     boon_yeol_gwi.isItemFind = true;
                     boon_yeol_gwi.itemTrs = collision.gameObject.transform.position;
                 }
-                
-                else if (collision.gameObject.CompareTag("Item") && item.itemData.Coin == 0)
-                {
-                    boon_yeol_gwi.isItemFind = false;
-                }
-
-
             }
 
             //플레이어가 범위 안에 들어오면 쫒아가줌
