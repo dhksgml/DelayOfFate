@@ -77,7 +77,8 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 871dbd6d0ad338a469b6eccf5e4725e0, type: 2}
   enemyName: "\uC800\uC2B9\uC0AC\uC790"
   enemyHp: 4444
-  enemyMoveSpeed: 0.5
+  enemyMaxHp: 0
+  enemyMoveSpeed: 1.5
   enemyRunSpeed: 0
   enemyPriceMin: 4444
   enemyPriceMax: 4444
@@ -112,7 +113,7 @@ MonoBehaviour:
   rigid: {fileID: 0}
   enemyMoveDir: {x: 0, y: 0, z: 0}
   moveDirection: {x: 0, y: 0, z: 0}
-  powerUpTime: 2
+  powerUpTime: 20
   speedUpValue: 2
   scaleUpValue: {x: 0.1, y: 0.1, z: 0.1}
   colliderUpValue: 0.05
