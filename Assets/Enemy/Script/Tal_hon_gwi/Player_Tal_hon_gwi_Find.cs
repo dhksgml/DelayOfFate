@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Player_Tal_hon_gwi_Find : MonoBehaviour
 {
-
     void OnTriggerStay2D(Collider2D collision)
     {
         if (collision != null)
