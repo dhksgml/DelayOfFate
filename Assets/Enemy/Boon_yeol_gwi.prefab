@@ -250,6 +250,7 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 548841fee21b51746a15782e37975b4e, type: 2}
   enemyName: "\uBD84\uC5F4\uADC0"
   enemyHp: 0
+  enemyMaxHp: 0
   enemyMoveSpeed: 1
   enemyRunSpeed: 1
   enemyPriceMin: 0
@@ -288,7 +289,7 @@ MonoBehaviour:
   type: 0
   copyObj: {fileID: 7133274805120073796, guid: b40f4f8d701d98941831e7464d5b6aaa, type: 3}
   entityTrs: {x: 0, y: 0, z: 0}
-  explosionSelfvalue: 500
+  explosionSelfvalue: 400
   isItemFind: 0
   isItemEat: 0
   isEntityFind: 0
