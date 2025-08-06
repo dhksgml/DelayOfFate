@@ -63,8 +63,11 @@ public class StealEnemy : Enemy
 
         if(isStealGold && !hasStolen)
         {
+            // 자신의 가치를 증가시켜줌
+            enemyPrice += (int)(GameManager.Instance.Gold * 0.3f);
+
             // 게임 메니저에서 골드를 빼줌
-            GameManager.Instance.Sub_Gold(enemyData.CoinDeviation);
+            GameManager.Instance.Sub_Gold(GameManager.Instance.Gold * 0.3f);
             hasStolen = true;
         }
 
