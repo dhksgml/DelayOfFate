@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Player_Tal_hon_gwi_Find : MonoBehaviour
 {
-
     void OnTriggerStay2D(Collider2D collision)
     {
         if (collision != null)
@@ -15,7 +14,7 @@ public class Player_Tal_hon_gwi_Find : MonoBehaviour
 
                 if (talhongwi != null)
                 {
-                    if (Input.GetKeyUp(KeyCode.E))
+                    if (Input.GetKeyUp(KeyCode.E) || Input.GetKey(KeyCode.E))
                     {
                         talhongwi.isSeek = true;
                     }

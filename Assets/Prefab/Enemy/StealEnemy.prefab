@@ -228,8 +228,9 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 816972ebf20ef7a41b6eb45a4f7f6e85, type: 2}
   enemyName: StealEnemy
   enemyHp: 10
-  enemyMoveSpeed: 1
-  enemyRunSpeed: 10
+  enemyMaxHp: 0
+  enemyMoveSpeed: 4
+  enemyRunSpeed: 20
   enemyPriceMin: 100
   enemyPriceMax: 200
   enemyPrice: 0
@@ -357,7 +358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyDamage: 20
-  enemyAttackSpeed: 3
+  enemyAttackSpeed: 1
   enemyAttackRange: 0
   enemyAttackType: 3
   enemyAttackCollider: {fileID: 349738580550515857}

@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Tal_hon_gwi : Enemy
 {
     [Header("탈혼귀")]
+    [SerializeField] Player_Item_Use player_item_use;
     [SerializeField] Sprite[] randomImages;
     [SerializeField] Sprite[] talhongwiOriginSprite;
     [HideInInspector] public bool isSeek = false;
@@ -12,12 +16,21 @@ public class Tal_hon_gwi : Enemy
     [SerializeField] int talhongwiDamage = 20;
     PlayerController player;
 
+    [Header("참조")]
+    public ItemData[] itemDataTemplate;
+    public Item item;
+    public GameObject holdGaugeUI; 
+    public Image holdGauge;
+    public GameObject infoPanel;                   // 아이템 정보 UI 패널 (월드 상에서 표시)
+    public GameObject Sale_Effect;                 // 판매 시 이펙트 프리팹
+    public TMP_Text name_text;                     // 아이템 이름 텍스트
+    public TMP_Text coin_text;
+    private Transform uiCanvas;
+
+    const float maxHoldTime = 1f;
+
     void Awake()
     {
-        // 이미지를 랜덤으로 가져와 줌
-        int random = Random.Range(0, randomImages.Length);
-        sp.sprite = randomImages[random];
-
         // 회전 값을 위한 랜덤
         int randomFlipX = Random.Range(0, 2);
         int randomFlipY = Random.Range(0, 2);
@@ -37,6 +50,22 @@ public class Tal_hon_gwi : Enemy
     void Start()
     {
         EnemyInt();
+
+        player_item_use = FindObjectOfType<Player_Item_Use>();
+
+        // 이미지를 랜덤으로 가져와 줌
+        int random = Random.Range(0, randomImages.Length);
+        sp.sprite = randomImages[random];
+
+        if (itemDataTemplate != null)
+        {
+            item = new Item(itemDataTemplate[random]);
+        }
+
+        // UI 참조 설정 및 비활성화
+        uiCanvas = GameObject.Find("Player_Canvas")?.transform;
+        infoPanel?.SetActive(false);
+        holdGaugeUI?.SetActive(false);
     }
 
 
@@ -69,6 +98,19 @@ public class Tal_hon_gwi : Enemy
 
             StartCoroutine(EnemySeek());
         }
+
+
+        float distance = Vector3.Distance(transform.position, player.transform.position);
+
+        if (distance < 1.5f)
+        {
+            float progress = Mathf.Clamp(player_item_use.holdTime / maxHoldTime, 0f, 1f);
+            UpdateHoldGauge(progress); // 게이지 진행도 반영
+        }
+        else
+        {
+            UpdateHoldGauge(0f); // 멀어지면 게이지 숨김
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -96,6 +138,22 @@ public class Tal_hon_gwi : Enemy
                 EnemyHit(attack.damage);
                 Invoke("EnemyHitRegen", enemyHitTime);
             }
+
+            if (collision.CompareTag("Player"))
+            {
+                infoPanel?.SetActive(true);
+                holdGaugeUI?.SetActive(true);
+                collision.GetComponent<PlayerController>().isPickUpableItem = true;
+            }
+        }
+    }
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            infoPanel?.SetActive(false);
+            holdGaugeUI?.SetActive(false);
+            other.GetComponent<PlayerController>().isPickUpableItem = false;
         }
     }
 
@@ -134,5 +192,37 @@ public class Tal_hon_gwi : Enemy
         
         // 시체의 부모 통째로 제거
         Destroy(transform.parent.gameObject);
+    }
+
+    // 게이지 및 텍스트 UI 업데이트
+    public void UpdateHoldGauge(float progress)
+    {
+        if (holdGaugeUI != null)
+        {
+            holdGaugeUI.SetActive(progress > 0); // 게이지 0 이상일 때만 표시
+        }
+
+        if (holdGauge != null)
+        {
+            holdGauge.fillAmount = progress; // 게이지 진행도 반영
+        }
+
+        // 아이템 이름 표시
+        if (name_text != null)
+            name_text.text = string.Format("[{0}]", item.itemName);
+
+        // 아이템 가치 표시
+        if (coin_text != null)
+        {
+            int total_coin = item.Coin * item.Count;
+            if (item.Sell_immediately)
+            {
+                coin_text.text = string.Format("[<b>E</b>] 줍기\n[<b>E~</b>] 즉시 판매: {0} 혼", total_coin);
+            }
+            else
+            {
+                coin_text.text = string.Format("[<b>E</b>] 줍기\n{0} 값", total_coin);
+            }
+        }
     }
 }
