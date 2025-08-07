@@ -7,7 +7,6 @@ public class Duoksini : Enemy
     [Header("두억시니")]
     PlayerController player;
     public float attackSeeTime;
-    public bool isAttack = false;
     [HideInInspector] public Vector3 attackTargetTrs;
     [HideInInspector] public bool isAttackReady = false;
 
@@ -40,13 +39,13 @@ public class Duoksini : Enemy
         else
         {
             // 공격시 멈춤
-            if (isAttack)
+            if (isAttackReady)
             {
                 return;
             }
 
             // 공격이 아니면 움직임
-            else if (!isAttack)
+            else 
             {
                 EnemyMove();
             }

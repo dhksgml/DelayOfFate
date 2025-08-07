@@ -11,7 +11,7 @@ public class Duoksini_Attack : EnemyAttack
     [HideInInspector] PlayerController player;
     [SerializeField] GameObject attackRange;
     [HideInInspector] public bool isAttack = false;
-
+    [HideInInspector] public bool isTrsPass = false;
 
     // 장승이 공격 범위를 보여주고 몇 초 뒤에 공격할지 정함
     [SerializeField] float duoksiniAttackDelay;
@@ -23,14 +23,17 @@ public class Duoksini_Attack : EnemyAttack
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
+    bool isAttackReady = false;
     private void Update()
     {
         // 공격 중엔 시간이 안오름
         if (!isAttack) time += Time.deltaTime;
+        if (isAttackReady) duoksiniAttackTime += Time.deltaTime;
 
         // 공격 준비가 다 되었음면 공격
-        if (time >= enemyAttackSpeed && duoksini.isAttackReady)
+        if (time >= enemyAttackSpeed && duoksini.isAttackReady && isTrsPass)
         {
+            Debug.Log("범위 표시");
             isAttack = true;
 
             // 위치를 공격 범위 쪽으로 옳겨줌
@@ -39,31 +42,33 @@ public class Duoksini_Attack : EnemyAttack
             // 사거리 표시
             attackRange.SetActive(true);
 
-            // 범위가 표시되고 지정한 초 뒤에 공격
-            duoksiniAttackTime += Time.deltaTime;
+            isTrsPass = false;
+            isAttackReady = true;
+        }
+
+        if (duoksiniAttackTime >= duoksiniAttackDelay)
+        {
+
+            Debug.Log("공격");
+            // 파괴
+            DestroyItem();
+
+            // 사거리 비활성화
+            attackRange.SetActive(false);
+
+            // 콜라이더를 활성화 해줌
+            enemyAttackCollider.enabled = true;
+
+            // 초기화
+            duoksiniAttackTime = 0;
+            isAttack = false;
+            duoksini.isAttackReady = false;
+            isAttackReady = false;
+            time = 0;
 
 
-            if (duoksiniAttackTime >= duoksiniAttackDelay)
-            {
-                // 파괴
-                DestroyItem();
-
-                // 사거리 비활성화
-                attackRange.SetActive(false);
-
-                // 콜라이더를 활성화 해줌
-                enemyAttackCollider.enabled = true;
-
-                // 초기화
-                duoksiniAttackTime = 0;
-                isAttack = false;
-                duoksini.isAttackReady = false;
-                time = 0;
-                duoksini.isAttack = false;
-
-                // 콜라이더 비활성화
-                Invoke("Dealy", 0.1f);
-            }
+            // 콜라이더 비활성화
+            Invoke("Dealy", 0.1f);
         }
     }
 
