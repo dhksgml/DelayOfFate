@@ -25,12 +25,19 @@ public class StealEnemyAttack : EnemyAttack
 
         rotationColl();
 
-        //공격 시간이 됐고, 목표와의 거리가 1f 보다 작거나 같으면 공격
-        if (time >= enemyAttackSpeed && !stealEnemy.isStealGold
-            && distance <= 1f)
+
+        if (stealEnemy.isStealGold)
+        {
+            stealEnemy.anim.SetBool("isAttack", false);
+        }
+
+        //공격 시간이 됐고, 목표와의 거리가 3f 보다 작거나 같으면 공격
+        else if (time >= enemyAttackSpeed && !stealEnemy.isStealGold
+            && distance <= 3f)
         {
             //에니메이션 활성화
-            //stealEnemy.anim.SetBool("isAttack", true);
+            stealEnemy.anim.SetBool("isAttack", true);
+
             //공격 콜라이더 활성화 해줌
             enemyAttackCollider.enabled = true;
             enemy.isEnemyAttack = false;
@@ -43,6 +50,13 @@ public class StealEnemyAttack : EnemyAttack
     {
         if (collision.gameObject.CompareTag("Player") && !stealEnemy.isAttack)
         {
+
+            // 에니메이션 적용
+            stealEnemy.anim.SetBool("isSteal", true);
+
+            // 스프라이트 적용
+            stealEnemy.sp.sprite = stealEnemy.stealSprite;
+
             stealEnemy.isStealGold = true;
             stealEnemy.isAttack = true;
 
