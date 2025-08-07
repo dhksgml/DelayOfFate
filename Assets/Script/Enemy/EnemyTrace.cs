@@ -111,7 +111,7 @@ public class EnemyTrace : MonoBehaviour
                     Boon_yeol_gwi entity = collision.GetComponent<Boon_yeol_gwi>();
 
                     //값이 맞으면
-                    if (entity != null)
+                    if (entity != null && boon_yeol_gwi.entityObj == entity)
                     {
                         //true로 해준 후
                         boon_yeol_gwi.isEntityFind = true;

@@ -197,6 +197,7 @@ public class LandShark : Enemy
             if (collision.gameObject.CompareTag("Wall"))
             {
                 WallNotCross();
+                WallKnuckBack();
             }
         }
     }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class Seokdeungnyeong_Trace : MonoBehaviour
 {
@@ -17,8 +18,11 @@ public class Seokdeungnyeong_Trace : MonoBehaviour
     {
         if (collision != null)
         {
-            if (collision.gameObject.CompareTag("Player"))
+
+            if (collision.gameObject.CompareTag("Light"))
             {
+                Light2D light = collision.gameObject.GetComponent<Light2D>();
+                light.enabled = false;
                 seokdeungnyeong.isPlayer = true;
             }
         }
@@ -28,8 +32,11 @@ public class Seokdeungnyeong_Trace : MonoBehaviour
     {
         if (collision != null)
         {
-            if (collision.gameObject.CompareTag("Player"))
+
+            if (collision.gameObject.CompareTag("Light"))
             {
+                Light2D light = collision.gameObject.GetComponent<Light2D>();
+                light.enabled = true;
                 seokdeungnyeong.isPlayer = false;
             }
         }

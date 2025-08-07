@@ -15,7 +15,7 @@ public class Boon_yeol_gwi : Enemy
     [Header("분열귀")]
     [SerializeField] Boon_yeol_gwi_Type type;
     [SerializeField] GameObject copyObj; //분열체 오브젝트
-    [SerializeField] Boon_yeol_gwi entityObj; // 본체
+    public Boon_yeol_gwi entityObj; // 본체
     [SerializeField] Vector3 entityTrs; //본체 위치
     [SerializeField] int explosionSelfvalue; //가치가 이거 이상이면 터짐
 
@@ -41,7 +41,6 @@ public class Boon_yeol_gwi : Enemy
         //분열체일떄
         if (type == Boon_yeol_gwi_Type.Copy)
         {
-
             //시작하면 위치를 지정해줌
             entityTrs = transform.position;
             // 처음에 랜덤한 방향 설정
@@ -240,24 +239,28 @@ public class Boon_yeol_gwi : Enemy
                     Boon_yeol_gwi entity = collision.GetComponent<Boon_yeol_gwi>();
 
                     //충돌한게 본체일때
-                    if (entity.type == Boon_yeol_gwi_Type.Entity && isItemEat && isItemEat)
+                    if (entity == entityObj)
                     {
-                        //가치를 올려줌
-                        entity.enemyPrice += enemyPrice;
+                        if (entity.type == Boon_yeol_gwi_Type.Entity && isItemEat && isItemEat)
+                        {
+                            //가치를 올려줌
+                            entity.enemyPrice += enemyPrice;
 
-                        entity.copyObjList.Remove(gameObject);
+                            entity.copyObjList.Remove(gameObject);
 
-                        RemoveList();
+                            RemoveList();
 
-                        //그리고 스스로 사라짐
-                        Destroy(transform.parent.gameObject);
+                            //그리고 스스로 사라짐
+                            Destroy(transform.parent.gameObject);
 
-                        //현재 인덱스값 뺴줌
-                        entity.currentIndex--;
+                            //현재 인덱스값 뺴줌
+                            entity.currentIndex--;
 
-                        //그리고 스폰하는 트리거 활성화
-                        entity.isSpawn = true;
-                    }   
+                            //그리고 스폰하는 트리거 활성화
+                            entity.isSpawn = true;
+                        }
+                    }
+
                 }
             }
         }

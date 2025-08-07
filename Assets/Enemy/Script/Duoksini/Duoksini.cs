@@ -134,6 +134,7 @@ public class Duoksini : Enemy
             if (collision.gameObject.CompareTag("Wall"))
             {
                 WallNotCross();
+                WallKnuckBack();
             }
         }
     }
