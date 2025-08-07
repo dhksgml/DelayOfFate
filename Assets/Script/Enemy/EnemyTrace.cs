@@ -254,15 +254,16 @@ public class EnemyTrace : MonoBehaviour
             {
                 if (collision.gameObject.CompareTag("Player"))
                 {
+                    Debug.Log("위치 추적중");
                     duoksiniTargetTrs = collision.transform.position;
 
                     if (duoksinitime >= duoksini.attackSeeTime && !duoksini.isAttackReady)
                     {
-                        duoksini.isAttack = true;   
-
+                        Debug.Log("값 전달");
                         duoksini.attackTargetTrs = duoksiniTargetTrs;
 
                         duoksini.isAttackReady = true;
+                        duoksini_Attack.isTrsPass = true;
 
                         duoksinitime = 0f;
                     }
