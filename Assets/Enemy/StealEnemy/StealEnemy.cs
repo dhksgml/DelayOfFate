@@ -13,6 +13,8 @@ public class StealEnemy : Enemy
     [SerializeField] float runTime;
     bool isSteal = false;
 
+    public Sprite stealSprite;
+
 
     void Awake()
     {
@@ -74,6 +76,7 @@ public class StealEnemy : Enemy
         //물건을 훔쳤을때
         if (isStealGold)
         {
+
             // 스프라이트 회전
             EnemyTraceTurn();
 
