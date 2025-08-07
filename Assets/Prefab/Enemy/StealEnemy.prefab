@@ -95,7 +95,7 @@ Animator:
   m_GameObject: {fileID: 1974614773762949434}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b3a254ff985aac74088498a8e5ce143f, type: 2}
+  m_Controller: {fileID: 9100000, guid: 12940e671edba014182d983d9997199a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -252,7 +252,7 @@ MonoBehaviour:
   enemyTrace: {fileID: 4424377687635259476}
   enemyAttack: {fileID: 8499230613311633377}
   sp: {fileID: 5638505646721683246}
-  anim: {fileID: 0}
+  anim: {fileID: 4313218389866854258}
   enemyCorpse: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
   enemyCorpseData: {fileID: 11400000, guid: 160f2d3033bb9524fa884c730fd94f73, type: 2}
   enemySelf: {fileID: 5341648827927804214}
@@ -267,6 +267,7 @@ MonoBehaviour:
   isAttack: 0
   isStealGold: 0
   runTime: 5
+  stealSprite: {fileID: 21300000, guid: 063eb2c327adff8469742df4044b754e, type: 3}
 --- !u!1 &2581753709897334888
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,7 +308,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2581753709897334888}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -332,7 +333,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1, y: 0}
+  m_Offset: {x: 0.5, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -343,7 +344,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &8499230613311633377
 MonoBehaviour:
