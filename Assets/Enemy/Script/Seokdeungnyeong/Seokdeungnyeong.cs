@@ -8,6 +8,8 @@ public class Seokdeungnyeong : Enemy
     PlayerController player;
     [SerializeField] GameObject lightObj;
     public bool isPlayer = false;
+    [SerializeField] Sprite originSprite;
+    [SerializeField] Sprite lightOnSprite;
 
     void Awake()
     {
@@ -33,6 +35,7 @@ public class Seokdeungnyeong : Enemy
         {
             // ºû È°¼ºÈ­
             lightObj.SetActive(true);
+            sp.sprite = lightOnSprite;
 
             if (enemyColl == null) { return; }
 
@@ -44,6 +47,7 @@ public class Seokdeungnyeong : Enemy
         {
             // ºû ºñÈ°¼ºÈ­
             lightObj.SetActive(false);
+            sp.sprite = originSprite;
 
             if (enemyColl == null) { return; }
 

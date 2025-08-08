@@ -27,6 +27,12 @@ public class Tal_hon_gwi : Enemy
     public TMP_Text coin_text;
     private Transform uiCanvas;
 
+    [SerializeField] GameObject surpriseCanvas;
+    [SerializeField] Image surpriseImage;
+    [SerializeField] float startScale = 0.1f;
+    [SerializeField] float endScale = 10f; 
+    [SerializeField] float scaleUpTime = 2f;
+
     const float maxHoldTime = 1f;
 
     void Awake()
@@ -36,12 +42,10 @@ public class Tal_hon_gwi : Enemy
         int randomFlipY = Random.Range(0, 2);
 
         // X회전
-        if (randomFlipX == 0) { sp.flipX = true; }
-        else { sp.flipX = false; }
+        sp.flipX = true;
 
         // Y회전
-        if (randomFlipY == 0) { sp.flipY = true; }
-        else { sp.flipY = false; }
+        sp.flipY = true;
 
         rigid = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
@@ -91,12 +95,13 @@ public class Tal_hon_gwi : Enemy
             // 본모습 등장
             sp.sprite = talhongwiOriginSprite[0];
 
+            // 놀래키기
+            StartCoroutine(ScaleImage());
+
             // 정신 데미지
             player.DamagedMP(talhongwiDamage);
             // 기력 데미지
             player.DamagedSP(player.maxSp * 0.3f);
-
-            StartCoroutine(EnemySeek());
         }
 
 
@@ -134,7 +139,6 @@ public class Tal_hon_gwi : Enemy
                 {
                     enemyHp -= attack.damage;
                 }
-
                 EnemyHit(attack.damage);
                 Invoke("EnemyHitRegen", enemyHitTime);
             }
@@ -224,5 +228,41 @@ public class Tal_hon_gwi : Enemy
                 coin_text.text = string.Format("[<b>E</b>] 줍기\n{0} 값", total_coin);
             }
         }
+    }
+
+    IEnumerator ScaleImage()
+    {
+
+        // 프리팹을 인스턴스화
+        GameObject canvasInstance = Instantiate(surpriseCanvas);
+
+        // 이미지 찾기
+        Image surpriseImage = canvasInstance.GetComponentInChildren<Image>();
+
+        // 매번 크기 초기화 (여기 중요!)
+        surpriseImage.rectTransform.localScale = Vector3.one * startScale;
+
+        float elapsed = 0f;
+
+        while (elapsed < scaleUpTime)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / scaleUpTime;
+
+            float scale = Mathf.Lerp(startScale, endScale, t * t * t);
+            surpriseImage.rectTransform.localScale = Vector3.one * scale;
+
+            yield return null;
+        }
+
+        surpriseImage.rectTransform.localScale = Vector3.one * endScale;
+
+        yield return new WaitForSeconds(scaleUpTime);
+
+        Debug.Log(2);
+        
+        Destroy(canvasInstance);
+
+        StartCoroutine(EnemySeek());
     }
 }
