@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveInput;
     private Vector2 clickLookDirection = Vector2.down;
     private float clickLookTimer = 0f;
-    private float clickLookDuration = 0.2f; // 클릭 후 0.2초간 해당 방향으로 고정
+    private float clickLookDuration = 0.3f; // 클릭 후 0.2초간 해당 방향으로 고정
     private Camera mainCamera;
 
     public bool IsRun => isRun;
@@ -149,6 +149,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (clickLookTimer > 0f)
+        {
+            clickLookTimer -= Time.deltaTime;
+            clickLookTimer = Mathf.Clamp(clickLookTimer, 0f, clickLookDuration);
+        }
+
         if (isFreeze)
         {
             FreezingCancle();
@@ -249,6 +255,8 @@ public class PlayerController : MonoBehaviour
 
     void HandleMouseClick()
     {
+        if (isRecovering) return;
+
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -261,6 +269,9 @@ public class PlayerController : MonoBehaviour
                 clickLookDirection = new Vector2(direction.x > 0 ? 1 : -1, 0);
             else
                 clickLookDirection = new Vector2(0, direction.y > 0 ? 1 : -1);
+
+            animator.SetFloat("MouseDirX", direction.x);
+            animator.SetFloat("MouseDirY", direction.y);
 
             clickLookTimer = clickLookDuration; // 타이머 초기화
         }
@@ -422,26 +433,6 @@ public class PlayerController : MonoBehaviour
     }
     void HandleRunInput()
     {
-        //if ((currentSp < runThreshold) && !isEmptySP)
-        //{
-        //    isRun = false;
-        //    isEmptySP = true;
-        //    return;
-        //}
-
-        //if(currentSp > runThreshold)
-        //{
-        //    isEmptySP = false;
-        //}
-
-        //if(Input.GetKey(KeyCode.LeftShift) && isMoving)
-        //{
-        //    isRun = true;
-        //}
-        //else
-        //{
-        //    isRun = false;
-        //}
         if ((currentSp > runThreshold))
         {
             isEmptySP = false;
@@ -576,7 +567,6 @@ public class PlayerController : MonoBehaviour
         // if(Moving)앞에 이 부분 추가
         if (clickLookTimer > 0f)
         {
-            clickLookTimer -= Time.deltaTime;
             direction = clickLookDirection;
         }
         else if (isMoving)
