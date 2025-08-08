@@ -52,7 +52,9 @@ public class Death_Jangseung_Attack : EnemyAttack
 
             if(jangseungAttackTime >= jangseungAttackDelay)
             {
-                Debug.Log("공격");
+                // 에니메이션 처리
+                death_Jangseung.anim.SetBool("isAttack", true);
+                
                 attackSprite.SetActive(true);
 
                 // 사거리 비활성화
@@ -89,5 +91,6 @@ public class Death_Jangseung_Attack : EnemyAttack
     {
         attackSprite.SetActive(false);
         enemyAttackCollider.enabled = false;
+        death_Jangseung.anim.SetBool("isAttack", false);
     }
 }
