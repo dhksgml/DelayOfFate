@@ -15,7 +15,6 @@ public class TutorialRecoveryStep : TutorialStep
             playerController.isAutoSPRegen = false;
             playerController.DamagedHP(10);
             playerController.DamagedSP(10);
-            playerController.DamagedMP(10);
         }
     }
 
