@@ -271,7 +271,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: -73875209, guid: 2438a7200949b3249a55b0e7c993b051, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -292,7 +292,7 @@ Animator:
   m_GameObject: {fileID: 5894176498811746636}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b3a254ff985aac74088498a8e5ce143f, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -464,3 +464,5 @@ MonoBehaviour:
   moveDirection: {x: 0, y: 0, z: 0}
   lightObj: {fileID: 4299008124713064061}
   isPlayer: 0
+  originSprite: {fileID: -73875209, guid: 2438a7200949b3249a55b0e7c993b051, type: 3}
+  lightOnSprite: {fileID: 1531598568, guid: 2438a7200949b3249a55b0e7c993b051, type: 3}

@@ -35,6 +35,7 @@ public class Death_Jangseung : Enemy
 
         if (isSpawnReaper)
         {
+            anim.SetBool("isSummonReaper", true);
             enemyColl.enabled = false;
         }
     }
