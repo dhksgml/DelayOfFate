@@ -47,6 +47,9 @@ public class Eo_dook_jwi : Enemy
             // 10초 움직이고 5초 멈춰줌
             if (moveTime >= 10f)
             {
+                // 에니메이션
+                anim.SetBool("isMove", false);
+
                 //멈춰준 후
                 isStop = true;
 
@@ -98,6 +101,9 @@ public class Eo_dook_jwi : Enemy
         //추적중이 아니면
         if (!isTrace && !isDie && !isEnemyHit)
         {
+            // 에니메이션
+            anim.SetBool("isMove", true);
+
             // 스프라이트 때문에 이걸 사용해줌
             EnemyNormalTurn2();
 
