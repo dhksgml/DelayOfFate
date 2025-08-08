@@ -1,10 +1,14 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.Tilemaps;
 using Unity.VisualScripting;
 
 public class RoomRandomPlacement : MonoBehaviour
 {
+    public Tilemap groundTilemap;
+    public TileBase floorTiles;
+
     public int width;
     public int height;
     public int roomCount;
@@ -51,7 +55,7 @@ public class RoomRandomPlacement : MonoBehaviour
         GenerateRooms();
         spawnManager.SpawnWave_ByPattern(GameManager.Instance.Day - 1); //요소들 스폰
         MovePlayerToRandomRoom(); // 추가
-        
+        FillTilemapWithFloorTiles();
     }
     void Room_re_data()
     {
@@ -352,4 +356,49 @@ public class RoomRandomPlacement : MonoBehaviour
             _ => dir,
         };
     }
+    void FillTilemapWithFloorTiles()
+    {
+        if (floorTiles == null || groundTilemap == null)
+        {
+            Debug.LogWarning("타일맵 또는 타일 설정이 빠졌습니다.");
+            return;
+        }
+
+        TileBase chosenTile = floorTiles;
+
+        foreach (var kvp in roomObjects)
+        {
+            Vector3 roomWorldPos = kvp.Value.transform.position;
+            Vector3Int originCell = groundTilemap.WorldToCell(roomWorldPos);
+
+            for (int x = -12; x <= 12; x++)
+            {
+                for (int y = -12; y <= 12; y++)
+                {
+                    Vector3Int cell = originCell + new Vector3Int(x, y, 0);
+                    groundTilemap.SetTile(cell, chosenTile);
+                }
+            }
+        }
+
+        // 복도에도 타일 깔기 (corridorPrefab에서 Instantiate된 복도들에 대해)
+        foreach (Transform child in transform)
+        {
+            if (child.name.Contains("Corridor")) // 이름 필터 (prefab 이름 맞게 조정 가능)
+            {
+                Vector3 corridorWorldPos = child.position;
+                Vector3Int originCell = groundTilemap.WorldToCell(corridorWorldPos);
+
+                for (int x = -1; x <= 1; x++)
+                {
+                    for (int y = -1; y <= 1; y++)
+                    {
+                        Vector3Int cell = originCell + new Vector3Int(x, y, 0);
+                        groundTilemap.SetTile(cell, chosenTile);
+                    }
+                }
+            }
+        }
+    }
+
 }

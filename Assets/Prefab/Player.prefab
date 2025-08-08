@@ -130,7 +130,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 2
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 0.40435505, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1.5
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
@@ -750,7 +750,7 @@ MonoBehaviour:
   dropPoint: {fileID: 8194112692264653263}
   itemLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   item_Prefab: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
   holdTime: 0
 --- !u!95 &8058544078991953991
@@ -792,7 +792,7 @@ MonoBehaviour:
   m_UseRendererSilhouette: 1
   m_CastsShadows: 1
   m_SelfShadows: 0
-  m_ApplyToSortingLayers: e9503d0800000000
+  m_ApplyToSortingLayers: 00000000
   m_ShapePath:
   - {x: -0.049926788, y: -0.1336282, z: 0}
   - {x: -0.051682353, y: -0.05716408, z: 0}
@@ -823,7 +823,7 @@ MonoBehaviour:
   - {x: -0.05387208, y: -0.22353303, z: 0}
   m_ShapePathHash: -1562121249
   m_Mesh: {fileID: 0}
-  m_InstanceId: 47752
+  m_InstanceId: -208076
   m_LocalBounds:
     m_Center: {x: 0.0002822429, y: -0.064456046, z: 0}
     m_Extent: {x: 0.114839226, y: 0.39820114, z: 0}
@@ -871,7 +871,7 @@ MonoBehaviour:
   itemLayer:
     serializedVersion: 2
     m_Bits: 8
-  searchRadius: 20
+  searchRadius: 50
   nearestItem: {fileID: 0}
 --- !u!114 &1500599929136598717
 MonoBehaviour:
@@ -938,7 +938,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 2
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 0.40435505, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 0.5
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
@@ -1171,7 +1171,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 2
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 0.40435505, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
@@ -1447,7 +1447,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4690670508619841021}
   - component: {fileID: 7647500816381502098}
-  - component: {fileID: 1658551752753831148}
+  - component: {fileID: 3679334088539104510}
   m_Layer: 0
   m_Name: Sight
   m_TagString: Sight
@@ -1521,7 +1521,7 @@ PolygonCollider2D:
       - {x: 0.33814463, y: 0.8816699}
       - {x: 1.9042091, y: 5.0214844}
   m_UseDelaunayMesh: 0
---- !u!114 &1658551752753831148
+--- !u!114 &3679334088539104510
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
