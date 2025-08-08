@@ -12,6 +12,7 @@ public class Player_Item_Use : MonoBehaviour
     private const float requiredHoldTime = 1f;
     private ItemUsageManager itemUsageManager;
     private PlayerController playercontroller;
+    private Animator animator;
     private float chargingTimer = 0f;
     private bool isCharging = false;
     private Item chargingItem = null;
@@ -20,7 +21,7 @@ public class Player_Item_Use : MonoBehaviour
     {
         itemUsageManager = GetComponent<ItemUsageManager>();
         playercontroller = GetComponent<PlayerController>();
-        
+        animator = GetComponent<Animator>();
     }
     void Update()
     {
@@ -43,6 +44,7 @@ public class Player_Item_Use : MonoBehaviour
                     else
                     {
                         UseItem(selectedItem.itemName); // 사용
+                        
                     }
                 }
             }
@@ -139,11 +141,12 @@ public class Player_Item_Use : MonoBehaviour
 
     void TryUseItem(Item selectedItem)
     {
-        if(selectedItem.spendSPAmount < playercontroller.currentSp)
+        if(!playercontroller.isRecovering && selectedItem.spendSPAmount < playercontroller.currentSp)
         {
             playercontroller.SpendSp(selectedItem.spendSPAmount);
             itemUsageManager.UseItem(selectedItem.itemName);
             TutorialEvents.OnWeaponUsed?.Invoke(selectedItem);
+            animator.SetTrigger("Attack");
         }
     }
 
@@ -183,7 +186,6 @@ public class Player_Item_Use : MonoBehaviour
 
                 // 아이템 사용 처리
                 TryUseItem(selectedItem);
-                //itemUsageManager.UseItem(selectedItem.itemName);
 
                 // 쿨다운 적용
                 playercontroller.Player_Usage_cu_cool_down = selectedItem.Usage_cool_down;
