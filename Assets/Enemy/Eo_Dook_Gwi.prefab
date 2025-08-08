@@ -96,7 +96,7 @@ Animator:
   m_GameObject: {fileID: 902690501354321901}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b3a254ff985aac74088498a8e5ce143f, type: 2}
+  m_Controller: {fileID: 9100000, guid: 527e9f8ebca0eb0449f0a462d6d38b6c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -136,7 +136,7 @@ MonoBehaviour:
   - {x: 0.049784884, y: -0.14356571, z: 0}
   m_ShapePathHash: -1231964092
   m_Mesh: {fileID: 0}
-  m_InstanceId: 70206
+  m_InstanceId: 67998
   m_LocalBounds:
     m_Center: {x: 0.013412923, y: -0.0078026652, z: 0}
     m_Extent: {x: 0.18918885, y: 0.13747492, z: 0}
@@ -318,7 +318,7 @@ MonoBehaviour:
   enemyTrace: {fileID: 0}
   enemyAttack: {fileID: 0}
   sp: {fileID: 1114514256760666707}
-  anim: {fileID: 0}
+  anim: {fileID: 6262192447617324782}
   enemyCorpse: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
   enemyCorpseData: {fileID: 11400000, guid: 160f2d3033bb9524fa884c730fd94f73, type: 2}
   enemySelf: {fileID: 1930194308981125956}
