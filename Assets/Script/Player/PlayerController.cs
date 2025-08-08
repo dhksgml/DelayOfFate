@@ -705,9 +705,9 @@ public class PlayerController : MonoBehaviour
 
         float totalMaxHp = maxHp + extraHp;
         float hpPerSecond = totalMaxHp / hpRecoveryDuration;
-        float mpPerSecond = maxMp / mpRecoveryDuration;
+        //float mpPerSecond = maxMp / mpRecoveryDuration;
 
-        while ((currentHp + currentExtraHp < totalMaxHp || currentMp < maxMp || currentSp < maxSp) && isRecovering)
+        while ((currentHp + currentExtraHp < totalMaxHp || currentSp < maxSp) && isRecovering)
         {
             float delta = Time.deltaTime;
 
@@ -725,20 +725,12 @@ public class PlayerController : MonoBehaviour
                 currentHp = maxHp;
                 currentExtraHp = totalHp - maxHp;
             }
-            //currentHp += hpPerSecond * delta;
-            currentMp += mpPerSecond * delta;
-
-            //currentHp = Mathf.Min(currentHp, maxHp);
-            currentMp = Mathf.Min(currentMp, maxMp);
 
             yield return null;
         }
 
-
         yield return new WaitUntil(() => Input.anyKeyDown);
-
         StartCoroutine(HandleGetUp());
-
     }
 
     #region MP

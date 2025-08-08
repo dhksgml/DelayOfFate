@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 07b8c71ca5af1d9439eb0ca2522a1612
+guid: 6266df1ced087a34f9ef209172381549
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,7 +97,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Running_side_0
+      name: running_side 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -111,14 +111,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fe94e338740de274c860addcb567a8a0
-      internalID: -121736861
+      spriteID: 41652061294532d488a975d0eb03e926
+      internalID: 962293152
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Running_side_1
+      name: running_side 1_1
       rect:
         serializedVersion: 2
         x: 64
@@ -132,14 +132,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0cd7dfd62ef78dc4c8ebf025cdf8c144
-      internalID: -1209637534
+      spriteID: 93904338d288d76428b7eaa62700ec5c
+      internalID: 90689616
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Running_side_2
+      name: running_side 1_2
       rect:
         serializedVersion: 2
         x: 128
@@ -153,14 +153,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f6ddc24f427677249a27dd668ec1e3bb
-      internalID: 175510050
+      spriteID: ec091a67dcba4bb43b1656cb52d4052e
+      internalID: -634538759
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Running_side_3
+      name: running_side 1_3
       rect:
         serializedVersion: 2
         x: 192
@@ -174,8 +174,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1f728314accd6884893dd1174ee15613
-      internalID: -1454405997
+      spriteID: 52fbbf6315cf5ea44abc77ec3364692b
+      internalID: -1096637449
       vertices: []
       indices: 
       edges: []
@@ -191,10 +191,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Running_side_0: -121736861
-      Running_side_1: -1209637534
-      Running_side_2: 175510050
-      Running_side_3: -1454405997
+      running_side 1_0: 962293152
+      running_side 1_1: 90689616
+      running_side 1_2: -634538759
+      running_side 1_3: -1096637449
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
