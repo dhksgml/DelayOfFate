@@ -16,7 +16,7 @@ MonoBehaviour:
   Coin: 50
   Weight: 7
   classification: 1
-  Hp: 50
+  Hp: 25
   D_Point: 10
   weakness: 1
   population: 5

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 15
   itemName: "\uB9DD\uCE58"
-  InGameSprite: {fileID: 21300000, guid: 593c450e50d5f18408a80da12e9fd07a, type: 3}
+  InGameSprite: {fileID: 21300000, guid: f70da551e7c3f8e43b94f3c8796ca06f, type: 3}
   icon: {fileID: 21300000, guid: fdd866e72f2805b45936f7b417565067, type: 3}
   spendSPAmount: 0
   Coin: 64
