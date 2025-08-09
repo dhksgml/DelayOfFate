@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tal_hon_gwi
   m_EditorClassIdentifier: 
   Name: "\uD0C8\uD63C\uADC0"
-  Coin: 60
+  Coin: 40
   Weight: 7
   classification: 1
   Hp: 10
