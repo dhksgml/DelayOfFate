@@ -234,7 +234,7 @@ MonoBehaviour:
     duoksini: {fileID: 0}
     duoksini_Attack: {fileID: 0}
     eo_dook_jwi: {fileID: 8266421726944146670}
-    playerOrigin_Light_Intensity: 0.1
+    playerOrigin_Light_Intensity: 0.5
   landSharkAttackTime: 0
 --- !u!1 &8715100621815237470
 GameObject:

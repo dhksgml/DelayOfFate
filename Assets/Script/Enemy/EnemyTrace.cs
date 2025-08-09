@@ -17,7 +17,7 @@ public class EnemyTrace : MonoBehaviour
     Enemy            enemy;
 
     [System.Serializable]
-    public struct EnemyScript
+    public class EnemyScript
     {
         [Header("¶¥»ó¾î")]
         public LandShark landShark;
@@ -329,16 +329,16 @@ public class EnemyTrace : MonoBehaviour
                     mumyeon_Gwi_Stay_Time = 0f;
                 }
 
-                // ¾îµÏÁã Àü¿ë
-                if (enemyScript.eo_dook_jwi != null)
-                {
-                    if (collision.gameObject.CompareTag("Light"))
-                    {
-                        Light2D light = collision.gameObject.GetComponent<Light2D>();
-                        light.intensity = enemyScript.playerOrigin_Light_Intensity;
-                    }
-                }
+            }
 
+            // ¾îµÏÁã Àü¿ë
+            if (enemyScript.eo_dook_jwi != null)
+            {
+                if (collision.gameObject.CompareTag("Light"))
+                {
+                    Light2D light = collision.gameObject.GetComponent<Light2D>();
+                    light.intensity = enemyScript.playerOrigin_Light_Intensity;
+                }
             }
         }
     }
