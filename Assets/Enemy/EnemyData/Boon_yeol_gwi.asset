@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Boon_yeol_gwi
   m_EditorClassIdentifier: 
   Name: "\uBD84\uC5F4\uADC0"
-  Coin: 119
+  Coin: 100
   Weight: 7
   classification: 1
   Hp: 120

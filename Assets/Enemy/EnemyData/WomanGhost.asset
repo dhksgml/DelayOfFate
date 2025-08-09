@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: WomanGhost
   m_EditorClassIdentifier: 
   Name: "\uCC98\uB140\uADC0\uC2E0"
-  Coin: 85
+  Coin: 65
   Weight: 14
   classification: 1
-  Hp: 116
+  Hp: 98
   D_Point: 58
   weakness: 3
   population: 1
   CoinDeviation: 10
-  HpDeviation: 18
+  HpDeviation: 8

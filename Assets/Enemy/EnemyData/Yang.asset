@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Yang
   m_EditorClassIdentifier: 
   Name: "\uC591"
-  Coin: 82
+  Coin: 72
   Weight: 14
   classification: 1
   Hp: 39

@@ -105,15 +105,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabs:
-  - {fileID: 3039830139207019956, guid: 9fe4e69a5ff9a7047b72360722901466, type: 3}
   - {fileID: 1930194308981125956, guid: be3f713959292a749bc0db533d714c03, type: 3}
-  - {fileID: 85314243712649985, guid: bb2f424bdfe2bea40bb9a84119b74bca, type: 3}
-  - {fileID: 5341648827927804214, guid: 5f574d2733588d14cb13d1408db7bb3b, type: 3}
   - {fileID: 4938018955128738630, guid: ff1860d460efcb44aab43ca99ce98552, type: 3}
+  - {fileID: 85314243712649985, guid: bb2f424bdfe2bea40bb9a84119b74bca, type: 3}
+  - {fileID: 3039830139207019956, guid: 9fe4e69a5ff9a7047b72360722901466, type: 3}
+  - {fileID: 5341648827927804214, guid: 5f574d2733588d14cb13d1408db7bb3b, type: 3}
+  - {fileID: 2403785873192651292, guid: afd07d35aee54174a9fe36a7fa167301, type: 3}
+  - {fileID: 5355029163930696407, guid: c3f348c4c1564b64f9eceda40584a169, type: 3}
   - {fileID: 8018078762037570581, guid: f25bfe20f2d714346bc81cf3c82bb67b, type: 3}
   - {fileID: 1049004511381977570, guid: e70050c52580c1b4eb42c4a3aebbd081, type: 3}
   - {fileID: 1679795579066543005, guid: f405f5b9efab51a4693233ea82302f51, type: 3}
-  - {fileID: 5355029163930696407, guid: c3f348c4c1564b64f9eceda40584a169, type: 3}
   itemPrefab: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
   item_date:
   - {fileID: 11400000, guid: 1fe75118182f8e248a4aaf2d76cc9a1a, type: 2}
@@ -311,7 +312,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
