@@ -1,10 +1,14 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.Tilemaps;
 using Unity.VisualScripting;
 
 public class RoomRandomPlacement : MonoBehaviour
 {
+    public Tilemap groundTilemap;
+    public TileBase floorTiles;
+
     public int width;
     public int height;
     public int roomCount;
@@ -47,8 +51,10 @@ public class RoomRandomPlacement : MonoBehaviour
         player = FindObjectOfType<PlayerController>();
         placeManager = FindObjectOfType<PlaceManager>();
         spawnManager = GetComponent<SpawnManager>();
+        
         Room_re_data(); // 현재 날짜에 맞게 값 재조정
         GenerateRooms();
+        FillTilemapWithFloorTiles(); //타일맵 먼저 깔기
         spawnManager.SpawnWave_ByPattern(GameManager.Instance.Day - 1); //요소들 스폰
         MovePlayerToRandomRoom(); // 추가
         
@@ -100,27 +106,43 @@ public class RoomRandomPlacement : MonoBehaviour
             return;
         }
 
+        int dayIndex = GameManager.Instance.Day - 1;
+        int objectCountPerType = Mathf.Max(1, (dayIndex) / 2 + 1);
+
         // roomObjects.Values를 리스트로 가져와 섞는다
         var shuffledRooms = roomObjects.Values.OrderBy(x => Random.value).ToList();
 
-        // 겹치지 않는 4개의 방을 선택
-        Transform room1 = shuffledRooms[0].transform;
-        Transform room2 = shuffledRooms[1].transform;
-        Transform room3 = shuffledRooms[2].transform;
-        Transform room4 = shuffledRooms[3].transform;
+        // 플레이어 위치 (첫 번째 방)
+        player.transform.position = shuffledRooms[0].transform.position;
 
-        // 플레이어 위치
-        player.transform.position = room1.position;
+        int roomIndex = 1;
 
-        // 오브젝트 배치
-       GameObject roomPlace1 = Instantiate(Place_Resurrection, room2.position, Quaternion.identity); placeManager.resurrection_pos = room2.position;
-       GameObject roomPlace2 = Instantiate(Place_Sale, room3.position, Quaternion.identity); placeManager.sale_pos = room3.position;
-       GameObject roomPlace3 = Instantiate(Place_Escape, room4.position, Quaternion.identity); placeManager.escape_pos = room4.position;
+        // 부활 장소 배치
+        for (int i = 0; i < objectCountPerType && roomIndex < shuffledRooms.Count; i++)
+        {
+            GameObject obj = Instantiate(Place_Resurrection, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
+            placeManager.resurrection_pos = shuffledRooms[roomIndex].transform.position;
+            randomPlace.Add(obj.transform.position);
+            roomIndex++;
+        }
 
-        // 위치 추출
-        randomPlace.Add(roomPlace1.transform.position);
-        randomPlace.Add(roomPlace2.transform.position);
-        randomPlace.Add(roomPlace3.transform.position);
+        // 판매 장소 배치
+        for (int i = 0; i < objectCountPerType && roomIndex < shuffledRooms.Count; i++)
+        {
+            GameObject obj = Instantiate(Place_Sale, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
+            placeManager.sale_pos = shuffledRooms[roomIndex].transform.position;
+            randomPlace.Add(obj.transform.position);
+            roomIndex++;
+        }
+
+        // 탈출 장소 배치
+        for (int i = 0; i < objectCountPerType && roomIndex < shuffledRooms.Count; i++)
+        {
+            GameObject obj = Instantiate(Place_Escape, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
+            placeManager.escape_pos = shuffledRooms[roomIndex].transform.position;
+            randomPlace.Add(obj.transform.position);
+            roomIndex++;
+        }
     }
 
 
@@ -352,4 +374,49 @@ public class RoomRandomPlacement : MonoBehaviour
             _ => dir,
         };
     }
+    void FillTilemapWithFloorTiles()
+    {
+        if (floorTiles == null || groundTilemap == null)
+        {
+            Debug.LogWarning("타일맵 또는 타일 설정이 빠졌습니다.");
+            return;
+        }
+
+        TileBase chosenTile = floorTiles;
+
+        foreach (var kvp in roomObjects)
+        {
+            Vector3 roomWorldPos = kvp.Value.transform.position;
+            Vector3Int originCell = groundTilemap.WorldToCell(roomWorldPos);
+
+            for (int x = -12; x <= 12; x++)
+            {
+                for (int y = -12; y <= 12; y++)
+                {
+                    Vector3Int cell = originCell + new Vector3Int(x, y, 0);
+                    groundTilemap.SetTile(cell, chosenTile);
+                }
+            }
+        }
+
+        // 복도에도 타일 깔기 (corridorPrefab에서 Instantiate된 복도들에 대해)
+        foreach (Transform child in transform)
+        {
+            if (child.name.Contains("Corridor")) // 이름 필터 (prefab 이름 맞게 조정 가능)
+            {
+                Vector3 corridorWorldPos = child.position;
+                Vector3Int originCell = groundTilemap.WorldToCell(corridorWorldPos);
+
+                for (int x = -1; x <= 1; x++)
+                {
+                    for (int y = -1; y <= 1; y++)
+                    {
+                        Vector3Int cell = originCell + new Vector3Int(x, y, 0);
+                        groundTilemap.SetTile(cell, chosenTile);
+                    }
+                }
+            }
+        }
+    }
+
 }

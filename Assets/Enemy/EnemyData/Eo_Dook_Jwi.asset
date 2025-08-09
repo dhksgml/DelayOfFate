@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Eo_Dook_Jwi
   m_EditorClassIdentifier: 
   Name: "\uC5B4\uB451\uC950"
-  Coin: 41
+  Coin: 21
   Weight: 7
   classification: 0
   Hp: 22
