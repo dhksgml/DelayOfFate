@@ -19,19 +19,20 @@ public class SpawnManager : MonoBehaviour
 
 	public List<List<int>> Wave_Data(int day)
 	{
-		// 0: 분열귀(1), 1: 어둑쥐(10), 2: 양(1), 3: 약탈귀(5), 4: 처녀귀신(3)
+		// 0: 분열귀(5), 1: 어둑쥐(10), 2: 양(1), 3: 약탈귀(5), 4: 처녀귀신(7)
+		// 5: 죽음장승(5), 6: 석등령(5), 7: 탈혼귀(7), 8: 두억시니(3)
 		Dictionary<int, List<List<List<int>>>> wavePoolByDay = new Dictionary<int, List<List<List<int>>>>()
 		{
 			{ 0, new List<List<List<int>>> {
-				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 8 } }, // 115 + 41*8 = 443
-				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 5 } }, // 115 + 41*5 = 320
-				new List<List<int>> { new List<int> { 1, 10 } }, // 41*10 = 410
-				new List<List<int>> { new List<int> { 1, 4 }, new List<int> { 3, 3 } }, // 41*4 + 50*3 = 164 + 150 = 314
-				new List<List<int>> { new List<int> { 1, 3 }, new List<int> { 3, 3 }, new List<int> { 4, 1 } },
-				new List<List<int>> { new List<int> { 3, 5 }, new List<int> { 4, 1 } }  // 50*5 + 85 = 250 + 85 = 335
+				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 10 } },
+				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 15 } },
+				new List<List<int>> { new List<int> { 1, 20 } },
+				new List<List<int>> { new List<int> { 1, 14 }, new List<int> { 3, 3 } },
+				new List<List<int>> { new List<int> { 1, 13 }, new List<int> { 3, 3 }, new List<int> { 4, 1 } },
+				new List<List<int>> { new List<int> { 1, 13 }, new List<int> { 3, 5 }, new List<int> { 4, 1 } }
 			}},
 			{ 1, new List<List<List<int>>> {
-				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 10 } }, // 115 + 410 = 525
+				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 10 } }, // 115 + 210 = 525
 				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 6 }, new List<int> { 4, 1 } }, // 115 + 246 + 85 = 446
 				new List<List<int>> { new List<int> { 1, 5 }, new List<int> { 2, 1 }, new List<int> { 4, 2 } }, 
 				new List<List<int>> { new List<int> { 1, 5 }, new List<int> { 3, 3 }, new List<int> { 4, 1 } }, // 205 + 150 + 85 = 440
@@ -39,12 +40,12 @@ public class SpawnManager : MonoBehaviour
 				new List<List<int>> { new List<int> { 1, 9 }, new List<int> { 3, 3 }, new List<int> { 4, 1 } }  // 369 + 150 + 85 = 604
 			}},
 			{ 2, new List<List<List<int>>> {
-				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 10 }, new List<int> { 2, 1 }, new List<int> { 4, 2 } }, // 115 + 410 + 82 + 170 = 777
+				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 10 }, new List<int> { 2, 1 }, new List<int> { 4, 2 } }, // 115 + 210 + 82 + 170 = 777
 				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 8 }, new List<int> { 2, 1 }, new List<int> { 4, 1 } },
 				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 3 }, new List<int> { 3, 4 }, new List<int> { 4, 3 } }, // 115 + 123 + 200 + 255 = 693
 				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 7 }, new List<int> { 3, 3 }, new List<int> { 4, 1 } },
 				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 5 }, new List<int> { 3, 5 }, new List<int> { 4, 2 } }, // 115 + 205 + 250 + 170 = 740
-				new List<List<int>> { new List<int> { 1, 10 }, new List<int> { 2, 1 }, new List<int> { 3, 5 } } // 410 + 82 + 250 = 742
+				new List<List<int>> { new List<int> { 1, 10 }, new List<int> { 2, 1 }, new List<int> { 3, 5 } } // 210 + 82 + 250 = 742
 			}}
 		};
 
