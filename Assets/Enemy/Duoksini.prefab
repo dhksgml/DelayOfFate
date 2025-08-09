@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyDamage: 40
-  enemyAttackSpeed: 3
+  enemyAttackSpeed: 4
   enemyAttackRange: 0
   enemyAttackType: 0
   enemyAttackCollider: {fileID: 1428472204618679934}
@@ -95,7 +95,7 @@ MonoBehaviour:
   attackRange: {fileID: 7894428411097807913}
   isAttack: 0
   isTrsPass: 0
-  duoksiniAttackDelay: 1
+  duoksiniAttackDelay: 2.5
 --- !u!1 &3059113222875300705
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,7 +382,7 @@ MonoBehaviour:
   rigid: {fileID: 0}
   enemyMoveDir: {x: 0, y: 0, z: 0}
   moveDirection: {x: 0, y: 0, z: 0}
-  attackSeeTime: 3
+  attackSeeTime: 4
   attackTargetTrs: {x: 0, y: 0, z: 0}
   isAttackReady: 0
 --- !u!1 &7454866661303199859
