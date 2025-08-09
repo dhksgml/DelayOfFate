@@ -19,35 +19,54 @@ public class SpawnManager : MonoBehaviour
 
 	public List<List<int>> Wave_Data(int day)
 	{
-		// 0: 분열귀(5), 1: 어둑쥐(10), 2: 양(1), 3: 약탈귀(5), 4: 처녀귀신(7)
-		// 5: 죽음장승(5), 6: 석등령(5), 7: 탈혼귀(7), 8: 두억시니(3)
+		// 0: 어둑쥐(21), 1: 처녀귀신(65), 2: 음양(72), 3: 분열귀(100), 4: 약탈귀(50),
+		// 5: 소면귀(73), 6: 두억시니(250), 7: 죽음장승(107), 8: 석등령(75), 9: 탈혼귀(40)
+
+		// 1일차: 0, 1, 3, 4 (어둑쥐, 처녀귀신, 분열귀, 약탈귀)
+		// 2일차: 0, 1, 2, 3, 4, 9 (어둑쥐, 처녀귀신, 음양, 분열귀, 약탈귀, 탈혼귀)
+		// 3일차: 0, 1, 2, 3, 4, 5, 7, 8, 9 (어둑쥐, 처녀귀신, 음양, 분열귀, 약탈귀, 소면귀, 죽음장승, 석등령, 탈혼귀)
+		// 4일차: 1, 2, 3, 5, 7, 8, 9 ( 처녀귀신, 음양, 분열귀, 소면귀, 죽음장승, 석등령, 탈혼귀)
+		// 5일차: 1, 5, 6, 7, 8, 9 (처녀귀신, 소면귀, 두억시니, 죽음장승, 석등령, 탈혼귀)
+
 		Dictionary<int, List<List<List<int>>>> wavePoolByDay = new Dictionary<int, List<List<List<int>>>>()
 		{
 			{ 0, new List<List<List<int>>> {
-				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 10 } },
-				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 15 } },
-				new List<List<int>> { new List<int> { 1, 20 } },
-				new List<List<int>> { new List<int> { 1, 14 }, new List<int> { 3, 3 } },
-				new List<List<int>> { new List<int> { 1, 13 }, new List<int> { 3, 3 }, new List<int> { 4, 1 } },
-				new List<List<int>> { new List<int> { 1, 13 }, new List<int> { 3, 5 }, new List<int> { 4, 1 } }
+				new List<List<int>> { new List<int> { 0, 18 }, new List<int> { 1, 3 }, new List<int> { 3, 2 }, new List<int> { 4, 3 } }, // 18*21 + 3*65 + 2*100 + 3*50 = 378 + 195 + 200 + 150 = 923
+				new List<List<int>> { new List<int> { 0, 20 }, new List<int> { 1, 2 }, new List<int> { 3, 1 }, new List<int> { 4, 4 } }, // 420 + 130 + 100 + 200 = 850
+				new List<List<int>> { new List<int> { 0, 19 }, new List<int> { 1, 2 }, new List<int> { 3, 2 }, new List<int> { 4, 3 } }, // 399 + 260 + 200 + 150 = 1009
+				new List<List<int>> { new List<int> { 0, 15 }, new List<int> { 1, 4 }, new List<int> { 3, 1 }, new List<int> { 4, 5 } }, // 315 + 130 + 100 + 250 = 795
+				new List<List<int>> { new List<int> { 0, 13 }, new List<int> { 1, 4 }, new List<int> { 3, 3 }, new List<int> { 4, 3 } }, // 273 + 260 + 300 + 150 = 983
+				new List<List<int>> { new List<int> { 0, 22 }, new List<int> { 1, 3 }, new List<int> { 3, 2 }, new List<int> { 4, 1 } } // 462 + 195 + 200 + 50 = 907
 			}},
 			{ 1, new List<List<List<int>>> {
-				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 10 } }, // 115 + 210 = 525
-				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 6 }, new List<int> { 4, 1 } }, // 115 + 246 + 85 = 446
-				new List<List<int>> { new List<int> { 1, 5 }, new List<int> { 2, 1 }, new List<int> { 4, 2 } }, 
-				new List<List<int>> { new List<int> { 1, 5 }, new List<int> { 3, 3 }, new List<int> { 4, 1 } }, // 205 + 150 + 85 = 440
-				new List<List<int>> { new List<int> { 1, 7 }, new List<int> { 3, 2 }, new List<int> { 2, 1 } }, // 287 + 100 + 82 = 469
-				new List<List<int>> { new List<int> { 1, 9 }, new List<int> { 3, 3 }, new List<int> { 4, 1 } }  // 369 + 150 + 85 = 604
+				new List<List<int>> { new List<int> { 0, 15 }, new List<int> { 1, 6 }, new List<int> { 2, 1 }, new List<int> { 3, 2 }, new List<int> { 4, 4 }, new List<int> { 9, 4 } }, // 315 + 390 + 72 + 200 + 200 + 160 = 1337
+				new List<List<int>> { new List<int> { 0, 17 }, new List<int> { 1, 4 }, new List<int> { 2, 1 }, new List<int> { 3, 3 }, new List<int> { 4, 3 }, new List<int> { 9, 4 } }, // 357 + 260 + 72 + 300 + 150 + 160 = 1299
+				new List<List<int>> { new List<int> { 0, 20 }, new List<int> { 1, 3 }, new List<int> { 2, 1 }, new List<int> { 3, 3 }, new List<int> { 4, 2 }, new List<int> { 9, 4 } }, // 420 + 195 + 72 + 300 + 100 + 160 = 1247
+				new List<List<int>> { new List<int> { 0, 25 }, new List<int> { 1, 2 }, new List<int> { 2, 1 }, new List<int> { 3, 4 }, new List<int> { 4, 2 }, new List<int> { 9, 4 } }, // 525 + 130 + 72 + 400 + 100 + 160 = 1387
+				new List<List<int>> { new List<int> { 0, 15 }, new List<int> { 1, 6 }, new List<int> { 2, 1 }, new List<int> { 3, 2 }, new List<int> { 4, 4 }, new List<int> { 9, 4 } }, // 315 + 390 + 72 + 200 + 200 + 160 = 1337
+				new List<List<int>> { new List<int> { 0, 18 }, new List<int> { 1, 4 }, new List<int> { 2, 1 }, new List<int> { 3, 3 }, new List<int> { 4, 3 }, new List<int> { 9, 4 } }, // 378 + 260 + 72 + 300 + 150 + 160 = 1320
 			}},
 			{ 2, new List<List<List<int>>> {
-				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 10 }, new List<int> { 2, 1 }, new List<int> { 4, 2 } }, // 115 + 210 + 82 + 170 = 777
-				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 8 }, new List<int> { 2, 1 }, new List<int> { 4, 1 } },
-				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 3 }, new List<int> { 3, 4 }, new List<int> { 4, 3 } }, // 115 + 123 + 200 + 255 = 693
-				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 7 }, new List<int> { 3, 3 }, new List<int> { 4, 1 } },
-				new List<List<int>> { new List<int> { 0, 1 }, new List<int> { 1, 5 }, new List<int> { 3, 5 }, new List<int> { 4, 2 } }, // 115 + 205 + 250 + 170 = 740
-				new List<List<int>> { new List<int> { 1, 10 }, new List<int> { 2, 1 }, new List<int> { 3, 5 } } // 210 + 82 + 250 = 742
-			}}
+				new List<List<int>> { new List<int> { 0, 10 }, new List<int> { 1, 5 }, new List<int> { 3, 4 }, new List<int> { 4, 4 }, new List<int> { 5, 2 }, new List<int> { 7, 2 }, new List<int> { 8, 1 }, new List<int> { 9, 5 } }, // 210 + 325 + 400 + 200 + 146 + 214 + 150 + 200 = 1845
+				new List<List<int>> { new List<int> { 0, 15 }, new List<int> { 1, 4 }, new List<int> { 2, 1 }, new List<int> { 3, 3 }, new List<int> { 4, 3 }, new List<int> { 5, 1 }, new List<int> { 7, 2 }, new List<int> { 9, 6 } }, // 315 + 260 + 72 + 300 + 150 + 73 + 214 + 240 = 1624
+				new List<List<int>> { new List<int> { 0, 5 }, new List<int> { 1, 6 }, new List<int> { 3, 4 }, new List<int> { 4, 5 }, new List<int> { 5, 3 }, new List<int> { 7, 2 }, new List<int> { 8, 1 }, new List<int> { 9, 4 } }, // 105 + 390 + 400 + 250 + 219 + 214 + 150 + 160 = 1888
+				new List<List<int>> { new List<int> { 0, 7 }, new List<int> { 1, 6 }, new List<int> { 2, 1 }, new List<int> { 3, 4 }, new List<int> { 4, 3 }, new List<int> { 5, 2 }, new List<int> { 7, 2 }, new List<int> { 8, 2 }, new List<int> { 9, 4 } }, // 147 + 390 + 72 + 400 + 150 + 146 + 214 + 150 + 160 = 1829
+				new List<List<int>> { new List<int> { 0, 12 }, new List<int> { 1, 4 }, new List<int> { 2, 1 }, new List<int> { 3, 3 }, new List<int> { 4, 3 }, new List<int> { 5, 2 }, new List<int> { 8, 2 }, new List<int> { 9, 6 } }, // 252 + 260 + 72 + 300 + 150 + 146 + 150 + 240 = 1570
+				new List<List<int>> { new List<int> { 0, 10 }, new List<int> { 1, 5 }, new List<int> { 3, 4 }, new List<int> { 4, 4 }, new List<int> { 5, 2 }, new List<int> { 7, 2 }, new List<int> { 8, 1 }, new List<int> { 9, 5 } }  // 210 + 325 + 400 + 200 + 146 + 214 + 150 + 200 = 1845
+			}},
+			{ 3, new List<List<List<int>>> {
+				new List<List<int>> { new List<int> { 1, 6 }, new List<int> { 2, 1 }, new List<int> { 3, 6 }, new List<int> { 5, 4 }, new List<int> { 7, 3 }, new List<int> { 8, 6 }, new List<int> { 9, 6 } }, // 390 + 72 + 600 + 292 + 321 + 450 + 280 = 2405
+				new List<List<int>> { new List<int> { 1, 7 }, new List<int> { 2, 1 }, new List<int> { 3, 5 }, new List<int> { 5, 3 }, new List<int> { 7, 4 }, new List<int> { 8, 5 }, new List<int> { 9, 7 } }, // 455 + 72 + 500 + 219 + 428 + 375 + 280 = 2329
+				new List<List<int>> { new List<int> { 1, 6 }, new List<int> { 2, 1 }, new List<int> { 3, 6 }, new List<int> { 5, 2 }, new List<int> { 7, 5 }, new List<int> { 8, 6 }, new List<int> { 9, 6 } }, // 390 + 72 + 600 + 146 + 535 + 450 + 280 = 2473
+				new List<List<int>> { new List<int> { 1, 7 }, new List<int> { 2, 1 }, new List<int> { 3, 5 }, new List<int> { 5, 4 }, new List<int> { 7, 3 }, new List<int> { 8, 6 }, new List<int> { 9, 7 } }, // 455 + 72 + 500 + 292 + 321 + 450 + 280 = 2370
+				new List<List<int>> { new List<int> { 1, 6 }, new List<int> { 2, 1 }, new List<int> { 3, 6 }, new List<int> { 5, 3 }, new List<int> { 7, 4 }, new List<int> { 8, 5 }, new List<int> { 9, 7 } }, // 390 + 72 + 600 + 219 + 428 + 375 + 280 = 2364
+				new List<List<int>> { new List<int> { 1, 7 }, new List<int> { 2, 1 }, new List<int> { 3, 5 }, new List<int> { 5, 2 }, new List<int> { 7, 5 }, new List<int> { 8, 6 }, new List<int> { 9, 6 } }, // 455 + 72 + 500 + 146 + 535 + 450 + 280 = 2438
+			}},
+			{ 4, new List<List<List<int>>> {
+				new List<List<int>> { new List<int> { 1, 10 }, new List<int> { 5, 5 }, new List<int> { 6, 3 }, new List<int> { 7, 6 }, new List<int> { 8, 6 }, new List<int> { 9, 12 } }, // 650 + 365 + 750 + 535 + 375 + 400 = 3075
+			}},
 		};
+
 
 
 		if (!wavePoolByDay.ContainsKey(day))
