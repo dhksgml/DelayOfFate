@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class EnemyTrace : MonoBehaviour
 {
@@ -14,21 +15,40 @@ public class EnemyTrace : MonoBehaviour
     public Vector3   targetPos; //플레이어의 위치
     [SerializeField]
     Enemy            enemy;
-    // 땅상어
-    [SerializeField] LandShark landShark;
-    [SerializeField] LandSharkAttack landSharkAttack;
-    // 소면귀
-    [SerializeField] Somyeon_gwi somyeon_Gwi;
-    // 분열귀
-    [SerializeField] Boon_yeol_gwi boon_yeol_gwi;
-    // 무면귀
-    [SerializeField] Mumyeon_Gwi mumyeon_Gwi;
-    // 죽음장승
-    [SerializeField] Death_Jangseung death_Jangseung;
-    [SerializeField] Death_Jangseung_Attack death_Jangseung_Attack;
-    // 두억시니
-    [SerializeField] Duoksini duoksini;
-    [SerializeField] Duoksini_Attack duoksini_Attack;
+
+    [System.Serializable]
+    public class EnemyScript
+    {
+        [Header("땅상어")]
+        public LandShark landShark;
+        public LandSharkAttack landSharkAttack;
+
+        [Header("소면귀")]
+        public Somyeon_gwi somyeon_Gwi;
+
+        [Header("분열귀")]
+        public Boon_yeol_gwi boon_yeol_gwi;
+
+        [Header("무면귀")]
+        public Mumyeon_Gwi mumyeon_Gwi;
+
+        [Header("죽음장승")]
+        public Death_Jangseung death_Jangseung;
+        public Death_Jangseung_Attack death_Jangseung_Attack;
+
+        [Header("두억시니")]
+        public Duoksini duoksini;
+        public Duoksini_Attack duoksini_Attack;
+
+        [Header("어둑쥐")]
+        public Eo_dook_jwi eo_dook_jwi;
+
+        // 어둑쥐 전용
+        [Tooltip("추후 플레이어의 Intensity가 바뀔떄 같이 해줘야 함")]
+        public float playerOrigin_Light_Intensity;
+    }
+
+    [SerializeField] EnemyScript enemyScript;
 
     void Awake()
     {
@@ -44,24 +64,24 @@ public class EnemyTrace : MonoBehaviour
         transform.position = enemy.transform.position;
 
         // 죽음 장승 전용
-        if (death_Jangseung_Attack != null && !death_Jangseung_Attack.isAttack)
+        if (enemyScript.death_Jangseung_Attack != null && !enemyScript.death_Jangseung_Attack.isAttack)
         {
             jangseungtime += Time.deltaTime;
         }
         // 두억시니 전용
-        else if (duoksini_Attack != null && !duoksini_Attack.isAttack)
+        else if (enemyScript.duoksini_Attack != null && !enemyScript.duoksini_Attack.isAttack)
         {
             duoksinitime += Time.deltaTime;
         }
         // 분열귀
-        else if (boon_yeol_gwi != null)
+        else if (enemyScript.boon_yeol_gwi != null)
         {
             boon_yeol_gwi_itemTime += Time.deltaTime;
 
             if (boon_yeol_gwi_itemTime >= 1f)
             {
                 boon_yeol_gwi_itemTime = 0;
-                boon_yeol_gwi.isItemFind = false;
+                enemyScript.boon_yeol_gwi.isItemFind = false;
             }
         }
 
@@ -76,55 +96,55 @@ public class EnemyTrace : MonoBehaviour
         if(collision != null)
         {
             //땅상어 전용
-            if (landShark != null)
+            if (enemyScript.landShark != null)
             {
                 if (collision.gameObject.CompareTag("Player"))
                 {
                     //잠복으로 변환
-                    landShark.IsHide();
+                    enemyScript.landShark.IsHide();
                 }
             }
 
             //소면귀 전용
-            if (somyeon_Gwi != null)
+            if (enemyScript.somyeon_Gwi != null)
             {
                 //만약 아이템 태그를 발견하면
                 if (collision.gameObject.CompareTag("Item"))
                 {
                     //트리거 활성화 후
-                    somyeon_Gwi.isFindItem = true;
+                    enemyScript.somyeon_Gwi.isFindItem = true;
                     //위치값을 전달해줌
-                    somyeon_Gwi.findItemVec = collision.gameObject.transform.position;
+                    enemyScript.somyeon_Gwi.findItemVec = collision.gameObject.transform.position;
                 }
             }
 
             //분열귀 전용
-            if (boon_yeol_gwi != null)
+            if (enemyScript.boon_yeol_gwi != null)
             {
                 //item을 가져와준 후
                 ItemObject item = collision.gameObject.GetComponent<ItemObject>();
 
                 //아이템을 찾고 가치를 먹었고, 충돌한 오브젝트가 적이면
-                if (boon_yeol_gwi.isItemFind && boon_yeol_gwi.isItemEat && collision.gameObject.CompareTag("Enemy"))
+                if (enemyScript.boon_yeol_gwi.isItemFind && enemyScript.boon_yeol_gwi.isItemEat && collision.gameObject.CompareTag("Enemy"))
                 {
                     //컴포넌트를 가져온 후
                     Boon_yeol_gwi entity = collision.GetComponent<Boon_yeol_gwi>();
 
                     //값이 맞으면
-                    if (entity != null && boon_yeol_gwi.entityObj == entity)
+                    if (entity != null && enemyScript.boon_yeol_gwi.entityObj == entity)
                     {
                         //true로 해준 후
-                        boon_yeol_gwi.isEntityFind = true;
+                        enemyScript.boon_yeol_gwi.isEntityFind = true;
                         //위치를 보내줌
-                        boon_yeol_gwi.targetTrs = entity.transform.position;
+                        enemyScript.boon_yeol_gwi.targetTrs = entity.transform.position;
                     }
                 }
 
                 //찾은게 아이템이면
                 if (collision.gameObject.CompareTag("Item") && item.itemData.Coin != 0)
                 {
-                    boon_yeol_gwi.isItemFind = true;
-                    boon_yeol_gwi.itemTrs = collision.gameObject.transform.position;
+                    enemyScript.boon_yeol_gwi.isItemFind = true;
+                    enemyScript.boon_yeol_gwi.itemTrs = collision.gameObject.transform.position;
                 }
 
 
@@ -146,21 +166,23 @@ public class EnemyTrace : MonoBehaviour
     Vector3 duoksiniTargetTrs;
     float duoksinitime = 0f;
 
+
+
     void OnTriggerStay2D(Collider2D collision)
     {
         if (collision != null)
         {
             //분열귀 전용
-            if (boon_yeol_gwi != null)
+            if (enemyScript.boon_yeol_gwi != null)
             {
                 //item을 가져와준 후
                 ItemObject item = collision.gameObject.GetComponent<ItemObject>();
 
-                if (boon_yeol_gwi.isItemEat)
+                if (enemyScript.boon_yeol_gwi.isItemEat)
                 {
                     if (collision.gameObject.CompareTag("Item") && item.itemData.Coin == 0)
                     {
-                        boon_yeol_gwi.isItemFind = false;
+                        enemyScript.boon_yeol_gwi.isItemFind = false;
                         return;
                     }
                 }
@@ -168,8 +190,8 @@ public class EnemyTrace : MonoBehaviour
                 //찾은게 아이템이면
                 if (collision.gameObject.CompareTag("Item") && item.itemData.Coin != 0)
                 {
-                    boon_yeol_gwi.isItemFind = true;
-                    boon_yeol_gwi.itemTrs = collision.gameObject.transform.position;
+                    enemyScript.boon_yeol_gwi.isItemFind = true;
+                    enemyScript.boon_yeol_gwi.itemTrs = collision.gameObject.transform.position;
                 }
             }
 
@@ -181,12 +203,12 @@ public class EnemyTrace : MonoBehaviour
             }
 
             //땅상어 전용
-            if (landShark != null)
+            if (enemyScript.landShark != null)
             {
                 if (collision.gameObject.CompareTag("Player"))
                 {
                     //돌출 상태일떄
-                    if(landShark.isOut)
+                    if(enemyScript.landShark.isOut)
                     {
                         landSharkOutTime += Time.deltaTime;
 
@@ -194,7 +216,7 @@ public class EnemyTrace : MonoBehaviour
                         if(landSharkOutTime >= 5f)
                         {
                             //잠복으로 변환
-                            landShark.IsHide();
+                            enemyScript.landShark.IsHide();
                             //초기화
                             landSharkOutTime = 0f;
                         }
@@ -204,13 +226,13 @@ public class EnemyTrace : MonoBehaviour
                     PlayerController player = collision.GetComponent<PlayerController>();
 
                     //범위 내에서 움직임을 감지 && 공격준비가 됐으면
-                    if (player.isMoving && landShark.isAttackReady && landShark.isIn)
+                    if (player.isMoving && enemyScript.landShark.isAttackReady && enemyScript.landShark.isIn)
                     {
                         landSharkAttackTime += Time.deltaTime;
 
                         if(landSharkAttackTime >= 0.5f)
                         {
-                            landSharkAttack.JumpAttack();
+                            enemyScript.landSharkAttack.JumpAttack();
                         }
                     }
                 }
@@ -218,7 +240,7 @@ public class EnemyTrace : MonoBehaviour
             }
 
             // 무면귀 전용
-            if (mumyeon_Gwi != null)
+            if (enemyScript.mumyeon_Gwi != null)
             {
                 if (collision.gameObject.CompareTag("Player"))
                 {
@@ -227,22 +249,22 @@ public class EnemyTrace : MonoBehaviour
                     if (mumyeon_Gwi_Stay_Time >= 5f)
                     {
                         // 추적을 활성화 해줌
-                        mumyeon_Gwi.isTrace = true;
+                        enemyScript.mumyeon_Gwi.isTrace = true;
                     }
                 }
             }
             // 죽음 장승 전용
-            if (death_Jangseung != null)
+            if (enemyScript.death_Jangseung != null)
             {
                 if (collision.gameObject.CompareTag("Player"))
                 {
                     jangseungTargetTrs = collision.transform.position;
 
-                    if (jangseungtime >= death_Jangseung.attackSeeTime && !death_Jangseung.isAttackReady)
+                    if (jangseungtime >= enemyScript.death_Jangseung.attackSeeTime && !enemyScript.death_Jangseung.isAttackReady)
                     {
-                        death_Jangseung.attackTargetTrs = jangseungTargetTrs;
+                        enemyScript.death_Jangseung.attackTargetTrs = jangseungTargetTrs;
 
-                        death_Jangseung.isAttackReady = true;
+                        enemyScript.death_Jangseung.isAttackReady = true;
 
                         jangseungtime = 0f;
                     }
@@ -250,24 +272,33 @@ public class EnemyTrace : MonoBehaviour
                 }
             }
             // 두억시니 전용
-            if (duoksini != null)
+            if (enemyScript.duoksini != null)
             {
                 if (collision.gameObject.CompareTag("Player"))
                 {
                     Debug.Log("위치 추적중");
                     duoksiniTargetTrs = collision.transform.position;
 
-                    if (duoksinitime >= duoksini.attackSeeTime && !duoksini.isAttackReady)
+                    if (duoksinitime >= enemyScript.duoksini.attackSeeTime && !enemyScript.duoksini.isAttackReady)
                     {
                         Debug.Log("값 전달");
-                        duoksini.attackTargetTrs = duoksiniTargetTrs;
+                        enemyScript.duoksini.attackTargetTrs = duoksiniTargetTrs;
 
-                        duoksini.isAttackReady = true;
-                        duoksini_Attack.isTrsPass = true;
+                        enemyScript.duoksini.isAttackReady = true;
+                        enemyScript.duoksini_Attack.isTrsPass = true;
 
                         duoksinitime = 0f;
                     }
 
+                }
+            }
+            // 어둑쥐 전용
+            if (enemyScript.eo_dook_jwi != null)
+            {
+                if (collision.gameObject.CompareTag("Light"))
+                {
+                    Light2D light = collision.gameObject.GetComponent<Light2D>();
+                    light.intensity = 0.1f;
                 }
             }
 
@@ -285,19 +316,29 @@ public class EnemyTrace : MonoBehaviour
                 enemy.isTrace = false;
 
                 //땅상어 전용
-                if (landShark != null)
+                if (enemyScript.landShark != null)
                 {
                     //돌출로 변환
-                    landShark.isHideOut();
+                    enemyScript.landShark.isHideOut();
                 }
 
                 // 무면귀 전용
-                if (mumyeon_Gwi != null)
+                if (enemyScript.mumyeon_Gwi != null)
                 {
                     // 벗어나면 시간 초기화
                     mumyeon_Gwi_Stay_Time = 0f;
                 }
 
+            }
+
+            // 어둑쥐 전용
+            if (enemyScript.eo_dook_jwi != null)
+            {
+                if (collision.gameObject.CompareTag("Light"))
+                {
+                    Light2D light = collision.gameObject.GetComponent<Light2D>();
+                    light.intensity = enemyScript.playerOrigin_Light_Intensity;
+                }
             }
         }
     }

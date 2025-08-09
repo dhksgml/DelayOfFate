@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4614700221027700045}
   - component: {fileID: 1114514256760666707}
   - component: {fileID: 6262192447617324782}
-  - component: {fileID: 8142433078915253904}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -107,39 +106,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8142433078915253904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 902690501354321901}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_ComponentVersion: 1
-  m_HasRenderer: 1
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 1
-  m_ApplyToSortingLayers: 00000000
-  m_ShapePath:
-  - {x: -0.049830407, y: -0.14527759, z: 0}
-  - {x: -0.17577593, y: -0.081838295, z: 0}
-  - {x: -0.1592276, y: 0.03387561, z: 0}
-  - {x: -0.045153745, y: 0.12967226, z: 0}
-  - {x: 0.08879946, y: 0.107889295, z: 0}
-  - {x: 0.20260178, y: -0.068298504, z: 0}
-  - {x: 0.049784884, y: -0.14356571, z: 0}
-  m_ShapePathHash: -1231964092
-  m_Mesh: {fileID: 0}
-  m_InstanceId: 67998
-  m_LocalBounds:
-    m_Center: {x: 0.013412923, y: -0.0078026652, z: 0}
-    m_Extent: {x: 0.18918885, y: 0.13747492, z: 0}
 --- !u!1 &1930194308981125956
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,8 +136,106 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3999336839738288988}
+  - {fileID: 5114665531041447509}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6421756110926891843
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5114665531041447509}
+  - component: {fileID: 455802276215988635}
+  - component: {fileID: 5208748269198255614}
+  m_Layer: 31
+  m_Name: EnemyTraceRange
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5114665531041447509
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421756110926891843}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2331692530426536717}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &455802276215988635
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421756110926891843}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 3
+--- !u!114 &5208748269198255614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421756110926891843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b465f2af24839454186a76a4aa87e458, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyTraceRange: 5
+  enemyTraceCollider: {fileID: 455802276215988635}
+  targetPos: {x: 0, y: 0, z: 0}
+  enemy: {fileID: 8266421726944146670}
+  enemyScript:
+    landShark: {fileID: 0}
+    landSharkAttack: {fileID: 0}
+    somyeon_Gwi: {fileID: 0}
+    boon_yeol_gwi: {fileID: 0}
+    mumyeon_Gwi: {fileID: 0}
+    death_Jangseung: {fileID: 0}
+    death_Jangseung_Attack: {fileID: 0}
+    duoksini: {fileID: 0}
+    duoksini_Attack: {fileID: 0}
+    eo_dook_jwi: {fileID: 8266421726944146670}
+    playerOrigin_Light_Intensity: 0.5
+  landSharkAttackTime: 0
 --- !u!1 &8715100621815237470
 GameObject:
   m_ObjectHideFlags: 0
