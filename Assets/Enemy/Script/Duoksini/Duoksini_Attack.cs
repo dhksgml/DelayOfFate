@@ -14,6 +14,7 @@ public class Duoksini_Attack : EnemyAttack
     [HideInInspector] public bool isTrsPass = false;
 
     // 장승이 공격 범위를 보여주고 몇 초 뒤에 공격할지 정함
+    [Tooltip("공격 범위가 보인 후 공격까지 걸리는 시간")]
     [SerializeField] float duoksiniAttackDelay;
     float duoksiniAttackTime;
 

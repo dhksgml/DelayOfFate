@@ -18,13 +18,17 @@ public class ItemObject : MonoBehaviour
     public Image holdGauge; // 게이지 이미지 (Fill Amount 방식)
 
     private const float maxHoldTime = 1f; // 판매 키 최대 시간 
+    private PlayerController playerController;
+    private Material material;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         player_item_use = FindObjectOfType<Player_Item_Use>();
+        playerController = FindObjectOfType<PlayerController>();
+        material = spriteRenderer.material;
 
-        if(itemDataTemplate != null)
+        if (itemDataTemplate != null)
         {
             itemData = new Item(itemDataTemplate);
         }
@@ -53,6 +57,9 @@ public class ItemObject : MonoBehaviour
         {
             float progress = Mathf.Clamp(player_item_use.holdTime / maxHoldTime, 0f, 1f);
             UpdateHoldGauge(progress);
+
+            float glow = distance <= playerController.flashLightDistance ? 2f : 0f;
+            material?.SetFloat("_GlowIntensity", glow);
         }
         else
         {

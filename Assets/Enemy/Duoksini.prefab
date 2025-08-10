@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyDamage: 40
-  enemyAttackSpeed: 3
+  enemyAttackSpeed: 4
   enemyAttackRange: 0
   enemyAttackType: 0
   enemyAttackCollider: {fileID: 1428472204618679934}
@@ -95,7 +95,7 @@ MonoBehaviour:
   attackRange: {fileID: 7894428411097807913}
   isAttack: 0
   isTrsPass: 0
-  duoksiniAttackDelay: 1
+  duoksiniAttackDelay: 2.5
 --- !u!1 &3059113222875300705
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,15 +180,18 @@ MonoBehaviour:
   enemyTraceCollider: {fileID: 8152260803933783692}
   targetPos: {x: 0, y: 0, z: 0}
   enemy: {fileID: 8163399923841713372}
-  landShark: {fileID: 0}
-  landSharkAttack: {fileID: 0}
-  somyeon_Gwi: {fileID: 0}
-  boon_yeol_gwi: {fileID: 0}
-  mumyeon_Gwi: {fileID: 0}
-  death_Jangseung: {fileID: 0}
-  death_Jangseung_Attack: {fileID: 0}
-  duoksini: {fileID: 8163399923841713372}
-  duoksini_Attack: {fileID: 3062935014565427165}
+  enemyScript:
+    landShark: {fileID: 0}
+    landSharkAttack: {fileID: 0}
+    somyeon_Gwi: {fileID: 0}
+    boon_yeol_gwi: {fileID: 0}
+    mumyeon_Gwi: {fileID: 0}
+    death_Jangseung: {fileID: 0}
+    death_Jangseung_Attack: {fileID: 0}
+    duoksini: {fileID: 8163399923841713372}
+    duoksini_Attack: {fileID: 3062935014565427165}
+    eo_dook_jwi: {fileID: 0}
+    playerOrigin_Light_Intensity: 0
   landSharkAttackTime: 0
 --- !u!1 &5355029163930696407
 GameObject:
@@ -382,7 +385,7 @@ MonoBehaviour:
   rigid: {fileID: 0}
   enemyMoveDir: {x: 0, y: 0, z: 0}
   moveDirection: {x: 0, y: 0, z: 0}
-  attackSeeTime: 3
+  attackSeeTime: 4
   attackTargetTrs: {x: 0, y: 0, z: 0}
   isAttackReady: 0
 --- !u!1 &7454866661303199859

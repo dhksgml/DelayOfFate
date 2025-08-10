@@ -6,6 +6,8 @@ public class Duoksini : Enemy
 {
     [Header("두억시니")]
     PlayerController player;
+
+    [Tooltip("이거 기억이 안나긴 하는데 아마 공격속도랑 같이 해줘야 함")]
     public float attackSeeTime;
     [HideInInspector] public Vector3 attackTargetTrs;
     [HideInInspector] public bool isAttackReady = false;

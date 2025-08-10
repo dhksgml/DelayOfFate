@@ -150,6 +150,7 @@ MonoBehaviour:
   moveDirection: {x: 0, y: 0, z: 0}
   type: 1
   copyObj: {fileID: 0}
+  entityObj: {fileID: 0}
   entityTrs: {x: 0, y: 0, z: 0}
   explosionSelfvalue: 0
   isItemFind: 0
@@ -245,15 +246,18 @@ MonoBehaviour:
   enemyTraceCollider: {fileID: 2586686062305351717}
   targetPos: {x: 0, y: 0, z: 0}
   enemy: {fileID: 2740049800136490371}
-  landShark: {fileID: 0}
-  landSharkAttack: {fileID: 0}
-  somyeon_Gwi: {fileID: 0}
-  boon_yeol_gwi: {fileID: 2740049800136490371}
-  mumyeon_Gwi: {fileID: 0}
-  death_Jangseung: {fileID: 0}
-  death_Jangseung_Attack: {fileID: 0}
-  duoksini: {fileID: 0}
-  duoksini_Attack: {fileID: 0}
+  enemyScript:
+    landShark: {fileID: 0}
+    landSharkAttack: {fileID: 0}
+    somyeon_Gwi: {fileID: 0}
+    boon_yeol_gwi: {fileID: 2740049800136490371}
+    mumyeon_Gwi: {fileID: 0}
+    death_Jangseung: {fileID: 0}
+    death_Jangseung_Attack: {fileID: 0}
+    duoksini: {fileID: 0}
+    duoksini_Attack: {fileID: 0}
+    eo_dook_jwi: {fileID: 0}
+    playerOrigin_Light_Intensity: 0
   landSharkAttackTime: 0
 --- !u!50 &4044964465058124117
 Rigidbody2D:

@@ -389,6 +389,7 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 9a464f4e58e11054fad659ce016aa1de, type: 2}
   enemyName: "\uB545\uC0C1\uC5B4"
   enemyHp: 0
+  enemyMaxHp: 0
   enemyMoveSpeed: 1
   enemyRunSpeed: 5
   enemyPriceMin: 0
@@ -514,13 +515,16 @@ MonoBehaviour:
   enemyTraceCollider: {fileID: 9212215973499448096}
   targetPos: {x: 0, y: 0, z: 0}
   enemy: {fileID: 2294743210190872661}
-  landShark: {fileID: 2294743210190872661}
-  landSharkAttack: {fileID: 3641203100698774316}
-  somyeon_Gwi: {fileID: 0}
-  boon_yeol_gwi: {fileID: 0}
-  mumyeon_Gwi: {fileID: 0}
-  death_Jangseung: {fileID: 0}
-  death_Jangseung_Attack: {fileID: 0}
-  duoksini: {fileID: 0}
-  duoksini_Attack: {fileID: 0}
+  enemyScript:
+    landShark: {fileID: 2294743210190872661}
+    landSharkAttack: {fileID: 3641203100698774316}
+    somyeon_Gwi: {fileID: 0}
+    boon_yeol_gwi: {fileID: 0}
+    mumyeon_Gwi: {fileID: 0}
+    death_Jangseung: {fileID: 0}
+    death_Jangseung_Attack: {fileID: 0}
+    duoksini: {fileID: 0}
+    duoksini_Attack: {fileID: 0}
+    eo_dook_jwi: {fileID: 0}
+    playerOrigin_Light_Intensity: 0
   landSharkAttackTime: 0

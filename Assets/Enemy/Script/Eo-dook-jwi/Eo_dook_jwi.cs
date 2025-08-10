@@ -99,7 +99,7 @@ public class Eo_dook_jwi : Enemy
         //}
 
         //추적중이 아니면
-        if (!isTrace && !isDie && !isEnemyHit)
+        if (!isDie && !isEnemyHit)
         {
             // 에니메이션
             anim.SetBool("isMove", true);
