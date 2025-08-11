@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0bd95eb06f64cfc4f8a496bc1b200992
+guid: 5bd8c278a32a33d4eb8b1cb1487e405f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ghlqhr_dlvprxm_strip2_0
+      name: ghkseh_dlvprxm_strip4_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f943797f53a37174192cbe67d5ec0fd8
-      internalID: -1711776722
+      spriteID: 04abb71527e34564db8639fccce30ac3
+      internalID: -13555833
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ghlqhr_dlvprxm_strip2_1
+      name: ghkseh_dlvprxm_strip4_1
       rect:
         serializedVersion: 2
-        x: 16
+        x: 64
         y: 0
-        width: 16
-        height: 16
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,8 +132,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1dd8c85b27b51514bb176556d998cd5d
-      internalID: -1460944091
+      spriteID: a2040d2e2c7a8c14ca9028b592ce8bfa
+      internalID: 1416728693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghkseh_dlvprxm_strip4_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d7cacad8cb3de74fb294b29f35b3ac7
+      internalID: 2059786812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ghkseh_dlvprxm_strip4_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc2d4fe3f78e04d4bb66dad937d74be3
+      internalID: -1888390792
       vertices: []
       indices: 
       edges: []
@@ -149,8 +191,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ghlqhr_dlvprxm_strip2_0: -1711776722
-      ghlqhr_dlvprxm_strip2_1: -1460944091
+      ghkseh_dlvprxm_strip4_0: -13555833
+      ghkseh_dlvprxm_strip4_1: 1416728693
+      ghkseh_dlvprxm_strip4_2: 2059786812
+      ghkseh_dlvprxm_strip4_3: -1888390792
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

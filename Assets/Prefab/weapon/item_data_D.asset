@@ -18,14 +18,14 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 3ad6285bda0fdc9418278e1dd127e184, type: 3}
   spendSPAmount: 10
   Coin: 0
-  Weight: 32
+  Weight: 15
   ValPoint: 0
-  Count_Check: 0
-  Count: 1
+  Count_Check: 1
+  Count: 2
   Sell_whether: 0
   Sell_immediately: 0
   isUsable: 1
-  Usage_cool_down: 2
+  Usage_cool_down: 0.5
   Charging: 0
   CoinDeviation: 0
   WeightDeviation: 0

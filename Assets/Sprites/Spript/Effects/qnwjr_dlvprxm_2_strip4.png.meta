@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0bd95eb06f64cfc4f8a496bc1b200992
+guid: 4e7e020de3bb06d49a512df80418011f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ghlqhr_dlvprxm_strip2_0
+      name: qnwjr_dlvprxm_2_strip4_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f943797f53a37174192cbe67d5ec0fd8
-      internalID: -1711776722
+      spriteID: 147024d6693c8344f828a6ab335540b8
+      internalID: 837954403
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ghlqhr_dlvprxm_strip2_1
+      name: qnwjr_dlvprxm_2_strip4_1
       rect:
         serializedVersion: 2
-        x: 16
+        x: 32
         y: 0
-        width: 16
-        height: 16
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,8 +132,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1dd8c85b27b51514bb176556d998cd5d
-      internalID: -1460944091
+      spriteID: cbbceb727cf46534ca2b9e151185452b
+      internalID: 763120406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: qnwjr_dlvprxm_2_strip4_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1d221e832359f9469685ac802930671
+      internalID: -1425734222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: qnwjr_dlvprxm_2_strip4_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d41e11a5e13169c43aa09644832c0eee
+      internalID: -1916948176
       vertices: []
       indices: 
       edges: []
@@ -149,8 +191,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ghlqhr_dlvprxm_strip2_0: -1711776722
-      ghlqhr_dlvprxm_strip2_1: -1460944091
+      qnwjr_dlvprxm_2_strip4_0: 837954403
+      qnwjr_dlvprxm_2_strip4_1: 763120406
+      qnwjr_dlvprxm_2_strip4_2: -1425734222
+      qnwjr_dlvprxm_2_strip4_3: -1916948176
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

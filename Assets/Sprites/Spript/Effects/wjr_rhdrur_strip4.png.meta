@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0bd95eb06f64cfc4f8a496bc1b200992
+guid: 564dd64c6106f2449ae525b37800d7b3
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ghlqhr_dlvprxm_strip2_0
+      name: wjr_rhdrur_strip4_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f943797f53a37174192cbe67d5ec0fd8
-      internalID: -1711776722
+      spriteID: fcdb4102ff84af146aacbd5c784fe451
+      internalID: -1353587995
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ghlqhr_dlvprxm_strip2_1
+      name: wjr_rhdrur_strip4_1
       rect:
         serializedVersion: 2
-        x: 16
+        x: 64
         y: 0
-        width: 16
-        height: 16
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,8 +132,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1dd8c85b27b51514bb176556d998cd5d
-      internalID: -1460944091
+      spriteID: ae66189fb0b3c2240881827564648178
+      internalID: -645589993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wjr_rhdrur_strip4_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b853d2bc21be191409235d1d06c5d4d2
+      internalID: 1043254581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wjr_rhdrur_strip4_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3353d9a9406cc1e408de4694d905818a
+      internalID: -1893900906
       vertices: []
       indices: 
       edges: []
@@ -149,8 +191,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ghlqhr_dlvprxm_strip2_0: -1711776722
-      ghlqhr_dlvprxm_strip2_1: -1460944091
+      wjr_rhdrur_strip4_0: -1353587995
+      wjr_rhdrur_strip4_1: -645589993
+      wjr_rhdrur_strip4_2: 1043254581
+      wjr_rhdrur_strip4_3: -1893900906
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

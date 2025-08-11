@@ -154,5 +154,14 @@ public class Item
         int maxWeight = Weight + WeightDeviation + 1;
 
         Weight = Random.Range(minWeight, maxWeight);
+
+        // Count 오차 적용
+        if (CountDeviation > 0)
+        {
+            int minCount = Mathf.Max(1, Count - CountDeviation);
+            int maxCount = Count + CountDeviation + 1;
+
+            Count = Random.Range(minCount, maxCount);
+        }
     }
 }

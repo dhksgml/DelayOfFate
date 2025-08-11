@@ -733,6 +733,7 @@ MonoBehaviour:
   spSpendAmount: 1
   currentState: 0
   isMoving: 0
+  Effect_pr: {fileID: 2227231818856167281, guid: 28ce97d7594164b45a406c73c93b6fe7, type: 3}
   corpse: {fileID: 8291217679533633708, guid: 20be9ea67cd251e4d8479e6738e65c7e, type: 3}
 --- !u!114 &6102694892513399258
 MonoBehaviour:
@@ -823,7 +824,7 @@ MonoBehaviour:
   - {x: -0.05387208, y: -0.22353303, z: 0}
   m_ShapePathHash: -1562121249
   m_Mesh: {fileID: 0}
-  m_InstanceId: -208076
+  m_InstanceId: 170320
   m_LocalBounds:
     m_Center: {x: 0.0002822429, y: -0.064456046, z: 0}
     m_Extent: {x: 0.114839226, y: 0.39820114, z: 0}
