@@ -333,7 +333,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 2
 --- !u!114 &7782386398963764363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -454,7 +454,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 2
 --- !u!114 &2890147130237816579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -469,7 +469,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyDamage: 15
   enemyAttackSpeed: 1
-  enemyAttackRange: 1
+  enemyAttackRange: 2
   enemyAttackType: 0
   enemyAttackCollider: {fileID: 511694249750239822}
   enemy: {fileID: 7782386398963764363}
