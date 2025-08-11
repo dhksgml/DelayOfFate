@@ -75,7 +75,7 @@ public class Intro : MonoBehaviour
 
             img.gameObject.SetActive(false);
         }
-        SceneManager.LoadScene("Stage_Scene"); // 다음 씬으로 이동
+        SceneManager.LoadScene("TitleScene"); // 다음 씬으로 이동
     }
     // 한 글자씩 출력
     IEnumerator TypeText(string fullText)
@@ -91,6 +91,6 @@ public class Intro : MonoBehaviour
 
     public void SkipIntroButton()
     {
-        SceneManager.LoadScene("Stage_Scene"); // 다음 씬으로 이동
+        SceneManager.LoadScene("TitleScene"); // 다음 씬으로 이동
     }
 }
