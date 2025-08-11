@@ -29,7 +29,7 @@ public class Intro : MonoBehaviour
     [SerializeField] float textDelay = 0.05f;
 
     // 문장이 끝나고 다음으로 넘어가는 시간
-    [Range(0.1f, 1f)]
+    [Range(0.1f, 2f)]
     [SerializeField] float nextTextTime = 0.5f;
 
     // 이미지 사라지는 속도
