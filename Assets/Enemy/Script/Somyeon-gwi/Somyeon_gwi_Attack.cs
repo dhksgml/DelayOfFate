@@ -32,7 +32,8 @@ public class Somyeon_gwi_Attack : EnemyAttack
             {
                 PlayerController player = collision.GetComponent<PlayerController>();
                 
-                if (somyeon_Gwi.isHit)
+                // 분노 3일시
+                if (somyeon_Gwi.rageCount == 3)
                 {
                     if (attackTime >= enemyAttackSpeed)
                     {
