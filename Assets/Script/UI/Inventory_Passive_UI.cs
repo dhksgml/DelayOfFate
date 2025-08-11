@@ -12,11 +12,11 @@ public class Inventory_Passive_UI : MonoBehaviour
 	public Image[] Passive_Item_Icon_6;
 	public Image[] Passive_Item_Icon_7;
 
-	private PassiveItemManager passiveItemManager;
+	//private PassiveItemManager passiveItemManager;
 
 	void Start()
 	{
-		passiveItemManager = FindObjectOfType<PassiveItemManager>();
+		//passiveItemManager = FindObjectOfType<PassiveItemManager>();
 		chrlghk();
 		UpdateInventoryIcons();
 	}
@@ -29,7 +29,7 @@ public class Inventory_Passive_UI : MonoBehaviour
 		// 계열별 인덱스 초기화
 		int[] groupCounts = new int[8]; // 1~7번 계열 사용
 
-		foreach (var item in passiveItemManager.passiveItems)
+		foreach (var item in PassiveItemManager.Instance.passiveItems)
 		{
 			if (!item.isPurchased) continue;
 
@@ -38,7 +38,7 @@ public class Inventory_Passive_UI : MonoBehaviour
 			int group = int.Parse(parts[2]); // 1~7
 			int number = int.Parse(parts[3]); // 1~3
 
-			Sprite icon = passiveItemManager.GetIcon(group, number);
+			Sprite icon = PassiveItemManager.Instance.GetIcon(group, number);
 			if (icon == null)
 			{
 				Debug.LogWarning($"아이콘 없음: {item.id}");
