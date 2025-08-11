@@ -206,6 +206,7 @@ public class Boon_yeol_gwi : Enemy
                 // 타입이 일치하면 즉사
                 if (attack.attackType.ToString() == enemyWeakness.ToString())
                 {
+                    Enemy_Weakness_Hit(attack.damage, attack.attackType.ToString(), enemyHp);
                     enemyHp = 0f;
                 }
                 else

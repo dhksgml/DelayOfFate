@@ -104,5 +104,6 @@ public class Attack_sc : MonoBehaviour
     protected virtual void TriggerWeaknessEffect()
     {
         // È®Àå¿ë
+        //if (attackType == AttackType.Bottle) { }
     }
 }

@@ -52,7 +52,7 @@ public class Death_Jangseung : Enemy
                 if (attack.attackType.ToString() == enemyWeakness.ToString())
                 {
                     //이부분 없다 나와서 일단 주석 처리 해주었음.
-                    //attack.CheckWeakness();
+                    Enemy_Weakness_Hit(attack.damage, attack.attackType.ToString(), enemyHp);
                     enemyHp = 0f;
                 }
                 else
