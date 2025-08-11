@@ -200,7 +200,7 @@ public class Shop : MonoBehaviour
             if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_2"));
             // 구매 효과 적용 신호 보내기
             string itemId = soulNames[index]; // ← 이미 RerollSouls()에서 할당됨
-            passiveItemManager.PurchaseItem(itemId);
+            PassiveItemManager.Instance.PurchaseItem(itemId);
             Debug.Log($"혼령 구매: {itemId}");
         }
         else
