@@ -172,6 +172,9 @@ public class WomanGhost : Enemy
 
     IEnumerator PlayerSee()
     {
+        // 충격판정 비활성화
+        enemyColl.enabled = false; 
+
         isStop = true;
         Color color = sp.color;
 
@@ -205,6 +208,8 @@ public class WomanGhost : Enemy
             yield return new WaitForSeconds(0.01f);
         }
 
+        // 충격판정 활성화
+        enemyColl.enabled = true;
         isinvisible = false;
         isStop = false;
 
@@ -228,6 +233,9 @@ public class WomanGhost : Enemy
         isStop = true;
         isinvisible = true;
         isAttack = true;
+
+        // 충격판정 비활성화
+        enemyColl.enabled = false;
 
         for (float i = 1.0f; i >= 0.0f; i -= 0.01f)
         {
@@ -255,6 +263,9 @@ public class WomanGhost : Enemy
             //딜레이를 위해 코루틴을 사용해줌
             yield return new WaitForSeconds(0.01f);
         }
+
+        // 충격판정 활성화
+        enemyColl.enabled = true;
 
         player.isFreeze = false;
         isAttack = false;
