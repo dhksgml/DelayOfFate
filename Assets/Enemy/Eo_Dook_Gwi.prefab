@@ -206,7 +206,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 0.2
 --- !u!114 &5208748269198255614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b465f2af24839454186a76a4aa87e458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTraceRange: 5
+  enemyTraceRange: 0.2
   enemyTraceCollider: {fileID: 455802276215988635}
   targetPos: {x: 0, y: 0, z: 0}
   enemy: {fileID: 8266421726944146670}
@@ -371,6 +371,7 @@ MonoBehaviour:
   enemyHitTime: 0
   enemyWeakness: 0
   enemyType: 0
+  enemy_Weak: 0
   enemyCurrentMove: 0
   enemyMovePoint: []
   isTrace: 0
@@ -394,7 +395,7 @@ MonoBehaviour:
   rigid: {fileID: 0}
   enemyMoveDir: {x: 0, y: 0, z: 0}
   moveDirection: {x: 0, y: 0, z: 0}
-  waitTime: 5
+  waitTime: 1
   moveTime: 10
   isLighting: 0
   isAction: 0

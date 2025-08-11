@@ -32,6 +32,9 @@ public class Eo_dook_jwi : Enemy
         StartCoroutine(ChangeDirectionRoutine());
     }
 
+    float enemyMoveTime = 0f;
+    float enemyWaitTime = 0f;
+
     void Update()
     {
         //적의 체력이 0이하일시.
@@ -45,7 +48,7 @@ public class Eo_dook_jwi : Enemy
             if (!isStop) { EnemyMove(); }
 
             // 10초 움직이고 5초 멈춰줌
-            if (moveTime >= 10f)
+            if (enemyMoveTime >= moveTime)
             {
                 // 에니메이션
                 anim.SetBool("isMove", false);
@@ -54,18 +57,18 @@ public class Eo_dook_jwi : Enemy
                 isStop = true;
 
                 // 대기 시간을 더해줌
-                waitTime += Time.deltaTime;
+                enemyWaitTime += Time.deltaTime;
 
                 //5초가 지나면 false로 바꾸어 줌
-                if (waitTime >= 5f)
+                if (enemyWaitTime >= waitTime)
                 {
                     // bool 초기화
                     isArrive = false;
                     isStop = false;
 
                     // 초기화
-                    waitTime = 0f;
-                    moveTime = 0f;
+                    enemyWaitTime = 0f;
+                    enemyMoveTime = 0f;
                 }
             }
         }
@@ -114,7 +117,7 @@ public class Eo_dook_jwi : Enemy
             transform.Translate(moveDirection * enemyMoveSpeed * Time.deltaTime);
 
             // 시간을 더해줌
-            moveTime += Time.deltaTime;
+            enemyMoveTime += Time.deltaTime;
         }
     }
 
