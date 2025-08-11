@@ -33,7 +33,7 @@ public class Result_Text : MonoBehaviour
             return;
         }
         // 클리어 씬
-        else if (day >= 3)
+        else if (day >= 7)
         {
             SceneManager.LoadScene("Clear_Scene");
             return;
