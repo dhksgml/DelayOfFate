@@ -241,7 +241,7 @@ public class Boon_yeol_gwi : Enemy
                     //충돌한게 본체일때
                     if (entity == entityObj)
                     {
-                        if (entity.type == Boon_yeol_gwi_Type.Entity && isItemEat && isItemEat)
+                        if (entity.type == Boon_yeol_gwi_Type.Entity && isItemEat)
                         {
                             //가치를 올려줌
                             entity.enemyPrice += enemyPrice;
@@ -259,6 +259,7 @@ public class Boon_yeol_gwi : Enemy
                             //그리고 스폰하는 트리거 활성화
                             entity.isSpawn = true;
                         }
+
                     }
 
                 }
