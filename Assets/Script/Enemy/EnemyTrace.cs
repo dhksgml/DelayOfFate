@@ -105,18 +105,6 @@ public class EnemyTrace : MonoBehaviour
                 }
             }
 
-            //소면귀 전용
-            if (enemyScript.somyeon_Gwi != null)
-            {
-                //만약 아이템 태그를 발견하면
-                if (collision.gameObject.CompareTag("Item"))
-                {
-                    //트리거 활성화 후
-                    enemyScript.somyeon_Gwi.isFindItem = true;
-                    //위치값을 전달해줌
-                    enemyScript.somyeon_Gwi.findItemVec = collision.gameObject.transform.position;
-                }
-            }
 
             //분열귀 전용
             if (enemyScript.boon_yeol_gwi != null)
@@ -302,6 +290,27 @@ public class EnemyTrace : MonoBehaviour
                 }
             }
 
+            // 소면귀 전용
+            if (enemyScript.somyeon_Gwi != null)
+            {
+                if (collision.CompareTag("Player"))
+                {
+                    Player_Item_Use itemUse = collision.GetComponent<Player_Item_Use>();
+
+                    // Player 태그를 가진 오브젝트가 안에 있고, E키를 눌렀을 때
+                    if (itemUse.isItemTouch && canIncrease)
+                    {
+                        if (enemyScript.somyeon_Gwi.rageCount == 3) { return; }
+
+                        itemUse.isItemTouch = false;
+                        enemyScript.somyeon_Gwi.rageCount++;
+                        canIncrease = false;
+                        StartCoroutine(ResetIncrease());
+                    }
+                }
+
+            }
+
         }
 
     }
@@ -341,5 +350,12 @@ public class EnemyTrace : MonoBehaviour
                 }
             }
         }
+    }
+    // 입력값에 딜레이를 줌
+    bool canIncrease = true;
+    IEnumerator ResetIncrease()
+    {
+        yield return new WaitForSeconds(0.2f); // 0.2초 대기
+        canIncrease = true;
     }
 }

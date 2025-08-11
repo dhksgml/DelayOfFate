@@ -17,6 +17,9 @@ public class Player_Item_Use : MonoBehaviour
     private bool isCharging = false;
     private Item chargingItem = null;
 
+    // 소면귀용
+    public bool isItemTouch = false;
+
     void Start()
     {
         itemUsageManager = GetComponent<ItemUsageManager>();
@@ -81,6 +84,8 @@ public class Player_Item_Use : MonoBehaviour
                 ItemObject itemObject = collider.GetComponent<ItemObject>();
                 if (itemObject.itemData.Sell_immediately)// 즉시 판매 가능한 아이템만 가능
                 {
+                    isItemTouch = true;
+
                     if (!isHolding)
                     {
                         isHolding = true;
@@ -93,6 +98,8 @@ public class Player_Item_Use : MonoBehaviour
                         GameEvents.CallSaleItemImmediately();
                         
                         RemoveItem();
+
+                        isItemTouch = false;
                         isHolding = false; // 한 번 실행 후 다시 대기
                         holdTime = 0f;
                     }
@@ -106,9 +113,12 @@ public class Player_Item_Use : MonoBehaviour
             {
                 if (playercontroller.isPickUpableItem)
                 {
+                    isItemTouch = true;
                     playercontroller.OnPickUpStart(true);
                 }
             }
+
+            isItemTouch = false;
             isHolding = false; // 그게 아니면 초기화
             holdTime = 0f;
         }
