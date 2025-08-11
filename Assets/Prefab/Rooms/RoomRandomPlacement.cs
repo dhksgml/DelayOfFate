@@ -39,11 +39,11 @@ public class RoomRandomPlacement : MonoBehaviour
 
     private void Awake() //배열 초기화
     {
-        Cost_list = new int[] { 500, 1200, 2000, 2900, 4000 }; //약값
+        Cost_list = new int[] { 0, 0, 0, 0, 0 }; //약값
         map_structure = new int[] { 3, 4, 4, 5, 5 }; //맵구조
         room_count = new int[] { 8, 12, 16, 20, 24 }; //방 곗수 (오차1)
-        value_points = new int[] { 350, 750, 1200, 1800, 2500 }; //바닥에 깔리는 그 가치
-        value_error = new int[] { 50, 100, 200, 350, 550 }; //바닥에 깔리는 가치의 오차
+        value_points = new int[] { 600, 900, 1200, 1600, 2000 }; //바닥에 깔리는 그 가치
+        value_error = new int[] { 50, 75, 125, 200, 300 }; //바닥에 깔리는 가치의 오차
     }
 
     void Start()

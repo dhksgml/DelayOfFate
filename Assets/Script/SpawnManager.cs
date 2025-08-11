@@ -7,7 +7,7 @@ public class SpawnManager : MonoBehaviour
 	public GameObject[] enemyPrefabs;
 	public GameObject itemPrefab;
 	public ItemData[] item_date;
-	[HideInInspector] public int totalValPoint;
+	public int totalValPoint;
 
 	private List<Transform> enemySpawnPoints = new List<Transform>();
 	private List<Transform> itemSpawnPoints = new List<Transform>();
@@ -63,7 +63,7 @@ public class SpawnManager : MonoBehaviour
 				new List<List<int>> { new List<int> { 1, 7 }, new List<int> { 2, 1 }, new List<int> { 3, 5 }, new List<int> { 5, 2 }, new List<int> { 7, 5 }, new List<int> { 8, 6 }, new List<int> { 9, 6 } }, // 455 + 72 + 500 + 146 + 535 + 450 + 280 = 2438
 			}},
 			{ 4, new List<List<List<int>>> {
-				new List<List<int>> { new List<int> { 1, 10 }, new List<int> { 5, 5 }, new List<int> { 6, 3 }, new List<int> { 7, 6 }, new List<int> { 8, 6 }, new List<int> { 9, 12 } }, // 650 + 365 + 750 + 535 + 375 + 400 = 3075
+				new List<List<int>> { new List<int> { 1, 10 }, new List<int> { 5, 5 }, new List<int> { 6, 3 }, new List<int> { 7, 6 }, new List<int> { 8, 6 }, new List<int> { 9, 12 } } // 650 + 365 + 750 + 535 + 375 + 400 = 3075
 			}},
 		};
 
@@ -221,7 +221,7 @@ public class SpawnManager : MonoBehaviour
 				Debug.LogWarning("[아이템 소환] 프리팹에 ItemObject 컴포넌트가 없습니다.");
 			}
 
-			coinRemain -= randomItem.ValPoint;
+			coinRemain -= randomItem.Coin;
 		}
 
 	}

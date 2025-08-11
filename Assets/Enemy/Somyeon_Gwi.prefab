@@ -108,8 +108,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 954b78cc68fb5284ba328f1997abe093, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -207,7 +207,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 17
 --- !u!114 &1960441696637248313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,19 +220,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b465f2af24839454186a76a4aa87e458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTraceRange: 3
+  enemyTraceRange: 17
   enemyTraceCollider: {fileID: 8696692353677445723}
   targetPos: {x: 0, y: 0, z: 0}
   enemy: {fileID: 7782386398963764363}
-  landShark: {fileID: 0}
-  landSharkAttack: {fileID: 0}
-  somyeon_Gwi: {fileID: 7782386398963764363}
-  boon_yeol_gwi: {fileID: 0}
-  mumyeon_Gwi: {fileID: 0}
-  death_Jangseung: {fileID: 0}
-  death_Jangseung_Attack: {fileID: 0}
-  duoksini: {fileID: 0}
-  duoksini_Attack: {fileID: 0}
+  enemyScript:
+    landShark: {fileID: 0}
+    landSharkAttack: {fileID: 0}
+    somyeon_Gwi: {fileID: 7782386398963764363}
+    boon_yeol_gwi: {fileID: 0}
+    mumyeon_Gwi: {fileID: 0}
+    death_Jangseung: {fileID: 0}
+    death_Jangseung_Attack: {fileID: 0}
+    duoksini: {fileID: 0}
+    duoksini_Attack: {fileID: 0}
+    eo_dook_jwi: {fileID: 0}
+    playerOrigin_Light_Intensity: 0
   landSharkAttackTime: 0
 --- !u!1 &7361896408967136244
 GameObject:
@@ -346,8 +349,9 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 88f879b84b54de044898837c1f817df9, type: 2}
   enemyName: "\uC18C\uBA74\uADC0"
   enemyHp: 0
-  enemyMoveSpeed: 5
-  enemyRunSpeed: 10
+  enemyMaxHp: 0
+  enemyMoveSpeed: 2
+  enemyRunSpeed: 2
   enemyPriceMin: 0
   enemyPriceMax: 0
   enemyPrice: 0
@@ -381,15 +385,8 @@ MonoBehaviour:
   rigid: {fileID: 0}
   enemyMoveDir: {x: 0, y: 0, z: 0}
   moveDirection: {x: 0, y: 0, z: 0}
-  randomItem:
-  - {fileID: 8971603694892012435, guid: 04a5cdb852a0e4945a2543353b856573, type: 3}
-  - {fileID: 5503206391998519789, guid: 1ffb5d0b10b803a43979db18d6639817, type: 3}
-  - {fileID: 4078892375351546834, guid: 0e24b637d2c63e5458a66c919ee654d0, type: 3}
-  throwItemCount: 3
-  eatDelay: 5
-  isHit: 0
-  isFindItem: 0
   findItemVec: {x: 0, y: 0, z: 0}
+  rageCount: 1
 --- !u!1 &7854038955713013511
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,7 +454,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 2
 --- !u!114 &2890147130237816579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,12 +467,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f3ef7aad790cc0459e32f441671e175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyDamage: 10
+  enemyDamage: 15
   enemyAttackSpeed: 1
-  enemyAttackRange: 1
+  enemyAttackRange: 2
   enemyAttackType: 0
   enemyAttackCollider: {fileID: 511694249750239822}
   enemy: {fileID: 7782386398963764363}
   time: 0
-  somyeon_Gwi_Mind_Damage: 5
+  somyeon_Gwi_Mind_Damage: 10
   somyeon_Gwi: {fileID: 7782386398963764363}

@@ -17,7 +17,7 @@ MonoBehaviour:
   InGameSprite: {fileID: 21300000, guid: 7fcd18e3ca3710448b4f451444fb5886, type: 3}
   icon: {fileID: 21300000, guid: fdd866e72f2805b45936f7b417565067, type: 3}
   spendSPAmount: 0
-  Coin: 39
+  Coin: 89
   Weight: 30
   ValPoint: 10
   Count_Check: 0

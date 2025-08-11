@@ -83,7 +83,7 @@ public class Shop : MonoBehaviour
     void InitializeShop()
     {
         weaponPrices.Clear();
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 5; i++)
         {
             weaponPrices.Add(GameManager.Instance.Day * 100);
             if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_3_2")) //다다익선 보유시
@@ -118,7 +118,7 @@ public class Shop : MonoBehaviour
     }
     public void BuyWeapon(int index) // 무기 구매
     {
-        if (index < 0 || index >= 3) return;
+        if (index < 0 || index >= 5) return;
 
         int price = weaponPrices[index];
         if (Soul < price) return;

@@ -4,9 +4,23 @@ using UnityEngine;
 
 public class ShopSwap : MonoBehaviour
 {
-    [SerializeField] GameObject itemSlot;
+    [SerializeField] GameObject itemSlot_1;
+    [SerializeField] GameObject itemSlot_2;
+    [SerializeField] GameObject itemSlot_3;
     [SerializeField] GameObject passiveSlot;
     [SerializeField] bool isItemSlot = false;
+
+    private void Start()
+    {
+        if (!isItemSlot)
+        {
+            SwapItemSlot();
+        }
+    }
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab)) SwapButton();
+    }
 
     public void SwapButton()
     {
@@ -24,7 +38,9 @@ public class ShopSwap : MonoBehaviour
     {
         Debug.Log("아이템on");
         isItemSlot = true;
-        itemSlot.SetActive(true);
+        itemSlot_1.SetActive(true);
+        itemSlot_2.SetActive(true);
+        itemSlot_3.SetActive(true);
         passiveSlot.SetActive(false);
     }
     
@@ -32,7 +48,9 @@ public class ShopSwap : MonoBehaviour
     {
         Debug.Log("페시브on");
         isItemSlot = false;
-        itemSlot.SetActive(false);
+        itemSlot_1.SetActive(false);
+        itemSlot_2.SetActive(false);
+        itemSlot_3.SetActive(false);
         passiveSlot.SetActive(true);
     }
 }

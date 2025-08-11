@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public float speedMultiplier = 1f;
     public float rayCastDistance = 2f;
 
-    [SerializeField] private float hpRecoveryDuration = 20f;
+    [SerializeField] private float hpRecoveryDuration = 10f;
     [SerializeField] private float mpRecoveryDuration = 10f;
     [SerializeField] private float spRecoveryDuration = 10f;
 
@@ -82,6 +82,9 @@ public class PlayerController : MonoBehaviour
     private float clickLookTimer = 0f;
     private float clickLookDuration = 0.3f; // 클릭 후 0.2초간 해당 방향으로 고정
     private Camera mainCamera;
+
+    public GameObject Effect_pr;//이펙트 오브젝트
+    private float effectTimer = 0f; //이펙트 쿨타임
 
     public bool IsRun => isRun;
 
@@ -160,6 +163,19 @@ public class PlayerController : MonoBehaviour
             FreezingCancle();
         }
         UpdateItemCooldown();
+
+        if (currentState == PlayerState.Resting) //이펙트 생성
+        {
+            if (currentHp + currentExtraHp < maxHp + extraHp || currentSp < maxSp)
+            {
+                effectTimer -= Time.deltaTime;
+                if (effectTimer <= 0f)
+                {
+                    Effect_cr("hp", transform.position, -1f);
+                    effectTimer = 0.25f; // 다음 발동까지 시간 리셋
+                }
+            }
+        }
 
         if (isAutoSPRegen && (!isFreeze && !IsRun)) HandleSpRegen(); //자동 회복
 
@@ -705,6 +721,7 @@ public class PlayerController : MonoBehaviour
             totalHp += hpPerSecond * delta;
             totalHp = Mathf.Min(totalHp, totalMaxHp);
 
+            
             if (totalHp <= maxHp)
             {
                 currentHp = totalHp;
@@ -763,6 +780,7 @@ public class PlayerController : MonoBehaviour
         float damageMultiplier = Mathf.Lerp(1, 2, 1 - spRatio);
 
         float totalDamage = value * damageMultiplier;
+        Effect_cr("e_at", transform.position, 0);//이펙트
 
         if (currentExtraHp > 0)
         {
@@ -815,7 +833,22 @@ public class PlayerController : MonoBehaviour
         if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_player_die"));
         StartCoroutine(ReviveRoutine(Vector3.zero));
     }
+    void Effect_cr(string ty, Vector3 basePos,float offset)
+    {
 
+        float offsetX = Random.Range(-offset, offset);
+        float offsetY = Random.Range(-offset, offset);
+
+        // 최종 위치
+        Vector3 spawnPos = basePos + new Vector3(offsetX, offsetY, 0f);
+
+        // 이펙트 생성
+        GameObject effectObj = Instantiate(Effect_pr, spawnPos, Quaternion.identity);
+
+        // Effect_sc의 ty 값 설정
+        Effect_sc effectScript = effectObj.GetComponent<Effect_sc>();
+        effectScript.ty = ty;
+    }
     IEnumerator ReviveRoutine(Vector3 revivePosition)
     {
         Instantiate(corpse, gameObject.transform.position, Quaternion.identity);
