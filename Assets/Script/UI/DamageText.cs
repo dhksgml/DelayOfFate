@@ -43,7 +43,17 @@ public class DamageText : MonoBehaviour
 
 		StartCoroutine(FadeOut());
 	}
+	public void Init_up(string damageStr, Color color)
+	{
+		text.text = damageStr;
+		text.color = color;
 
+		float fixedX = 0f;
+		float randomY = Random.Range(forceY * 0.75f, forceY * 1.25f);
+		rb.AddForce(new Vector2(fixedX, randomY), ForceMode2D.Impulse);
+		rb.gravityScale = 0f;
+		StartCoroutine(FadeOut());
+	}
 	private System.Collections.IEnumerator FadeOut()
 	{
 		yield return new WaitForSeconds(fadeDelay);

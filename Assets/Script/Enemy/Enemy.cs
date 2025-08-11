@@ -67,6 +67,8 @@ public abstract class Enemy     : MonoBehaviour
     [Space(20f)]
     public Classification enemyType; //적의 타입
 
+    public bool enemy_Weak = false;
+
     [Header("Enemy Move Point")]
     public int           enemyCurrentMove; //적이 현재 이동한 횟수
     public Transform[]   enemyMovePoint; //적이 지정된 장소를 배회하게 만들어줌
@@ -236,12 +238,30 @@ public abstract class Enemy     : MonoBehaviour
         //Color color = sp.color;
         //color.a = 0.5f;
         //sp.color = color;
-        GameObject obj = Instantiate(Damage_text, transform.position, Quaternion.identity);
-        DamageText damageText = obj.GetComponent<DamageText>();
-        damageText.Init(Damage.ToString(), Color.red, enemyMaxHp, enemyHp);
+        Damage_text_cr(Damage.ToString(), false);
         Invoke("EnemyHitRegen", enemyHitTime);
     }
-
+    public void Enemy_Weakness_Hit(float Damage, string ty, float hp)
+    {
+        Damage_text_cr("멸귀", true);
+        enemy_Weak = true;
+    }
+    void Damage_text_cr(string Damage, bool weak)
+    {
+        if (!enemy_Weak)
+        {
+            GameObject obj = Instantiate(Damage_text, transform.position, Quaternion.identity);
+            DamageText damageText = obj.GetComponent<DamageText>();
+            if (weak == true)
+            {
+                damageText.Init_up(Damage, Color.red);
+            }
+            else
+            {
+                damageText.Init(Damage, Color.red, enemyMaxHp, enemyHp);
+            }
+        }
+    }
     //적이 피격당한후 색이 돌아올때
     public void EnemyHitRegen()
     {
