@@ -28,10 +28,18 @@ public class Attack_sc : MonoBehaviour
     }
     private void Start()
     {
+        // Sword 공격이면 랜덤 회전
+        if (attackType == AttackType.Sword && effectRenderer != null)
+        {
+            float randomRotation = Random.Range(0f, 360f);
+            effectRenderer.transform.rotation = Quaternion.Euler(0f, 0f, randomRotation);
+        }
+
         Invoke(nameof(StartFadeOut), 0.1f);
         PlayAnimation();
         damage = GetDamageByType(attackType);
     }
+
 
     private void PlayAnimation()
     {

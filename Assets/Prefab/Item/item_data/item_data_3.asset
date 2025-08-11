@@ -16,11 +16,12 @@ MonoBehaviour:
   itemName: "\uC5FD\uC804"
   InGameSprite: {fileID: 21300000, guid: f204b1def133e014a902c9c884d7a065, type: 3}
   icon: {fileID: 21300000, guid: fdd866e72f2805b45936f7b417565067, type: 3}
-  Coin: 10
+  spendSPAmount: 0
+  Coin: 20
   Weight: 1
   ValPoint: 10
   Count_Check: 1
-  Count: 4
+  Count: 7
   Sell_whether: 1
   Sell_immediately: 0
   isUsable: 0
@@ -28,5 +29,5 @@ MonoBehaviour:
   Charging: 0
   CoinDeviation: 0
   WeightDeviation: 0
-  CountDeviation: 2
+  CountDeviation: 3
   Drop_item: 1

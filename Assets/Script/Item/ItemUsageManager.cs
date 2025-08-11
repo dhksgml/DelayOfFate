@@ -47,7 +47,7 @@ public class ItemUsageManager : MonoBehaviour
 
         if (type == Attack_sc.AttackType.Sword || type == Attack_sc.AttackType.Bat || type == Attack_sc.AttackType.Bottle)
         {
-            float spawnOffset = 0.5f; // 몇 유닛 떨어뜨릴지
+            float spawnOffset = 1.5f; // 몇 유닛 떨어뜨릴지
             Vector3 spawnDir = rotation * Vector3.right; // 회전 방향 기준 오른쪽
             Vector3 spawnPos = spawnPoint.position + spawnDir.normalized * spawnOffset;
 
