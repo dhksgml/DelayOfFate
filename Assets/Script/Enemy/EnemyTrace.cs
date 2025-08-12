@@ -283,10 +283,17 @@ public class EnemyTrace : MonoBehaviour
             // ¾îµÏÁã Àü¿ë
             if (enemyScript.eo_dook_jwi != null)
             {
-                if (collision.gameObject.CompareTag("Light"))
+                
+                foreach (Transform child in collision.transform.GetComponentsInChildren<Transform>(true))
                 {
-                    Light2D light = collision.gameObject.GetComponent<Light2D>();
-                    light.intensity = 0.1f;
+                    if (child.CompareTag("Light"))
+                    {
+                        Light2D light = child.GetComponent<Light2D>();
+                        if (light != null)
+                        {
+                            light.intensity = 0.1f;
+                        }
+                    }
                 }
             }
 
@@ -343,14 +350,22 @@ public class EnemyTrace : MonoBehaviour
             // ¾îµÏÁã Àü¿ë
             if (enemyScript.eo_dook_jwi != null)
             {
-                if (collision.gameObject.CompareTag("Light"))
+                foreach (Transform child in collision.transform.GetComponentsInChildren<Transform>(true))
                 {
-                    Light2D light = collision.gameObject.GetComponent<Light2D>();
-                    light.intensity = enemyScript.playerOrigin_Light_Intensity;
+                    if (child.CompareTag("Light"))
+                    {
+                        Light2D light = child.GetComponent<Light2D>();
+                        if (light != null)
+                        {
+                            light.intensity = enemyScript.playerOrigin_Light_Intensity;
+                        }
+                    }
                 }
             }
+
         }
     }
+    
     // ÀÔ·Â°ª¿¡ µô·¹ÀÌ¸¦ ÁÜ
     bool canIncrease = true;
     IEnumerator ResetIncrease()
