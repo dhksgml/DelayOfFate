@@ -164,7 +164,10 @@ public class TutorialManager : MonoBehaviour
         //HighlightingOffUI();
         currentIndex = steps.Count - 1;
 
-        yield return StartCoroutine(HandleStep(steps[currentIndex]));
+        //yield return StartCoroutine(HandleStep(steps[currentIndex]));
+        tutorialPressSpaceText.SetActive(false);
+        tutorialText.text = "튜토리얼을 종료합니다.";
+        yield return new WaitForSeconds(1f);
 
         tutorialText.gameObject.SetActive(false);
         tutorialBackground.SetActive(false);

@@ -448,7 +448,7 @@ public class PassiveItemManager : MonoBehaviour
     //금의환향
     public void DoPassive_3_1()
     {
-        GameManager.Instance.Soul *= 1.1f;
+        GameManager.Instance.Soul *= 1.3f;
     }
 
     //금강불괴
@@ -554,7 +554,7 @@ public class PassiveItemManager : MonoBehaviour
                 if (item != null)
                     totalGold += item.Coin;
             }
-            GameManager.Instance.Add_Gold(totalGold * 0.5f);
+            GameManager.Instance.Add_Gold(totalGold);
         }
     }
 
