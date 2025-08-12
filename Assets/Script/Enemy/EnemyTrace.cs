@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -283,10 +284,20 @@ public class EnemyTrace : MonoBehaviour
             // 어둑쥐 전용
             if (enemyScript.eo_dook_jwi != null)
             {
-                if (collision.gameObject.CompareTag("Light"))
+                if (collision.gameObject.CompareTag("Player"))
                 {
-                    Light2D light = collision.gameObject.GetComponent<Light2D>();
-                    light.intensity = 0.1f;
+                    // Player 자식 중 태그가 "Light"인 오브젝트들만 찾기
+                    foreach (Transform child in collision.transform.GetComponentsInChildren<Transform>(true))
+                    {
+                        if (child.CompareTag("Light"))
+                        {
+                            Light2D light = child.GetComponent<Light2D>();
+                            if (light != null)
+                            {
+                                light.intensity = 0.1f;
+                            }
+                        }
+                    }
                 }
             }
 
@@ -343,11 +354,19 @@ public class EnemyTrace : MonoBehaviour
             // 어둑쥐 전용
             if (enemyScript.eo_dook_jwi != null)
             {
-                if (collision.gameObject.CompareTag("Light"))
+                // Player 자식 중 태그가 "Light"인 오브젝트들만 찾기
+                foreach (Transform child in collision.transform.GetComponentsInChildren<Transform>(true))
                 {
-                    Light2D light = collision.gameObject.GetComponent<Light2D>();
-                    light.intensity = enemyScript.playerOrigin_Light_Intensity;
+                    if (child.CompareTag("Light"))
+                    {
+                        Light2D light = child.GetComponent<Light2D>();
+                        if (light != null)
+                        {
+                            light.intensity = enemyScript.playerOrigin_Light_Intensity;
+                        }
+                    }
                 }
+
             }
         }
     }
