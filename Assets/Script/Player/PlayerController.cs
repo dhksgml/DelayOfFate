@@ -112,13 +112,14 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        Init();
         animator = GetComponent<Animator>();
         placeManager = FindObjectOfType<PlaceManager>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         player_Item_Use = GetComponent<Player_Item_Use>();
         nearestItemFinder = GetComponent<NearestItemFinder>();
         mainCamera = Camera.main;
+
+        Init();
     }
 
     private void OnEnable()
@@ -917,7 +918,7 @@ public class PlayerController : MonoBehaviour
         {
             if (PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
             {
-                
+                speedMultiplier = GameManager.Instance.playerData.speedMultiplier;
             }
 
         }
@@ -929,7 +930,7 @@ public class PlayerController : MonoBehaviour
         {
             if (PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
             {
-
+                speedMultiplier = GameManager.Instance.playerData.speedMultiplier;
             }
         }
     }
