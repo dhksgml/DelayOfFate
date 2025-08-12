@@ -18,7 +18,7 @@ MonoBehaviour:
   classification: 1
   Hp: 25
   D_Point: 10
-  weakness: 1
+  weakness: 4
   population: 5
   CoinDeviation: 5
   HpDeviation: 3

@@ -230,7 +230,7 @@ public abstract class Enemy     : MonoBehaviour
     public void EnemyHit(float Damage)
     {
         isEnemyHit = true;
-
+        Mathf.Floor(Damage);
         //피격시 못움직이게 모두 동결해줌
         rigid.constraints = RigidbodyConstraints2D.FreezeAll;
 
