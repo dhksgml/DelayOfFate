@@ -20,15 +20,12 @@ public class ItemObject : MonoBehaviour
     private const float maxHoldTime = 1f; // 판매 키 최대 시간 
     private PlayerController playerController;
     private Material material;
-    // 충돌 방지
-    private Collider2D coll;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         player_item_use = FindObjectOfType<Player_Item_Use>();
         playerController = FindObjectOfType<PlayerController>();
-        coll = GetComponent<Collider2D>();
         material = spriteRenderer.material;
 
         if (itemDataTemplate != null)
@@ -113,14 +110,6 @@ public class ItemObject : MonoBehaviour
             infoPanel?.SetActive(true);
             holdGaugeUI?.SetActive(true); // 플레이어가 가까이 오면 게이지 UI 활성화
             other.GetComponent<PlayerController>().isPickUpableItem = true;
-        }
-    }
-    // 아이템 충돌 방지
-    void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.CompareTag("Item"))
-        {
-            coll.isTrigger = false;
         }
     }
 

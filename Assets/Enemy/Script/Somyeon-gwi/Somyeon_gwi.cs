@@ -9,10 +9,6 @@ public class Somyeon_gwi : Enemy
     public Vector3 findItemVec;
     public int rageCount = 1; //분노 게이지 1, 2, 3까지
 
-    [SerializeField] Sprite rageSp1;
-    [SerializeField] Sprite rageSp2;
-    [SerializeField] Sprite rageSp3;
-
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -43,21 +39,6 @@ public class Somyeon_gwi : Enemy
         else
         {
             EnemyMove();
-        }
-        // 스프라이트 형식, 추후 애니메이션이 도입되면 변경해야함
-        switch (rageCount)
-        {
-            case 1:
-                sp.sprite = rageSp1;
-                break;
-
-            case 2:
-                sp.sprite = rageSp2;
-                break;
-
-            case 3:
-                sp.sprite = rageSp3;
-                break;
         }
     }
 
