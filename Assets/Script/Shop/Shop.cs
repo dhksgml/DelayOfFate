@@ -28,11 +28,8 @@ public class Shop : MonoBehaviour
     public TMP_Text[] weaponSlots; // 상품 목록들 무기, 영혼, 초롱
     public ItemData[] weaponData; // 무기 데이터
     public QuickSlotUI quickSlotUI; // 퀵슬롯 연결
-    private PassiveItemManager passiveItemManager;
     void Awake()
     {
-        passiveItemManager = FindObjectOfType<PassiveItemManager>();
-
         allSoulIds.Clear();
 
         // Build base list: groups 1..7, numbers 1..2
@@ -61,7 +58,6 @@ public class Shop : MonoBehaviour
     void Start()
     {
         InitializeShop();
-        passiveItemManager = FindObjectOfType<PassiveItemManager>();
     }
     void Update()
     {
@@ -298,7 +294,7 @@ public class Shop : MonoBehaviour
 
             string id = availableSouls[i];
             soulNames[i] = id;
-            PassiveItemData itemData = passiveItemManager.passiveItems.Find(x => x.id == id);
+            PassiveItemData itemData = PassiveItemManager.Instance.passiveItems.Find(x => x.id == id);
             int rating = itemData != null ? itemData.rating : 1; // 기본값은 1
             switch (rating)
             {
@@ -346,7 +342,7 @@ public class Shop : MonoBehaviour
         int group = int.Parse(parts[2]); // 1~7
         int number = int.Parse(parts[3]); // 1~3
 
-        Sprite icon = passiveItemManager.GetIcon(group, number);
+        Sprite icon = PassiveItemManager.Instance.GetIcon(group, number);
         if (soulIcons[slotIndex] != null)
             soulIcons[slotIndex].sprite = icon;
     }
