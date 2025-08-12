@@ -92,6 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7501032473720650024}
   - component: {fileID: 2818169836033197048}
+  - component: {fileID: 5836159429225261525}
   m_Layer: 0
   m_Name: FlashLight_LV3
   m_TagString: Light
@@ -164,6 +165,41 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!58 &5836159429225261525
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 340572512433154538}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 7.5
 --- !u!1 &456099418970359733
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,7 +861,7 @@ MonoBehaviour:
   - {x: -0.05387208, y: -0.22353303, z: 0}
   m_ShapePathHash: -1562121249
   m_Mesh: {fileID: 0}
-  m_InstanceId: 144028
+  m_InstanceId: 141950
   m_LocalBounds:
     m_Center: {x: 0.0002822429, y: -0.064456046, z: 0}
     m_Extent: {x: 0.114839226, y: 0.39820114, z: 0}
@@ -1135,6 +1171,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4250020197908402873}
   - component: {fileID: 1346698863030791585}
+  - component: {fileID: 7364392617988191698}
   m_Layer: 0
   m_Name: FlashLight_LV2
   m_TagString: Light
@@ -1207,6 +1244,41 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!58 &7364392617988191698
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7460688186267718503}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 6
 --- !u!1 &7849976470518531551
 GameObject:
   m_ObjectHideFlags: 0
