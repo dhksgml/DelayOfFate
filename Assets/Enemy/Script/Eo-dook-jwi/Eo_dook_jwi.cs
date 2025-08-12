@@ -131,7 +131,7 @@ public class Eo_dook_jwi : Enemy
             if (collision.gameObject.CompareTag("Attack") && !isEnemyHit && attack != null)
             {
                 // 타입이 일치하면 즉사
-                if (attack.attackType.ToString() == enemyWeakness.ToString())
+                if (!attack.CheckWeaknessPassive() && attack.attackType.ToString() == enemyWeakness.ToString())
                 {
                     attack.CheckWeakness();
                     Enemy_Weakness_Hit(attack.damage, attack.attackType.ToString(), enemyHp);

@@ -96,9 +96,14 @@ public class Attack_sc : MonoBehaviour
     public void CheckWeakness()
     {
         //정정당당 보유 시
-        if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_1_2")) return;
+        if (CheckWeaknessPassive()) return;
         effectRenderer.color = Color.red;
         TriggerWeaknessEffect();
+    }
+
+    public bool CheckWeaknessPassive()
+    {
+        return PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_1_2");
     }
 
     protected virtual void TriggerWeaknessEffect()
