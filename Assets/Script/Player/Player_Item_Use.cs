@@ -91,6 +91,7 @@ public class Player_Item_Use : MonoBehaviour
                     {
                         isHolding = true;
                         isAnyItemBeingSold = true;
+                        isItemTouch = true;
                         holdTime = 0f;
                         currentSellingItem = itemObject; // 새 변수, 현재 판매 중인 아이템 저장
                     }
