@@ -21,12 +21,20 @@ public class ItemObject : MonoBehaviour
     private PlayerController playerController;
     private Material material;
 
+
+    Collider2D coll;
+    Rigidbody2D rb;
+
+
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         player_item_use = FindObjectOfType<Player_Item_Use>();
         playerController = FindObjectOfType<PlayerController>();
         material = spriteRenderer.material;
+
+        coll = GetComponent<Collider2D>();
+        rb = GetComponent<Rigidbody2D>();
 
         if (itemDataTemplate != null)
         {
@@ -112,6 +120,8 @@ public class ItemObject : MonoBehaviour
             other.GetComponent<PlayerController>().isPickUpableItem = true;
         }
     }
+
+
 
     void OnTriggerExit2D(Collider2D other)
     {
