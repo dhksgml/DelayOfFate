@@ -393,7 +393,7 @@ public class PassiveItemManager : MonoBehaviour
 
     public void RemovePassive_1_2()
     {
-        TryRemoveEffect(new IncreaseDamageEffect(GameManager.Instance.playerData, 0.1f));
+        TryRemoveEffect(new IncreaseDamageEffect(GameManager.Instance.playerData, 1f));
     }
 
     //문전박대

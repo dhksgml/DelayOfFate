@@ -37,7 +37,12 @@ public class Attack_sc : MonoBehaviour
 
         Invoke(nameof(StartFadeOut), 0.1f);
         PlayAnimation();
-        damage = GetDamageByType(attackType);
+
+        float damageMultiplier = 1f;
+        if (GameManager.Instance != null && GameManager.Instance.playerData != null)
+            damageMultiplier = GameManager.Instance.playerData.damageMultiplier;
+
+        damage = GetDamageByType(attackType) * damageMultiplier;
     }
 
 
