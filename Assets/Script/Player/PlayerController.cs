@@ -126,12 +126,14 @@ public class PlayerController : MonoBehaviour
     {
         GameEvents.OnPickupItem += HandlePickupItem;
         GameEvents.OnDropItem += HandleDropItem;
+        GameEvents.OnTimeAngleUnit18 += HadleTimeAngleUnit18;
     }
 
     private void OnDisable()
     {
         GameEvents.OnPickupItem -= HandlePickupItem;
         GameEvents.OnDropItem -= HandleDropItem;
+        GameEvents.OnTimeAngleUnit18 -= HadleTimeAngleUnit18;
     }
 
     public void Init()
@@ -941,4 +943,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void HadleTimeAngleUnit18()
+    {
+        if (PassiveItemManager.Instance != null)
+        {
+            if (PassiveItemManager.Instance.HasEffect("Soul_Add_7_2"))
+            {
+                speedMultiplier = GameManager.Instance.playerData.speedMultiplier;
+            }
+        }
+    }
 }

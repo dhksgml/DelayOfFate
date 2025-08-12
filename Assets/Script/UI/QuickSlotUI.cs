@@ -23,7 +23,9 @@ public class QuickSlotUI : MonoBehaviour
     public TMP_Text timeText; // UI 텍스트 오브젝트
     public int angleUnit = 0;
     private float angleStartTime;
-   
+
+    private bool isAngleUnit18;
+
     void Start()
     {
         Item_Name.text = null;
@@ -40,6 +42,12 @@ public class QuickSlotUI : MonoBehaviour
         float elapsed = Time.time - angleStartTime;
         //float time = Time.time; // 경과 시간 (초)
         angleUnit = Mathf.FloorToInt(elapsed / 20f); // 20초마다 1각
+
+        if(angleUnit >= 18 && !isAngleUnit18)
+        {
+            isAngleUnit18 = true;
+            GameEvents.CallTimeAngleUnit18();
+        }
     }
 
     public void DisplayItemInfo(int index, ItemData item)
