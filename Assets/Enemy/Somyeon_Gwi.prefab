@@ -129,7 +129,7 @@ Animator:
   m_GameObject: {fileID: 6615441494252985068}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b3a254ff985aac74088498a8e5ce143f, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -362,6 +362,7 @@ MonoBehaviour:
   enemyHitTime: 0
   enemyWeakness: 0
   enemyType: 0
+  enemy_Weak: 0
   enemyCurrentMove: 0
   enemyMovePoint: []
   isTrace: 0
@@ -387,6 +388,9 @@ MonoBehaviour:
   moveDirection: {x: 0, y: 0, z: 0}
   findItemVec: {x: 0, y: 0, z: 0}
   rageCount: 1
+  rage1Sprite: {fileID: -674550596, guid: 37a65f2cbe76293498e7389bf9381823, type: 3}
+  rage2Sprite: {fileID: -72580976, guid: 37a65f2cbe76293498e7389bf9381823, type: 3}
+  rage3Sprite: {fileID: -1475041036, guid: 37a65f2cbe76293498e7389bf9381823, type: 3}
 --- !u!1 &7854038955713013511
 GameObject:
   m_ObjectHideFlags: 0
