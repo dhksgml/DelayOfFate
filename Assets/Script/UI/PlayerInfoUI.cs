@@ -58,8 +58,8 @@ public class PlayerInfoUI : MonoBehaviour
 
     private void Update()
     {
-        coin_text.text = $"냥: {GameManager.Instance.Gold}";
-        soul_text.text = $"혼: {GameManager.Instance.Soul} / <color=#ff0000>{GameManager.Instance.N_Day_Cost}</color>";
+        coin_text.text = $"냥: {(int)GameManager.Instance.Gold}";
+        soul_text.text = $"혼: {(int)GameManager.Instance.Soul} / <color=#ff0000>{(int)GameManager.Instance.N_Day_Cost}</color>";
 
         if (playerController == null) // 플레이어가 없는 경우 (상점, 스테이지 선택)
         {
