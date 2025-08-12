@@ -698,7 +698,7 @@ public class PlayerController : MonoBehaviour
 
         float baseRegenPerSecond = maxSp / spRecoveryDuration;
         float mpRatio = currentMp / maxMp;
-        float mpMultiplier = Mathf.Lerp(0.1f, 1.0f, mpRatio);
+        float mpMultiplier = Mathf.Lerp(0.5f, 1.0f, mpRatio);
 
         float speedMultiplier = isRecovering ? 1f : 0.5f;
 
