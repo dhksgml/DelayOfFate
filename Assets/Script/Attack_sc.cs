@@ -11,11 +11,11 @@ public class Attack_sc : MonoBehaviour
         Bottle
     }
 
-    [Header("°ø°Ý ¼³Á¤")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
     [HideInInspector]
     public AttackType attackType;
 
-    [Header("ÀÌÆåÆ® ¼³Á¤")]
+    [Header("ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½")]
     public SpriteRenderer effectRenderer;
     public float fadeOutTime = 0.25f;
 
@@ -30,7 +30,7 @@ public class Attack_sc : MonoBehaviour
     private void Start()
     {
         player_Item_Use = FindObjectOfType<Player_Item_Use>();
-        // Sword °ø°ÝÀÌ¸é ·£´ý È¸Àü
+        // Sword ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½
         if (attackType == AttackType.Sword && effectRenderer != null)
         {
             float randomRotation = Random.Range(0f, 360f);
@@ -39,7 +39,12 @@ public class Attack_sc : MonoBehaviour
 
         Invoke(nameof(StartFadeOut), 0.1f);
         PlayAnimation();
-        damage = GetDamageByType(attackType);
+
+        float damageMultiplier = 1f;
+        if (GameManager.Instance != null && GameManager.Instance.playerData != null)
+            damageMultiplier = GameManager.Instance.playerData.damageMultiplier;
+
+        damage = GetDamageByType(attackType) * damageMultiplier;
     }
 
 
@@ -98,8 +103,8 @@ public class Attack_sc : MonoBehaviour
 
     public void CheckWeakness()
     {
-        //Á¤Á¤´ç´ç º¸À¯ ½Ã
-        if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_1_2")) return;
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+        if (CheckWeaknessPassive()) return;
         effectRenderer.color = Color.red;
         TriggerWeaknessEffect();
     }
@@ -128,11 +133,11 @@ public class Attack_sc : MonoBehaviour
                         }
                         else
                         {
-                            if (attackType.ToString() != enemy.enemyWeakness.ToString())//¾àÁ¡ÀÌ ¾Æ´Ï¶ó¸é
+                            if (attackType.ToString() != enemy.enemyWeakness.ToString())//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½
                             {
-                                player_Item_Use.quickSlots[player_Item_Use.selectedSlotIndex].Count--; //°ø°ÝÀÌ ÀûÁßÇß´Ù¸é °³¼ö °¨¼Ò
+                                player_Item_Use.quickSlots[player_Item_Use.selectedSlotIndex].Count--; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-                                // °ì¼ö°¡ 0ÀÌ µÇ¸é ½½·Ô ºñ¿ì±â
+                                // ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                                 if (player_Item_Use.quickSlots[player_Item_Use.selectedSlotIndex].Count <= 0)
                                 {
                                     player_Item_Use.quickSlots[player_Item_Use.selectedSlotIndex] = null;
@@ -147,7 +152,7 @@ public class Attack_sc : MonoBehaviour
     }
     protected virtual void TriggerWeaknessEffect()
     {
-        // È®Àå¿ë
+        // È®ï¿½ï¿½ï¿½
         //if (attackType == AttackType.Bottle) { }
     }
 }

@@ -204,7 +204,7 @@ public class Boon_yeol_gwi : Enemy
             if (collision.gameObject.CompareTag("Attack") && !isEnemyHit && attack != null)
             {
                 // 타입이 일치하면 즉사
-                if (attack.attackType.ToString() == enemyWeakness.ToString())
+                if (!attack.CheckWeaknessPassive() && attack.attackType.ToString() == enemyWeakness.ToString())
                 {
                     Enemy_Weakness_Hit(attack.damage, attack.attackType.ToString(), enemyHp);
                     enemyHp = 0f;

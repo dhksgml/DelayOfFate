@@ -20,6 +20,9 @@ public class Player_Item_Use : MonoBehaviour
     // 소면귀용
     public bool isItemTouch = false;
 
+    public static bool isAnyItemBeingSold = false; // 전역 중복 방지 플래그
+    private ItemObject currentSellingItem = null;
+
     void Start()
     {
         itemUsageManager = GetComponent<ItemUsageManager>();
@@ -77,35 +80,40 @@ public class Player_Item_Use : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.E) && !playercontroller.isRecovering) // 꾹 눌러서 판매, 줍기
         {
-            Collider2D[] itemColliders = Physics2D.OverlapCircleAll(transform.position, 1f, itemLayer);
-            
-            foreach (Collider2D collider in itemColliders)
+            if (!isHolding && !isAnyItemBeingSold)
             {
-                ItemObject itemObject = collider.GetComponent<ItemObject>();
-                if (itemObject.itemData.Sell_immediately)// 즉시 판매 가능한 아이템만 가능
+                // 주변에서 즉시 판매 가능한 아이템 중 첫 번째 하나만 찾기
+                Collider2D nearestItemCollider = Physics2D.OverlapCircle(transform.position, 1f, itemLayer);
+                if (nearestItemCollider != null)
                 {
-                    isItemTouch = true;
-
-                    if (!isHolding)
+                    ItemObject itemObject = nearestItemCollider.GetComponent<ItemObject>();
+                    if (itemObject != null && itemObject.itemData.Sell_immediately)
                     {
                         isHolding = true;
+                        isAnyItemBeingSold = true;
                         holdTime = 0f;
-                    }
-                    holdTime += Time.deltaTime;
-                    if (holdTime >= requiredHoldTime)
-                    {
-                        TutorialEvents.OnItemSelled?.Invoke(itemObject.itemData);
-                        GameEvents.CallSaleItemImmediately();
-                        
-                        RemoveItem();
-
-                        isItemTouch = false;
-                        isHolding = false; // 한 번 실행 후 다시 대기
-                        holdTime = 0f;
+                        currentSellingItem = itemObject; // 새 변수, 현재 판매 중인 아이템 저장
                     }
                 }
             }
 
+            if (isHolding && currentSellingItem != null)
+            {
+                holdTime += Time.deltaTime;
+                if (holdTime >= requiredHoldTime)
+                {
+                    TutorialEvents.OnItemSelled?.Invoke(currentSellingItem.itemData);
+                    GameEvents.CallSaleItemImmediately();
+
+                    currentSellingItem.Sale("one");  // RemoveItem() 대신 개별 판매 함수 호출
+
+                    isHolding = false;
+                    isAnyItemBeingSold = false;
+                    holdTime = 0f;
+                    currentSellingItem = null;
+                    isItemTouch = false;
+                }
+            }
         }
         else if (Input.GetKeyUp(KeyCode.E) && !playercontroller.isRecovering) // 키 떼면
         {
@@ -119,8 +127,10 @@ public class Player_Item_Use : MonoBehaviour
             }
 
             isItemTouch = false;
-            isHolding = false; // 그게 아니면 초기화
+            isHolding = false;
+            isAnyItemBeingSold = false;
             holdTime = 0f;
+            currentSellingItem = null;
         }
     }
 

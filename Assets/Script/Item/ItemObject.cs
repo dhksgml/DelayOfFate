@@ -5,21 +5,26 @@ using TMPro;
 public class ItemObject : MonoBehaviour
 {
     public ItemData itemDataTemplate;
-    private Transform uiCanvas; // ÇÃ·¹ÀÌ¾î Äµ¹ö½º¿¡ ³Ö¾î¾ßÇÔ
+    private Transform uiCanvas; // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½
     public Item itemData;
     private SpriteRenderer spriteRenderer;
     private Player_Item_Use player_item_use;
     //public GameObject item_soul;
-    public GameObject infoPanel; // ¿ùµå UI (Canvas) ÂüÁ¶
-    public GameObject Sale_Effect; // ÆÇ¸Å ¿¬Ãâ
-    public TMP_Text name_text; // ÅØ½ºÆ® ÂüÁ¶
-    public TMP_Text coin_text; // ÅØ½ºÆ® ÂüÁ¶
-    public GameObject holdGaugeUI; // ÆÇ¸Å Å° °ÔÀÌÁö UI
-    public Image holdGauge; // °ÔÀÌÁö ÀÌ¹ÌÁö (Fill Amount ¹æ½Ä)
+    public GameObject infoPanel; // ï¿½ï¿½ï¿½ï¿½ UI (Canvas) ï¿½ï¿½ï¿½ï¿½
+    public GameObject Sale_Effect; // ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public TMP_Text name_text; // ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+    public TMP_Text coin_text; // ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+    public GameObject holdGaugeUI; // ï¿½Ç¸ï¿½ Å° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ UI
+    public Image holdGauge; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ (Fill Amount ï¿½ï¿½ï¿½)
 
-    private const float maxHoldTime = 1f; // ÆÇ¸Å Å° ÃÖ´ë ½Ã°£ 
+    private const float maxHoldTime = 1f; // ï¿½Ç¸ï¿½ Å° ï¿½Ö´ï¿½ ï¿½Ã°ï¿½ 
     private PlayerController playerController;
     private Material material;
+
+
+    Collider2D coll;
+    Rigidbody2D rb;
+
 
     void Start()
     {
@@ -27,6 +32,9 @@ public class ItemObject : MonoBehaviour
         player_item_use = FindObjectOfType<Player_Item_Use>();
         playerController = FindObjectOfType<PlayerController>();
         material = spriteRenderer.material;
+
+        coll = GetComponent<Collider2D>();
+        rb = GetComponent<Rigidbody2D>();
 
         if (itemDataTemplate != null)
         {
@@ -36,7 +44,7 @@ public class ItemObject : MonoBehaviour
         {
             spriteRenderer.sprite = itemData.InGameSprite;
         }
-        if (itemData != null && itemData.Drop_item == false) { itemData.SetRandomValues(); } // °ªÀÌ ¾øÀ¸¸é ·£´ý °ª Àû¿ë
+        if (itemData != null && itemData.Drop_item == false) { itemData.SetRandomValues(); } // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
         uiCanvas = GameObject.Find("Player_Canvas")?.transform;
         infoPanel?.SetActive(false);
@@ -53,7 +61,7 @@ public class ItemObject : MonoBehaviour
 
         float distance = Vector3.Distance(transform.position, player_item_use.transform.position);
 
-        if (distance < 1.5f) // ÇÃ·¹ÀÌ¾î°¡ °¡±îÀÌ ÀÖÀ» ¶§¸¸ °ÔÀÌÁö È°¼ºÈ­
+        if (distance < 1.5f) // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
         {
             float progress = Mathf.Clamp(player_item_use.holdTime / maxHoldTime, 0f, 1f);
             UpdateHoldGauge(progress);
@@ -63,10 +71,10 @@ public class ItemObject : MonoBehaviour
         }
         else
         {
-            UpdateHoldGauge(0f); // ÇÃ·¹ÀÌ¾î°¡ ¸Ö¾îÁö¸é °ÔÀÌÁö ¼û±è
+            UpdateHoldGauge(0f); // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
 
-        if (itemData == null) // ³»ºÎ µ¥ÀÌÅÍ °¡ ÀÖ´Â°¡?
+        if (itemData == null) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´Â°ï¿½?
         {
             //item_soul.SetActive(false);
         }
@@ -75,18 +83,18 @@ public class ItemObject : MonoBehaviour
             //item_soul.SetActive(true);
         }
     }
-    private float GetCollisionRadius() // Ãæµ¹¿ë ¹ÝÁö¸§ °è»ê±â
+    private float GetCollisionRadius() // ï¿½æµ¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         CircleCollider2D circle = GetComponent<CircleCollider2D>();
         if (circle != null)
         {
-            return circle.radius * Mathf.Max(transform.lossyScale.x, transform.lossyScale.y); // ½ºÄÉÀÏ ¹Ý¿µ
+            return circle.radius * Mathf.Max(transform.lossyScale.x, transform.lossyScale.y); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý¿ï¿½
         }
 
         return 0.5f; // fallback
     }
 
-    private void FixedUpdate() // ¾ÆÀÌÅÛ ³¢¸® ¹Ð¾î³»´Â ÄÚµåÀÎµ¥ ÀÛµ¿ ¾ÈÇÔ...
+    private void FixedUpdate() // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾î³»ï¿½ï¿½ ï¿½Úµï¿½ï¿½Îµï¿½ ï¿½Ûµï¿½ ï¿½ï¿½ï¿½ï¿½...
     {
         float radius = GetCollisionRadius();
         Collider2D[] overlaps = Physics2D.OverlapCircleAll(transform.position, radius, LayerMask.GetMask("Item"));
@@ -98,7 +106,7 @@ public class ItemObject : MonoBehaviour
                 Vector2 direction = (transform.position - col.transform.position).normalized;
                 float distance = Vector2.Distance(transform.position, col.transform.position);
 
-                GetComponent<Rigidbody2D>().AddForce(direction * 10f); // Èû Á¶Àý °¡´É
+                GetComponent<Rigidbody2D>().AddForce(direction * 10f); // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 
             }
         }
@@ -108,7 +116,7 @@ public class ItemObject : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             infoPanel?.SetActive(true);
-            holdGaugeUI?.SetActive(true); // ÇÃ·¹ÀÌ¾î°¡ °¡±îÀÌ ¿À¸é °ÔÀÌÁö UI È°¼ºÈ­
+            holdGaugeUI?.SetActive(true); // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ UI È°ï¿½ï¿½È­
             other.GetComponent<PlayerController>().isPickUpableItem = true;
         }
     }
@@ -118,7 +126,7 @@ public class ItemObject : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             infoPanel?.SetActive(false);
-            holdGaugeUI?.SetActive(false); // ÇÃ·¹ÀÌ¾î°¡ ¸Ö¾îÁö¸é UI ¼û±è
+            holdGaugeUI?.SetActive(false); // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ UI ï¿½ï¿½ï¿½ï¿½
             other.GetComponent<PlayerController>().isPickUpableItem = false;
         }
     }
@@ -128,7 +136,7 @@ public class ItemObject : MonoBehaviour
 
         if (ty == "one")
         {
-            // Soul ÀÌÆåÆ® ´Ü 1È¸ (°¡Ä¡ ºÐÇØ X)
+            // Soul ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ 1È¸ (ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ X)
             SpawnEffectParts(itemValue, "Soul");
 
             GameManager.Instance.Add_Soul(itemValue);
@@ -136,23 +144,23 @@ public class ItemObject : MonoBehaviour
         }
         else if (ty == "all")
         {
-            // ½ÇÁ¦ °ÔÀÓ»ó ÀçÈ­ Áõ°¡
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ó»ï¿½ ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
             GameManager.Instance?.Add_Gold(itemValue);
             if (itemData.id != 3)
             {
-                // 2. Soul ÀÌÆåÆ®: ¿ø·¡ °¡Ä¡ÀÇ 2¹è¸¸Å­
+                // 2. Soul ï¿½ï¿½ï¿½ï¿½Æ®: ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ 2ï¿½è¸¸Å­
                 SpawnEffectParts(itemValue * 2, "Soul");
                 SpawnEffectParts(itemValue, "Coin");
                 GameManager.Instance?.Add_Soul(itemValue * 2);
             }
             else
             {
-                // 1. Coin ÀÌÆåÆ®: ¿ø·¡ °¡Ä¡¸¸Å­
+                // 1. Coin ï¿½ï¿½ï¿½ï¿½Æ®: ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½Å­
                 SpawnEffectParts(itemValue, "Coin");
             }
         }
 
-        Destroy(gameObject); // ¾ÆÀÌÅÛ ¿ÀºêÁ§Æ® Á¦°Å
+        Destroy(gameObject); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
     }
 
     private void SpawnEffectParts(int totalValue, string type)
@@ -179,7 +187,7 @@ public class ItemObject : MonoBehaviour
     {
         if (holdGaugeUI != null)
         {
-            holdGaugeUI.SetActive(progress > 0); // progress°¡ 0º¸´Ù Å¬ ¶§¸¸ UI È°¼ºÈ­
+            holdGaugeUI.SetActive(progress > 0); // progressï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ Å¬ ï¿½ï¿½ï¿½ï¿½ UI È°ï¿½ï¿½È­
         }
         if (holdGauge != null)
         {
@@ -191,8 +199,8 @@ public class ItemObject : MonoBehaviour
         if (coin_text != null)
         {
             int total_coin = itemData.Coin * itemData.Count;
-            if (itemData.Sell_immediately) { coin_text.text = string.Format("[<b>E</b>] ÁÝ±â\n[<b>E~</b>] Áï½Ã ÆÇ¸Å: {0} È¥", total_coin); }
-            else {coin_text.text = string.Format("[<b>E</b>] ÁÝ±â\n{0} °ª", total_coin);} //Áï½Ã ÆÇ¸Å°¡ ºÒ°¡´ÉÇÑ ¾ÆÀÌÅÛÀÇ °æ¿ì
+            if (itemData.Sell_immediately) { coin_text.text = string.Format("[<b>E</b>] ï¿½Ý±ï¿½\n[<b>E~</b>] ï¿½ï¿½ï¿½ ï¿½Ç¸ï¿½: {0} È¥", total_coin); }
+            else {coin_text.text = string.Format("[<b>E</b>] ï¿½Ý±ï¿½\n{0} ï¿½ï¿½", total_coin);} //ï¿½ï¿½ï¿½ ï¿½Ç¸Å°ï¿½ ï¿½Ò°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         }
     }
 }
