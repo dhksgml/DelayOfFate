@@ -85,6 +85,8 @@ public class Duoksini : Enemy
         //    transform.Translate(moveDirection * enemyMoveSpeed * Time.deltaTime);
         //}
 
+        EnemyNormalTurn2();
+
         //현재 방향으로 이동
         transform.Translate(moveDirection * enemyMoveSpeed * Time.deltaTime);
     }
