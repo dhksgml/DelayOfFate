@@ -241,6 +241,7 @@ MonoBehaviour:
   enemyHitTime: 0
   enemyWeakness: 0
   enemyType: 0
+  enemy_Weak: 0
   enemyCurrentMove: 0
   enemyMovePoint: []
   isTrace: 0
@@ -308,7 +309,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2581753709897334888}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -484,13 +485,16 @@ MonoBehaviour:
   enemyTraceCollider: {fileID: 2596327631614365093}
   targetPos: {x: 0, y: 0, z: 0}
   enemy: {fileID: 6309446176609655507}
-  landShark: {fileID: 0}
-  landSharkAttack: {fileID: 0}
-  somyeon_Gwi: {fileID: 0}
-  boon_yeol_gwi: {fileID: 0}
-  mumyeon_Gwi: {fileID: 0}
-  death_Jangseung: {fileID: 0}
-  death_Jangseung_Attack: {fileID: 0}
-  duoksini: {fileID: 0}
-  duoksini_Attack: {fileID: 0}
+  enemyScript:
+    landShark: {fileID: 0}
+    landSharkAttack: {fileID: 0}
+    somyeon_Gwi: {fileID: 0}
+    boon_yeol_gwi: {fileID: 0}
+    mumyeon_Gwi: {fileID: 0}
+    death_Jangseung: {fileID: 0}
+    death_Jangseung_Attack: {fileID: 0}
+    duoksini: {fileID: 0}
+    duoksini_Attack: {fileID: 0}
+    eo_dook_jwi: {fileID: 0}
+    playerOrigin_Light_Intensity: 0
   landSharkAttackTime: 0
