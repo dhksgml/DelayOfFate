@@ -18,6 +18,8 @@ public class Duoksini_Attack : EnemyAttack
     [SerializeField] float duoksiniAttackDelay;
     float duoksiniAttackTime;
 
+    [SerializeField] GameObject attackEffect;
+
     void Awake()
     {
         //플레이어를 찾아서 저장해준 후
@@ -49,6 +51,8 @@ public class Duoksini_Attack : EnemyAttack
 
         if (duoksiniAttackTime >= duoksiniAttackDelay)
         {
+            // 이펙트 생성
+            GameObject effect = Instantiate(attackEffect, transform.position, Quaternion.identity);
 
             Debug.Log("공격");
             // 파괴
@@ -70,6 +74,9 @@ public class Duoksini_Attack : EnemyAttack
 
             // 콜라이더 비활성화
             Invoke("Dealy", 0.1f);
+
+            // 이펙트 삭제
+            Destroy(effect, 0.2f);
         }
     }
 

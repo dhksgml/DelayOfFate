@@ -112,13 +112,26 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        Init();
         animator = GetComponent<Animator>();
         placeManager = FindObjectOfType<PlaceManager>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         player_Item_Use = GetComponent<Player_Item_Use>();
         nearestItemFinder = GetComponent<NearestItemFinder>();
         mainCamera = Camera.main;
+
+        Init();
+    }
+
+    private void OnEnable()
+    {
+        GameEvents.OnPickupItem += HandlePickupItem;
+        GameEvents.OnDropItem += HandleDropItem;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnPickupItem -= HandlePickupItem;
+        GameEvents.OnDropItem -= HandleDropItem;
     }
 
     public void Init()
@@ -786,18 +799,24 @@ public class PlayerController : MonoBehaviour
         float damageMultiplier = Mathf.Lerp(1, 2, 1 - spRatio);
 
         float totalDamage = value * damageMultiplier;
+
+        if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_4_1"))
+        {
+            totalDamage *= GameManager.Instance.playerData.damageTakenMultiplier;
+        }
+        
         Effect_cr("e_at", transform.position, 0);//ÀÌÆåÆ®
 
         if (currentExtraHp > 0)
         {
             float damageToExtra = Mathf.Min(currentExtraHp, totalDamage);
             currentExtraHp -= damageToExtra;
-            value -= damageToExtra;
+            totalDamage -= damageToExtra;
         }
 
-        if (value > 0)
+        if (totalDamage > 0)
         {
-            currentHp = Mathf.Max(currentHp - value, 0);
+            currentHp = Mathf.Max(currentHp - totalDamage, 0);
             if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_player_hit"));
         }
 
@@ -898,4 +917,28 @@ public class PlayerController : MonoBehaviour
 
         return null;
     }
+
+    private void HandleDropItem()
+    {
+        if(PassiveItemManager.Instance != null)
+        {
+            if (PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
+            {
+                speedMultiplier = GameManager.Instance.playerData.speedMultiplier;
+            }
+
+        }
+    }
+
+    private void HandlePickupItem()
+    {
+        if (PassiveItemManager.Instance != null)
+        {
+            if (PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
+            {
+                speedMultiplier = GameManager.Instance.playerData.speedMultiplier;
+            }
+        }
+    }
+
 }
