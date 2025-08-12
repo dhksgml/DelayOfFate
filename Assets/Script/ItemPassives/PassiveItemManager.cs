@@ -387,13 +387,13 @@ public class PassiveItemManager : MonoBehaviour
     //정정당당
     public void DoPassive_1_2()
     {
-        TryApplyEffect(new IncreaseDamageEffect(GameManager.Instance.playerData, 0.1f));
+        TryApplyEffect(new IncreaseDamageEffect(GameManager.Instance.playerData, 1f));
         //급소공략 불가능
     }
 
     public void RemovePassive_1_2()
     {
-        TryRemoveEffect(new IncreaseDamageEffect(GameManager.Instance.playerData, 0.1f));
+        TryRemoveEffect(new IncreaseDamageEffect(GameManager.Instance.playerData, 1f));
     }
 
     //문전박대

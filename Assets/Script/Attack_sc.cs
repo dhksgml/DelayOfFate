@@ -37,7 +37,12 @@ public class Attack_sc : MonoBehaviour
 
         Invoke(nameof(StartFadeOut), 0.1f);
         PlayAnimation();
-        damage = GetDamageByType(attackType);
+
+        float damageMultiplier = 1f;
+        if (GameManager.Instance != null && GameManager.Instance.playerData != null)
+            damageMultiplier = GameManager.Instance.playerData.damageMultiplier;
+
+        damage = GetDamageByType(attackType) * damageMultiplier;
     }
 
 
@@ -96,9 +101,14 @@ public class Attack_sc : MonoBehaviour
     public void CheckWeakness()
     {
         //정정당당 보유 시
-        if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_1_2")) return;
+        if (CheckWeaknessPassive()) return;
         effectRenderer.color = Color.red;
         TriggerWeaknessEffect();
+    }
+
+    public bool CheckWeaknessPassive()
+    {
+        return PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_1_2");
     }
 
     protected virtual void TriggerWeaknessEffect()
