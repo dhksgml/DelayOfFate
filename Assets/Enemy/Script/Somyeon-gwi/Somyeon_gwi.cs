@@ -85,7 +85,7 @@ public class Somyeon_gwi : Enemy
             if (collision.gameObject.CompareTag("Attack") && !isEnemyHit && attack != null)
             {
                 // 타입이 일치하면 즉사
-                if (attack.attackType.ToString() == enemyWeakness.ToString())
+                if (!attack.CheckWeaknessPassive() && attack.attackType.ToString() == enemyWeakness.ToString())
                 {
                     //이부분 없다 나와서 일단 주석 처리 해주었음.
                     attack.CheckWeakness();

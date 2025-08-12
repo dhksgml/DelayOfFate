@@ -21,12 +21,20 @@ public class ItemObject : MonoBehaviour
     private PlayerController playerController;
     private Material material;
 
+
+    Collider2D coll;
+    Rigidbody2D rb;
+
+
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         player_item_use = FindObjectOfType<Player_Item_Use>();
         playerController = FindObjectOfType<PlayerController>();
         material = spriteRenderer.material;
+
+        coll = GetComponent<Collider2D>();
+        rb = GetComponent<Rigidbody2D>();
 
         if (itemDataTemplate != null)
         {
@@ -110,6 +118,39 @@ public class ItemObject : MonoBehaviour
             infoPanel?.SetActive(true);
             holdGaugeUI?.SetActive(true); // 플레이어가 가까이 오면 게이지 UI 활성화
             other.GetComponent<PlayerController>().isPickUpableItem = true;
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+
+        if (other.CompareTag("Item") && other != coll)
+        {
+            ColliderDistance2D dist = coll.Distance(other);
+            if (dist.isOverlapped)
+            {
+                // 겹침 정도(거리)와 방향
+                Vector2 pushDir = dist.normal; // 겹친 방향 벡터 (this -> other 방향)
+                float pushDist = dist.distance; // 음수 값 (겹친 거리)
+
+
+                // 밀어내기 거리에 추가 공간 더하기 (음수이므로 빼기)
+                float totalPushDistance = pushDist - 10.0f;
+
+                Vector2 pushVector = pushDir * totalPushDistance;
+
+                // Rigidbody2D.MovePosition으로 밀어내기
+                Vector2 newPos = rb.position + pushVector * 5f * Time.deltaTime;
+                rb.MovePosition(newPos);
+
+                // isTrigger 끄고 싶으면 여기서 설정 가능
+                // coll.isTrigger = false;
+            }
+            else
+            {
+                // 겹치지 않으면 isTrigger 켜기 (필요하면)
+                // coll.isTrigger = true;
+            }
         }
     }
 
