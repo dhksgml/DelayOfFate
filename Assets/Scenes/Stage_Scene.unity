@@ -610,6 +610,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OptionCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4559693910794965823, guid: 6036c4bd04337fc4fb7e7fcce7276cdd, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8c50018362b02f84f93373a7b41df2aa, type: 3}
     - target: {fileID: 5450022907413867643, guid: 6036c4bd04337fc4fb7e7fcce7276cdd, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -701,6 +705,10 @@ PrefabInstance:
     - target: {fileID: 5450022907413867643, guid: 6036c4bd04337fc4fb7e7fcce7276cdd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8633290829918421383, guid: 6036c4bd04337fc4fb7e7fcce7276cdd, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

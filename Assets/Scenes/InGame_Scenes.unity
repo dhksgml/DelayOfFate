@@ -323,7 +323,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb50618e06c54d7429064ec931f330a0, type: 3}
---- !u!43 &834354207
+--- !u!43 &893750306
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -488,7 +488,7 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!43 &893750306
+--- !u!43 &1013857303
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -751,6 +751,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OptionCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4559693910794965823, guid: 6036c4bd04337fc4fb7e7fcce7276cdd, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8c50018362b02f84f93373a7b41df2aa, type: 3}
     - target: {fileID: 5450022907413867643, guid: 6036c4bd04337fc4fb7e7fcce7276cdd, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -842,6 +846,10 @@ PrefabInstance:
     - target: {fileID: 5450022907413867643, guid: 6036c4bd04337fc4fb7e7fcce7276cdd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8633290829918421383, guid: 6036c4bd04337fc4fb7e7fcce7276cdd, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1030,6 +1038,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2504713854543896948, guid: a64d25c8f27fd854cb891326e199f315, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3261709081600107185, guid: a64d25c8f27fd854cb891326e199f315, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8c50018362b02f84f93373a7b41df2aa, type: 3}
     - target: {fileID: 8384770879488941174, guid: a64d25c8f27fd854cb891326e199f315, type: 3}
       propertyPath: m_Name
       value: PlayerInfoUI
