@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Attack_sc : MonoBehaviour
 {
-
     public enum AttackType
     {
         Sword,
@@ -22,12 +21,15 @@ public class Attack_sc : MonoBehaviour
 
     public float damage;
     private Animator animator;
+
+    private Player_Item_Use player_Item_Use;
     private void Awake()
     {
         animator = GetComponent<Animator>();
     }
     private void Start()
     {
+        player_Item_Use = FindObjectOfType<Player_Item_Use>();
         // Sword 공격이면 랜덤 회전
         if (attackType == AttackType.Sword && effectRenderer != null)
         {
@@ -89,6 +91,7 @@ public class Attack_sc : MonoBehaviour
             case AttackType.Sword: return Mathf.FloorToInt(Random.Range(10f, 14f+1));
             case AttackType.Bat: return Mathf.FloorToInt(Random.Range(20f, 30f+1));
             case AttackType.Paper: return Mathf.FloorToInt(Random.Range(10f, 12f+1));
+            case AttackType.Bottle: return Mathf.FloorToInt(444);
             default: return 0f;
         }
     }
@@ -100,7 +103,48 @@ public class Attack_sc : MonoBehaviour
         effectRenderer.color = Color.red;
         TriggerWeaknessEffect();
     }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision != null)
+        {
+            Enemy enemy = collision.GetComponent<Enemy>();
+            if (enemy == null)
+            {
+                enemy = collision.GetComponentInParent<Enemy>();
+            }
+            if (enemy != null && enemy.gameObject.CompareTag("Enemy"))
+            {
+                if (enemy.gameObject.CompareTag("Enemy"))
+                {
+                    if (attackType == AttackType.Scroll)
+                    {
+                        damage = enemy.enemyMaxHp / 2;
+                    }
+                    else if (attackType == AttackType.Bottle)
+                    {
+                        if (enemy.enemyHeight == 21)
+                        {
+                            damage = 0;
+                        }
+                        else
+                        {
+                            if (attackType.ToString() != enemy.enemyWeakness.ToString())//약점이 아니라면
+                            {
+                                player_Item_Use.quickSlots[player_Item_Use.selectedSlotIndex].Count--; //공격이 적중했다면 개수 감소
 
+                                // 곗수가 0이 되면 슬롯 비우기
+                                if (player_Item_Use.quickSlots[player_Item_Use.selectedSlotIndex].Count <= 0)
+                                {
+                                    player_Item_Use.quickSlots[player_Item_Use.selectedSlotIndex] = null;
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+    }
     protected virtual void TriggerWeaknessEffect()
     {
         // 확장용

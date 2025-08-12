@@ -46,7 +46,7 @@ public class Player_Item_Use : MonoBehaviour
                     }
                     else
                     {
-                        UseItem(selectedItem.itemName); // 사용
+                        UseItem(); // 사용
                         
                     }
                 }
@@ -57,7 +57,7 @@ public class Player_Item_Use : MonoBehaviour
             chargingTimer += Time.deltaTime;
             if (chargingTimer >= requiredHoldTime)
             {
-                UseItem(chargingItem.itemName); // 차징 완료 시 사용
+                UseItem(); // 차징 완료 시 사용
                 isCharging = false;
                 chargingItem = null;
             }
@@ -153,14 +153,24 @@ public class Player_Item_Use : MonoBehaviour
     {
         if(!playercontroller.isRecovering && selectedItem.spendSPAmount < playercontroller.currentSp)
         {
-            playercontroller.SpendSp(selectedItem.spendSPAmount);
+            if (selectedItem.id == 995) //족자의 경우 기력 대신 정신력 사용
+            {
+                if (!playercontroller.isRecovering && selectedItem.spendSPAmount < playercontroller.currentMp)
+                {
+                    playercontroller.SpendMp(Random.Range(selectedItem.spendSPAmount - 2, selectedItem.spendSPAmount + 2));
+                } 
+            }
+            else
+            {
+                playercontroller.SpendSp(selectedItem.spendSPAmount);
+            }
             itemUsageManager.UseItem(selectedItem.itemName);
             TutorialEvents.OnWeaponUsed?.Invoke(selectedItem);
             animator.SetTrigger("Attack");
         }
     }
 
-    void UseItem(string itemName)
+    void UseItem()
     {
         if (playercontroller.Player_Usage_cu_cool_down > 0f)
         {
@@ -179,12 +189,15 @@ public class Player_Item_Use : MonoBehaviour
                 {
                     if (selectedItem.Count > 0)
                     {
-                        selectedItem.Count--;
-
-                        // 곗수가 0이 되면 슬롯 비우기
-                        if (selectedItem.Count <= 0)
+                        if (selectedItem.id != 996)
                         {
-                            quickSlots[selectedSlotIndex] = null;
+                            selectedItem.Count--;
+
+                            // 곗수가 0이 되면 슬롯 비우기
+                            if (selectedItem.Count <= 0)
+                            {
+                                quickSlots[selectedSlotIndex] = null;
+                            }
                         }
                     }
                     else
