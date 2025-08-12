@@ -245,6 +245,7 @@ public class Player_Item_Use : MonoBehaviour
                 if (slotItem == null || string.IsNullOrEmpty(slotItem.itemName))
                 {
                     TutorialEvents.OnItemPickedUp?.Invoke(droppedItem);
+                    GameEvents.CallPickupItem();
                     quickSlots[selectedSlotIndex] = droppedItem;
                     if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_pickup"));
                     Destroy(itemObject.gameObject);
@@ -295,8 +296,8 @@ public class Player_Item_Use : MonoBehaviour
                 spriteRenderer.sprite = newItemComponent.itemData.InGameSprite;
             }
 
+            GameEvents.CallDropItem();
             Debug.Log($"버린 아이템: {newItemComponent.itemData.itemName}, 금액: {newItemComponent.itemData.Coin}, 무게: {newItemComponent.itemData.Weight}");
-
             // 퀵슬롯에서 해당 아이템 제거
             quickSlots[selectedSlotIndex] = null;
             UpdateQuickSlotUI();
