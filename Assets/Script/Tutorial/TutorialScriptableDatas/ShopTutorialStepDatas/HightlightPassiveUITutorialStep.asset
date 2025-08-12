@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stepName: HightlightPassiveUI
   messages:
-  - "\uD654\uBA74 \uC6B0\uCE21\uC5D0\uB294 \uAD6C\uB9E4\uD55C \uC601\uD63C\uAC15\uD654\uAC00
+  - "\uD654\uBA74 \uD558\uB2E8\uC5D0\uB294 \uAD6C\uB9E4\uD55C \uC601\uD63C\uAC15\uD654\uAC00
     \uD45C\uC2DC\uB429\uB2C8\uB2E4."
   waitForInput: 0
   condition: {fileID: 11400000, guid: 70fbec192ce53c043b2d3bf316fc6e7e, type: 2}
