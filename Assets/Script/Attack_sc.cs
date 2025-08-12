@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Attack_sc : MonoBehaviour
 {
-
     public enum AttackType
     {
         Sword,
@@ -12,23 +11,26 @@ public class Attack_sc : MonoBehaviour
         Bottle
     }
 
-    [Header("°ø°Ý ¼³Á¤")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
     [HideInInspector]
     public AttackType attackType;
 
-    [Header("ÀÌÆåÆ® ¼³Á¤")]
+    [Header("ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½")]
     public SpriteRenderer effectRenderer;
     public float fadeOutTime = 0.25f;
 
     public float damage;
     private Animator animator;
+
+    private Player_Item_Use player_Item_Use;
     private void Awake()
     {
         animator = GetComponent<Animator>();
     }
     private void Start()
     {
-        // Sword °ø°ÝÀÌ¸é ·£´ý È¸Àü
+        player_Item_Use = FindObjectOfType<Player_Item_Use>();
+        // Sword ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½
         if (attackType == AttackType.Sword && effectRenderer != null)
         {
             float randomRotation = Random.Range(0f, 360f);
@@ -94,26 +96,63 @@ public class Attack_sc : MonoBehaviour
             case AttackType.Sword: return Mathf.FloorToInt(Random.Range(10f, 14f+1));
             case AttackType.Bat: return Mathf.FloorToInt(Random.Range(20f, 30f+1));
             case AttackType.Paper: return Mathf.FloorToInt(Random.Range(10f, 12f+1));
+            case AttackType.Bottle: return Mathf.FloorToInt(444);
             default: return 0f;
         }
     }
 
     public void CheckWeakness()
     {
-        //Á¤Á¤´ç´ç º¸À¯ ½Ã
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
         if (CheckWeaknessPassive()) return;
         effectRenderer.color = Color.red;
         TriggerWeaknessEffect();
     }
-
-    public bool CheckWeaknessPassive()
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        return PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_1_2");
-    }
+        if (collision != null)
+        {
+            Enemy enemy = collision.GetComponent<Enemy>();
+            if (enemy == null)
+            {
+                enemy = collision.GetComponentInParent<Enemy>();
+            }
+            if (enemy != null && enemy.gameObject.CompareTag("Enemy"))
+            {
+                if (enemy.gameObject.CompareTag("Enemy"))
+                {
+                    if (attackType == AttackType.Scroll)
+                    {
+                        damage = enemy.enemyMaxHp / 2;
+                    }
+                    else if (attackType == AttackType.Bottle)
+                    {
+                        if (enemy.enemyHeight == 21)
+                        {
+                            damage = 0;
+                        }
+                        else
+                        {
+                            if (attackType.ToString() != enemy.enemyWeakness.ToString())//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½
+                            {
+                                player_Item_Use.quickSlots[player_Item_Use.selectedSlotIndex].Count--; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
+                                // ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                                if (player_Item_Use.quickSlots[player_Item_Use.selectedSlotIndex].Count <= 0)
+                                {
+                                    player_Item_Use.quickSlots[player_Item_Use.selectedSlotIndex] = null;
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+    }
     protected virtual void TriggerWeaknessEffect()
     {
-        // È®Àå¿ë
+        // È®ï¿½ï¿½ï¿½
         //if (attackType == AttackType.Bottle) { }
     }
 }
