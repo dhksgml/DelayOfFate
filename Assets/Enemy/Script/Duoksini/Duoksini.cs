@@ -85,9 +85,6 @@ public class Duoksini : Enemy
         //    transform.Translate(moveDirection * enemyMoveSpeed * Time.deltaTime);
         //}
 
-        // 스프라이트 때문에 이걸 사용해줌
-        EnemyNormalTurn2();
-
         //현재 방향으로 이동
         transform.Translate(moveDirection * enemyMoveSpeed * Time.deltaTime);
     }

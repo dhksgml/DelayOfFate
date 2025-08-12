@@ -21,7 +21,7 @@ public class PassiveItemManager : MonoBehaviour
     {
         PlayerPrefs.DeleteAll();
 
-        // ÇöÀç ¾À¿¡ ÀÚ½Å°ú °°Àº Å¸ÀÔÀÇ ¿ÀºêÁ§Æ®°¡ 2°³ ÀÌ»ó ÀÖ´Â °æ¿ì Áï½Ã »èÁ¦
+        // í˜„ì¬ ì”¬ì— ìì‹ ê³¼ ê°™ì€ íƒ€ì…ì˜ ì˜¤ë¸Œì íŠ¸ê°€ 2ê°œ ì´ìƒ ìˆëŠ” ê²½ìš° ì¦‰ì‹œ ì‚­ì œ
         if (Instance == null)
         {
             Instance = this;
@@ -34,7 +34,7 @@ public class PassiveItemManager : MonoBehaviour
 
         passiveItems = new List<PassiveItemData>();
 
-        // Á¾·ùº° 2°³¾¿ ÃÑ 7Á¾·ù
+        // ì¢…ë¥˜ë³„ 2ê°œì”© ì´ 7ì¢…ë¥˜
         for (int g = 1; g <= 7; g++)
         {
             for (int n = 1; n <= 2; n++)
@@ -42,7 +42,7 @@ public class PassiveItemManager : MonoBehaviour
                 AddPassiveItem(g, n);
             }
         }
-        // 3¹øÂ° È¿°ú Soul_Add_2_3, Soul_Add_4_3, Soul_Add_6_3
+        // 3ë²ˆì§¸ íš¨ê³¼ Soul_Add_2_3, Soul_Add_4_3, Soul_Add_6_3
         for (int n = 2; n <= 6; n += 2)
         {
             AddPassiveItem(n, 3);
@@ -73,7 +73,7 @@ public class PassiveItemManager : MonoBehaviour
 
     void Start()
     {
-        // ÀúÀåµÈ °ª ºÒ·¯¿À±â
+        // ì €ì¥ëœ ê°’ ë¶ˆëŸ¬ì˜¤ê¸°
         foreach (var item in passiveItems)
         {
             if (PlayerPrefs.GetInt(item.id, 0) == 1)
@@ -109,66 +109,66 @@ public class PassiveItemManager : MonoBehaviour
     {
         switch ($"{group}_{number}")
         {
-            case "1_1": return "ÃµÇÏÀå»ç";
-            case "1_2": return "Á¤Á¤´ç´ç";
-            //case "2_1": return "¹®Àü¹Ú´ë";
-            //case "2_2": return "¹é¹ß¹éÁß";
-            //case "2_3": return "Äèµµ³­¸¶";
-            case "3_1": return "±İÀÇÈ¯Çâ";
-            case "3_2": return "´Ù´ÙÀÍ¼±";
-            case "4_1": return "±İ°­ºÒ±«";
-            case "4_2": return "¿Ü°­³»À¯";
-            case "4_3": return "¿ÜÀ¯³»°­";
-            case "5_1": return "°¡´ãÇ×¼³";
-            case "5_2": return "Ãë»ç¼±ÅÃ";
-            //case "6_1": return "µî¿ë¹®";
-            case "6_2": return "½Â½ÂÀå±¸";
-            case "6_3": return "¼±°ßÁö¸í";
-            case "7_1": return "±¸»çÀÏ»ı";
-            case "7_2": return "±Ã¿©ÁöÃ¥";
-            //ÆĞ½Ãºê ¾Æ´Ô
-            case "8_1": return "È¯µµ";
-            case "8_2": return "¹æ¸ÁÀÌ";
-            case "8_3": return "ºÎÀû 20Àå";
-            case "9_1": return "È£·Õ";
-            case "9_2": return "È£·Õ";
+            case "1_1": return "ì²œí•˜ì¥ì‚¬";
+            case "1_2": return "ì •ì •ë‹¹ë‹¹";
+            //case "2_1": return "ë¬¸ì „ë°•ëŒ€";
+            //case "2_2": return "ë°±ë°œë°±ì¤‘";
+            //case "2_3": return "ì¾Œë„ë‚œë§ˆ";
+            case "3_1": return "ê¸ˆì˜í™˜í–¥";
+            case "3_2": return "ë‹¤ë‹¤ìµì„ ";
+            case "4_1": return "ê¸ˆê°•ë¶ˆê´´";
+            case "4_2": return "ì™¸ê°•ë‚´ìœ ";
+            case "4_3": return "ì™¸ìœ ë‚´ê°•";
+            case "5_1": return "ê°€ë‹´í•­ì„¤";
+            case "5_2": return "ì·¨ì‚¬ì„ íƒ";
+            //case "6_1": return "ë“±ìš©ë¬¸";
+            case "6_2": return "ìŠ¹ìŠ¹ì¥êµ¬";
+            case "6_3": return "ì„ ê²¬ì§€ëª…";
+            case "7_1": return "êµ¬ì‚¬ì¼ìƒ";
+            case "7_2": return "ê¶ì—¬ì§€ì±…";
+            //íŒ¨ì‹œë¸Œ ì•„ë‹˜
+            case "8_1": return "í™˜ë„";
+            case "8_2": return "ë°©ë§ì´";
+            case "8_3": return "ë¶€ì  20ì¥";
+            case "9_1": return "í˜¸ë¡±";
+            case "9_2": return "í˜¸ë¡±";
             // ...
-            default: return "¾Ë ¼ö ¾øÀ½";
+            default: return "ì•Œ ìˆ˜ ì—†ìŒ";
         }
     }
     string GetPassiveDescription(int group, int number)
     {
-        //16±ÛÀÚ ¸¶´Ù ÁÙ ¹Ù²ŞÀÌ µÊ
+        //16ê¸€ì ë§ˆë‹¤ ì¤„ ë°”ê¿ˆì´ ë¨
         switch ($"{group}_{number}")
         {
-            case "1_1": return "¹°°ÇÀÇ ¹«°Ô·Î ÀÎÇÑ ÀÌµ¿¼Óµµ\n°¨¼ÓÀÌ Á¦°ÅµÊ";
-            case "1_2": return "¾Ç±Í¿¡°Ô ÁÖ´Â ÇÇÇØ°¡ 10ÇÒ Áõ°¡\n¾Ç±ÍÀÇ ¾àÁ¡À» °ø°İ ÇÒ ¼ö ¾øÀ½";
-            //case "2_1": return "¹æ¸ÁÀÌÀÇ °ø°İ ¹üÀ§°¡ 10ÇÒ Áõ°¡\n¹æ¸ÁÀÌ°¡ Áï½Ã ½ÃÀü ¹æ¸ÁÀÌÀÇ ÇÇÇØ·®ÀÌ 5ÇÒ Áõ°¡";
-            //case "2_2": return "ºÎÀûÀÇ Ãß°İ ¹üÀ§°¡ 20ÇÒ Áõ°¡\nºÎÀûÀÇ ÇÇÇØ·®ÀÌ 5ÇÒ Áõ°¡";
-            //case "2_3": return "È¯µµÀÇ °ø°İ¼Óµµ 5ÇÒ Áõ°¡\nÈ¯µµÀÇ ÇÇÇØ°¡ 5ÇÒ Áõ°¡";
-            case "3_1": return "¾à°ª ÁöºÒ ÈÄ º¸À¯ÇÑ ³ÉÀÇ\n1ÇÒ ¸¸Å­ È¹µæ";
-            case "3_2": return "¹«±â¸¦ 0È¥ À¸·Î ±¸¸Å °¡´É";
-            case "4_1": return "¾Ç±Í·Î ¹Ş´Â Ã¼·ÂÇÇÇØ°¡\n5ÇÒ °¨¼Ò";
-            case "4_2": return "Ã¼·ÂÀÌ 75 Áõ°¡\nÁ¤½ÅÀÌ 25 °¨¼Ò";
-            case "4_3": return "Á¤½ÅÀÌ 75 Áõ°¡\nÃ¼·ÂÀÌ 25 °¨¼Ò";
-            case "5_1": return "°¡Àå °¡±î¿î ¹°°ÇÀÇ\nÀ§Ä¡¸¦ ÆÄ¾ÇÇÔ";
-            case "5_2": return "ºñ¾î ÀÖ´Â ¼Õ ¸¸Å­\nÀÌµ¿¼Óµµ 1ÇÒ Áõ°¡";
-            //case "6_1": return "Áï½Ã ÆÇ¸Å½Ã ÀÌµ¿¼Óµµ 1ÇÒ Áõ°¡\nÇÏ·ç°¡ Áö³ª¸é ÃÊ±âÈ­\n(ÃÖ´ë 3ÇÒ)";
-            case "6_2": return "¾Ç±Í¸¦ Ã³Ä¡½Ã\n¿µ±¸ÀûÀ¸·Î ÇÇÇØ·® 1ÇÒ Áõ°¡";
-            case "6_3": return "ÇÏ·ç°¡ Áö³¯¶§ µé°í ÀÖ´ø ¹°°ÇÀÇ\n°¡Ä¡°¡ 5ÇÒ Áõ°¡";
-            case "7_1": return "ºÎÈ° ½Ã\n¹°°ÇÀ» ¶³¾î¶ß¸®Áö ¾Ê°í ºÎÈ°";
-            case "7_2": return "18°¢ ÀÌ»ó½Ã\n´Ş¸®±â ¼Óµµ°¡ 5ÇÒ Áõ°¡";
-            //ÆĞ½Ãºê ¾Æ´Ô
-            case "8_1": return "Àü¹æÀ» °ø°İÇØ 10~14ÀÇ ÇÇÇØ¸¦ ÀÔÈû\n¾àÁ¡ÀÇ °æ¿ì Áï»ç½ÃÅ´";
-            case "8_2": return "Àü¹æÀ» °ø°İÇØ 20~30ÀÇ ÇÇÇØ¸¦ ÀÔÈû\n¾àÁ¡ÀÇ °æ¿ì Áï»ç½ÃÅ´";
-            case "8_3": return "[¼Ò¸ğÇü]\nºÎÀûÀ» ´øÁ® 10~12ÀÇ ÇÇÇØ¸¦ ÀÔÈû\n¾àÁ¡ÀÇ °æ¿ì\nÃÖ´ëÃ¼·Â 5ÇÒÀÇ ÇÇÇØ¸¦ ÀÔÈû";
-            case "9_1": return "ºûÀÌ ´õ °­ÇØÁü";
-            case "9_2": return "´Ş·Áµµ ºûÀÌ ²¨ÁöÁö ¾ÊÀ½";
+            case "1_1": return "ë¬¼ê±´ì˜ ë¬´ê²Œë¡œ ì¸í•œ ì´ë™ì†ë„\nê°ì†ì´ ì œê±°ë¨";
+            case "1_2": return "ì•…ê·€ì—ê²Œ ì£¼ëŠ” í”¼í•´ê°€ 10í•  ì¦ê°€\nì•…ê·€ì˜ ì•½ì ì„ ê³µê²© í•  ìˆ˜ ì—†ìŒ";
+            //case "2_1": return "ë°©ë§ì´ì˜ ê³µê²© ë²”ìœ„ê°€ 10í•  ì¦ê°€\në°©ë§ì´ê°€ ì¦‰ì‹œ ì‹œì „ ë°©ë§ì´ì˜ í”¼í•´ëŸ‰ì´ 5í•  ì¦ê°€";
+            //case "2_2": return "ë¶€ì ì˜ ì¶”ê²© ë²”ìœ„ê°€ 20í•  ì¦ê°€\në¶€ì ì˜ í”¼í•´ëŸ‰ì´ 5í•  ì¦ê°€";
+            //case "2_3": return "í™˜ë„ì˜ ê³µê²©ì†ë„ 5í•  ì¦ê°€\ní™˜ë„ì˜ í”¼í•´ê°€ 5í•  ì¦ê°€";
+            case "3_1": return "ì•½ê°’ ì§€ë¶ˆ í›„ ë³´ìœ í•œ ëƒ¥ì˜\n1í•  ë§Œí¼ íšë“";
+            case "3_2": return "ë¬´ê¸°ë¥¼ 0í˜¼ ìœ¼ë¡œ êµ¬ë§¤ ê°€ëŠ¥";
+            case "4_1": return "ì•…ê·€ë¡œ ë°›ëŠ” ì²´ë ¥í”¼í•´ê°€\n5í•  ê°ì†Œ";
+            case "4_2": return "ì²´ë ¥ì´ 75 ì¦ê°€\nì •ì‹ ì´ 25 ê°ì†Œ";
+            case "4_3": return "ì •ì‹ ì´ 75 ì¦ê°€\nì²´ë ¥ì´ 25 ê°ì†Œ";
+            case "5_1": return "ê°€ì¥ ê°€ê¹Œìš´ ë¬¼ê±´ì˜\nìœ„ì¹˜ë¥¼ íŒŒì•…í•¨";
+            case "5_2": return "ë¹„ì–´ ìˆëŠ” ì† ë§Œí¼\nì´ë™ì†ë„ 1í•  ì¦ê°€";
+            //case "6_1": return "ì¦‰ì‹œ íŒë§¤ì‹œ ì´ë™ì†ë„ 1í•  ì¦ê°€\ní•˜ë£¨ê°€ ì§€ë‚˜ë©´ ì´ˆê¸°í™”\n(ìµœëŒ€ 3í• )";
+            case "6_2": return "ì•…ê·€ë¥¼ ì²˜ì¹˜ì‹œ\nì˜êµ¬ì ìœ¼ë¡œ í”¼í•´ëŸ‰ 1í•  ì¦ê°€";
+            case "6_3": return "í•˜ë£¨ê°€ ì§€ë‚ ë•Œ ë“¤ê³  ìˆë˜ ë¬¼ê±´ì˜\nê°€ì¹˜ê°€ 5í•  ì¦ê°€";
+            case "7_1": return "ë¶€í™œ ì‹œ\në¬¼ê±´ì„ ë–¨ì–´ëœ¨ë¦¬ì§€ ì•Šê³  ë¶€í™œ";
+            case "7_2": return "18ê° ì´ìƒì‹œ\në‹¬ë¦¬ê¸° ì†ë„ê°€ 5í•  ì¦ê°€";
+            //íŒ¨ì‹œë¸Œ ì•„ë‹˜
+            case "8_1": return "ì „ë°©ì„ ê³µê²©í•´ 10~14ì˜ í”¼í•´ë¥¼ ì…í˜\nì•½ì ì˜ ê²½ìš° ì¦‰ì‚¬ì‹œí‚´";
+            case "8_2": return "ì „ë°©ì„ ê³µê²©í•´ 20~30ì˜ í”¼í•´ë¥¼ ì…í˜\nì•½ì ì˜ ê²½ìš° ì¦‰ì‚¬ì‹œí‚´";
+            case "8_3": return "[ì†Œëª¨í˜•]\në¶€ì ì„ ë˜ì ¸ 10~12ì˜ í”¼í•´ë¥¼ ì…í˜\nì•½ì ì˜ ê²½ìš°\nìµœëŒ€ì²´ë ¥ 5í• ì˜ í”¼í•´ë¥¼ ì…í˜";
+            case "9_1": return "ë¹›ì´ ë” ê°•í•´ì§";
+            case "9_2": return "ë‹¬ë ¤ë„ ë¹›ì´ êº¼ì§€ì§€ ì•ŠìŒ";
             // ...
-            default: return "¼³¸íÀÌ ¾ø½À´Ï´Ù.";
+            default: return "ì„¤ëª…ì´ ì—†ìŠµë‹ˆë‹¤.";
         }
     }
-    int GetPassiveEmdrmq(int group, int number) //¾ÆÀÌÅÛÀÇ µî±Ş
+    int GetPassiveEmdrmq(int group, int number) //ì•„ì´í…œì˜ ë“±ê¸‰
     {
         switch ($"{group}_{number}")
         {
@@ -189,7 +189,7 @@ public class PassiveItemManager : MonoBehaviour
             case "6_3": return 3;
             case "7_1": return 2;
             case "7_2": return 1;
-            //ÆĞ½Ãºê ¾Æ´Ô
+            //íŒ¨ì‹œë¸Œ ì•„ë‹˜
             case "8_1": return 5;
             case "8_2": return 5;
             case "8_3": return 5;
@@ -240,14 +240,14 @@ public class PassiveItemManager : MonoBehaviour
 
         if (groupArray == null || number < 1 || number > groupArray.Length)
         {
-            Debug.LogWarning($"GetIcon ½ÇÆĞ: group={group}, number={number}");
+            Debug.LogWarning($"GetIcon ì‹¤íŒ¨: group={group}, number={number}");
             return null;
         }
 
         return groupArray[number - 1];
     }
 
-    public bool HasEffect(string id)//°ª ºÒ·¯¿À±â
+    public bool HasEffect(string id)//ê°’ ë¶ˆëŸ¬ì˜¤ê¸°
     {
         var item = passiveItems.Find(i => i.id == id);
         return item != null && item.isPurchased;
@@ -370,7 +370,7 @@ public class PassiveItemManager : MonoBehaviour
                 break;
         }
     }
-    #region ¿µÈ¥°­È­
+    #region ì˜í˜¼ê°•í™”
 
     private void TryApplyEffect(IPassiveEffect effect)
     {
@@ -384,11 +384,11 @@ public class PassiveItemManager : MonoBehaviour
         effect.RemoveEffect();
     }
 
-    //Á¤Á¤´ç´ç
+    //ì •ì •ë‹¹ë‹¹
     public void DoPassive_1_2()
     {
         TryApplyEffect(new IncreaseDamageEffect(GameManager.Instance.playerData, 0.1f));
-        //±Ş¼Ò°ø·« ºÒ°¡´É
+        //ê¸‰ì†Œê³µëµ ë¶ˆê°€ëŠ¥
     }
 
     public void RemovePassive_1_2()
@@ -396,31 +396,31 @@ public class PassiveItemManager : MonoBehaviour
         TryRemoveEffect(new IncreaseDamageEffect(GameManager.Instance.playerData, 0.1f));
     }
 
-    //¹®Àü¹Ú´ë
+    //ë¬¸ì „ë°•ëŒ€
     public void DoPassive_2_1()
     {
 
     }
 
-    //¹é¹ß¹éÁß
+    //ë°±ë°œë°±ì¤‘
     public void DoPassive_2_2()
     {
 
     }
 
-    //Äèµµ³­¸¶
+    //ì¾Œë„ë‚œë§ˆ
     public void DoPassive_2_3()
     {
 
     }
 
-    //±İÀÇÈ¯Çâ
+    //ê¸ˆì˜í™˜í–¥
     public void DoPassive_3_1()
     {
         GameManager.Instance.Soul *= 1.1f;
     }
 
-    //±İ°­ºÒ±«
+    //ê¸ˆê°•ë¶ˆê´´
     public void DoPassive_4_1()
     {
         TryApplyEffect(new DecreaseDamageTakenEffect(GameManager.Instance.playerData, 0.5f));
@@ -431,7 +431,7 @@ public class PassiveItemManager : MonoBehaviour
         TryRemoveEffect(new DecreaseDamageTakenEffect(GameManager.Instance.playerData, 0.5f));
     }
 
-    //¿Ü°­³»À¯
+    //ì™¸ê°•ë‚´ìœ 
     public void DoPassive_4_2()
     {
         TryApplyEffect(new IncreaseMaxHPEffect(GameManager.Instance.playerData, 75));
@@ -444,14 +444,14 @@ public class PassiveItemManager : MonoBehaviour
         TryRemoveEffect(new DecreaseMaxSPEffect(GameManager.Instance.playerData, 25));
     }
 
-    //¿ÜÀ¯³»°­
+    //ì™¸ìœ ë‚´ê°•
     public void DoPassive_4_3()
     {
         TryApplyEffect(new IncreaseMaxSPEffect(GameManager.Instance.playerData, 75));
         TryApplyEffect(new DecreaseMaxHPEffect(GameManager.Instance.playerData, 25));
     }
 
-    //°¡´ãÇ×¼³
+    //ê°€ë‹´í•­ì„¤
     public void DoPassive_5_1()
     {
         TryApplyEffect(new ItemFindAbilityOn(GameManager.Instance.playerData));
@@ -462,7 +462,7 @@ public class PassiveItemManager : MonoBehaviour
         TryRemoveEffect(new ItemFindAbilityOn(GameManager.Instance.playerData));
     }
 
-    //Ãë»ç¼±ÅÃ
+    //ì·¨ì‚¬ì„ íƒ
     public void DoPassive_5_2()
     {
         var player_item_use = FindObjectOfType<Player_Item_Use>();
@@ -483,7 +483,7 @@ public class PassiveItemManager : MonoBehaviour
         }
 
     }
-    //µî¿ë¹®
+    //ë“±ìš©ë¬¸
     public void DoPassive_6_1()
     {
         if (passive_6_1_count < 3)
@@ -499,7 +499,7 @@ public class PassiveItemManager : MonoBehaviour
         TryRemoveEffect(new IncreaseMoveSpeedEffect(GameManager.Instance.playerData, 0.1f * passive_6_1_count));
     }
 
-    //½Â½ÂÀå±¸
+    //ìŠ¹ìŠ¹ì¥êµ¬
     public void DoPassive_6_2()
     {
         TryApplyEffect(new IncreaseDamageEffect(GameManager.Instance.playerData, 0.1f * GameManager.Instance.killcount));
@@ -509,7 +509,7 @@ public class PassiveItemManager : MonoBehaviour
     {
         TryRemoveEffect(new IncreaseDamageEffect(GameManager.Instance.playerData, 0.1f * GameManager.Instance.killcount));
     }
-    //¼±°ßÁö¸í
+    //ì„ ê²¬ì§€ëª…
     public void DoPassive_6_3()
     {
         var quickSlotItems = GameManager.Instance.currentQuickSlot;
@@ -525,7 +525,7 @@ public class PassiveItemManager : MonoBehaviour
         }
     }
 
-    //±¸»çÀÏ»ı
+    //êµ¬ì‚¬ì¼ìƒ
     public void DoPassive_7_1()
     {
         TryApplyEffect(new ItemSaveAbilityOnRevive(GameManager.Instance.playerData));
@@ -536,7 +536,7 @@ public class PassiveItemManager : MonoBehaviour
         TryRemoveEffect(new ItemSaveAbilityOnRevive(GameManager.Instance.playerData));
     }
 
-    //±Ã¿©ÁöÃ¥
+    //ê¶ì—¬ì§€ì±…
     public void DoPassive_7_2()
     {
         QuickSlotUI quickslotUI = FindObjectOfType<QuickSlotUI>();
@@ -554,20 +554,20 @@ public class PassiveItemManager : MonoBehaviour
 
     public void HandleNextDay()
     {
-        //±İÀÇÈ¯Çâ
+        //ê¸ˆì˜í™˜í–¥
         if (HasEffect("Soul_Add_3_1"))
         {
             DoPassive_3_1();
         }
 
-        //µî¿ë¹®
+        //ë“±ìš©ë¬¸
         if (HasEffect("Soul_Add_6_1"))
         {
             TryRemoveEffect(new IncreaseMoveSpeedEffect(GameManager.Instance.playerData, 0.1f * passive_6_1_count));
             passive_6_1_count = 0;
         }
 
-        //¼±°ßÁö¸í
+        //ì„ ê²¬ì§€ëª…
         if (HasEffect("Soul_Add_6_3"))
         {
             DoPassive_6_3();
@@ -576,7 +576,7 @@ public class PassiveItemManager : MonoBehaviour
 
     public void HandleSaleItemImmediately()
     {
-        //µî¿ë¹®
+        //ë“±ìš©ë¬¸
         if (HasEffect("Soul_Add_6_1"))
         {
             DoPassive_6_1();
