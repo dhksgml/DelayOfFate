@@ -193,7 +193,7 @@ public class PassiveItemManager : MonoBehaviour
             case "10_5": return "전투로부터 돈을 벌러 감";
             case "10_6": return "100혼을 50냥으로 교환함";
             case "10_7": return "100냥을 50혼으로 교환함";
-            case "10_8": return "혼령강화와 현재 물건칸을 교체해서 봄";
+            case "10_8": return "혼령강화와 현재 물건칸을 교체함[Tab]으로도 가능";
             // ...
             default: return "설명이 없습니다.";
         }
