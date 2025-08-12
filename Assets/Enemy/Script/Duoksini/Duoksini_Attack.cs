@@ -55,6 +55,11 @@ public class Duoksini_Attack : EnemyAttack
 
         if (duoksiniAttackTime >= duoksiniAttackDelay)
         {
+            // 에니메이션
+            duoksini.anim.SetBool("isAttack", true);
+            duoksini.anim.SetBool("isAttackReady", false);
+
+
             // 이펙트 생성
             GameObject effect = Instantiate(attackEffect, transform.position, Quaternion.identity);
 
@@ -81,6 +86,9 @@ public class Duoksini_Attack : EnemyAttack
 
             // 이펙트 삭제
             Destroy(effect, 0.2f);
+
+            // 에니메이션
+            Invoke("DelayAnim", 1f);
         }
     }
 
@@ -123,5 +131,10 @@ public class Duoksini_Attack : EnemyAttack
     void Dealy()
     {
         enemyAttackCollider.enabled = false;
+    }
+    
+    void DelayAnim()
+    {
+        duoksini.anim.SetBool("isAttack", false);
     }
 }

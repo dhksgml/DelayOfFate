@@ -375,7 +375,7 @@ MonoBehaviour:
   enemyTrace: {fileID: 2489057758069396371}
   enemyAttack: {fileID: 3062935014565427165}
   sp: {fileID: 1419329867039864907}
-  anim: {fileID: 6370046798345658226}
+  anim: {fileID: 2955458194994619886}
   enemyCorpse: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
   enemyCorpseData: {fileID: 11400000, guid: 160f2d3033bb9524fa884c730fd94f73, type: 2}
   enemySelf: {fileID: 6729564674990578323}
@@ -400,7 +400,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4200818580029555212}
   - component: {fileID: 1419329867039864907}
-  - component: {fileID: 6370046798345658226}
+  - component: {fileID: 2955458194994619886}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -475,7 +475,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &6370046798345658226
+--- !u!95 &2955458194994619886
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
