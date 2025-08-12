@@ -96,6 +96,7 @@ MonoBehaviour:
   isAttack: 0
   isTrsPass: 0
   duoksiniAttackDelay: 2.5
+  attackEffect: {fileID: 539703990484248332, guid: 9fd95c6430839944483e79a2e9f0e59a, type: 3}
 --- !u!1 &3059113222875300705
 GameObject:
   m_ObjectHideFlags: 0
