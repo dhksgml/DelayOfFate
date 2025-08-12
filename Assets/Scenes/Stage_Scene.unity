@@ -1620,9 +1620,25 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1221797775}
+    - target: {fileID: 424751972894965915, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3112219236969483361, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3666488278236107143, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
       propertyPath: itemId
       value: Soul_Add_10_6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3745676335826987218, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4087851635110997507, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4195322940929626411, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
       propertyPath: m_Pivot.x
@@ -1708,8 +1724,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shop
       objectReference: {fileID: 0}
+    - target: {fileID: 5275651428800474729, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5374703590127594948, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7276260176474845355, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7876780504031835042, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8158015234587353896, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
