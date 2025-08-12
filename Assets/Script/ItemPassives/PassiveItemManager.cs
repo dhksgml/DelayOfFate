@@ -16,6 +16,7 @@ public class PassiveItemManager : MonoBehaviour
 
     private List<IPassiveEffect> activeEffects = new();
     private int passive_6_1_count = 0;
+    private IncreaseMoveSpeedEffect moveSpeedEffect;
 
     void Awake()
     {
@@ -63,12 +64,16 @@ public class PassiveItemManager : MonoBehaviour
     {
         GameEvents.OnNextDay += HandleNextDay;
         GameEvents.OnSaleItemImmediately += HandleSaleItemImmediately;
+        GameEvents.OnPickupItem += HandlePickupItem;
+        GameEvents.OnDropItem += HandleDropItem;
     }
 
     private void OnDisable()
     {
         GameEvents.OnNextDay -= HandleNextDay;
         GameEvents.OnSaleItemImmediately -= HandleSaleItemImmediately;
+        GameEvents.OnPickupItem -= HandlePickupItem;
+        GameEvents.OnDropItem -= HandleDropItem;
     }
 
     void Start()
@@ -479,7 +484,8 @@ public class PassiveItemManager : MonoBehaviour
         if (player_item_use)
         {
             int emptyItemSlotCount = player_item_use.CheckEmptySlotsCount();
-            TryRemoveEffect(new IncreaseMoveSpeedEffect(GameManager.Instance.playerData, 0.1f * emptyItemSlotCount));
+            moveSpeedEffect = new IncreaseMoveSpeedEffect(GameManager.Instance.playerData, 0.1f * emptyItemSlotCount);
+            TryRemoveEffect(moveSpeedEffect);
         }
 
     }
@@ -580,6 +586,22 @@ public class PassiveItemManager : MonoBehaviour
         if (HasEffect("Soul_Add_6_1"))
         {
             DoPassive_6_1();
+        }
+    }
+
+    public void HandlePickupItem()
+    {
+        if(HasEffect("Soul_Add_5_2"))
+        {
+            RemovePassive_5_2();
+        }
+    }
+
+    public void HandleDropItem()
+    {
+        if (HasEffect("Soul_Add_5_2"))
+        {
+            DoPassive_5_2();
         }
     }
 

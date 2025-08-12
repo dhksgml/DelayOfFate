@@ -47,7 +47,7 @@ public class PassiveItemUI : MonoBehaviour
 
 	public void SetPosition(Vector3 worldPos)
 	{
-		worldPos.x -= 96f;
+		worldPos.x -= 380f;
 		transform.position = worldPos;
 	}
 
