@@ -235,6 +235,9 @@ public class Tal_hon_gwi : Enemy
         // 프리팹을 인스턴스화
         GameObject canvasInstance = Instantiate(surpriseCanvas);
 
+        // 효과음
+        if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_talhongwi"));
+
         // 이미지 찾기
         Image surpriseImage = canvasInstance.GetComponentInChildren<Image>();
 
