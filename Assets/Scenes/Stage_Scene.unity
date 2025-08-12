@@ -1620,6 +1620,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2774738367785425319, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1460210692, guid: f88be9c7d9b57af47943f6c5780701d6, type: 3}
     - target: {fileID: 2781264035258140269, guid: 2f219be0bf2a83946b0d67cb2a861f7a, type: 3}
       propertyPath: m_fontAsset
       value: 

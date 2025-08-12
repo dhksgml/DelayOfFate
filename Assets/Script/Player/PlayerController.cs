@@ -138,6 +138,13 @@ public class PlayerController : MonoBehaviour
 
                 flashLightLevel = playerData.flashLightLevel;
                 UpdateFlashLight();
+
+
+                if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
+                {
+                    PassiveItemManager.Instance.DoPassive_5_2();
+                    speedMultiplier = GameManager.Instance.playerData.speedMultiplier;
+                }
             }
         }
         else
@@ -351,7 +358,6 @@ public class PlayerController : MonoBehaviour
             {
                 currentState = PlayerState.Walk;
                 currentMoveSpeed = moveSpeed;
-
             }
         }
         else
