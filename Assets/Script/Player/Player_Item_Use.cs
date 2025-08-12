@@ -245,11 +245,11 @@ public class Player_Item_Use : MonoBehaviour
                 if (slotItem == null || string.IsNullOrEmpty(slotItem.itemName))
                 {
                     TutorialEvents.OnItemPickedUp?.Invoke(droppedItem);
-                    GameEvents.CallPickupItem();
                     quickSlots[selectedSlotIndex] = droppedItem;
                     if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_pickup"));
                     Destroy(itemObject.gameObject);
                     UpdateQuickSlotUI();
+                    GameEvents.CallPickupItem();
                 }
                 // 슬롯에 이미 아이템이 있고 같은 아이템이며, 곗수 합산 가능한 경우
                 else if (slotItem.itemName == droppedItem.itemName && slotItem.Count_Check)
@@ -296,11 +296,11 @@ public class Player_Item_Use : MonoBehaviour
                 spriteRenderer.sprite = newItemComponent.itemData.InGameSprite;
             }
 
-            GameEvents.CallDropItem();
             Debug.Log($"버린 아이템: {newItemComponent.itemData.itemName}, 금액: {newItemComponent.itemData.Coin}, 무게: {newItemComponent.itemData.Weight}");
             // 퀵슬롯에서 해당 아이템 제거
             quickSlots[selectedSlotIndex] = null;
             UpdateQuickSlotUI();
+            GameEvents.CallDropItem();
         }
     }
     public void Drop_All_Item()

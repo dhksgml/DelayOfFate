@@ -16,7 +16,7 @@ public class PassiveItemManager : MonoBehaviour
 
     private List<IPassiveEffect> activeEffects = new();
     private int passive_6_1_count = 0;
-    private IncreaseMoveSpeedEffect moveSpeedEffect;
+    private float lastBonusSpeed_5_2 = 0f;
 
     void Awake()
     {
@@ -499,21 +499,22 @@ public class PassiveItemManager : MonoBehaviour
         var player_item_use = FindObjectOfType<Player_Item_Use>();
         if (player_item_use)
         {
+            // 기존 보너스 제거
+            GameManager.Instance.playerData.speedMultiplier -= lastBonusSpeed_5_2;
+
+            // 새 보너스 계산
             int emptyItemSlotCount = player_item_use.CheckEmptySlotsCount();
-            TryApplyEffect(new IncreaseMoveSpeedEffect(GameManager.Instance.playerData, 0.1f * emptyItemSlotCount));
+            lastBonusSpeed_5_2 = 0.1f * emptyItemSlotCount;
+
+            // 새 보너스 적용
+            GameManager.Instance.playerData.speedMultiplier += lastBonusSpeed_5_2;
         }
 
     }
     public void RemovePassive_5_2()
     {
-        var player_item_use = FindObjectOfType<Player_Item_Use>();
-        if (player_item_use)
-        {
-            int emptyItemSlotCount = player_item_use.CheckEmptySlotsCount();
-            moveSpeedEffect = new IncreaseMoveSpeedEffect(GameManager.Instance.playerData, 0.1f * emptyItemSlotCount);
-            TryRemoveEffect(moveSpeedEffect);
-        }
-
+        GameManager.Instance.playerData.speedMultiplier -= lastBonusSpeed_5_2;
+        lastBonusSpeed_5_2 = 0f;
     }
     //등용문
     public void DoPassive_6_1()
@@ -619,7 +620,7 @@ public class PassiveItemManager : MonoBehaviour
     {
         if(HasEffect("Soul_Add_5_2"))
         {
-            RemovePassive_5_2();
+            DoPassive_5_2();
         }
     }
 

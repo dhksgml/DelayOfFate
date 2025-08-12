@@ -112,13 +112,26 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        Init();
         animator = GetComponent<Animator>();
         placeManager = FindObjectOfType<PlaceManager>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         player_Item_Use = GetComponent<Player_Item_Use>();
         nearestItemFinder = GetComponent<NearestItemFinder>();
         mainCamera = Camera.main;
+
+        Init();
+    }
+
+    private void OnEnable()
+    {
+        GameEvents.OnPickupItem += HandlePickupItem;
+        GameEvents.OnDropItem += HandleDropItem;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnPickupItem -= HandlePickupItem;
+        GameEvents.OnDropItem -= HandleDropItem;
     }
 
     public void Init()
@@ -898,4 +911,28 @@ public class PlayerController : MonoBehaviour
 
         return null;
     }
+
+    private void HandleDropItem()
+    {
+        if(PassiveItemManager.Instance != null)
+        {
+            if (PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
+            {
+                speedMultiplier = GameManager.Instance.playerData.speedMultiplier;
+            }
+
+        }
+    }
+
+    private void HandlePickupItem()
+    {
+        if (PassiveItemManager.Instance != null)
+        {
+            if (PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
+            {
+                speedMultiplier = GameManager.Instance.playerData.speedMultiplier;
+            }
+        }
+    }
+
 }

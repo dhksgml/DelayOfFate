@@ -108,6 +108,12 @@ public class Attack_sc : MonoBehaviour
         effectRenderer.color = Color.red;
         TriggerWeaknessEffect();
     }
+
+    public bool CheckWeaknessPassive()
+    {
+        return PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_1_2");
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision != null)
