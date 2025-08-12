@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     private bool initialized; // �÷��̾� ���� �޾ƿ��� ��
     private void Awake()
     {
-        Cost_list = new float[] { 500, 1200, 2000, 2900, 4000 }; //약값
+        Cost_list = new float[] { 500, 1000, 1500, 2250, 3000 }; //약값
         // ���� ���� �ڽŰ� ���� Ÿ���� ������Ʈ�� 2�� �̻� �ִ� ��� ��� ����
         if (Instance == null)
         {

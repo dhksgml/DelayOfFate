@@ -30,7 +30,7 @@ public class PassiveItemUI : MonoBehaviour
 				EMDRMQ = "강화";
 				break;
 			default:
-				EMDRMQ = "오류";
+				EMDRMQ = " ";
 				break;
 		}
 
@@ -47,8 +47,37 @@ public class PassiveItemUI : MonoBehaviour
 
 	public void SetPosition(Vector3 worldPos)
 	{
-		worldPos.x -= 380f;
+		// 화면 크기 (UI Canvas가 Screen Space Overlay 기준)
+		float screenWidth = 1920f;
+		float screenHeight = 1080f;
+
+		// 설명창 크기
+		float popupWidth = 630f;
+		float popupHeight = 450f;
+
+		// 버튼 기준 왼쪽에 붙이려는 x 위치 시도
+		float leftX = worldPos.x - 380f;
+		float rightX = worldPos.x + 380f;
+
+		// 최소/최대 위치 계산 (왼쪽 위가 기준일 경우)
+		float minX = popupWidth / 2f;
+		float maxX = screenWidth - popupWidth / 2f;
+		float minY = popupHeight / 2f;
+		float maxY = screenHeight - popupHeight / 2f;
+
+		// x 위치를 왼쪽 우선으로 잡되, 왼쪽 공간 부족 시 오른쪽으로 바꿈
+		if (leftX < minX)
+		{
+			worldPos.x = rightX;
+		}
+		else
+		{
+			worldPos.x = leftX;
+		}
+
+		// y 위치는 그대로 클램프
+		worldPos.y = Mathf.Clamp(worldPos.y, minY, maxY);
+
 		transform.position = worldPos;
 	}
-
 }

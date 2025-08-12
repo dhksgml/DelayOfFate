@@ -48,8 +48,8 @@ public class PassiveItemManager : MonoBehaviour
         {
             AddPassiveItem(n, 3);
         }
-        // Soul_Add_8_1 ~ Soul_Add_8_3
-        for (int n = 1; n <= 3; n++)
+        // Soul_Add_8_1 ~ Soul_Add_8_5
+        for (int n = 1; n <= 5; n++)
         {
             AddPassiveItem(8, n);
         }
@@ -57,6 +57,11 @@ public class PassiveItemManager : MonoBehaviour
         for (int n = 1; n <= 3; n++)
         {
             AddPassiveItem(9, n);
+        }
+        // Soul_Add_10_1 ~ Soul_Add_10_8
+        for (int n = 1; n <= 8; n++)
+        {
+            AddPassiveItem(10, n);
         }
     }
 
@@ -141,14 +146,12 @@ public class PassiveItemManager : MonoBehaviour
             case "9_2": return "호롱";
             case "10_1": return "체력";
             case "10_2": return "기력";
-            case "10_3": return "혼";
-            case "10_4": return "냥";
-            case "10_5": return "일차";
-            case "10_6": return "일시정지";
-            case "10_7": return "재입고";
-            case "10_8": return "전투로";
-            case "10_9": return "냥 교환";
-            case "10_10": return "혼 교환";
+            case "10_3": return "일차";
+            case "10_4": return "재입고";
+            case "10_5": return "전투로";
+            case "10_6": return "냥 교환";
+            case "10_7": return "혼 교환";
+            case "10_8": return "교체";
             // ...
             default: return " ";
         }
@@ -163,7 +166,7 @@ public class PassiveItemManager : MonoBehaviour
             //case "2_1": return "방망이의 공격 범위가 10할 증가\n방망이가 즉시 시전 방망이의 피해량이 5할 증가";
             //case "2_2": return "부적의 추격 범위가 20할 증가\n부적의 피해량이 5할 증가";
             //case "2_3": return "환도의 공격속도 5할 증가\n환도의 피해가 5할 증가";
-            case "3_1": return "약값 지불 후 보유한 냥의\n1할 만큼 획득";
+            case "3_1": return "약값 지불 후 보유한 혼의\n3할 만큼 획득";
             case "3_2": return "무기를 0혼 으로 구매 가능";
             case "4_1": return "악귀로 받는 체력피해가\n5할 감소";
             case "4_2": return "체력이 75 증가\n정신이 25 감소";
@@ -172,7 +175,7 @@ public class PassiveItemManager : MonoBehaviour
             case "5_2": return "비어 있는 손 만큼\n이동속도 1할 증가";
             //case "6_1": return "즉시 판매시 이동속도 1할 증가\n하루가 지나면 초기화\n(최대 3할)";
             case "6_2": return "악귀를 처치시\n영구적으로 피해량 1할 증가";
-            case "6_3": return "하루가 지날때 들고 있던 물건의\n가치가 5할 증가";
+            case "6_3": return "하루가 지날때 들고 있던 물건의\n가치가 10할 증가";
             case "7_1": return "부활 시\n물건을 떨어뜨리지 않고 부활";
             case "7_2": return "18각 이상시\n달리기 속도가 5할 증가";
             //패시브 아님
@@ -180,19 +183,17 @@ public class PassiveItemManager : MonoBehaviour
             case "8_2": return "전방을 공격해 20~30의 피해를 입힘\n약점의 경우 즉사시킴";
             case "8_3": return "[소모형]\n부적을 던져 10~12의 피해를 입힘\n약점의 경우\n최대체력 5할의 피해를 입힘";
             case "8_4": return "[소모형]\n전방을 공격해 소형, 중형 악귀에게\n444의 피해를 입힘\n약점의 경우 소모 되지 않음";
-            case "8_5": return "화면의 모든 악귀에게\n최대체력 5할의 피해를 입힘\n약점의 경우 즉사시킴\n시킴정신력 8~12 소모";
+            case "8_5": return "화면의 모든 악귀에게\n최대체력 5할의 피해를 입힘\n약점의 경우 즉사시킴\n정신력 8~12 소모";
             case "9_1": return "빛이 더 강해짐";
             case "9_2": return "달려도 빛이 꺼지지 않음";
-            case "10_1": return "체력";
-            case "10_2": return "기력";
-            case "10_3": return "혼";
-            case "10_4": return "냥";
-            case "10_5": return "일차";
-            case "10_6": return "일시정지";
-            case "10_7": return "재입고";
-            case "10_8": return "전투로";
-            case "10_9": return "냥 교환";
-            case "10_10": return "혼 교환";
+            case "10_1": return "체력을 전부 잃으면 사망함";
+            case "10_2": return "큰 행동을 할때 기력을 소모함";
+            case "10_3": return "5일차 까지 약 값을 지불하고\n살아남아야 함";
+            case "10_4": return "혼령강화의 목록을\n새로운 품목으로 교체함";
+            case "10_5": return "전투로부터 돈을 벌러 감";
+            case "10_6": return "100혼을 50냥으로 교환함";
+            case "10_7": return "100냥을 50혼으로 교환함";
+            case "10_8": return "혼령강화와 현재 물건칸을 교체해서 봄";
             // ...
             default: return "설명이 없습니다.";
         }

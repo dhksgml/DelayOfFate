@@ -193,14 +193,14 @@ public class ItemObject : MonoBehaviour
         {
             holdGauge.fillAmount = progress;
         }
-
+        
         if (name_text != null) name_text.text = string.Format("[{0}]", itemData.itemName);
 
         if (coin_text != null)
         {
             int total_coin = itemData.Coin * itemData.Count;
-            if (itemData.Sell_immediately) { coin_text.text = string.Format("[<b>E</b>] �ݱ�\n[<b>E~</b>] ��� �Ǹ�: {0} ȥ", total_coin); }
-            else {coin_text.text = string.Format("[<b>E</b>] �ݱ�\n{0} ��", total_coin);} //��� �ǸŰ� �Ұ����� �������� ���
+            if (itemData.Sell_immediately) { coin_text.text = string.Format("[<b>E</b>] 줍기\n[<b>E~</b>] 즉시 판매: {0} 혼", total_coin); }
+            else {coin_text.text = string.Format("[<b>E</b>] 줍기\n{0} 값", total_coin);} //��� �ǸŰ� �Ұ����� �������� ���
         }
     }
 }

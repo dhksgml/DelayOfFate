@@ -303,19 +303,19 @@ public class Shop : MonoBehaviour
             switch (rating)
             {
                 case 1:
-                    soulPrices[i] = 110;
+                    soulPrices[i] = 150;
                     soulPrices[i] += Random.Range(-10, +11);
                     break;
                 case 2:
-                    soulPrices[i] = 165;
+                    soulPrices[i] = 275;
                     soulPrices[i] += Random.Range(-15, +16);
                     break;
                 case 3:
-                    soulPrices[i] = 270;
+                    soulPrices[i] = 450;
                     soulPrices[i] += Random.Range(-20, +21);
                     break;
                 case 4:
-                    soulPrices[i] = 325;
+                    soulPrices[i] = 600;
                     soulPrices[i] += Random.Range(-25, +26);
                     break;
                 default:
