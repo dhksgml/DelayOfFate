@@ -121,6 +121,18 @@ public class PlayerController : MonoBehaviour
         mainCamera = Camera.main;
     }
 
+    private void OnEnable()
+    {
+        GameEvents.OnPickupItem += HandlePickupItem;
+        GameEvents.OnDropItem += HandleDropItem;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnPickupItem -= HandlePickupItem;
+        GameEvents.OnDropItem -= HandleDropItem;
+    }
+
     public void Init()
     {
         if (GameManager.Instance != null)
@@ -898,4 +910,28 @@ public class PlayerController : MonoBehaviour
 
         return null;
     }
+
+    private void HandleDropItem()
+    {
+        if(PassiveItemManager.Instance != null)
+        {
+            if (PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
+            {
+                
+            }
+
+        }
+    }
+
+    private void HandlePickupItem()
+    {
+        if (PassiveItemManager.Instance != null)
+        {
+            if (PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
+            {
+
+            }
+        }
+    }
+
 }
