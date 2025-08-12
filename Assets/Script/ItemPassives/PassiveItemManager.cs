@@ -135,10 +135,22 @@ public class PassiveItemManager : MonoBehaviour
             case "8_1": return "환도";
             case "8_2": return "방망이";
             case "8_3": return "부적 20장";
+            case "8_4": return "호리병 2병";
+            case "8_5": return "족자";
             case "9_1": return "호롱";
             case "9_2": return "호롱";
+            case "10_1": return "체력";
+            case "10_2": return "기력";
+            case "10_3": return "혼";
+            case "10_4": return "냥";
+            case "10_5": return "일차";
+            case "10_6": return "일시정지";
+            case "10_7": return "재입고";
+            case "10_8": return "전투로";
+            case "10_9": return "냥 교환";
+            case "10_10": return "혼 교환";
             // ...
-            default: return "알 수 없음";
+            default: return " ";
         }
     }
     string GetPassiveDescription(int group, int number)
@@ -167,8 +179,20 @@ public class PassiveItemManager : MonoBehaviour
             case "8_1": return "전방을 공격해 10~14의 피해를 입힘\n약점의 경우 즉사시킴";
             case "8_2": return "전방을 공격해 20~30의 피해를 입힘\n약점의 경우 즉사시킴";
             case "8_3": return "[소모형]\n부적을 던져 10~12의 피해를 입힘\n약점의 경우\n최대체력 5할의 피해를 입힘";
+            case "8_4": return "[소모형]\n전방을 공격해 소형, 중형 악귀에게\n444의 피해를 입힘\n약점의 경우 소모 되지 않음";
+            case "8_5": return "화면의 모든 악귀에게\n최대체력 5할의 피해를 입힘\n약점의 경우 즉사시킴\n시킴정신력 8~12 소모";
             case "9_1": return "빛이 더 강해짐";
             case "9_2": return "달려도 빛이 꺼지지 않음";
+            case "10_1": return "체력";
+            case "10_2": return "기력";
+            case "10_3": return "혼";
+            case "10_4": return "냥";
+            case "10_5": return "일차";
+            case "10_6": return "일시정지";
+            case "10_7": return "재입고";
+            case "10_8": return "전투로";
+            case "10_9": return "냥 교환";
+            case "10_10": return "혼 교환";
             // ...
             default: return "설명이 없습니다.";
         }
@@ -198,6 +222,8 @@ public class PassiveItemManager : MonoBehaviour
             case "8_1": return 5;
             case "8_2": return 5;
             case "8_3": return 5;
+            case "8_4": return 5;
+            case "8_5": return 5;
             case "9_1": return 6;
             case "9_2": return 6;
             // ...
