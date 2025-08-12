@@ -75,25 +75,25 @@ public class Result_UI : MonoBehaviour
 
             float buttonTime = 0f;
             Image buttonImage = nextButton.GetComponent<Image>();
-            TextMeshProUGUI buttonTextImage = nextButton.GetComponentInChildren<TextMeshProUGUI>();
+            //TextMeshProUGUI buttonTextImage = nextButton.GetComponentInChildren<TextMeshProUGUI>();
 
             Color buttonColor = buttonImage.color;
-            Color buttonTextColor = buttonTextImage.color;
+            //Color buttonTextColor = buttonTextImage.color;
 
             buttonColor.a = skip ? 1f : 0f;
-            buttonTextColor.a = skip ? 1f : 0f;
+            //buttonTextColor.a = skip ? 1f : 0f;
 
             buttonImage.color = buttonColor;
-            buttonTextImage.color = buttonTextColor;
+            //buttonTextImage.color = buttonTextColor;
 
             while (buttonTime < fadeTime)
             {
                 if (!skip && Input.GetKeyDown(KeyCode.Space))
                 {
                     buttonColor.a = 1f;
-                    buttonTextColor.a = 1f;
+                    //buttonTextColor.a = 1f;
                     buttonImage.color = buttonColor;
-                    buttonTextImage.color = buttonTextColor;
+                    //buttonTextImage.color = buttonTextColor;
                     break;
                 }
 
@@ -101,10 +101,10 @@ public class Result_UI : MonoBehaviour
                 float t = buttonTime / fadeTime;
 
                 buttonColor.a = Mathf.Lerp(0f, 1f, t);
-                buttonTextColor.a = Mathf.Lerp(0f, 1f, t);
+                //buttonTextColor.a = Mathf.Lerp(0f, 1f, t);
 
                 buttonImage.color = buttonColor;
-                buttonTextImage.color = buttonTextColor;
+                //buttonTextImage.color = buttonTextColor;
 
                 yield return null;
             }

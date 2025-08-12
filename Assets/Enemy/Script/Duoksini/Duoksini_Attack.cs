@@ -36,6 +36,10 @@ public class Duoksini_Attack : EnemyAttack
         // 공격 준비가 다 되었음면 공격
         if (time >= enemyAttackSpeed && duoksini.isAttackReady && isTrsPass)
         {
+            // 에니메이션
+            duoksini.anim.SetBool("isAttackReady", true);
+            duoksini.anim.SetBool("isMove", false);
+
             Debug.Log("범위 표시");
             isAttack = true;
 
