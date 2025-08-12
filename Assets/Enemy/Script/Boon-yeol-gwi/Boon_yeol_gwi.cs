@@ -87,14 +87,14 @@ public class Boon_yeol_gwi : Enemy
         {
             isDie = true;
 
-            foreach (var boon_yeol_che in copyObjList)
-            {
-                Destroy(boon_yeol_che);
-            }
-
             // 본체 사망처리
             if (type == Boon_yeol_gwi_Type.Entity)
             {
+                foreach (var boon_yeol_che in copyObjList)
+                {
+                    Destroy(boon_yeol_che);
+                }
+
                 StartCoroutine(EnemyDie());
             }
             // 분열체 사망 처리
