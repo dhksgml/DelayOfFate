@@ -124,14 +124,14 @@ public class GameManager : MonoBehaviour
 
     public void Add_Soul(float val)
     {
-        Soul = Mathf.Min(Soul + val, 9999f);
-        N_Day_Add_Soul = Mathf.Min(N_Day_Add_Soul + val, 9999f);
+        Soul = (float)Mathf.Min((int)Soul + (int)val, 9999f);
+        N_Day_Add_Soul = (float)Mathf.Min((int)N_Day_Add_Soul + (int)val, 9999f);
     }
 
     public void Sub_Soul(float val) // ����
     {
         // ���� ������ ���� �ּҰ��� ������
-        Soul = Mathf.Max(Soul - val, -9999f);
+        Soul = (float)Mathf.Max((int)Soul - (int)val, -9999f);
     }
 
     public void SavePlayerInfo(PlayerController player)

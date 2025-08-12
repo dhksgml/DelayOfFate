@@ -109,6 +109,10 @@ public class Shop : MonoBehaviour
         if (index < 0 || index >= 5) return;
 
         int price = weaponPrices[index];
+
+        if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_3_2"))
+            price = 0;
+
         if (Soul < price) return;
 
         // 내부에서 바로 퀵슬롯 참조
