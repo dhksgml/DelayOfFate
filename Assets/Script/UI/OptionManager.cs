@@ -35,6 +35,12 @@ public class OptionManager : MonoBehaviour
     public void GoToMainTitle()
     {
         Time.timeScale = 1f;
+        if(PassiveItemManager.Instance!=null)
+            PassiveItemManager.Instance.ResetPassiveItem();
+
+        if (GameManager.Instance != null)
+            GameManager.Instance.AlldataReset();
+
         SceneManager.LoadScene("TitleScene");
     }
 }
