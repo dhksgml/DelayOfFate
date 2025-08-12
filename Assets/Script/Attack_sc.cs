@@ -161,4 +161,8 @@ public class Attack_sc : MonoBehaviour
         // Ȯ���
         //if (attackType == AttackType.Bottle) { }
     }
+    public bool CheckWeaknessPassive()
+    {
+        return PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_1_2");
+    }
 }

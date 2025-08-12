@@ -20,7 +20,7 @@ public class Soul_in_text : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 			if (show)
             {
 				passiveItemUI.Show(item.itemName, item.description, item.rating);
-				passiveItemUI.SetPosition(transform.position);
+				passiveItemUI.SetPosition(Input.mousePosition);
 			}
 		}
 	}
