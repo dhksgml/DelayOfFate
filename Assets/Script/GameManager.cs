@@ -114,12 +114,12 @@ public class GameManager : MonoBehaviour
     }
     public void Add_Gold(float val)
     {
-        Gold = Mathf.Min(Gold + val, 9999f); // ����: �ִ밪 ����
+        Gold = (float)Mathf.Min((int)Gold + (int)val, 9999); // ����: �ִ밪 ����
     }
 
     public void Sub_Gold(float val) // ����: �ּҰ� ����
     {
-        Gold = Mathf.Max(Gold - val, 0f);
+        Gold = (float)Mathf.Max((int)Gold - (int)val, 0);
     }
 
     public void Add_Soul(float val)
