@@ -5,18 +5,16 @@ public class Soul_in_text : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 {
 	public string itemId; // ¿¹: "Soul_Add_2_3"
 	private PassiveItemUI passiveItemUI;
-	private PassiveItemManager passiveItemManager;
 	public bool show = true;
 
 	void Start()
 	{
 		passiveItemUI = FindObjectOfType<PassiveItemUI>();
-		passiveItemManager = FindObjectOfType<PassiveItemManager>();
 	}
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
-		var item = passiveItemManager.passiveItems.Find(i => i.id == itemId);
+		var item = PassiveItemManager.Instance.passiveItems.Find(i => i.id == itemId);
 		if (item != null)
 		{
 			if (show)
