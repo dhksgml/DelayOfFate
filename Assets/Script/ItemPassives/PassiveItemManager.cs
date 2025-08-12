@@ -71,6 +71,7 @@ public class PassiveItemManager : MonoBehaviour
         GameEvents.OnSaleItemImmediately += HandleSaleItemImmediately;
         GameEvents.OnPickupItem += HandlePickupItem;
         GameEvents.OnDropItem += HandleDropItem;
+        GameEvents.OnTimeAngleUnit18 += HadleTimeAngleUnit18;
     }
 
     private void OnDisable()
@@ -79,6 +80,7 @@ public class PassiveItemManager : MonoBehaviour
         GameEvents.OnSaleItemImmediately -= HandleSaleItemImmediately;
         GameEvents.OnPickupItem -= HandlePickupItem;
         GameEvents.OnDropItem -= HandleDropItem;
+        GameEvents.OnTimeAngleUnit18 -= HadleTimeAngleUnit18;
     }
 
     void Start()
@@ -193,7 +195,7 @@ public class PassiveItemManager : MonoBehaviour
             case "10_5": return "전투로부터 돈을 벌러 감";
             case "10_6": return "100혼을 50냥으로 교환함";
             case "10_7": return "100냥을 50혼으로 교환함";
-            case "10_8": return "혼령강화와 현재 물건칸을 교체함[Tab]으로도 가능";
+            case "10_8": return "혼령강화와 현재 물건칸을 교체해서 봄";
             // ...
             default: return "설명이 없습니다.";
         }
@@ -630,6 +632,14 @@ public class PassiveItemManager : MonoBehaviour
         if (HasEffect("Soul_Add_5_2"))
         {
             DoPassive_5_2();
+        }
+    }
+
+    public void HadleTimeAngleUnit18()
+    {
+        if (HasEffect("Soul_Add_7_2"))
+        {
+            DoPassive_7_2();
         }
     }
 
