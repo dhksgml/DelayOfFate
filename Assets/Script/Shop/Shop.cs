@@ -67,18 +67,6 @@ public class Shop : MonoBehaviour
     {
         Gold = GameManager.Instance.Gold;
         Soul = GameManager.Instance.Soul;
-        for (int i = 0; i < 3; i++)//프로토타입 용
-        {
-            weaponPrices.Add(GameManager.Instance.Day * 100);
-            if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_3_2")) //다다익선 보유시
-            {
-                weaponSlots_text(i, 0, "Soul");
-            }
-            else
-            {
-                weaponSlots_text(i, GameManager.Instance.Day * 100, "Soul");
-            }
-        }
     }
     void InitializeShop()
     {
@@ -169,7 +157,22 @@ public class Shop : MonoBehaviour
         OnItemHover(emptySlotIndex, weaponData[index]);
     }
 
+    public void UpdateWeaponPrice()
+    {
+        if (PassiveItemManager.Instance == null) return;
 
+        for (int i = 0; i < 5; i++)
+        {
+            if (PassiveItemManager.Instance.HasEffect("Soul_Add_3_2")) //다다익선 보유시
+            {
+                weaponSlots_text(i, 0, "Soul");
+            }
+            else
+            {
+                weaponSlots_text(i, GameManager.Instance.Day * 100, "Soul");
+            }
+        }
+    }
     public void OnItemHover(int i, ItemData item)
     {
         QuickSlotUI quickSlotUI = FindObjectOfType<QuickSlotUI>();
@@ -202,6 +205,7 @@ public class Shop : MonoBehaviour
             string itemId = soulNames[index]; // ← 이미 RerollSouls()에서 할당됨
             PassiveItemManager.Instance.PurchaseItem(itemId);
             Debug.Log($"혼령 구매: {itemId}");
+            UpdateWeaponPrice();
         }
         else
         {
@@ -271,7 +275,7 @@ public class Shop : MonoBehaviour
         List<string> availableSouls = new List<string>();
         foreach (var id in allSoulIds)
         {
-            if (!passiveItemManager.IsPurchased(id)) // 구매 안 한 것만
+            if (!PassiveItemManager.Instance.IsPurchased(id)) // 구매 안 한 것만
                 availableSouls.Add(id);
         }
 
