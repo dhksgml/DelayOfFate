@@ -19,14 +19,20 @@ public class Soul_in_text : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 		{
 			if (show)
             {
-				passiveItemUI.Show(item.itemName, item.description, item.rating);
-				passiveItemUI.SetPosition(Input.mousePosition);
+				if (passiveItemUI != null)
+				{
+					passiveItemUI.Show(item.itemName, item.description, item.rating);
+					passiveItemUI.SetPosition(Input.mousePosition);
+				}
 			}
 		}
 	}
 
 	public void OnPointerExit(PointerEventData eventData)
 	{
-		passiveItemUI.Hide();
+		if (passiveItemUI != null)
+		{
+			passiveItemUI.Hide();
+		}
 	}
 }
