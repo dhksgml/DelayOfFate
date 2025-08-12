@@ -133,6 +133,14 @@ public class ItemObject : MonoBehaviour
             other.GetComponent<PlayerController>().isPickUpableItem = false;
         }
     }
+
+    void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Item"))
+        {
+            coll.isTrigger = true;
+        }
+    }
     public void Sale(string ty) // "one" or "all"
     {
         int itemValue = itemData.Coin;
