@@ -43,6 +43,7 @@ public class Duoksini : Enemy
             // 공격시 멈춤
             if (isAttackReady)
             {
+                anim.SetBool("isMove", false);
                 return;
             }
 
@@ -56,6 +57,8 @@ public class Duoksini : Enemy
 
     public override void EnemyMove()
     {
+        anim.SetBool("isMove", true);
+
         //추적하는 타겟의 위치 - 자신의 위치를 구한 후 정규화를 해준다
         enemyTargetDir = (player.transform.position - transform.position).normalized;
 
