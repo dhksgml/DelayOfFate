@@ -8,6 +8,10 @@ public class Somyeon_gwi : Enemy
     PlayerController player;
     public Vector3 findItemVec;
     public int rageCount = 1; //분노 게이지 1, 2, 3까지
+    [SerializeField] Sprite rage1Sprite;
+    [SerializeField] Sprite rage2Sprite;
+    [SerializeField] Sprite rage3Sprite;
+
 
     void Awake()
     {
@@ -39,6 +43,21 @@ public class Somyeon_gwi : Enemy
         else
         {
             EnemyMove();
+        }
+
+        switch (rageCount)
+        {
+            case 1:
+                sp.sprite = rage1Sprite;
+                break;
+
+            case 2:
+                sp.sprite = rage2Sprite;
+                break;
+
+            case 3:
+                sp.sprite = rage3Sprite;
+                break;
         }
     }
 
