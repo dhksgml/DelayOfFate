@@ -304,11 +304,12 @@ public class EnemyTrace : MonoBehaviour
                 {
                     Player_Item_Use itemUse = collision.GetComponent<Player_Item_Use>();
 
+                    Debug.Log("인식");
                     // Player 태그를 가진 오브젝트가 안에 있고, E키를 눌렀을 때
                     if (itemUse.isItemTouch && canIncrease)
                     {
                         if (enemyScript.somyeon_Gwi.rageCount == 3) { return; }
-
+                        Debug.Log("분노");
                         itemUse.isItemTouch = false;
                         enemyScript.somyeon_Gwi.rageCount++;
                         canIncrease = false;
