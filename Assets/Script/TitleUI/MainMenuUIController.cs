@@ -6,8 +6,6 @@ public class MainMenuUIController : MonoBehaviour
 {
     public void OnClickStartButton(string loadSceneName)
     {
-        if (PassiveItemManager.Instance != null)
-            PassiveItemManager.Instance.ResetPassiveItem();
         GameManager.Instance.LoadScene(loadSceneName);
     }
 

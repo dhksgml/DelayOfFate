@@ -152,6 +152,17 @@ public abstract class Enemy     : MonoBehaviour
 
     }
 
+    //이젠 안씀
+    public void EnemyPrice()
+    {
+        //적의 가격을 정해줌. int형이기에 최대값에 +1을 더해주었음
+        enemyPrice = Random.Range(enemyPriceMin, enemyPriceMax + 1);
+    }
+    //이젠 안씀
+    public void EnemyHeight()
+    {
+        enemyHeight = Random.Range(enemyHeightMin, enemyHeightMax + 1);
+    }
 
     public abstract void EnemyMove();
 
