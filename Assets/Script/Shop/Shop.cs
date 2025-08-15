@@ -311,15 +311,15 @@ public class Shop : MonoBehaviour
                     soulPrices[i] += Random.Range(-10, +11);
                     break;
                 case 2:
-                    soulPrices[i] = 275;
+                    soulPrices[i] = 215;
                     soulPrices[i] += Random.Range(-15, +16);
                     break;
                 case 3:
-                    soulPrices[i] = 450;
+                    soulPrices[i] = 300;
                     soulPrices[i] += Random.Range(-20, +21);
                     break;
                 case 4:
-                    soulPrices[i] = 600;
+                    soulPrices[i] = 400;
                     soulPrices[i] += Random.Range(-25, +26);
                     break;
                 default:
