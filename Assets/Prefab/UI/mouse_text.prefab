@@ -163,13 +163,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8786482593783432978, guid: f1bd5f6fa56e72749b1678bd53f77e8a, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e5c5e79a0702876479cc3f7ba1cbe9ea, type: 2}
+    - target: {fileID: 8786482593783432978, guid: f1bd5f6fa56e72749b1678bd53f77e8a, type: 3}
       propertyPath: m_fontSizeBase
       value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 8786482593783432978, guid: f1bd5f6fa56e72749b1678bd53f77e8a, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -1625775781952263435, guid: e58959946b9ec504a9a25cf76944a7cc, type: 2}
+      objectReference: {fileID: -8377179793454376517, guid: e58959946b9ec504a9a25cf76944a7cc, type: 2}
     - target: {fileID: 8786482593783432978, guid: f1bd5f6fa56e72749b1678bd53f77e8a, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
@@ -330,7 +334,7 @@ PrefabInstance:
     - target: {fileID: 8786482593783432978, guid: f1bd5f6fa56e72749b1678bd53f77e8a, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -1625775781952263435, guid: e58959946b9ec504a9a25cf76944a7cc, type: 2}
+      objectReference: {fileID: -8377179793454376517, guid: e58959946b9ec504a9a25cf76944a7cc, type: 2}
     - target: {fileID: 8786482593783432978, guid: f1bd5f6fa56e72749b1678bd53f77e8a, type: 3}
       propertyPath: m_enableAutoSizing
       value: 1
@@ -483,7 +487,7 @@ PrefabInstance:
     - target: {fileID: 8786482593783432978, guid: f1bd5f6fa56e72749b1678bd53f77e8a, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -1625775781952263435, guid: e58959946b9ec504a9a25cf76944a7cc, type: 2}
+      objectReference: {fileID: -8377179793454376517, guid: e58959946b9ec504a9a25cf76944a7cc, type: 2}
     - target: {fileID: 8786482593783432978, guid: f1bd5f6fa56e72749b1678bd53f77e8a, type: 3}
       propertyPath: m_enableAutoSizing
       value: 1
