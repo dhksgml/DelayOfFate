@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class PlayerInfoUI : MonoBehaviour
 {
@@ -15,6 +16,11 @@ public class PlayerInfoUI : MonoBehaviour
 
     public TMP_Text coin_text;
     public TMP_Text soul_text;
+    public TMP_Text add_coin_text; //일시적 추가 했을때 ui
+    public TMP_Text add_soul_text; //일시적 추가 했을때 ui
+
+    public float showDuration = 1f; // 완전 표시되는 시간
+    public float fadeDuration = 1f; // 페이드 아웃 시간
 
     private float maxHpBarWidth; // 실제 UI에서의 최대 바 너비
     private float maxSpBarWidth;
@@ -201,7 +207,36 @@ public class PlayerInfoUI : MonoBehaviour
             UIArrow.rotation = Quaternion.Euler(0, 0, angle);
         }
     }
+    public void One_Time_Show(float gold, float soul)
+    {
+        if (gold <= 0 && soul <= 0) return;
 
+        add_coin_text.text = gold > 0 ? "+" + gold.ToString() : "";
+        add_soul_text.text = soul > 0 ? "+" + soul.ToString() : "";
+        StartCoroutine(ShowAndFade());
+    }
+
+    private IEnumerator ShowAndFade()
+    {
+        bool isShowing = true;
+        add_coin_text.alpha = 1f; // 순간적으로 보이기
+        add_soul_text.alpha = 1f; // 순간적으로 보이기
+        yield return new WaitForSeconds(showDuration);
+
+        float elapsed = 0f;
+        while (elapsed < fadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            add_coin_text.alpha = Mathf.Lerp(1f, 0f, elapsed / fadeDuration);
+            add_soul_text.alpha = Mathf.Lerp(1f, 0f, elapsed / fadeDuration);
+            yield return null;
+        }
+
+        add_coin_text.alpha = 0f;
+        add_soul_text.alpha = 0f;
+        GameManager.Instance.ReSet_One_time_SG();
+        isShowing = false;
+    }
     public void HideDirectionToItem()
     {
         UIArrow.gameObject.SetActive(false);

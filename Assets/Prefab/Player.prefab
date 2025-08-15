@@ -705,7 +705,7 @@ MonoBehaviour:
   rayCastDistance: 2
   hpRecoveryDuration: 20
   mpRecoveryDuration: 10
-  spRecoveryDuration: 10
+  spRecoveryDuration: 5
   attackDamage: 0
   attackCoolTime: 0
   extraHp: 0
@@ -754,6 +754,7 @@ MonoBehaviour:
     m_Bits: 8
   item_Prefab: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
   holdTime: 0
+  isItemTouch: 0
 --- !u!95 &8058544078991953991
 Animator:
   serializedVersion: 5
@@ -824,7 +825,7 @@ MonoBehaviour:
   - {x: -0.05387208, y: -0.22353303, z: 0}
   m_ShapePathHash: -1562121249
   m_Mesh: {fileID: 0}
-  m_InstanceId: 141950
+  m_InstanceId: -278744
   m_LocalBounds:
     m_Center: {x: 0.0002822429, y: -0.064456046, z: 0}
     m_Extent: {x: 0.114839226, y: 0.39820114, z: 0}
