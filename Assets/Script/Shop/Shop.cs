@@ -96,11 +96,11 @@ public class Shop : MonoBehaviour
         weaponSlots[Slot].text = (coin).ToString();
         if (name == "Gold")
         {
-            weaponSlots[Slot].text += " ³É";
+            weaponSlots[Slot].text += "<sprite=9> ";
         }
         else if (name == "Soul")
         {
-            weaponSlots[Slot].text += " È¥";
+            weaponSlots[Slot].text += "<sprite=8> ";
         }
         
     }

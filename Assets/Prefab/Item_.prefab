@@ -267,8 +267,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5357645014982782193, guid: 7c6a1e0c8bdc5844a8016a6cb8d6ee69, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5410492010999524437, guid: 7c6a1e0c8bdc5844a8016a6cb8d6ee69, type: 3}
+      propertyPath: m_text
+      value: "[<b>E</b>] \uC90D\uAE30\\n[<b>E~</b>] \uC989\uC2DC \uD310\uB9E4: 000<sprite=8>"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5410492010999524437, guid: 7c6a1e0c8bdc5844a8016a6cb8d6ee69, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e5c5e79a0702876479cc3f7ba1cbe9ea, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float hpRecoveryDuration = 10f;
     [SerializeField] private float mpRecoveryDuration = 10f;
-    [SerializeField] private float spRecoveryDuration = 5f;
+    [SerializeField] private float spRecoveryDuration = 7.5f;
 
     const float runThreshold = 10f; //달리기에 필요한 최소 sp
     private bool isEmptySP;
