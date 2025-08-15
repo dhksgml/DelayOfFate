@@ -163,13 +163,15 @@ public class PassiveItemManager : MonoBehaviour
         //16글자 마다 줄 바꿈이 됨
         switch ($"{group}_{number}")
         {
+            //<sprite=8> 
+            //<sprite=9> 
             case "1_1": return "물건의 무게로 인한 이동속도\n감속이 제거됨";
             case "1_2": return "악귀에게 주는 피해가 10할 증가\n악귀의 약점을 공격 할 수 없음";
             //case "2_1": return "방망이의 공격 범위가 10할 증가\n방망이가 즉시 시전 방망이의 피해량이 5할 증가";
             //case "2_2": return "부적의 추격 범위가 20할 증가\n부적의 피해량이 5할 증가";
             //case "2_3": return "환도의 공격속도 5할 증가\n환도의 피해가 5할 증가";
-            case "3_1": return "약값 지불 후 보유한 혼의\n3할 만큼 획득";
-            case "3_2": return "무기를 0혼 으로 구매 가능";
+            case "3_1": return "약값 지불 후 보유한 <sprite=8>의\n3할 만큼 획득";
+            case "3_2": return "무기를 0 <sprite=8>으로 구매 가능";
             case "4_1": return "악귀로 받는 체력피해가\n5할 감소";
             case "4_2": return "체력이 75 증가\n정신이 25 감소";
             case "4_3": return "정신이 75 증가\n체력이 25 감소";
@@ -193,8 +195,8 @@ public class PassiveItemManager : MonoBehaviour
             case "10_3": return "5일차 까지 약 값을 지불하고\n살아남아야 함";
             case "10_4": return "혼령강화의 목록을\n새로운 품목으로 교체함";
             case "10_5": return "전투로부터 돈을 벌러 감";
-            case "10_6": return "100혼을 50냥으로 교환함";
-            case "10_7": return "100냥을 50혼으로 교환함";
+            case "10_6": return "100 <sprite=8>을 50 <sprite=9>으로 교환함";
+            case "10_7": return "100 <sprite=9>을 50 <sprite=8>으로 교환함";
             case "10_8": return "혼령강화와 현재 물건칸을 교체해서 봄";
             // ...
             default: return "설명이 없습니다.";

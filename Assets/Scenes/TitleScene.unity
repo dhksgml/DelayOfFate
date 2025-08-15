@@ -385,7 +385,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 174113626}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIHoverMover, Assembly-CSharp
         m_MethodName: TogglePanel
         m_Mode: 1
@@ -397,17 +397,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &174113626 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2418195622098139462, guid: d5867e7176586244386f4da61bb438b1, type: 3}
-  m_PrefabInstance: {fileID: 1904202691}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 174113623}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41451b40c97b33f41bff64ca03190357, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &174113627 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6482590093819792152, guid: d5867e7176586244386f4da61bb438b1, type: 3}

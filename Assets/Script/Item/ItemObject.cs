@@ -199,7 +199,7 @@ public class ItemObject : MonoBehaviour
         if (coin_text != null)
         {
             int total_coin = itemData.Coin * itemData.Count;
-            if (itemData.Sell_immediately) { coin_text.text = string.Format("[<b>E</b>] 줍기\n[<b>E~</b>] 즉시 판매: {0} 혼", total_coin); }
+            if (itemData.Sell_immediately) { coin_text.text = string.Format("[<b>E</b>] 줍기\n[<b>E~</b>] 즉시 판매: {0}<sprite=8>", total_coin); }
             else {coin_text.text = string.Format("[<b>E</b>] 줍기\n{0} 값", total_coin);} //��� �ǸŰ� �Ұ����� �������� ���
         }
     }
