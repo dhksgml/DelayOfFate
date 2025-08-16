@@ -27,6 +27,8 @@ public class Shop : MonoBehaviour
 
     public TMP_Text[] weaponSlots; // 상품 목록들 무기, 영혼, 초롱
     public ItemData[] weaponData; // 무기 데이터
+    public GameObject ch_soul_gold_bt;//교환 버튼 (비활성화 용)
+    public GameObject ch_gold_soul_bt;//교환 버튼 (비활성화 용)
     public QuickSlotUI quickSlotUI; // 퀵슬롯 연결
     private PassiveItemManager passiveItemManager;
     void Awake()
@@ -53,7 +55,7 @@ public class Shop : MonoBehaviour
         // Manually add known _3 variants (except 2_3 which we are excluding)
         allSoulIds.Add("Soul_Add_4_3");
         allSoulIds.Add("Soul_Add_6_3"); // allowed; only 6_1 is excluded
-
+        
         RerollSouls(); // run before Start
     }
 
@@ -61,6 +63,7 @@ public class Shop : MonoBehaviour
     void Start()
     {
         InitializeShop();
+        if (GameManager.Instance.Day == 1) ch_bt_1day_no(); //1일차면 교환 막기 + 환도 강제 구매
         passiveItemManager = FindObjectOfType<PassiveItemManager>();
     }
     void Update()
@@ -102,7 +105,6 @@ public class Shop : MonoBehaviour
         {
             weaponSlots[Slot].text += "<sprite=8> ";
         }
-        
     }
     public void BuyWeapon(int index) // 무기 구매
     {
@@ -383,6 +385,11 @@ public class Shop : MonoBehaviour
         }
     }
 
+    void ch_bt_1day_no()//1일차에 버튼 비활성화
+    {
+        ch_soul_gold_bt.gameObject.SetActive(false);
+        ch_gold_soul_bt.gameObject.SetActive(false);
+    }
 
     public void Reroll()
     {

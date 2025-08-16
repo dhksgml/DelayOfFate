@@ -118,7 +118,9 @@ public class PlayerController : MonoBehaviour
         player_Item_Use = GetComponent<Player_Item_Use>();
         nearestItemFinder = GetComponent<NearestItemFinder>();
         mainCamera = Camera.main;
-
+        
+        lightCircleObject.SetActive(true);
+        flashLightObject.SetActive(true);
         Init();
     }
 
@@ -388,7 +390,7 @@ public class PlayerController : MonoBehaviour
         if (flashLightObject != null)
         {
             if (isRecovering) flashLightObject.SetActive(false);
-            else if (flashLightLevel < 3 && isRun && !isEmptySP) flashLightObject.SetActive(false);
+            //else if (flashLightLevel < 3 && isRun && !isEmptySP) flashLightObject.SetActive(false);
             else flashLightObject.SetActive(isHavingFlashLight);
             SetflashLightPosition();
         };
@@ -403,11 +405,11 @@ public class PlayerController : MonoBehaviour
         {
             lightCircleLight.intensity = 0.05f;
             lightCircleLight.pointLightOuterRadius = 3;
-            lightCircleLight.falloffIntensity = 0.2f;
+            lightCircleLight.falloffIntensity = 0f;
 
             flashLight.intensity = 0.5f;
-            flashLight.pointLightOuterRadius = 9;
-            flashLight.falloffIntensity = 0.5f;
+            flashLight.pointLightOuterRadius = 10;
+            flashLight.falloffIntensity = 0.3f;
         }
         else if (flashLightLevel == 2)
         {
@@ -416,8 +418,8 @@ public class PlayerController : MonoBehaviour
             lightCircleLight.falloffIntensity = 0f;
 
             flashLight.intensity = 1;
-            flashLight.pointLightOuterRadius = 12;
-            flashLight.falloffIntensity = 0.5f;
+            flashLight.pointLightOuterRadius = 13;
+            flashLight.falloffIntensity = 0.2f;
         }
         else if (flashLightLevel == 3)
         {
@@ -426,8 +428,8 @@ public class PlayerController : MonoBehaviour
             lightCircleLight.falloffIntensity = 0f;
 
             flashLight.intensity = 1.5f;
-            flashLight.pointLightOuterRadius = 15;
-            flashLight.falloffIntensity = 0.5f;
+            flashLight.pointLightOuterRadius = 16;
+            flashLight.falloffIntensity = 0.1f;
         }
     }
 

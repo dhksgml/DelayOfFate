@@ -146,7 +146,6 @@ public class PlayerInfoUI : MonoBehaviour
 
                 playerMPSC.color = color_sc; // 변경된 알파값을 여기서 반영
             }
-
         }
 
     }
@@ -207,12 +206,33 @@ public class PlayerInfoUI : MonoBehaviour
             UIArrow.rotation = Quaternion.Euler(0, 0, angle);
         }
     }
-    public void One_Time_Show(float gold, float soul)
+    public void One_Time_Show(float gold, bool soul, bool add)
     {
-        if (gold <= 0 && soul <= 0) return;
+        if (gold == 0) return;
 
-        add_coin_text.text = gold > 0 ? "+" + gold.ToString() : "";
-        add_soul_text.text = soul > 0 ? "+" + soul.ToString() : "";
+        if (!add)
+        {
+            if (soul)
+            {
+                if (gold != 0) add_soul_text.text = gold.ToString();
+            }
+            else
+            {
+                if (gold != 0) add_coin_text.text = gold.ToString();
+            }
+        }
+        else
+        {
+            if (soul)
+            {
+                if (gold != 0) add_soul_text.text = "+" + gold.ToString();
+            }
+            else
+            {
+                if (gold != 0) add_coin_text.text = "+" + gold.ToString();
+            }
+            
+        }
         StartCoroutine(ShowAndFade());
     }
 

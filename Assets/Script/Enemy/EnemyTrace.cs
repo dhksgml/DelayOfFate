@@ -281,21 +281,21 @@ public class EnemyTrace : MonoBehaviour
                 }
             }
             // ¾îµÏÁã Àü¿ë
-            if (enemyScript.eo_dook_jwi != null)
-            {
+            //if (enemyScript.eo_dook_jwi != null)
+            //{
                 
-                foreach (Transform child in collision.transform.GetComponentsInChildren<Transform>(true))
-                {
-                    if (child.CompareTag("Light"))
-                    {
-                        Light2D light = child.GetComponent<Light2D>();
-                        if (light != null)
-                        {
-                            light.intensity = 0.1f;
-                        }
-                    }
-                }
-            }
+            //    foreach (Transform child in collision.transform.GetComponentsInChildren<Transform>(true))
+            //    {
+            //        if (child.CompareTag("Light"))
+            //        {
+            //            Light2D light = child.GetComponent<Light2D>();
+            //            if (light != null)
+            //            {
+            //                light.intensity = 0.1f;
+            //            }
+            //        }
+            //    }
+            //}
 
             // ¼Ò¸é±Í Àü¿ë
             if (enemyScript.somyeon_Gwi != null)
@@ -349,20 +349,20 @@ public class EnemyTrace : MonoBehaviour
             }
 
             // ¾îµÏÁã Àü¿ë
-            if (enemyScript.eo_dook_jwi != null)
-            {
-                foreach (Transform child in collision.transform.GetComponentsInChildren<Transform>(true))
-                {
-                    if (child.CompareTag("Light"))
-                    {
-                        Light2D light = child.GetComponent<Light2D>();
-                        if (light != null)
-                        {
-                            light.intensity = enemyScript.playerOrigin_Light_Intensity;
-                        }
-                    }
-                }
-            }
+            //if (enemyScript.eo_dook_jwi != null)
+            //{
+            //    foreach (Transform child in collision.transform.GetComponentsInChildren<Transform>(true))
+            //    {
+            //        if (child.CompareTag("Light"))
+            //        {
+            //            Light2D light = child.GetComponent<Light2D>();
+            //            if (light != null)
+            //            {
+            //                light.intensity = enemyScript.playerOrigin_Light_Intensity;
+            //            }
+            //        }
+            //    }
+            //}
 
         }
     }
