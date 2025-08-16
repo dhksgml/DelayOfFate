@@ -199,7 +199,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ' +'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 97ab37a4de3e47a449ededabd0045bb5, type: 2}
   m_sharedMaterial: {fileID: -1625775781952263435, guid: 97ab37a4de3e47a449ededabd0045bb5, type: 2}
@@ -1763,7 +1763,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ' +'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 97ab37a4de3e47a449ededabd0045bb5, type: 2}
   m_sharedMaterial: {fileID: -1625775781952263435, guid: 97ab37a4de3e47a449ededabd0045bb5, type: 2}
@@ -2937,8 +2937,8 @@ MonoBehaviour:
   showDuration: 1
   fadeDuration: 1
   frameRect: {fileID: 5290914257821300365}
-  hpBarRect: {fileID: 2480641912163361351}
-  extraHpRect: {fileID: 1201205360308012521}
+  hpBarRect: {fileID: 1201205360308012521}
+  extraHpRect: {fileID: 2480641912163361351}
   UIArrow: {fileID: 5118511674228985132}
   distanceFromPlayer: 100
   hideUIArrowDistance: 2
@@ -3035,7 +3035,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5496124339999630562, guid: f35965f6d31045d4a8341791bcb88f9d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1044
+      value: -1300
       objectReference: {fileID: 0}
     - target: {fileID: 5496124339999630562, guid: f35965f6d31045d4a8341791bcb88f9d, type: 3}
       propertyPath: m_LocalPosition.y

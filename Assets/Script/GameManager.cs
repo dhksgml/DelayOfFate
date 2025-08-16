@@ -118,12 +118,15 @@ public class GameManager : MonoBehaviour
         Gold = Mathf.Min((int)Gold + (int)val, 9999);
         One_Time_Gold += val;
         gainUI = FindObjectOfType<PlayerInfoUI>();
-        gainUI.One_Time_Show(One_Time_Gold, One_Time_Soul);
+        if (gainUI != null) gainUI.One_Time_Show(One_Time_Gold, false,true);
     }
 
     public void Sub_Gold(float val) // ����: �ּҰ� ����
     {
         Gold = (float)Mathf.Max((int)Gold - (int)val, 0);
+        One_Time_Gold -= val;
+        gainUI = FindObjectOfType<PlayerInfoUI>();
+        if (gainUI != null) gainUI.One_Time_Show(One_Time_Gold, false, false);
     }
 
     public void Add_Soul(float val)
@@ -132,13 +135,16 @@ public class GameManager : MonoBehaviour
         N_Day_Add_Soul = Mathf.Min((int)N_Day_Add_Soul + (int)val, 9999f);
         One_Time_Soul += val;
         gainUI = FindObjectOfType<PlayerInfoUI>();
-        gainUI.One_Time_Show(One_Time_Gold, One_Time_Soul);
+        if (gainUI != null) gainUI.One_Time_Show(One_Time_Soul, true, true);
     }
 
     public void Sub_Soul(float val) // ����
     {
         // ���� ������ ���� �ּҰ��� ������
         Soul = (float)Mathf.Max((int)Soul - (int)val, -9999f);
+        One_Time_Soul -= val;
+        gainUI = FindObjectOfType<PlayerInfoUI>();
+        if (gainUI != null) gainUI.One_Time_Show(One_Time_Soul, true, false);
     }
     public void ReSet_One_time_SG()
     {
