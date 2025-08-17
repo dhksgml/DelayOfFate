@@ -115,6 +115,7 @@ public class GameManager : MonoBehaviour
     }
     public void Add_Gold(float val)
     {
+        
         Gold = Mathf.Min((int)Gold + (int)val, 9999);
         One_Time_Gold += val;
         gainUI = FindObjectOfType<PlayerInfoUI>();
@@ -123,6 +124,7 @@ public class GameManager : MonoBehaviour
 
     public void Sub_Gold(float val) // ����: �ּҰ� ����
     {
+        
         Gold = (float)Mathf.Max((int)Gold - (int)val, 0);
         One_Time_Gold -= val;
         gainUI = FindObjectOfType<PlayerInfoUI>();
@@ -131,6 +133,7 @@ public class GameManager : MonoBehaviour
 
     public void Add_Soul(float val)
     {
+        
         Soul = Mathf.Min((int)Soul + (int)val, 9999f);
         N_Day_Add_Soul = Mathf.Min((int)N_Day_Add_Soul + (int)val, 9999f);
         One_Time_Soul += val;
@@ -140,6 +143,7 @@ public class GameManager : MonoBehaviour
 
     public void Sub_Soul(float val) // ����
     {
+        
         // ���� ������ ���� �ּҰ��� ������
         Soul = (float)Mathf.Max((int)Soul - (int)val, -9999f);
         One_Time_Soul -= val;

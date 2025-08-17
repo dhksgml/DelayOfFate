@@ -40,6 +40,7 @@ public class PlayerInfoUI : MonoBehaviour
     private const float TOTAL_HEIGHT = 40f;
     private const float MAX_BAR_WIDTH = 500f;
 
+    private Coroutine showRoutine;
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -60,6 +61,7 @@ public class PlayerInfoUI : MonoBehaviour
         playerController = FindObjectOfType<PlayerController>();
         maxHpBarWidth = playerHpBar.rectTransform.sizeDelta.x;
         maxSpBarWidth = playerSpBar.rectTransform.sizeDelta.x;
+        add_text_reset();
     }
 
     private void Update()
@@ -208,16 +210,16 @@ public class PlayerInfoUI : MonoBehaviour
     }
     public void One_Time_Show(float gold, bool soul, bool add)
     {
-        if (gold == 0) return;
-
         if (!add)
         {
             if (soul)
             {
+                Debug.Log("soul:1");
                 if (gold != 0) add_soul_text.text = gold.ToString();
             }
             else
             {
+                Debug.Log("gold:1");
                 if (gold != 0) add_coin_text.text = gold.ToString();
             }
         }
@@ -225,15 +227,18 @@ public class PlayerInfoUI : MonoBehaviour
         {
             if (soul)
             {
+                Debug.Log("soul:2");
                 if (gold != 0) add_soul_text.text = "+" + gold.ToString();
             }
             else
             {
+                Debug.Log("gold:2");
                 if (gold != 0) add_coin_text.text = "+" + gold.ToString();
             }
             
         }
-        StartCoroutine(ShowAndFade());
+
+        showRoutine = StartCoroutine(ShowAndFade());
     }
 
     private IEnumerator ShowAndFade()
@@ -252,10 +257,16 @@ public class PlayerInfoUI : MonoBehaviour
             yield return null;
         }
 
-        add_coin_text.alpha = 0f;
-        add_soul_text.alpha = 0f;
+        add_text_reset();
         GameManager.Instance.ReSet_One_time_SG();
         isShowing = false;
+    }
+    void add_text_reset()
+    {
+        add_coin_text.alpha = 0f;
+        add_soul_text.alpha = 0f;
+        add_coin_text.text = "";
+        add_coin_text.text = "";
     }
     public void HideDirectionToItem()
     {
