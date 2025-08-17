@@ -15,7 +15,7 @@ public class Place : MonoBehaviour
 	}
 
 	[SerializeField] private Place_enum place_enum;
-	[SerializeField] private float requiredTime = 3f;
+	[SerializeField] private float requiredTime = 2f;
 	[SerializeField] public Image holdGauge;
 
 	[HideInInspector] public float sale_max_Time = 10f; // 쿨타임 최대값

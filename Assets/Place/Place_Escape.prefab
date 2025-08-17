@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   place_enum: 0
-  requiredTime: 3
+  requiredTime: 1.5
   holdGauge: {fileID: 8264194959945349143}
   sale_max_Time: 10
   sale_cu_Time: 0
