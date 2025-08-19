@@ -10,7 +10,6 @@ public class Shop : MonoBehaviour
     public float Soul;
 
     private int rerollCost = 30;
-    private int lanternBuyCount = 0;
 
     private const int lantern_1 = 500;
     private const int lantern_2 = 1000;
@@ -79,16 +78,16 @@ public class Shop : MonoBehaviour
             weaponPrices.Add(GameManager.Instance.Day * 100);
             if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_3_2")) //다다익선 보유시
             {
-                weaponSlots_text(i, 0, "Soul");
+                weaponSlots_text(i, 0, "Gold");
             }
             else
             {
-                weaponSlots_text(i, GameManager.Instance.Day * 100, "Soul");
+                weaponSlots_text(i, GameManager.Instance.Day * 100, "Gold");
             }
         }
 
-        weaponSlots_text(9, lantern_1, "Gold"); // 초롱가격
-        weaponSlots_text(10, rerollCost, "Gold"); // 리롤 가격
+        weaponSlots_text(9, lantern_1, "Soul"); // 초롱가격
+        weaponSlots_text(10, rerollCost, "Soul"); // 리롤 가격
 
         // 영혼 구매 상태 초기화
         soulPurchased = new bool[4];
@@ -97,13 +96,13 @@ public class Shop : MonoBehaviour
     void weaponSlots_text(int Slot,int coin,string name)
     {
         weaponSlots[Slot].text = (coin).ToString();
-        if (name == "Gold")
-        {
-            weaponSlots[Slot].text += "<sprite=9> ";
-        }
-        else if (name == "Soul")
+        if (name == "Soul")
         {
             weaponSlots[Slot].text += "<sprite=8> ";
+        }
+        else if (name == "Gold")
+        {
+            weaponSlots[Slot].text += "<sprite=9> ";
         }
     }
     public void BuyWeapon(int index) // 무기 구매
@@ -115,7 +114,7 @@ public class Shop : MonoBehaviour
         if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_3_2"))
             price = 0;
 
-        if (Soul < price) return;
+        if (Gold < price) return;
 
         // 내부에서 바로 퀵슬롯 참조
         ShopQuickSlot shopQuickSlot = FindObjectOfType<ShopQuickSlot>();
@@ -144,7 +143,7 @@ public class Shop : MonoBehaviour
                                 PassiveItemManager.Instance.HasEffect("Soul_Add_3_2");
         if (!hasSoulAddEffect)
         {
-            GameManager.Instance.Sub_Soul(price);
+            GameManager.Instance.Sub_Gold(price);
         }
 
         weaponSlots[index].text = "구매 완료";
@@ -193,9 +192,9 @@ public class Shop : MonoBehaviour
         if (soulPurchased[index]) return;
 
         int price = soulPrices[index];
-        if (Soul >= price)
+        if (Gold >= price)
         {
-            GameManager.Instance.Sub_Soul(price);
+            GameManager.Instance.Sub_Gold(price);
             soulPurchased[index] = true;
 
             weaponSlots[index + 5].text = "구매 완료";
@@ -210,7 +209,6 @@ public class Shop : MonoBehaviour
             // 구매 효과 적용 신호 보내기
             string itemId = soulNames[index]; // ← 이미 RerollSouls()에서 할당됨
             PassiveItemManager.Instance.PurchaseItem(itemId);
-            Debug.Log($"혼령 구매: {itemId}");
             UpdateWeaponPrice();
         }
         else
@@ -220,7 +218,8 @@ public class Shop : MonoBehaviour
     }
     public void BuyLantern() // 호롱 업글
     {
-        if (lanternBuyCount >= 2)
+        int F_leval = GameManager.Instance.playerData.flashLightLevel;
+        if (F_leval >= 2)
         {
             Debug.Log("Lantern cannot be purchased anymore.");
             return;
@@ -228,33 +227,32 @@ public class Shop : MonoBehaviour
 
         int price = 0;
 
-        if (lanternBuyCount == 0)
+        if (F_leval == 0)
         {
             price = lantern_1; // 2단계
         }
-        else if (lanternBuyCount == 1)
+        else if (F_leval == 1)
         {
             price = lantern_2; // 3단계
         }
 
-        if (Gold >= price)
+        if (Soul >= price)
         {
-            GameManager.Instance.Sub_Gold(price);
-            lanternBuyCount++;
+            GameManager.Instance.Sub_Soul(price);
             GameManager.Instance.playerData.flashLightLevel = Mathf.Clamp(GameManager.Instance.playerData.flashLightLevel + 1, 1, 3);
             if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_2"));
             // 다음 단계 가격 표시 또는 "구매 완료"
-            if (lanternBuyCount == 2)
+            if (F_leval == 2)
             {
                 weaponSlots[9].text = "구매 완료";
             }
             else
             {
-                int nextPrice = (lanternBuyCount == 1) ? lantern_2 : 0;
-                weaponSlots_text(9, nextPrice, "Gold");
+                int nextPrice = (F_leval == 1) ? lantern_2 : 0;
+                weaponSlots_text(9, nextPrice, "Soul");
             }
 
-            Debug.Log($"Purchased lantern ({lanternBuyCount}/2) for {price} coins.");
+            Debug.Log($"Purchased lantern ({F_leval}/2) for {price} coins.");
         }
         else
         {
@@ -287,7 +285,6 @@ public class Shop : MonoBehaviour
 
         // 2. 랜덤 섞기 & 4개 추출 (중복 제거)
         availableSouls = availableSouls.OrderBy(x => Random.value).ToList();
-        print(availableSouls);
         for (int i = 0; i < 4; i++)
         {
             if (soulPurchased[i]) continue;
@@ -297,7 +294,7 @@ public class Shop : MonoBehaviour
                 Debug.LogWarning("미구매 아이템이 4개 미만입니다!");
                 soulNames[i] = "";
                 soulPrices[i] = 0;
-                weaponSlots_text(5 + i, 0, "Soul");
+                weaponSlots_text(5 + i, 0, "Gold");
                 soulIcons[i].sprite = null;
                 continue;
             }
@@ -328,7 +325,7 @@ public class Shop : MonoBehaviour
                     break;
             }
             // UI 텍스트 갱신
-            weaponSlots_text(5 + i, soulPrices[i], "Soul");
+            weaponSlots_text(5 + i, soulPrices[i], "Gold");
 
             // 아이콘 갱신
             SetSoulIcon(i, id);
@@ -393,11 +390,11 @@ public class Shop : MonoBehaviour
 
     public void Reroll()
     {
-        if (Gold >= rerollCost)
+        if (Soul >= rerollCost)
         {
-            GameManager.Instance.Sub_Gold(rerollCost);
+            GameManager.Instance.Sub_Soul(rerollCost);
             rerollCost += 30;
-            weaponSlots_text(10, rerollCost, "Gold");
+            weaponSlots_text(10, rerollCost, "Soul");
             RerollSouls();
             if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
             Debug.Log($"Rerolled souls. Next reroll cost: {rerollCost}");
