@@ -91,6 +91,8 @@ public abstract class Enemy     : MonoBehaviour
     public Animator             anim;
     public GameObject           enemyCorpse; //적 시체
     public ItemData             enemyCorpseData;
+    private Transform           uiCanvas;
+    public GameObject           Sale_Effect; // 혼 이펙트
     public GameObject           enemySelf;
     public Collider2D           enemyColl;
     public GameObject           enemyDeathEffect; // 사망 이펙트
@@ -148,7 +150,7 @@ public abstract class Enemy     : MonoBehaviour
         {
 
         }
-
+        uiCanvas = GameObject.Find("Player_Canvas")?.transform;
 
     }
 
@@ -312,7 +314,7 @@ public abstract class Enemy     : MonoBehaviour
     //적이 죽을떄 시체를 소환하는 메서드
     void EnemyCorpseSummon()
     {
-        GameObject corpse = Instantiate(this.enemyCorpse, transform.position, transform.rotation);
+        /*GameObject corpse = Instantiate(this.enemyCorpse, transform.position, transform.rotation);
         ItemObject corpseItemData = corpse.GetComponent<ItemObject>();
 
         // 2. 그리고 직접 itemData 생성
@@ -329,12 +331,30 @@ public abstract class Enemy     : MonoBehaviour
             corpseItemData.itemData.itemName = $"{enemyName}의 영혼";
             corpseItemData.itemData.Coin = enemyPrice;
             corpseItemData.itemData.Weight = enemyHeight;
-        }
-
+        }*/
+        SpawnEffectParts(enemyPrice, "Soul");
+        GameManager.Instance.Add_Soul(enemyPrice);
         // 시체의 부모 통째로 제거
         Destroy(transform.parent.gameObject);
     }
+    private void SpawnEffectParts(int totalValue, string type)
+    {
+        int remainingValue = totalValue;
+        
+        while (remainingValue > 0)
+        {
+            int shardValue = Random.Range(10, 21);
+            if (shardValue > remainingValue)
+                shardValue = remainingValue;
 
+            GameObject fx = Instantiate(Sale_Effect, transform.position, Quaternion.identity);
+            fx.transform.SetParent(uiCanvas, false);
+            MoneyEffect effect = fx.GetComponent<MoneyEffect>();
+            effect.ty = type;
+
+            remainingValue -= shardValue;
+        }
+    }
     #endregion
 
     #region 회전 처리

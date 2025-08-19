@@ -158,6 +158,7 @@ MonoBehaviour:
   enemyHitTime: 0
   enemyWeakness: 0
   enemyType: 0
+  enemy_Weak: 0
   enemyCurrentMove: 0
   enemyMovePoint: []
   isTrace: 0
@@ -172,6 +173,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   enemyCorpse: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
   enemyCorpseData: {fileID: 11400000, guid: 160f2d3033bb9524fa884c730fd94f73, type: 2}
+  Sale_Effect: {fileID: 8897711660315164129, guid: 688a73bcb2a05e64fb2f70898fc84aa7, type: 3}
   enemySelf: {fileID: 85314243712649985}
   enemyColl: {fileID: 1360868529527927972}
   enemyDeathEffect: {fileID: 5642766282230003982, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
