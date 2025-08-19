@@ -101,7 +101,7 @@ public class Tal_hon_gwi : Enemy
             // 정신 데미지
             player.DamagedMP(talhongwiDamage);
             // 기력 데미지
-            player.DamagedSP(player.maxSp * 0.3f);
+            //player.DamagedSP(player.maxSp * 0.3f);
         }
 
 

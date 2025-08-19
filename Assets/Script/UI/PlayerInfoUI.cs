@@ -9,7 +9,6 @@ public class PlayerInfoUI : MonoBehaviour
     private PlayerController playerController;
     public Image playerHpBar;
     public Image playerBonusHpBar;
-    public Image playerSpBar;
     public Image playerMPsc;
     public Image playerMPSC;// 가장자리 이미지 지정
     public Sprite[] Mp_sc; // 가장자리 이미지 3개
@@ -23,7 +22,6 @@ public class PlayerInfoUI : MonoBehaviour
     public float fadeDuration = 1f; // 페이드 아웃 시간
 
     private float maxHpBarWidth; // 실제 UI에서의 최대 바 너비
-    private float maxSpBarWidth;
 
     [SerializeField] private RectTransform frameRect;
     [SerializeField] private RectTransform hpBarRect;
@@ -60,7 +58,6 @@ public class PlayerInfoUI : MonoBehaviour
     {
         playerController = FindObjectOfType<PlayerController>();
         maxHpBarWidth = playerHpBar.rectTransform.sizeDelta.x;
-        maxSpBarWidth = playerSpBar.rectTransform.sizeDelta.x;
         add_text_reset();
     }
 
@@ -74,31 +71,20 @@ public class PlayerInfoUI : MonoBehaviour
             PlayerData playerData = GameManager.Instance.playerData;
 
             float hpRatio = GameManager.Instance.playerData.currentHp / GameManager.Instance.playerData.maxHp;
-            float spRatio = GameManager.Instance.playerData.currentSp / GameManager.Instance.playerData.maxSp;
 
             Vector2 hpSize = playerHpBar.rectTransform.sizeDelta;
             hpSize.x = maxHpBarWidth * Mathf.Clamp01(hpRatio);
             playerHpBar.rectTransform.sizeDelta = hpSize;
-
-            Vector2 spSize = playerSpBar.rectTransform.sizeDelta;
-            spSize.x = maxSpBarWidth * Mathf.Clamp01(spRatio);
-            playerSpBar.rectTransform.sizeDelta = spSize;
 
             UpdateHealthBar(playerData.currentHp, playerData.maxHp, playerData.currentExtraHp, playerData.extraHp);
         }
         else // 인게임 에서 보여줄것
         {
-
             float hpRatio = playerController.currentHp / playerController.maxHp;
-            float spRatio = playerController.currentSp / playerController.maxSp;
 
             Vector2 hpSize = playerHpBar.rectTransform.sizeDelta;
             hpSize.x = maxHpBarWidth * Mathf.Clamp01(hpRatio);
             playerHpBar.rectTransform.sizeDelta = hpSize;
-
-            Vector2 spSize = playerSpBar.rectTransform.sizeDelta;
-            spSize.x = maxSpBarWidth * Mathf.Clamp01(spRatio);
-            playerSpBar.rectTransform.sizeDelta = spSize;
 
             UpdateHealthBar(playerController.currentHp, playerController.maxHp, playerController.currentExtraHp, playerController.extraHp);
             //if(PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_5_1"))
