@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class PlayerInfoUI : MonoBehaviour
 {
@@ -15,6 +16,11 @@ public class PlayerInfoUI : MonoBehaviour
 
     public TMP_Text coin_text;
     public TMP_Text soul_text;
+    public TMP_Text add_coin_text; //일시적 추가 했을때 ui
+    public TMP_Text add_soul_text; //일시적 추가 했을때 ui
+
+    public float showDuration = 1f; // 완전 표시되는 시간
+    public float fadeDuration = 1f; // 페이드 아웃 시간
 
     private float maxHpBarWidth; // 실제 UI에서의 최대 바 너비
     private float maxSpBarWidth;
@@ -34,6 +40,7 @@ public class PlayerInfoUI : MonoBehaviour
     private const float TOTAL_HEIGHT = 40f;
     private const float MAX_BAR_WIDTH = 500f;
 
+    private Coroutine showRoutine;
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -54,12 +61,13 @@ public class PlayerInfoUI : MonoBehaviour
         playerController = FindObjectOfType<PlayerController>();
         maxHpBarWidth = playerHpBar.rectTransform.sizeDelta.x;
         maxSpBarWidth = playerSpBar.rectTransform.sizeDelta.x;
+        add_text_reset();
     }
 
     private void Update()
     {
-        coin_text.text = $"냥: {(int)GameManager.Instance.Gold}";
-        soul_text.text = $"혼: {(int)GameManager.Instance.Soul} / <color=#ff0000>{(int)GameManager.Instance.N_Day_Cost}</color>";
+        coin_text.text = $" : {(int)GameManager.Instance.Gold}";
+        soul_text.text = $" : {(int)GameManager.Instance.Soul} / <color=#ff0000>{(int)GameManager.Instance.N_Day_Cost}</color>";
 
         if (playerController == null) // 플레이어가 없는 경우 (상점, 스테이지 선택)
         {
@@ -140,7 +148,6 @@ public class PlayerInfoUI : MonoBehaviour
 
                 playerMPSC.color = color_sc; // 변경된 알파값을 여기서 반영
             }
-
         }
 
     }
@@ -201,7 +208,66 @@ public class PlayerInfoUI : MonoBehaviour
             UIArrow.rotation = Quaternion.Euler(0, 0, angle);
         }
     }
+    public void One_Time_Show(float gold, bool soul, bool add)
+    {
+        if (!add)
+        {
+            if (soul)
+            {
+                Debug.Log("soul:1");
+                if (gold != 0) add_soul_text.text = gold.ToString();
+            }
+            else
+            {
+                Debug.Log("gold:1");
+                if (gold != 0) add_coin_text.text = gold.ToString();
+            }
+        }
+        else
+        {
+            if (soul)
+            {
+                Debug.Log("soul:2");
+                if (gold != 0) add_soul_text.text = "+" + gold.ToString();
+            }
+            else
+            {
+                Debug.Log("gold:2");
+                if (gold != 0) add_coin_text.text = "+" + gold.ToString();
+            }
+            
+        }
 
+        showRoutine = StartCoroutine(ShowAndFade());
+    }
+
+    private IEnumerator ShowAndFade()
+    {
+        bool isShowing = true;
+        add_coin_text.alpha = 1f; // 순간적으로 보이기
+        add_soul_text.alpha = 1f; // 순간적으로 보이기
+        yield return new WaitForSeconds(showDuration);
+
+        float elapsed = 0f;
+        while (elapsed < fadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            add_coin_text.alpha = Mathf.Lerp(1f, 0f, elapsed / fadeDuration);
+            add_soul_text.alpha = Mathf.Lerp(1f, 0f, elapsed / fadeDuration);
+            yield return null;
+        }
+
+        add_text_reset();
+        GameManager.Instance.ReSet_One_time_SG();
+        isShowing = false;
+    }
+    void add_text_reset()
+    {
+        add_coin_text.alpha = 0f;
+        add_soul_text.alpha = 0f;
+        add_coin_text.text = "";
+        add_coin_text.text = "";
+    }
     public void HideDirectionToItem()
     {
         UIArrow.gameObject.SetActive(false);

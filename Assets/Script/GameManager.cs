@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,6 +13,9 @@ public class GameManager : MonoBehaviour
     public int Day = 1;
     public float Gold = 0;
     public float Soul = 0;
+    public float One_Time_Gold = 0;
+    public float One_Time_Soul = 0;
+    private PlayerInfoUI gainUI;
     public float N_Day_Add_Soul; //���Ͽ� �� �� �ҿ�
     public float N_Day_current_Soul; //�ప�� ���� �� �ݾ�
     public int N_Day_Time; // ���Ͽ� Ŭ������ ��(�ð�)
@@ -114,26 +115,46 @@ public class GameManager : MonoBehaviour
     }
     public void Add_Gold(float val)
     {
-        Gold = (float)Mathf.Min((int)Gold + (int)val, 9999); // ����: �ִ밪 ����
+        
+        Gold = Mathf.Min((int)Gold + (int)val, 9999);
+        One_Time_Gold += val;
+        gainUI = FindObjectOfType<PlayerInfoUI>();
+        if (gainUI != null) gainUI.One_Time_Show(One_Time_Gold, false,true);
     }
 
     public void Sub_Gold(float val) // ����: �ּҰ� ����
     {
+        
         Gold = (float)Mathf.Max((int)Gold - (int)val, 0);
+        One_Time_Gold -= val;
+        gainUI = FindObjectOfType<PlayerInfoUI>();
+        if (gainUI != null) gainUI.One_Time_Show(One_Time_Gold, false, false);
     }
 
     public void Add_Soul(float val)
     {
-        Soul = (float)Mathf.Min((int)Soul + (int)val, 9999f);
-        N_Day_Add_Soul = (float)Mathf.Min((int)N_Day_Add_Soul + (int)val, 9999f);
+        
+        Soul = Mathf.Min((int)Soul + (int)val, 9999f);
+        N_Day_Add_Soul = Mathf.Min((int)N_Day_Add_Soul + (int)val, 9999f);
+        One_Time_Soul += val;
+        gainUI = FindObjectOfType<PlayerInfoUI>();
+        if (gainUI != null) gainUI.One_Time_Show(One_Time_Soul, true, true);
     }
 
     public void Sub_Soul(float val) // ����
     {
+        
         // ���� ������ ���� �ּҰ��� ������
         Soul = (float)Mathf.Max((int)Soul - (int)val, -9999f);
+        One_Time_Soul -= val;
+        gainUI = FindObjectOfType<PlayerInfoUI>();
+        if (gainUI != null) gainUI.One_Time_Show(One_Time_Soul, true, false);
     }
-
+    public void ReSet_One_time_SG()
+    {
+        One_Time_Gold = 0;
+        One_Time_Soul = 0;
+    }
     public void SavePlayerInfo(PlayerController player)
     {
         playerData.maxHp = player.maxHp;

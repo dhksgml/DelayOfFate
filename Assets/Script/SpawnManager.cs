@@ -187,12 +187,12 @@ public class SpawnManager : MonoBehaviour
 		Debug.Log($"[아이템 소환] 사용 가능한 아이템 개수: {validItems.Count}");
 		if (validItems.Count == 0) return;
 
-		int minItemCoin = validItems.Min(i => i.ValPoint);
+		int minItemCoin = validItems.Min(i => i.Coin);
 		Debug.Log($"[아이템 소환] 가장 저렴한 아이템 포인트: {minItemCoin}");
 
 		while (coinRemain >= minItemCoin && itemSpawnPoints.Count > 0)
 		{
-			List<ItemData> spawnables = validItems.FindAll(i => i.ValPoint <= coinRemain);
+			List<ItemData> spawnables = validItems.FindAll(i => i.Coin <= coinRemain);
 			Debug.Log($"[아이템 소환] 현재 남은 포인트: {coinRemain}, 생성 가능한 아이템 수: {spawnables.Count}, 남은 스폰 지점 수: {itemSpawnPoints.Count}");
 
 			if (spawnables.Count == 0)
@@ -209,7 +209,7 @@ public class SpawnManager : MonoBehaviour
 			GameObject itemObj = Instantiate(itemPrefab, spawnPoint.position, Quaternion.identity);
 			ItemObject itemObjComp = itemObj.GetComponentInChildren<ItemObject>();
 
-			Debug.Log($"[아이템 소환] 아이템 생성: {randomItem.name}, 위치: {spawnPoint.position}, 소모 포인트: {randomItem.ValPoint}");
+			Debug.Log($"[아이템 소환] 아이템 생성: {randomItem.name}, 위치: {spawnPoint.position}, 소모 포인트: {randomItem.Coin}");
 
 			if (itemObjComp != null)
 			{

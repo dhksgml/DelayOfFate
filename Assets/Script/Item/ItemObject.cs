@@ -137,27 +137,16 @@ public class ItemObject : MonoBehaviour
         if (ty == "one")
         {
             // Soul ����Ʈ �� 1ȸ (��ġ ���� X)
-            SpawnEffectParts(itemValue, "Soul");
-
-            GameManager.Instance.Add_Soul(itemValue);
+            GameManager.Instance.Add_Gold(itemValue);
+            SpawnEffectParts(itemValue, "Coin");
             SoundManager.Instance?.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
         }
         else if (ty == "all")
         {
-            // ���� ���ӻ� ��ȭ ����
             GameManager.Instance?.Add_Gold(itemValue);
-            if (itemData.id != 3)
-            {
-                // 2. Soul ����Ʈ: ���� ��ġ�� 2�踸ŭ
-                SpawnEffectParts(itemValue * 2, "Soul");
-                SpawnEffectParts(itemValue, "Coin");
-                GameManager.Instance?.Add_Soul(itemValue * 2);
-            }
-            else
-            {
-                // 1. Coin ����Ʈ: ���� ��ġ��ŭ
-                SpawnEffectParts(itemValue, "Coin");
-            }
+            SpawnEffectParts(itemValue * 2, "Coin");
+            GameManager.Instance?.Add_Soul(itemValue * 2);
+            SpawnEffectParts(itemValue , "Soul");
         }
 
         Destroy(gameObject); // ������ ������Ʈ ����
@@ -199,7 +188,7 @@ public class ItemObject : MonoBehaviour
         if (coin_text != null)
         {
             int total_coin = itemData.Coin * itemData.Count;
-            if (itemData.Sell_immediately) { coin_text.text = string.Format("[<b>E</b>] 줍기\n[<b>E~</b>] 즉시 판매: {0} 혼", total_coin); }
+            if (itemData.Sell_immediately) { coin_text.text = string.Format("[<b>E</b>] 줍기\n[<b>E~</b>] 즉시 판매: {0}<sprite=8>", total_coin); }
             else {coin_text.text = string.Format("[<b>E</b>] 줍기\n{0} 값", total_coin);} //��� �ǸŰ� �Ұ����� �������� ���
         }
     }

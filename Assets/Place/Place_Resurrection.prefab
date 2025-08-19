@@ -279,11 +279,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   place_enum: 1
-  requiredTime: 3
+  requiredTime: 1.5
   holdGauge: {fileID: 8619118230408671963}
   sale_max_Time: 10
   sale_cu_Time: 0
   contactTime: 0
+  warningText: {fileID: 0}
 --- !u!61 &8004555911403342272
 BoxCollider2D:
   m_ObjectHideFlags: 0
