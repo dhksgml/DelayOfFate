@@ -81,10 +81,8 @@ public class GameManager : MonoBehaviour
     {
         playerData.maxHp = 100;
         playerData.maxMp = 100;
-        playerData.maxSp = 100;
         playerData.currentHp = 100;
         playerData.currentMp = 100;
-        playerData.currentSp = 100;
         playerData.flashLightLevel = 1;
         playerData.gold = 0;
         playerData.soul = 0;
@@ -159,13 +157,11 @@ public class GameManager : MonoBehaviour
     {
         playerData.maxHp = player.maxHp;
         playerData.maxMp = player.maxMp;
-        playerData.maxSp = player.maxSp;
 
         playerData.extraHp = player.extraHp;
 
         playerData.currentHp = player.currentHp;
         playerData.currentMp = player.currentMp;
-        playerData.currentSp = player.currentSp;
 
         playerData.flashLightLevel = player.flashLightLevel;
         playerData.gold = this.Gold;
