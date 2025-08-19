@@ -7,8 +7,8 @@ public class Eo_dook_jwi : Enemy
     [Header("Eo_dook_jwi")]
     [SerializeField] float waitTime = 0f;
     [SerializeField] float moveTime = 0f;
-    [SerializeField] bool isLighting;
-    [SerializeField] bool isAction;
+    //[SerializeField] bool isLighting;
+    //[SerializeField] bool isAction;
     [SerializeField] bool isStop;
     [SerializeField] int enemyDamage;
     PlayerController player;
@@ -200,7 +200,7 @@ public class Eo_dook_jwi : Enemy
     //    }
     //}
 
-    IEnumerator Delay()
+    /*IEnumerator Delay()
     {
         isAction = true;
 
@@ -208,5 +208,5 @@ public class Eo_dook_jwi : Enemy
 
         isLighting = false;
         isAction = false;
-    }
+    }*/
 }

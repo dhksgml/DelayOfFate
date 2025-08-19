@@ -91,7 +91,7 @@ public abstract class Enemy     : MonoBehaviour
     public Animator             anim;
     public GameObject           enemyCorpse; //¿˚ Ω√√º
     public ItemData             enemyCorpseData;
-    private Transform           uiCanvas;
+    public Transform            uiCanvas;
     public GameObject           Sale_Effect; // »• ¿Ã∆Â∆Æ
     public GameObject           enemySelf;
     public Collider2D           enemyColl;

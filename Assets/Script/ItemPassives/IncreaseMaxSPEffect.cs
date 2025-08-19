@@ -16,13 +16,13 @@ public class IncreaseMaxSPEffect : IPassiveEffect
 
     public void ApplyEffect()
     {
-        //stats.maxSp += bonusMaxSP;
-        //stats.currentSp = stats.maxSp;
+        stats.maxSp += bonusMaxSP;
+        stats.currentSp = stats.maxSp;
     }
 
     public void RemoveEffect()
     {
-        //stats.maxSp -= bonusMaxSP;
-        //stats.currentSp = stats.maxSp;
+        stats.maxSp -= bonusMaxSP;
+        stats.currentSp = stats.maxSp;
     }
 }

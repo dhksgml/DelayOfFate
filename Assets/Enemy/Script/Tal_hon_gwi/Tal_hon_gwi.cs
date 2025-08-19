@@ -22,10 +22,10 @@ public class Tal_hon_gwi : Enemy
     public GameObject holdGaugeUI; 
     public Image holdGauge;
     public GameObject infoPanel;                   // 아이템 정보 UI 패널 (월드 상에서 표시)
-    public GameObject Sale_Effect;                 // 판매 시 이펙트 프리팹
+    //public GameObject Sale_Effect;                 // 판매 시 이펙트 프리팹
     public TMP_Text name_text;                     // 아이템 이름 텍스트
     public TMP_Text coin_text;
-    private Transform uiCanvas;
+    //private Transform uiCanvas;
 
     [SerializeField] GameObject surpriseCanvas;
     [SerializeField] Image surpriseImage;
@@ -67,7 +67,7 @@ public class Tal_hon_gwi : Enemy
         }
 
         // UI 참조 설정 및 비활성화
-        uiCanvas = GameObject.Find("Player_Canvas")?.transform;
+        // uiCanvas = GameObject.Find("Player_Canvas")?.transform;
         infoPanel?.SetActive(false);
         holdGaugeUI?.SetActive(false);
     }
@@ -101,7 +101,7 @@ public class Tal_hon_gwi : Enemy
             // 정신 데미지
             player.DamagedMP(talhongwiDamage);
             // 기력 데미지
-            //player.DamagedSP(player.maxSp * 0.3f);
+            player.DamagedSP(player.maxSp * 0.3f);
         }
 
 
@@ -109,8 +109,6 @@ public class Tal_hon_gwi : Enemy
 
         if (distance < 1.5f)
         {
-            float progress = Mathf.Clamp(player_item_use.holdTime / maxHoldTime, 0f, 1f);
-            UpdateHoldGauge(progress); // 게이지 진행도 반영
         }
         else
         {
@@ -200,16 +198,6 @@ public class Tal_hon_gwi : Enemy
     // 게이지 및 텍스트 UI 업데이트
     public void UpdateHoldGauge(float progress)
     {
-        if (holdGaugeUI != null)
-        {
-            holdGaugeUI.SetActive(progress > 0); // 게이지 0 이상일 때만 표시
-        }
-
-        if (holdGauge != null)
-        {
-            holdGauge.fillAmount = progress; // 게이지 진행도 반영
-        }
-
         // 아이템 이름 표시
         if (name_text != null)
             name_text.text = string.Format("[{0}]", item.itemName);

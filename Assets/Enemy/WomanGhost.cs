@@ -251,7 +251,7 @@ public class WomanGhost : Enemy
             //채력, 정신력, 기력이 1초마다 감소됨
             player.DamagedHP(randomHpDamage);
             player.DamagedMP(randomMpDamage);
-            //player.DamagedSP(randomSpDamage);
+            player.DamagedSP(randomSpDamage);
 
             yield return new WaitForSeconds(1f);
         }

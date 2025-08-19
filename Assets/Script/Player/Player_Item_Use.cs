@@ -7,20 +7,18 @@ public class Player_Item_Use : MonoBehaviour
     public Transform dropPoint; // 아이템 드롭 위치
     public LayerMask itemLayer; // 아이템 레이어 설정
     public GameObject item_Prefab; // 아이템을 생성 할때 사용 할 빈 프리팹
-    public float holdTime = 0f;
-    private bool isHolding = false;
     private const float requiredHoldTime = 1f;
     private ItemUsageManager itemUsageManager;
     private PlayerController playercontroller;
     private Animator animator;
-    private float chargingTimer = 0f;
-    private bool isCharging = false;
     private Item chargingItem = null;
+    private Transform uiCanvas; // 이펙트가 생성될 위치
+    public GameObject Sale_Effect; // 이펙트 오브젝트
 
     // 소면귀용
     public bool isItemTouch = false;
 
-    public static bool isAnyItemBeingSold = false; // 전역 중복 방지 플래그
+    //public static bool isAnyItemBeingSold = false; // 전역 중복 방지 플래그
     private ItemObject currentSellingItem = null;
 
     void Start()
@@ -28,6 +26,7 @@ public class Player_Item_Use : MonoBehaviour
         itemUsageManager = GetComponent<ItemUsageManager>();
         playercontroller = GetComponent<PlayerController>();
         animator = GetComponent<Animator>();
+        uiCanvas = GameObject.Find("Player_Canvas")?.transform;
     }
     void Update()
     {
@@ -43,45 +42,26 @@ public class Player_Item_Use : MonoBehaviour
                 {
                     if (selectedItem.Charging)
                     {
-                        isCharging = true;
-                        chargingTimer = 0f;
                         chargingItem = selectedItem;
                     }
                     else
                     {
-                        UseItem(); // 사용
-                        
+                        UseItem(); // 사용                   
                     }
                 }
             }
         }
-        else if (Input.GetMouseButton(0) && isCharging)
-        {
-            chargingTimer += Time.deltaTime;
-            if (chargingTimer >= requiredHoldTime)
-            {
-                UseItem(); // 차징 완료 시 사용
-                isCharging = false;
-                chargingItem = null;
-            }
-        }
-        else if (Input.GetMouseButtonUp(0) && isCharging)
-        {
-            // 마우스 떼면 차징 취소
-            isCharging = false;
-            chargingTimer = 0f;
-            chargingItem = null;
-        }
-        else if (Input.GetKeyDown(KeyCode.F) && !CheckCurrentSlotEmpty()) // 버리기
+        else if (Input.GetKeyDown(KeyCode.F)) // 버리기
         {
             //DropItem();
             TutorialEvents.OnItemDropped?.Invoke(quickSlots[selectedSlotIndex]);
             playercontroller.OnPickUpStart(false);
+            HandleSellAction();
         }
-        else if (Input.GetKey(KeyCode.E) && !playercontroller.isRecovering) // 꾹 눌러서 판매, 줍기
+        else if (Input.GetKeyDown(KeyCode.E) && !playercontroller.isRecovering) // 줍기
         {
-            if (!isHolding && !isAnyItemBeingSold)
-            {
+            //if (!isAnyItemBeingSold)
+            //{
                 // 주변에서 즉시 판매 가능한 아이템 중 첫 번째 하나만 찾기
                 Collider2D nearestItemCollider = Physics2D.OverlapCircle(transform.position, 1f, itemLayer);
                 if (nearestItemCollider != null)
@@ -89,49 +69,13 @@ public class Player_Item_Use : MonoBehaviour
                     ItemObject itemObject = nearestItemCollider.GetComponent<ItemObject>();
                     if (itemObject != null && itemObject.itemData.Sell_immediately)
                     {
-                        isHolding = true;
-                        isAnyItemBeingSold = true;
+                        PickUpItem();
+                        //isAnyItemBeingSold = true;
                         isItemTouch = true;
-                        holdTime = 0f;
                         currentSellingItem = itemObject; // 새 변수, 현재 판매 중인 아이템 저장
                     }
                 }
-            }
-
-            if (isHolding && currentSellingItem != null)
-            {
-                holdTime += Time.deltaTime;
-                if (holdTime >= requiredHoldTime)
-                {
-                    TutorialEvents.OnItemSelled?.Invoke(currentSellingItem.itemData);
-                    GameEvents.CallSaleItemImmediately();
-
-                    currentSellingItem.Sale("one");  // RemoveItem() 대신 개별 판매 함수 호출
-
-                    isHolding = false;
-                    isAnyItemBeingSold = false;
-                    holdTime = 0f;
-                    currentSellingItem = null;
-                    isItemTouch = false;
-                }
-            }
-        }
-        else if (Input.GetKeyUp(KeyCode.E) && !playercontroller.isRecovering) // 키 떼면
-        {
-            if (holdTime <= 0.2f) // 짧게 눌렀다면 줍는걸로 인지
-            {
-                if (playercontroller.isPickUpableItem)
-                {
-                    isItemTouch = true;
-                    playercontroller.OnPickUpStart(true);
-                }
-            }
-
-            isItemTouch = false;
-            isHolding = false;
-            isAnyItemBeingSold = false;
-            holdTime = 0f;
-            currentSellingItem = null;
+            //}
         }
     }
 
@@ -162,7 +106,7 @@ public class Player_Item_Use : MonoBehaviour
 
     void TryUseItem(Item selectedItem)
     {
-        if(!playercontroller.isRecovering)
+        if(!playercontroller.isRecovering && selectedItem.spendSPAmount < playercontroller.currentSp)
         {
             if (selectedItem.id == 995) //족자의 경우 기력 대신 정신력 사용
             {
@@ -170,6 +114,10 @@ public class Player_Item_Use : MonoBehaviour
                 {
                     playercontroller.SpendMp(Random.Range(selectedItem.spendSPAmount - 2, selectedItem.spendSPAmount + 2));
                 } 
+            }
+            else
+            {
+                playercontroller.SpendSp(selectedItem.spendSPAmount);
             }
             itemUsageManager.UseItem(selectedItem.itemName);
             TutorialEvents.OnWeaponUsed?.Invoke(selectedItem);
@@ -230,17 +178,19 @@ public class Player_Item_Use : MonoBehaviour
     public void PickUpItem()//줍기
     {
         Collider2D[] itemColliders = Physics2D.OverlapCircleAll(transform.position, 1f, itemLayer);
-
+        print("줍기 발동");
         foreach (Collider2D collider in itemColliders)
         {
             ItemObject itemObject = collider.GetComponent<ItemObject>();
             if (itemObject != null)
             {
+                print(itemObject);
                 Item droppedItem = itemObject.itemData;
                 Item slotItem = quickSlots[selectedSlotIndex];
                 // 슬롯이 비어있는 경우
                 if (slotItem == null || string.IsNullOrEmpty(slotItem.itemName))
                 {
+                    print(slotItem);
                     TutorialEvents.OnItemPickedUp?.Invoke(droppedItem);
                     quickSlots[selectedSlotIndex] = droppedItem;
                     if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_pickup"));
@@ -248,26 +198,68 @@ public class Player_Item_Use : MonoBehaviour
                     UpdateQuickSlotUI();
                     GameEvents.CallPickupItem();
                 }
-                // 슬롯에 이미 아이템이 있고 같은 아이템이며, 곗수 합산 가능한 경우
-                else if (slotItem.itemName == droppedItem.itemName && slotItem.Count_Check)
-                {
-                    slotItem.Count += droppedItem.Count;
-                    if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_pickup"));
-                    Destroy(itemObject.gameObject);
-                    UpdateQuickSlotUI();
-                }
-                // 슬롯에 다른 아이템이 있는 경우 - 기존 아이템 드롭 후 교체
+                // 슬롯에 다른 아이템이 있는 경우
                 else
                 {
-                    DropItem();
-                    quickSlots[selectedSlotIndex] = droppedItem;
-                    Destroy(itemObject.gameObject);
-                    UpdateQuickSlotUI();
+                    // 먼저 다른 슬롯 중 빈 슬롯이 있는지 확인
+                    bool placedInEmptySlot = false;
+                    for (int i = 0; i < quickSlots.Length; i++)
+                    {
+                        if (quickSlots[i] == null || string.IsNullOrEmpty(quickSlots[i].itemName))
+                        {
+                            // 빈 슬롯 발견 → 그 슬롯에 아이템 넣기
+                            TutorialEvents.OnItemPickedUp?.Invoke(droppedItem);
+                            quickSlots[i] = droppedItem;
+
+                            if (SoundManager.Instance != null)
+                                SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_pickup"));
+
+                            Destroy(itemObject.gameObject);
+                            UpdateQuickSlotUI();
+                            GameEvents.CallPickupItem();
+
+                            placedInEmptySlot = true;
+                            break; // 한 슬롯에만 넣고 종료
+                        }
+                    }
+
+                    // 모든 슬롯이 꽉 차있다면 기존 로직대로 현재 슬롯과 교체
+                    if (!placedInEmptySlot)
+                    {
+                        DropItem();
+                        quickSlots[selectedSlotIndex] = droppedItem;
+                        Destroy(itemObject.gameObject);
+                        UpdateQuickSlotUI();
+                    }
                 }
+
             }
         }
     }
+    private void HandleSellAction()
+    {
+        // 1. 바닥 아이템 있는지 검사
+        if (CheckCurrentSlotEmpty())
+        {
+            // 바닥 아이템 판매
+            RemoveItem();
+            return;
+        }
+        // 2. 현재 슬롯에 아이템이 있는지 확인
+        SellCurrentSlotItem();
+        return;
+        
+        // 3. 아무 것도 없으면 아무 일도 안 함
+    }
 
+    // 슬롯 아이템 판매
+    private void SellCurrentSlotItem()
+    {
+        if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_drop"));
+        Sale("one",0);
+        UpdateQuickSlotUI();
+        GameEvents.CallDropItem();
+    }
 
     public void DropItem()
     {
@@ -321,10 +313,64 @@ public class Player_Item_Use : MonoBehaviour
 
             if (itemObject != null && itemObject.itemData != null)
             {
-                itemObject.Sale("one");
+                Destroy(itemObject.gameObject);
+                Sale("one", itemObject.itemData.Coin);
             }
         }
     }
+    public void Sale(string ty, int add_coin) // "one" or "all"
+    {
+        int itemValue = 0;
+        if (ty == "one")
+        {
+            if (quickSlots[selectedSlotIndex] == null)
+            {
+                itemValue = add_coin;
+            }
+            else
+            {
+                itemValue = quickSlots[selectedSlotIndex].Coin;
+                quickSlots[selectedSlotIndex] = null;
+            }
+            GameManager.Instance.Add_Gold(itemValue);
+            SpawnEffectParts(itemValue, "Coin");
+            SoundManager.Instance?.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
+        }
+        else if (ty == "all")
+        {
+            for (int i = 0; i < quickSlots.Length; i++)
+            {
+                if (quickSlots[i] != null && !string.IsNullOrEmpty(quickSlots[i].itemName))
+                {
+                    itemValue += quickSlots[i].Coin;
+                    quickSlots[i] = null;
+                }
+            }
+            GameManager.Instance?.Add_Gold(itemValue);
+            SpawnEffectParts(itemValue * 2, "Coin");
+            GameManager.Instance?.Add_Soul(itemValue * 2);
+            SpawnEffectParts(itemValue, "Soul");
+        }
+    }
+    private void SpawnEffectParts(int totalValue, string type)
+    {
+        int remainingValue = totalValue;
+
+        while (remainingValue > 0)
+        {
+            int shardValue = Random.Range(7, 13);
+            if (shardValue > remainingValue)
+                shardValue = remainingValue;
+
+            GameObject fx = Instantiate(Sale_Effect, transform.position, Quaternion.identity);
+            fx.transform.SetParent(uiCanvas, false);
+            MoneyEffect effect = fx.GetComponent<MoneyEffect>();
+            effect.ty = type;
+
+            remainingValue -= shardValue;
+        }
+    }
+
     public float GetTotalItemWeight()//들고 있는 모든 아이템의 무게
     {
         float totalWeight = 0f;

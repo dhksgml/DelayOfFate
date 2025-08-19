@@ -63,7 +63,7 @@ public class StealEnemyAttack : EnemyAttack
             // 공격
             player.DamagedHP(enemyDamage);
             // 기력 데미지. -50% 이기에 최대 스테미너 / 2 를 해주었음
-            //player.DamagedSP(player.maxSp / 2);
+            player.DamagedSP(player.maxSp / 2);
         }
     }
 
