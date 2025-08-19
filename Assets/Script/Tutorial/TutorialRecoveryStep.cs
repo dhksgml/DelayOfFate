@@ -12,9 +12,8 @@ public class TutorialRecoveryStep : TutorialStep
         playerController = FindObjectOfType<PlayerController>();
         if (playerController != null)
         {
-            playerController.isAutoSPRegen = false;
+            //playerController.isAutoSPRegen = false;
             playerController.DamagedHP(10);
-            playerController.DamagedSP(10);
         }
     }
 
@@ -22,7 +21,7 @@ public class TutorialRecoveryStep : TutorialStep
     {
         if(playerController != null)
         {
-            playerController.isAutoSPRegen = true;
+            //playerController.isAutoSPRegen = true;
         }
     }
 }

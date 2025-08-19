@@ -14,10 +14,9 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float hpRecoveryDuration = 10f;
     [SerializeField] private float mpRecoveryDuration = 10f;
-    [SerializeField] private float spRecoveryDuration = 7.5f;
 
-    const float runThreshold = 10f; //달리기에 필요한 최소 sp
-    private bool isEmptySP;
+    //const float runThreshold = 10f; //달리기에 필요한 최소 sp
+    //private bool isEmptySP;
 
     public float attackDamage = 1;
     public float attackCoolTime;
@@ -28,11 +27,9 @@ public class PlayerController : MonoBehaviour
 
     public float maxHp = 100; //최대 체력
     public float maxMp = 100; //최대 정신력
-    public float maxSp = 100; //최대 기력
 
     public float currentHp; //현재 체력
     public float currentMp; //현재 정신력
-    public float currentSp; //현재 기력
 
     public bool isFreeze;
     //입력한 키가 몇번인지 확인
@@ -41,7 +38,7 @@ public class PlayerController : MonoBehaviour
 
     public bool isSpendingSp = false;
     public bool isRecovering = false;
-    public bool isAutoSPRegen = true;
+    //public bool isAutoSPRegen = true;
 
     public bool isPickUpableItem = false;   //아이템 주울 수 있는지 여부
     public bool isHavingFlashLight = false; //손전등 획득 유무
@@ -55,9 +52,12 @@ public class PlayerController : MonoBehaviour
     public float Player_Usage_cu_cool_down = 0;//플레이어 아이템 현재 쿨다운
     private Coroutine currentItemUseCoroutine = null;
 
-    private float spSpendTimer = 0f;
-    [SerializeField] private float spSpendThreshold = 1f;
-    [SerializeField] private int spSpendAmount = 1;
+    //private float spSpendTimer = 0f;
+    //[SerializeField] private float spSpendThreshold = 1f;
+    //[SerializeField] private int spSpendAmount = 1;
+
+    private float walkTimer = 0f;
+    [SerializeField] private float walkThreshold = 1f;
 
     private Vector3 aimDir;
     private Vector3 mousePosition;
@@ -151,7 +151,7 @@ public class PlayerController : MonoBehaviour
                 currentHp = playerData.maxHp;
 
                 currentMp = playerData.maxMp;
-                currentSp = playerData.maxSp;
+                //currentSp = playerData.maxSp;
 
                 flashLightLevel = playerData.flashLightLevel;
                 UpdateFlashLight();
@@ -170,7 +170,7 @@ public class PlayerController : MonoBehaviour
             currentExtraHp = extraHp;
 
             currentMp = maxMp;
-            currentSp = maxSp;
+            //currentSp = maxSp;
         }
     }
     // Update is called once per frame
@@ -190,7 +190,7 @@ public class PlayerController : MonoBehaviour
 
         if (currentState == PlayerState.Resting) //이펙트 생성
         {
-            if (currentHp + currentExtraHp < maxHp + extraHp || currentSp < maxSp)
+            if (currentHp + currentExtraHp < maxHp + extraHp)
             {
                 effectTimer -= Time.deltaTime;
                 if (effectTimer <= 0f)
@@ -200,8 +200,6 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-
-        if (isAutoSPRegen && (!isFreeze && !IsRun)) HandleSpRegen(); //자동 회복
 
         if ((currentState == PlayerState.Recovery || currentState == PlayerState.Resting) && Input.anyKeyDown)
         {
@@ -216,7 +214,6 @@ public class PlayerController : MonoBehaviour
         }
         HandleInputAndState();
         HandleFlashlight();
-        HandleSpSpend();
 
         HandleMouseClick(); // 클릭 시 방향 갱신
         PlayerAnimation();
@@ -271,6 +268,7 @@ public class PlayerController : MonoBehaviour
         isPicking = false;
     }
 
+    /*
     private void HandleSpSpend()
     {
         if (isRecovering) return;
@@ -292,6 +290,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    */
 
     void HandleMouseClick()
     {
@@ -366,7 +365,7 @@ public class PlayerController : MonoBehaviour
 
         if (isMoveAble && isMoving)
         {
-            if ((currentSp > 0) && isRun)
+            if (isRun)
             {
                 currentState = PlayerState.Run;
                 currentMoveSpeed = runSpeed;
@@ -472,18 +471,18 @@ public class PlayerController : MonoBehaviour
     }
     void HandleRunInput()
     {
-        if ((currentSp > runThreshold))
+        if (isMoving)
         {
-            isEmptySP = false;
+            walkTimer = Mathf.Clamp(walkTimer += Time.deltaTime, 0, walkThreshold);
+            if (walkTimer >= walkThreshold)
+            {
+                isRun = true;
+            }
         }
-        if (currentSp <= 0)
+        else
         {
-            isEmptySP = true;
+            walkTimer = 0;
             isRun = false;
-        }
-        else if(!isEmptySP)
-        {
-            isRun = Input.GetKey(KeyCode.LeftShift) && isMoving;
         }
     }
 
@@ -693,24 +692,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // 기력 자동회복
-    private void HandleSpRegen()
-    {
-        if (currentSp >= maxSp) return;
-
-        float baseRegenPerSecond = maxSp / spRecoveryDuration;
-        float mpRatio = currentMp / maxMp;
-        float mpMultiplier = Mathf.Lerp(0.5f, 1.0f, mpRatio);
-
-        float speedMultiplier = isRecovering ? 1f : 0.5f;
-
-        float regenRate = baseRegenPerSecond * mpMultiplier * speedMultiplier;
-
-        currentSp += regenRate * Time.deltaTime;
-        currentSp = Mathf.Min(currentSp, maxSp);
-    }
-
-    private IEnumerator RecoverOverTime()
+        private IEnumerator RecoverOverTime()
     {
         isRecovering = true;
         isMoveAble = false;
@@ -734,9 +716,8 @@ public class PlayerController : MonoBehaviour
 
         float totalMaxHp = maxHp + extraHp;
         float hpPerSecond = totalMaxHp / hpRecoveryDuration;
-        //float mpPerSecond = maxMp / mpRecoveryDuration;
 
-        while ((currentHp + currentExtraHp < totalMaxHp || currentSp < maxSp) && isRecovering)
+        while ((currentHp + currentExtraHp < totalMaxHp) && isRecovering)
         {
             float delta = Time.deltaTime;
 
@@ -766,10 +747,7 @@ public class PlayerController : MonoBehaviour
     #region MP
     public void SpendMp(float value)
     {
-        //체력 적을 때 추가데미지
-        float hpRatio = currentHp / maxHp;
-        float damageMultiplier = Mathf.Lerp(1, 2, 1 - hpRatio);
-        currentMp -= value * damageMultiplier;
+        currentMp -= value;
 
         if (currentMp <= 0)
         {
@@ -787,22 +765,20 @@ public class PlayerController : MonoBehaviour
 
     #region SP function
 
-
+    /*
     public void SpendSp(float value)
     {
         currentSp -= value;
         currentSp = Mathf.Max(currentSp, 0f);
     }
+    */
 
     #endregion
 
     public void DamagedHP(float value)
     {
-        //기력 적을 때 추가데미지
-        float spRatio = currentSp / maxSp;
-        float damageMultiplier = Mathf.Lerp(1, 2, 1 - spRatio);
 
-        float totalDamage = value * damageMultiplier;
+        float totalDamage = value;// * damageMultiplier;
 
         if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_4_1"))
         {
@@ -832,11 +808,7 @@ public class PlayerController : MonoBehaviour
 
     public void DamagedMP(float value)
     {
-        //체력 적을 때 추가데미지
-        float hpRatio = currentHp / maxHp;
-        float damageMultiplier = Mathf.Lerp(1, 2, 1 - hpRatio);
-
-        currentMp -= value * damageMultiplier;
+        currentMp -= value;
 
         if (currentMp <= 0)
         {
@@ -845,6 +817,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /*
     public void DamagedSP(float value)
     {
         currentSp -= value;
@@ -854,6 +827,7 @@ public class PlayerController : MonoBehaviour
             currentSp = 0;
         }
     }
+    */
 
     public void Die()
     {
@@ -905,7 +879,6 @@ public class PlayerController : MonoBehaviour
         SetPosition(placeManager.resurrection_pos);// 부활 장소로 순간 이동 하기
         currentHp = maxHp;
         currentMp = maxMp;
-        currentSp = maxSp;
         isFreeze = false;
     }
 
