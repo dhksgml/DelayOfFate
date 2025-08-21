@@ -74,15 +74,10 @@ public class PlayerInfoUI : MonoBehaviour
             PlayerData playerData = GameManager.Instance.playerData;
 
             float hpRatio = GameManager.Instance.playerData.currentHp / GameManager.Instance.playerData.maxHp;
-            float spRatio = GameManager.Instance.playerData.currentSp / GameManager.Instance.playerData.maxSp;
 
             Vector2 hpSize = playerHpBar.rectTransform.sizeDelta;
             hpSize.x = maxHpBarWidth * Mathf.Clamp01(hpRatio);
             playerHpBar.rectTransform.sizeDelta = hpSize;
-
-            Vector2 spSize = playerSpBar.rectTransform.sizeDelta;
-            spSize.x = maxSpBarWidth * Mathf.Clamp01(spRatio);
-            playerSpBar.rectTransform.sizeDelta = spSize;
 
             UpdateHealthBar(playerData.currentHp, playerData.maxHp, playerData.currentExtraHp, playerData.extraHp);
         }
@@ -90,15 +85,10 @@ public class PlayerInfoUI : MonoBehaviour
         {
 
             float hpRatio = playerController.currentHp / playerController.maxHp;
-            float spRatio = playerController.currentSp / playerController.maxSp;
 
             Vector2 hpSize = playerHpBar.rectTransform.sizeDelta;
             hpSize.x = maxHpBarWidth * Mathf.Clamp01(hpRatio);
             playerHpBar.rectTransform.sizeDelta = hpSize;
-
-            Vector2 spSize = playerSpBar.rectTransform.sizeDelta;
-            spSize.x = maxSpBarWidth * Mathf.Clamp01(spRatio);
-            playerSpBar.rectTransform.sizeDelta = spSize;
 
             UpdateHealthBar(playerController.currentHp, playerController.maxHp, playerController.currentExtraHp, playerController.extraHp);
             //if(PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_5_1"))
