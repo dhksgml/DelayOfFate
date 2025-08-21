@@ -15,8 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float hpRecoveryDuration = 10f;
     [SerializeField] private float mpRecoveryDuration = 10f;
 
-    //const float runThreshold = 10f; //달리기에 필요한 최소 sp
-    //private bool isEmptySP;
+    const float runThreshold = 10f; //달리기에 필요한 최소 sp
 
     public float attackDamage = 1;
     public float attackCoolTime;
@@ -36,9 +35,8 @@ public class PlayerController : MonoBehaviour
     int inputKey = 0;
     [SerializeField] private float minMoveSpeed = 0.4f;  //변수 추가
 
-    public bool isSpendingSp = false;
     public bool isRecovering = false;
-    //public bool isAutoSPRegen = true;
+    public bool isAutoSPRegen = true;
 
     public bool isPickUpableItem = false;   //아이템 주울 수 있는지 여부
     public bool isHavingFlashLight = false; //손전등 획득 유무
@@ -51,10 +49,6 @@ public class PlayerController : MonoBehaviour
     public bool isUseItem = false;
     public float Player_Usage_cu_cool_down = 0;//플레이어 아이템 현재 쿨다운
     private Coroutine currentItemUseCoroutine = null;
-
-    //private float spSpendTimer = 0f;
-    //[SerializeField] private float spSpendThreshold = 1f;
-    //[SerializeField] private int spSpendAmount = 1;
 
     private float walkTimer = 0f;
     [SerializeField] private float walkThreshold = 1f;
@@ -118,7 +112,7 @@ public class PlayerController : MonoBehaviour
         player_Item_Use = GetComponent<Player_Item_Use>();
         nearestItemFinder = GetComponent<NearestItemFinder>();
         mainCamera = Camera.main;
-        
+
         lightCircleObject.SetActive(true);
         flashLightObject.SetActive(true);
         Init();
@@ -151,7 +145,6 @@ public class PlayerController : MonoBehaviour
                 currentHp = playerData.maxHp;
 
                 currentMp = playerData.maxMp;
-                //currentSp = playerData.maxSp;
 
                 flashLightLevel = playerData.flashLightLevel;
                 UpdateFlashLight();
@@ -170,7 +163,6 @@ public class PlayerController : MonoBehaviour
             currentExtraHp = extraHp;
 
             currentMp = maxMp;
-            //currentSp = maxSp;
         }
     }
     // Update is called once per frame
@@ -218,7 +210,6 @@ public class PlayerController : MonoBehaviour
         HandleMouseClick(); // 클릭 시 방향 갱신
         PlayerAnimation();
     }
-
     private IEnumerator HandleGetUp()
     {
         if (currentState != PlayerState.Recovery && currentState != PlayerState.Resting)
@@ -267,31 +258,6 @@ public class PlayerController : MonoBehaviour
         isMoveAble = true;
         isPicking = false;
     }
-
-    /*
-    private void HandleSpSpend()
-    {
-        if (isRecovering) return;
-
-        if (isMoving && isRun && currentSp > 0)
-        {
-            spSpendTimer += Time.deltaTime;
-
-            if (spSpendTimer >= spSpendThreshold)
-            {
-                SpendSp(spSpendAmount); // SP 감소
-                spSpendTimer = 0f;
-
-                if (currentSp <= 0)
-                {
-                    currentSp = 0;
-                    //EnterRecoveryMode();
-                }
-            }
-        }
-    }
-    */
-
     void HandleMouseClick()
     {
         if (isRecovering) return;
@@ -392,7 +358,8 @@ public class PlayerController : MonoBehaviour
             //else if (flashLightLevel < 3 && isRun && !isEmptySP) flashLightObject.SetActive(false);
             else flashLightObject.SetActive(isHavingFlashLight);
             SetflashLightPosition();
-        };
+        }
+        ;
     }
 
     private void UpdateFlashLight()
@@ -691,8 +658,7 @@ public class PlayerController : MonoBehaviour
             inputKey = 0;
         }
     }
-
-        private IEnumerator RecoverOverTime()
+    private IEnumerator RecoverOverTime()
     {
         isRecovering = true;
         isMoveAble = false;
@@ -716,6 +682,7 @@ public class PlayerController : MonoBehaviour
 
         float totalMaxHp = maxHp + extraHp;
         float hpPerSecond = totalMaxHp / hpRecoveryDuration;
+        //float mpPerSecond = maxMp / mpRecoveryDuration;
 
         while ((currentHp + currentExtraHp < totalMaxHp) && isRecovering)
         {
@@ -725,7 +692,7 @@ public class PlayerController : MonoBehaviour
             totalHp += hpPerSecond * delta;
             totalHp = Mathf.Min(totalHp, totalMaxHp);
 
-            
+
             if (totalHp <= maxHp)
             {
                 currentHp = totalHp;
@@ -747,7 +714,10 @@ public class PlayerController : MonoBehaviour
     #region MP
     public void SpendMp(float value)
     {
-        currentMp -= value;
+        //체력 적을 때 추가데미지
+        float hpRatio = currentHp / maxHp;
+        float damageMultiplier = Mathf.Lerp(1, 2, 1 - hpRatio);
+        currentMp -= value * damageMultiplier;
 
         if (currentMp <= 0)
         {
@@ -762,29 +732,14 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
-
-    #region SP function
-
-    /*
-    public void SpendSp(float value)
-    {
-        currentSp -= value;
-        currentSp = Mathf.Max(currentSp, 0f);
-    }
-    */
-
-    #endregion
-
     public void DamagedHP(float value)
     {
-
-        float totalDamage = value;// * damageMultiplier;
-
+        float totalDamage = value;
         if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_4_1"))
         {
             totalDamage *= GameManager.Instance.playerData.damageTakenMultiplier;
         }
-        
+
         Effect_cr("e_at", transform.position, 0);//이펙트
 
         if (currentExtraHp > 0)
@@ -816,19 +771,6 @@ public class PlayerController : MonoBehaviour
             Die();
         }
     }
-
-    /*
-    public void DamagedSP(float value)
-    {
-        currentSp -= value;
-
-        if (currentSp <= 0)
-        {
-            currentSp = 0;
-        }
-    }
-    */
-
     public void Die()
     {
         //죽었을 때 행동
@@ -836,7 +778,7 @@ public class PlayerController : MonoBehaviour
         if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_player_die"));
         StartCoroutine(ReviveRoutine(Vector3.zero));
     }
-    void Effect_cr(string ty, Vector3 basePos,float offset)
+    void Effect_cr(string ty, Vector3 basePos, float offset)
     {
 
         float offsetX = Random.Range(-offset, offset);
@@ -897,7 +839,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleDropItem()
     {
-        if(PassiveItemManager.Instance != null)
+        if (PassiveItemManager.Instance != null)
         {
             if (PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
             {

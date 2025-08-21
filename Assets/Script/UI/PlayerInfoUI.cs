@@ -80,6 +80,7 @@ public class PlayerInfoUI : MonoBehaviour
         }
         else // 인게임 에서 보여줄것
         {
+
             float hpRatio = playerController.currentHp / playerController.maxHp;
 
             Vector2 hpSize = playerHpBar.rectTransform.sizeDelta;
