@@ -9,18 +9,18 @@ public class StealEnemyAttack : EnemyAttack
 
     void Awake()
     {
-        //ÇÃ·¹ÀÌ¾î¸¦ Ã£¾Æ¼­ ÀúÀåÇØÁØ ÈÄ
+        //ï¿½Ã·ï¿½ï¿½Ì¾î¸¦ Ã£ï¿½Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
     void Update()
     {
-        //°Å¸®¸¦ °è»êÇÏ°í
+        //ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï°ï¿½
         float distance = Vector3.Distance(transform.position, player.transform.position);
 
         transform.position = enemy.transform.position;
 
-        //ÈÉÄ¡Áö ¾Ê¾ÒÀ¸¸é °ø°İ
+        //ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (!stealEnemy.isStealGold) time += Time.deltaTime;
 
         rotationColl();
@@ -31,14 +31,14 @@ public class StealEnemyAttack : EnemyAttack
             stealEnemy.anim.SetBool("isAttack", false);
         }
 
-        //°ø°İ ½Ã°£ÀÌ µÆ°í, ¸ñÇ¥¿ÍÀÇ °Å¸®°¡ 3f º¸´Ù ÀÛ°Å³ª °°À¸¸é °ø°İ
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½Æ°ï¿½, ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ï¿½ï¿½ 3f ï¿½ï¿½ï¿½ï¿½ ï¿½Û°Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         else if (time >= enemyAttackSpeed && !stealEnemy.isStealGold
             && distance <= 3f)
         {
-            //¿¡´Ï¸ŞÀÌ¼Ç È°¼ºÈ­
+            //ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½Ì¼ï¿½ È°ï¿½ï¿½È­
             stealEnemy.anim.SetBool("isAttack", true);
 
-            //°ø°İ Äİ¶óÀÌ´õ È°¼ºÈ­ ÇØÁÜ
+            //ï¿½ï¿½ï¿½ï¿½ ï¿½İ¶ï¿½ï¿½Ì´ï¿½ È°ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
             enemyAttackCollider.enabled = true;
             enemy.isEnemyAttack = false;
             time = 0;
@@ -51,19 +51,18 @@ public class StealEnemyAttack : EnemyAttack
         if (collision.gameObject.CompareTag("Player") && !stealEnemy.isAttack)
         {
 
-            // ¿¡´Ï¸ŞÀÌ¼Ç Àû¿ë
+            // ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½
             stealEnemy.anim.SetBool("isSteal", true);
 
-            // ½ºÇÁ¶óÀÌÆ® Àû¿ë
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
             stealEnemy.sp.sprite = stealEnemy.stealSprite;
 
             stealEnemy.isStealGold = true;
             stealEnemy.isAttack = true;
 
-            // °ø°İ
+            // ï¿½ï¿½ï¿½ï¿½
             player.DamagedHP(enemyDamage);
-            // ±â·Â µ¥¹ÌÁö. -50% ÀÌ±â¿¡ ÃÖ´ë ½ºÅ×¹Ì³Ê / 2 ¸¦ ÇØÁÖ¾úÀ½
-            player.DamagedSP(player.maxSp / 2);
+            // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. -50% ï¿½Ì±â¿¡ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½×¹Ì³ï¿½ / 2 ï¿½ï¿½ ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½
         }
     }
 

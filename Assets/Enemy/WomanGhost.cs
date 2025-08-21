@@ -9,11 +9,11 @@ using Color = UnityEngine.Color;
 public class WomanGhost : Enemy
 {
 
-    //»ç¶óÁú¶§ À§Ä¡
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
     Vector3 invisibleTrans;
-    //»ç¶óÁö¸é ¸ØÃß±â À§ÇØ
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß±ï¿½ ï¿½ï¿½ï¿½ï¿½
     [SerializeField] bool isStop;
-    //ÇÃ·¹ÀÌ¾î°¡ º¸°íÀÖ´ÂÁö È®ÀÎ
+    //ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
     [SerializeField] bool isPlayerSee;
     bool isinvisible;
     bool isAction = false;
@@ -24,7 +24,7 @@ public class WomanGhost : Enemy
     [SerializeField] float seeTime;
     [SerializeField] float dontSeeTime;
 
-    PlayerController player; //ÇÃ·¹ÀÌ¾î
+    PlayerController player; //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½
     WomanGhostKey womanGhostKey;
 
     void Awake()
@@ -39,10 +39,10 @@ public class WomanGhost : Enemy
 
         EnemyInt();
 
-        // Ã³À½¿¡ ·£´ýÇÑ ¹æÇâ ¼³Á¤
+        // Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         ChooseNewDirection();
 
-        // ÁÖ±âÀûÀ¸·Î ¹æÇâ ÀüÈ¯
+        // ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
         StartCoroutine(ChangeDirectionRoutine());
     }
     void Update()
@@ -51,14 +51,14 @@ public class WomanGhost : Enemy
         
         if (!isPlayerSee && isinvisible) { dontSeeTime += Time.deltaTime; }
        
-        //¾Èº»Áö 5ÃÊ°¡ Áö³ª¸é ´Ù½Ã ³ª¿ÍÁÜ
+        //ï¿½Èºï¿½ï¿½ï¿½ 5ï¿½Ê°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (dontSeeTime >= 5f && !isPlayerSee && !isAttack && !isAction)
         {
             StartCoroutine(PlayerDontSee());
             dontSeeTime = 0f;
         }
 
-        //ÀûÀÇ Ã¼·ÂÀÌ 0ÀÌÇÏÀÏ½Ã.
+        //ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ï¿½Ï½ï¿½.
         if (enemyHp <= 0 && !isDie)
         {
             isDie = true;
@@ -77,10 +77,10 @@ public class WomanGhost : Enemy
             if (collision.gameObject.CompareTag("Attack") && !isEnemyHit && attack != null)
             {
                 Debug.Log(1);
-                // Å¸ÀÔÀÌ ÀÏÄ¡ÇÏ¸é Áï»ç
+                // Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½
                 if (!attack.CheckWeaknessPassive() && attack.attackType.ToString() == enemyWeakness.ToString())
                 {
-                    //ÀÌºÎºÐ ¾ø´Ù ³ª¿Í¼­ ÀÏ´Ü ÁÖ¼® Ã³¸® ÇØÁÖ¾úÀ½.
+                    //ï¿½ÌºÎºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í¼ï¿½ ï¿½Ï´ï¿½ ï¿½Ö¼ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½.
                     Enemy_Weakness_Hit(attack.damage, attack.attackType.ToString(), enemyHp);
                     enemyHp = 0f;
                 }
@@ -92,7 +92,7 @@ public class WomanGhost : Enemy
                 EnemyHit(attack.damage);
             }
 
-            //ÇÃ·¹ÀÌ¾îÀÇ ½Ã¾ß°¡ ´êÀ»½Ã
+            //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½Ã¾ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             if (collision.gameObject.CompareTag("Sight"))
             {
                 isPlayerSee = true;
@@ -102,7 +102,7 @@ public class WomanGhost : Enemy
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        //¸¸¾à  ÇÃ·¹ÀÌ¾î°¡ ÀÌ ¸ó½ºÅÍ¸¦ ÁöÄÑº¸°í ÀÖ´Ù¸é
+        //ï¿½ï¿½ï¿½ï¿½  ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½Ñºï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½
         if (collision.gameObject.CompareTag("Sight") && isPlayerSee)
         {
             seeTime += Time.deltaTime;
@@ -124,68 +124,68 @@ public class WomanGhost : Enemy
 
     public override void EnemyMove()
     {
-        //ÃßÀûÇÏ´Â Å¸°ÙÀÇ À§Ä¡ - ÀÚ½ÅÀÇ À§Ä¡¸¦ ±¸ÇÑ ÈÄ Á¤±ÔÈ­¸¦ ÇØÁØ´Ù
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ - ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½Ø´ï¿½
         enemyTargetDir = (player.transform.position - transform.position).normalized;
 
-        //ÇÃ·¹ÀÌ¾î°¡ ÁöÄÑº¼¶§
+        //ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½Ñºï¿½ï¿½ï¿½
         if (isPlayerSee && !isDie && !isEnemyHit && !isStop)
         {
             EnemyTraceTurn();
 
             anim.SetBool("isTrace", false);
 
-            // ÇÑ¹ø º¸Áö¾ÊÀ¸¸é ³¡±îÁö ¦i¾Æ¿È
+            // ï¿½Ñ¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½iï¿½Æ¿ï¿½
             isWomanTrace = false;
 
             isTrace = false;
 
-            //¹Ý´ë ¹æÇâÀ¸·Î µµ¸Á°¡ÁÜ
+            //ï¿½Ý´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             rigid.MovePosition(transform.position + -enemyTargetDir * enemyRunSpeed * Time.deltaTime);
         }
 
-        //ÃßÀûÁßÀÏ¶§
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½
         else if (isWomanTrace && !isDie && !isEnemyHit && !isStop && !isPlayerSee)
         {
             EnemyTraceTurn2();
    
-            //¿¡´Ï¸ÞÀÌ¼Ç, ÃßÀû true ¹Ù²Ù¾îÁÜ
+            //ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½Ì¼ï¿½, ï¿½ï¿½ï¿½ï¿½ true ï¿½Ù²Ù¾ï¿½ï¿½ï¿½
             anim.SetBool("isTrace", true);
 
-            // ¸ñÇ¥¸¦ ÇâÇØ ÀÌµ¿
+            // ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
             transform.Translate(enemyTargetDir * enemyMoveSpeed * 3 * Time.deltaTime);
 
         }
 
-        //ÃßÀûÁßÀÌ ¾Æ´Ï¸é
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½
         else if (!isTrace && !isDie && !isEnemyHit && !isStop && !isWomanTrace)
         {
-            //½ºÇÁ¶óÀÌÆ® ¶§¹®¿¡ ÀÌ°É »ç¿ëÇØÁÜ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             EnemyNormalTurn2();
 
-            //¿¡´Ï¸ÞÀÌ¼Ç, ÃßÀû false·Î ¹Ù²Ù¾îÁÜ
+            //ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½Ì¼ï¿½, ï¿½ï¿½ï¿½ï¿½ falseï¿½ï¿½ ï¿½Ù²Ù¾ï¿½ï¿½ï¿½
             anim.SetBool("isTrace", false);
 
-            // ÇöÀç ¹æÇâÀ¸·Î ÀÌµ¿
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
             transform.Translate(moveDirection * enemyMoveSpeed * Time.deltaTime);
         }
     }
 
     IEnumerator PlayerSee()
     {
-        // Ãæ°ÝÆÇÁ¤ ºñÈ°¼ºÈ­
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
         enemyColl.enabled = false; 
 
         isStop = true;
         Color color = sp.color;
 
-        //ÇöÀç À§Ä¡°ªÀ» ÀúÀåÇØÁØ ÈÄ
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
         invisibleTrans = transform.position;
 
         for (float i = 1.0f; i >= 0.0f; i -= 0.01f)
         {
             color.a = i;
             sp.color = color;
-            //µô·¹ÀÌ¸¦ À§ÇØ ÄÚ·çÆ¾À» »ç¿ëÇØÁÜ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             yield return new WaitForSeconds(0.01f);
         }
 
@@ -194,7 +194,7 @@ public class WomanGhost : Enemy
 
     }
 
-    //5ÃÊ?7ÃÊ µÚ¿¡´Â ÄÚ·çÆ¾ ½ÇÇàÀü¿¡ Time.deltaÀ» ´õÇØÁÖ´Â°É·Î 
+    //5ï¿½ï¿½?7ï¿½ï¿½ ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Time.deltaï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´Â°É·ï¿½ 
     IEnumerator PlayerDontSee()
     {
 
@@ -204,11 +204,11 @@ public class WomanGhost : Enemy
         {
             color.a = i;
             sp.color = color;
-            //µô·¹ÀÌ¸¦ À§ÇØ ÄÚ·çÆ¾À» »ç¿ëÇØÁÜ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             yield return new WaitForSeconds(0.01f);
         }
 
-        // Ãæ°ÝÆÇÁ¤ È°¼ºÈ­
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
         enemyColl.enabled = true;
         isinvisible = false;
         isStop = false;
@@ -217,41 +217,40 @@ public class WomanGhost : Enemy
 
     public IEnumerator PlayerPossession()
     {
-        // ÇÃ·¹ÀÌ¾î ui¸¦ È°¼ºÈ­ ÇØÁÜ
+        // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ uiï¿½ï¿½ È°ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
         womanGhostKey.isActive = true;
 
         anim.SetBool("isAttack", true);
         Color color = sp.color;
-        //°¢°¢ -3 ~ -5, -8 ~ -12, -10 ~ -11·Î ÇØÁÖ¾ú´Ù
-        // ÀÌ°Å ³ªÁß¿¡ ¿ÜºÎ·Î –E ¿¹Á¤
+        //ï¿½ï¿½ï¿½ï¿½ -3 ~ -5, -8 ~ -12, -10 ~ -11ï¿½ï¿½ ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½
+        // ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ÜºÎ·ï¿½ ï¿½E ï¿½ï¿½ï¿½ï¿½
         int randomHpDamage = Random.Range(10, 16);
         int randomMpDamage = Random.Range(3, 5);
         int randomSpDamage = 3;
 
-        //ÇÃ·¹ÀÌ¾î°¡ ÀÌµ¿ ¸øÇÏ°Ô ÇØÁÜ. ÀÌºÎºÐÀº ½ºÅ©¸³Æ® °¡Á®¿À´Â°É·Î
+        //ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½ÌºÎºï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°É·ï¿½
         player.isFreeze = true;
         isStop = true;
         isinvisible = true;
         isAttack = true;
 
-        // Ãæ°ÝÆÇÁ¤ ºñÈ°¼ºÈ­
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
         enemyColl.enabled = false;
 
         for (float i = 1.0f; i >= 0.0f; i -= 0.01f)
         {
             color.a = i;
             sp.color = color;
-            //µô·¹ÀÌ¸¦ À§ÇØ ÄÚ·çÆ¾À» »ç¿ëÇØÁÜ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             yield return new WaitForSeconds(0.01f);
         }
 
         while (player.isFreeze)
         {
 
-            //Ã¤·Â, Á¤½Å·Â, ±â·ÂÀÌ 1ÃÊ¸¶´Ù °¨¼ÒµÊ
+            //Ã¤ï¿½ï¿½, ï¿½ï¿½ï¿½Å·ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ 1ï¿½Ê¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Òµï¿½
             player.DamagedHP(randomHpDamage);
             player.DamagedMP(randomMpDamage);
-            player.DamagedSP(randomSpDamage);
 
             yield return new WaitForSeconds(1f);
         }
@@ -260,21 +259,21 @@ public class WomanGhost : Enemy
         {
             color.a = i;
             sp.color = color;
-            //µô·¹ÀÌ¸¦ À§ÇØ ÄÚ·çÆ¾À» »ç¿ëÇØÁÜ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             yield return new WaitForSeconds(0.01f);
         }
 
-        // Ãæ°ÝÆÇÁ¤ È°¼ºÈ­
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
         enemyColl.enabled = true;
 
         player.isFreeze = false;
         isAttack = false;
         isinvisible = false;
         isStop = false;
-        //10¹øÀ» ´ÙÃ¤¿ì¸é ´Ù½Ã ³ªÅ¸³ª°Ô ÇØÁÜ
+        //10ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¤ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         anim.SetBool("isAttack", false);
 
-        // ÇÃ·¹ÀÌ¾î ui¸¦ ºñÈ°¼ºÈ­ ÇØÁÜ
+        // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ uiï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
         womanGhostKey.isActive = false;
     }
 }
