@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class Tal_hon_gwi : Enemy
 {
-    [Header("Å»È¥±Í")]
+    [Header("Å»È¥ï¿½ï¿½")]
     [SerializeField] Player_Item_Use player_item_use;
     [SerializeField] Sprite[] randomImages;
     [SerializeField] Sprite[] talhongwiOriginSprite;
@@ -16,16 +16,16 @@ public class Tal_hon_gwi : Enemy
     [SerializeField] int talhongwiDamage = 20;
     PlayerController player;
 
-    [Header("ÂüÁ¶")]
+    [Header("ï¿½ï¿½ï¿½ï¿½")]
     public ItemData[] itemDataTemplate;
     public Item item;
     public GameObject holdGaugeUI; 
     public Image holdGauge;
-    public GameObject infoPanel;                   // ¾ÆÀÌÅÛ Á¤º¸ UI ÆÐ³Î (¿ùµå »ó¿¡¼­ Ç¥½Ã)
-    public GameObject Sale_Effect;                 // ÆÇ¸Å ½Ã ÀÌÆåÆ® ÇÁ¸®ÆÕ
-    public TMP_Text name_text;                     // ¾ÆÀÌÅÛ ÀÌ¸§ ÅØ½ºÆ®
+    public GameObject infoPanel;                   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ UI ï¿½Ð³ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ó¿¡¼ï¿½ Ç¥ï¿½ï¿½)
+    //public GameObject Sale_Effect;                 // ï¿½Ç¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public TMP_Text name_text;                     // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½Ø½ï¿½Æ®
     public TMP_Text coin_text;
-    private Transform uiCanvas;
+    //private Transform uiCanvas;
 
     [SerializeField] GameObject surpriseCanvas;
     [SerializeField] Image surpriseImage;
@@ -37,14 +37,14 @@ public class Tal_hon_gwi : Enemy
 
     void Awake()
     {
-        // È¸Àü °ªÀ» À§ÇÑ ·£´ý
+        // È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         int randomFlipX = Random.Range(0, 2);
         int randomFlipY = Random.Range(0, 2);
 
-        // XÈ¸Àü
+        // XÈ¸ï¿½ï¿½
         sp.flipX = true;
 
-        // YÈ¸Àü
+        // YÈ¸ï¿½ï¿½
         sp.flipY = true;
 
         rigid = GetComponent<Rigidbody2D>();
@@ -57,7 +57,7 @@ public class Tal_hon_gwi : Enemy
 
         player_item_use = FindObjectOfType<Player_Item_Use>();
 
-        // ÀÌ¹ÌÁö¸¦ ·£´ýÀ¸·Î °¡Á®¿Í ÁÜ
+        // ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
         int random = Random.Range(0, randomImages.Length);
         sp.sprite = randomImages[random];
 
@@ -66,8 +66,8 @@ public class Tal_hon_gwi : Enemy
             item = new Item(itemDataTemplate[random]);
         }
 
-        // UI ÂüÁ¶ ¼³Á¤ ¹× ºñÈ°¼ºÈ­
-        uiCanvas = GameObject.Find("Player_Canvas")?.transform;
+        // UI ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
+        // uiCanvas = GameObject.Find("Player_Canvas")?.transform;
         infoPanel?.SetActive(false);
         holdGaugeUI?.SetActive(false);
     }
@@ -75,7 +75,7 @@ public class Tal_hon_gwi : Enemy
 
     void Update()
     {
-        //ÀûÀÇ Ã¼·ÂÀÌ 0ÀÌÇÏÀÏ½Ã.
+        //ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ï¿½Ï½ï¿½.
         if (enemyHp <= 0 && !isDie)
         {
             isDie = true;
@@ -85,23 +85,21 @@ public class Tal_hon_gwi : Enemy
             StartCoroutine(EnemyDie());
         }
 
-        // ÇÃ·¹ÀÌ¾î°¡ EÅ°¸¦ ´©¸£¸é 
+        // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ EÅ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
         if (isSeek && !isDestroy)
         {
             isDestroy = true;
 
             if (player == null) { return; }
 
-            // º»¸ð½À µîÀå
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             sp.sprite = talhongwiOriginSprite[0];
 
-            // ³î·¡Å°±â
+            // ï¿½î·¡Å°ï¿½ï¿½
             StartCoroutine(ScaleImage());
 
-            // Á¤½Å µ¥¹ÌÁö
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             player.DamagedMP(talhongwiDamage);
-            // ±â·Â µ¥¹ÌÁö
-            //player.DamagedSP(player.maxSp * 0.3f);
         }
 
 
@@ -109,12 +107,10 @@ public class Tal_hon_gwi : Enemy
 
         if (distance < 1.5f)
         {
-            float progress = Mathf.Clamp(player_item_use.holdTime / maxHoldTime, 0f, 1f);
-            UpdateHoldGauge(progress); // °ÔÀÌÁö ÁøÇàµµ ¹Ý¿µ
         }
         else
         {
-            UpdateHoldGauge(0f); // ¸Ö¾îÁö¸é °ÔÀÌÁö ¼û±è
+            UpdateHoldGauge(0f); // ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
     }
 
@@ -122,16 +118,16 @@ public class Tal_hon_gwi : Enemy
     {
         if (collision != null)
         {
-            //Àû ÇÇ°Ý ºÎºÐ
-            //ÀÌºÎºÐÀº ¾Æ¸¶ Àû °øµ¿ ÄÚµå·Î »ç¿ëÇÒ °Í °°´Ù.
+            //ï¿½ï¿½ ï¿½Ç°ï¿½ ï¿½Îºï¿½
+            //ï¿½ÌºÎºï¿½ï¿½ï¿½ ï¿½Æ¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
             Attack_sc attack = collision.GetComponent<Attack_sc>();
 
             if (collision.gameObject.CompareTag("Attack") && !isEnemyHit && attack != null)
             {
-                // Å¸ÀÔÀÌ ÀÏÄ¡ÇÏ¸é Áï»ç
+                // Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½
                 if (!attack.CheckWeaknessPassive() && attack.attackType.ToString() == enemyWeakness.ToString())
                 {
-                    //ÀÌºÎºÐ ¾ø´Ù ³ª¿Í¼­ ÀÏ´Ü ÁÖ¼® Ã³¸® ÇØÁÖ¾úÀ½.
+                    //ï¿½ÌºÎºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í¼ï¿½ ï¿½Ï´ï¿½ ï¿½Ö¼ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½.
                     Enemy_Weakness_Hit(attack.damage, attack.attackType.ToString(), enemyHp);
                     enemyHp = 0f;
                 }
@@ -168,63 +164,53 @@ public class Tal_hon_gwi : Enemy
 
     public IEnumerator EnemySeek()
     {
-        // »ç¸Á½Ã ÀÌÆåÆ® 
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® 
         Instantiate(enemyDeathEffect, transform.position, Quaternion.identity);
 
         Color color = sp.color;
 
-        //¸ÕÀú ÃßÀû ¹üÀ§¿Í °ø°Ý ¹üÀ§¸¦ Áö¿öÁÜ.
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
         Destroy(enemyTrace);
         Destroy(enemyAttack);
         Destroy(enemyColl);
         Destroy(rigid);
 
-        // ÀÌµ¿¼Óµµ 0À¸·Î ÇØ¼­ ¿òÁ÷ÀÌÁö ¸øÇÏ°Ô
+        // ï¿½Ìµï¿½ï¿½Óµï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½
         enemyMoveSpeed = 0;
 
 
-        //Åõ¸íµµ °ªÀ» 1.0¿¡¼­ 0.01¾¿ •ûÁÖ¸é¼­ ÃµÃµÈ÷ Åõ¸íÇÏ°Ô ÇØÁÜ
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 1.0ï¿½ï¿½ï¿½ï¿½ 0.01ï¿½ï¿½ ï¿½ï¿½ï¿½Ö¸é¼­ ÃµÃµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½
         for (float i = 1.0f; i >= 0.0f; i -= 0.02f)
         {
             color.a = i;
             sp.color = color;
-            //µô·¹ÀÌ¸¦ À§ÇØ ÄÚ·çÆ¾À» »ç¿ëÇØÁÜ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             yield return new WaitForSeconds(0.01f);
         }
         if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_ghost_death"));
         
-        // ½ÃÃ¼ÀÇ ºÎ¸ð ÅëÂ°·Î Á¦°Å
+        // ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Î¸ï¿½ ï¿½ï¿½Â°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         Destroy(transform.parent.gameObject);
     }
 
-    // °ÔÀÌÁö ¹× ÅØ½ºÆ® UI ¾÷µ¥ÀÌÆ®
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ø½ï¿½Æ® UI ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
     public void UpdateHoldGauge(float progress)
     {
-        if (holdGaugeUI != null)
-        {
-            holdGaugeUI.SetActive(progress > 0); // °ÔÀÌÁö 0 ÀÌ»óÀÏ ¶§¸¸ Ç¥½Ã
-        }
-
-        if (holdGauge != null)
-        {
-            holdGauge.fillAmount = progress; // °ÔÀÌÁö ÁøÇàµµ ¹Ý¿µ
-        }
-
-        // ¾ÆÀÌÅÛ ÀÌ¸§ Ç¥½Ã
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ Ç¥ï¿½ï¿½
         if (name_text != null)
             name_text.text = string.Format("[{0}]", item.itemName);
 
-        // ¾ÆÀÌÅÛ °¡Ä¡ Ç¥½Ã
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ Ç¥ï¿½ï¿½
         if (coin_text != null)
         {
             int total_coin = item.Coin * item.Count;
             if (item.Sell_immediately)
             {
-                coin_text.text = string.Format("[<b>E</b>] ÁÝ±â\n[<b>E~</b>] Áï½Ã ÆÇ¸Å: {0} È¥", total_coin);
+                coin_text.text = string.Format("[<b>E</b>] ï¿½Ý±ï¿½\n[<b>E~</b>] ï¿½ï¿½ï¿½ ï¿½Ç¸ï¿½: {0} È¥", total_coin);
             }
             else
             {
-                coin_text.text = string.Format("[<b>E</b>] ÁÝ±â\n{0} °ª", total_coin);
+                coin_text.text = string.Format("[<b>E</b>] ï¿½Ý±ï¿½\n{0} ï¿½ï¿½", total_coin);
             }
         }
     }
@@ -232,13 +218,13 @@ public class Tal_hon_gwi : Enemy
     IEnumerator ScaleImage()
     {
 
-        // ÇÁ¸®ÆÕÀ» ÀÎ½ºÅÏ½ºÈ­
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½È­
         GameObject canvasInstance = Instantiate(surpriseCanvas);
 
-        // ÀÌ¹ÌÁö Ã£±â
+        // ï¿½Ì¹ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½
         Image surpriseImage = canvasInstance.GetComponentInChildren<Image>();
 
-        // ¸Å¹ø Å©±â ÃÊ±âÈ­ (¿©±â Áß¿ä!)
+        // ï¿½Å¹ï¿½ Å©ï¿½ï¿½ ï¿½Ê±ï¿½È­ (ï¿½ï¿½ï¿½ï¿½ ï¿½ß¿ï¿½!)
         surpriseImage.rectTransform.localScale = Vector3.one * startScale;
 
         float elapsed = 0f;

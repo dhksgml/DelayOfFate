@@ -89,12 +89,7 @@ public class QuickSlotUI : MonoBehaviour
             {
                 timeText.text = angleUnit + " °¢";
             }
-            else
-            {
-                timeText.text = null;
-            }
         }
-        //print(playerItemUse);
         if (playerItemUse == null)
         {
             return;
