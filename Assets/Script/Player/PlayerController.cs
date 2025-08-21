@@ -83,8 +83,6 @@ public class PlayerController : MonoBehaviour
     public GameObject Effect_pr;//����Ʈ ������Ʈ
     private float effectTimer = 0f; //����Ʈ ��Ÿ��
 
-    public bool IsRun => isRun;
-
     Player_Item_Use player_Item_Use;
     public GameObject corpse; // �÷��̾� ��ü
 
