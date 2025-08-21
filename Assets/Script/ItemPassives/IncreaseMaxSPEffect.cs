@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//ÃÖ´ëSP Áõ°¡
+//ï¿½Ö´ï¿½SP ï¿½ï¿½ï¿½ï¿½
 public class IncreaseMaxSPEffect : IPassiveEffect
 {
     private PlayerData stats;

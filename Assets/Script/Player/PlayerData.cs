@@ -7,9 +7,11 @@ public class PlayerData
 {
     public float maxHp = 100;
     public float maxMp = 100;
+    public float maxSp = 100;
 
     public float currentHp = 100;
     public float currentMp = 100;
+    public float currentSp = 100;
 
     public float currentExtraHp;
     public float extraHp;
@@ -33,5 +35,6 @@ public class PlayerData
 
         currentHp = maxHp;
         currentMp = maxMp;
+        currentSp = maxSp;
     }
 }

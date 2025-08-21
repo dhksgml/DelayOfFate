@@ -13,9 +13,10 @@ public class PlayerController : MonoBehaviour
     public float rayCastDistance = 2f;
 
     [SerializeField] private float hpRecoveryDuration = 10f;
-    [SerializeField] private float mpRecoveryDuration = 10f;
+    //[SerializeField] private float mpRecoveryDuration = 10f;
+    [SerializeField] private float spRecoveryDuration = 7.5f;
 
-    const float runThreshold = 10f; //´Þ¸®±â¿¡ ÇÊ¿äÇÑ ÃÖ¼Ò sp
+    const float runThreshold = 10f; //ï¿½Þ¸ï¿½ï¿½â¿¡ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ sp
 
     public float attackDamage = 1;
     public float attackCoolTime;
@@ -24,22 +25,24 @@ public class PlayerController : MonoBehaviour
     public float extraHp;
     public float currentExtraHp;
 
-    public float maxHp = 100; //ÃÖ´ë Ã¼·Â
-    public float maxMp = 100; //ÃÖ´ë Á¤½Å·Â
+    public float maxHp = 100; //ï¿½Ö´ï¿½ Ã¼ï¿½ï¿½
+    public float maxMp = 100; //ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½Å·ï¿½
+    public float maxSp = 100; //ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½
 
-    public float currentHp; //ÇöÀç Ã¼·Â
-    public float currentMp; //ÇöÀç Á¤½Å·Â
+    public float currentHp; //ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½
+    public float currentMp; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Å·ï¿½
+    public float currentSp; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
     public bool isFreeze;
-    //ÀÔ·ÂÇÑ Å°°¡ ¸î¹øÀÎÁö È®ÀÎ
+    //ï¿½Ô·ï¿½ï¿½ï¿½ Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
     int inputKey = 0;
-    [SerializeField] private float minMoveSpeed = 0.4f;  //º¯¼ö Ãß°¡
+    [SerializeField] private float minMoveSpeed = 0.4f;  //ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 
     public bool isRecovering = false;
     public bool isAutoSPRegen = true;
 
-    public bool isPickUpableItem = false;   //¾ÆÀÌÅÛ ÁÖ¿ï ¼ö ÀÖ´ÂÁö ¿©ºÎ
-    public bool isHavingFlashLight = false; //¼ÕÀüµî È¹µæ À¯¹«
+    public bool isPickUpableItem = false;   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¿ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public bool isHavingFlashLight = false; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     public int flashLightLevel = 1;
     public GameObject flashLightObject;
@@ -47,7 +50,7 @@ public class PlayerController : MonoBehaviour
     public float flashLightDistance = 3f;
 
     public bool isUseItem = false;
-    public float Player_Usage_cu_cool_down = 0;//ÇÃ·¹ÀÌ¾î ¾ÆÀÌÅÛ ÇöÀç Äð´Ù¿î
+    public float Player_Usage_cu_cool_down = 0;//ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ù¿ï¿½
     private Coroutine currentItemUseCoroutine = null;
 
     private float walkTimer = 0f;
@@ -74,22 +77,22 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveInput;
     private Vector2 clickLookDirection = Vector2.down;
     private float clickLookTimer = 0f;
-    private float clickLookDuration = 0.3f; // Å¬¸¯ ÈÄ 0.2ÃÊ°£ ÇØ´ç ¹æÇâÀ¸·Î °íÁ¤
+    private float clickLookDuration = 0.3f; // Å¬ï¿½ï¿½ ï¿½ï¿½ 0.2ï¿½Ê°ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private Camera mainCamera;
 
-    public GameObject Effect_pr;//ÀÌÆåÆ® ¿ÀºêÁ§Æ®
-    private float effectTimer = 0f; //ÀÌÆåÆ® ÄðÅ¸ÀÓ
+    public GameObject Effect_pr;//ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+    private float effectTimer = 0f; //ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Å¸ï¿½ï¿½
 
     Player_Item_Use player_Item_Use;
-    public GameObject corpse; // ÇÃ·¹ÀÌ¾î ½ÃÃ¼
+    public GameObject corpse; // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Ã¼
 
-    private bool isActing = false; //ÁÝ±â, ¹ö¸®±â ¾Ö´Ï¸ÞÀÌ¼Ç ÁøÇà Áß ¿©ºÎ
-    private bool isPicking = false; //ÁÝ±â, ¹ö¸®±â ¾î¶² °É ½ÇÇàÇÒ Áö 
+    private bool isActing = false; //ï¿½Ý±ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private bool isPicking = false; //ï¿½Ý±ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½î¶² ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 
     public bool IsPicking { get => isPicking; set => isPicking = value; }
 
     private Coroutine recoveryCoroutine;
 
-    private NearestItemFinder nearestItemFinder; //°¡±î¿î ¾ÆÀÌÅÛ Å½Áö
+    private NearestItemFinder nearestItemFinder; //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å½ï¿½ï¿½
     public NearestItemFinder NearestItemFinder => nearestItemFinder;
 
     public enum PlayerState
@@ -178,26 +181,26 @@ public class PlayerController : MonoBehaviour
         }
         UpdateItemCooldown();
 
-        if (currentState == PlayerState.Resting) //ÀÌÆåÆ® »ý¼º
+        if (currentState == PlayerState.Resting) //ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
         {
-            if (currentHp + currentExtraHp < maxHp + extraHp)
+            if (currentHp + currentExtraHp < maxHp + extraHp || currentSp < maxSp)
             {
                 effectTimer -= Time.deltaTime;
                 if (effectTimer <= 0f)
                 {
                     Effect_cr("hp", transform.position, -1f);
-                    effectTimer = 0.25f; // ´ÙÀ½ ¹ßµ¿±îÁö ½Ã°£ ¸®¼Â
+                    effectTimer = 0.25f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ßµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½
                 }
             }
         }
 
         if ((currentState == PlayerState.Recovery || currentState == PlayerState.Resting) && Input.anyKeyDown)
         {
-            // È¸º¹ Áß ÀÔ·ÂÀÌ µé¾î¿À¸é È¸º¹ Ãë¼Ò
+            // È¸ï¿½ï¿½ ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½
 
-            Debug.Log("È¸º¹ Áß´ÜµÊ");
+            Debug.Log("È¸ï¿½ï¿½ ï¿½ß´Üµï¿½");
             if (recoveryCoroutine != null)
-                StopCoroutine(HandleGetUp()); // recoveryCoroutine º¯¼ö ÇÊ¿ä
+                StopCoroutine(HandleGetUp()); // recoveryCoroutine ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½
 
             recoveryCoroutine = StartCoroutine(HandleGetUp());
             return;
@@ -205,7 +208,7 @@ public class PlayerController : MonoBehaviour
         HandleInputAndState();
         HandleFlashlight();
 
-        HandleMouseClick(); // Å¬¸¯ ½Ã ¹æÇâ °»½Å
+        HandleMouseClick(); // Å¬ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         PlayerAnimation();
     }
     private IEnumerator HandleGetUp()
@@ -222,7 +225,7 @@ public class PlayerController : MonoBehaviour
         );
 
         isRecovering = false;
-        EndRecovery(); // »óÅÂ º¹±¸
+        EndRecovery(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
     public void OnPickUpStart(bool isPickup)
@@ -233,7 +236,7 @@ public class PlayerController : MonoBehaviour
         isPicking = isPickup;
         isMoveAble = false;
 
-        //¾Ö´Ï¸ÞÀÌ¼Ç ½ÇÇà
+        //ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½
         animator.SetTrigger("Pickup");
     }
 
@@ -276,11 +279,11 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("MouseDirX", direction.x);
             animator.SetFloat("MouseDirY", direction.y);
 
-            clickLookTimer = clickLookDuration; // Å¸ÀÌ¸Ó ÃÊ±âÈ­
+            clickLookTimer = clickLookDuration; // Å¸ï¿½Ì¸ï¿½ ï¿½Ê±ï¿½È­
         }
     }
 
-    //À¯Àú ¾ÆÀÌÅÛ »ç¿ëÇÏ´ÂÁö ¿©ºÎ
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void SetUseItem(bool isUseItem)
     {
         if (isUseItem)
@@ -314,7 +317,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator EndItemUseAfterDelay(float delay)
     {
-        Debug.Log("¾ÆÀÌÅÛ »ç¿ëÇß½À´Ï´Ù.");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
         SetUseItem(true);
         yield return new WaitForSeconds(delay);
         SetUseItem(false);
@@ -329,7 +332,7 @@ public class PlayerController : MonoBehaviour
 
         if (isMoveAble && isMoving)
         {
-            if (isRun)
+            if ((currentSp > 0) && isRun)
             {
                 currentState = PlayerState.Run;
                 currentMoveSpeed = runSpeed;
@@ -413,7 +416,6 @@ public class PlayerController : MonoBehaviour
         }
 
         HandleMovementInput();
-        HandleRunInput();
 
         if (Input.GetKeyDown(KeyCode.C)) DoRecovery();
     }
@@ -432,22 +434,6 @@ public class PlayerController : MonoBehaviour
         if (isMoving)
         {
             lastMoveDirection = new Vector2(x, y);
-        }
-    }
-    void HandleRunInput()
-    {
-        if (isMoving)
-        {
-            walkTimer = Mathf.Clamp(walkTimer += Time.deltaTime, 0, walkThreshold);
-            if (walkTimer >= walkThreshold)
-            {
-                isRun = true;
-            }
-        }
-        else
-        {
-            walkTimer = 0;
-            isRun = false;
         }
     }
 
@@ -476,7 +462,7 @@ public class PlayerController : MonoBehaviour
         else
             targetPosition = transform.position + dir * flashLightDistance;
 
-        // À§/¾Æ·¡ ¹æÇâÀÏ °æ¿ì´Â Áï½Ã ÀÌµ¿
+        // ï¿½ï¿½/ï¿½Æ·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
         bool isVertical = Mathf.Abs(dir.y) > Mathf.Abs(dir.x);
 
         if (isVertical)
@@ -507,13 +493,13 @@ public class PlayerController : MonoBehaviour
     {
         if (flashLightObject == null) return;
 
-        // ¸¶¿ì½º À§Ä¡ ¡æ ¿ùµå ÁÂÇ¥
+        // ï¿½ï¿½ï¿½ì½º ï¿½ï¿½Ä¡ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPos.z = 0f;
 
         Vector3 dir = (mouseWorldPos - transform.position).normalized;
 
-        // Raycast ½î±â
+        // Raycast ï¿½ï¿½ï¿½
         RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, flashLightDistance, LayerMask.GetMask("Wall"));
 
         Vector3 targetPosition;
@@ -522,18 +508,18 @@ public class PlayerController : MonoBehaviour
 
         if (hit.collider != null)
         {
-            // º®¿¡ ´ê¾Ò´Ù¸é, Ãæµ¹ ÁöÁ¡±îÁö
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ò´Ù¸ï¿½, ï¿½æµ¹ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             targetPosition = (Vector3)hit.point - dir * offsetFromWall;
         }
         else
         {
-            // º®¿¡ ¾È ´êÀ¸¸é, ÇÃ·¹ÀÌ¾î ±âÁØ ÃÖ´ë °Å¸®±îÁö¸¸
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             float distance = Vector3.Distance(transform.position, mouseWorldPos);
             float clampedDistance = Mathf.Min(distance, flashLightDistance);
             targetPosition = transform.position + dir * clampedDistance;
         }
 
-        targetPosition.z = 0f; // Z °íÁ¤
+        targetPosition.z = 0f; // Z ï¿½ï¿½ï¿½ï¿½
         flashLightObject.transform.position = targetPosition;
     }
 
@@ -542,7 +528,7 @@ public class PlayerController : MonoBehaviour
         Vector3 moveDir = new Vector3(x, y, 0).normalized;
         if (moveDir != Vector3.zero && CanMove(moveDir))
         {
-            UpdateMoveSpeedByWeight(); // Ãß°¡
+            UpdateMoveSpeedByWeight(); // ï¿½ß°ï¿½
             transform.position += moveDir * currentMoveSpeed * speedMultiplier * Time.fixedDeltaTime;
 
             if (nearestItemFinder != null && GameManager.Instance != null && GameManager.Instance.playerData.isFindNearestItem)
@@ -556,7 +542,7 @@ public class PlayerController : MonoBehaviour
             float currentWeight = player_Item_Use.GetTotalItemWeight();
             float penalty = currentWeight * 0.02f;
 
-            if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_1_1"))//ÃµÇÏÀå»ç º¸À¯½Ã
+            if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_1_1"))//Ãµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             {
                 penalty = 0f;
             }
@@ -567,7 +553,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 direction;
 
-        // if(Moving)¾Õ¿¡ ÀÌ ºÎºÐ Ãß°¡
+        // if(Moving)ï¿½Õ¿ï¿½ ï¿½ï¿½ ï¿½Îºï¿½ ï¿½ß°ï¿½
         if (clickLookTimer > 0f)
         {
             direction = clickLookDirection;
@@ -642,10 +628,10 @@ public class PlayerController : MonoBehaviour
 
     void FreezingCancle()
     {
-        //a ¶Ç´Â D ¹öÆ°À» ´­·¯ 
+        //a ï¿½Ç´ï¿½ D ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
         {
-            //°ªÀÌ ¿Ã¶ó°¨
+            //ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¶ï¿½
             inputKey++;
         }
 
@@ -682,7 +668,7 @@ public class PlayerController : MonoBehaviour
         float hpPerSecond = totalMaxHp / hpRecoveryDuration;
         //float mpPerSecond = maxMp / mpRecoveryDuration;
 
-        while ((currentHp + currentExtraHp < totalMaxHp) && isRecovering)
+        while ((currentHp + currentExtraHp < totalMaxHp || currentSp < maxSp) && isRecovering)
         {
             float delta = Time.deltaTime;
 
@@ -712,7 +698,7 @@ public class PlayerController : MonoBehaviour
     #region MP
     public void SpendMp(float value)
     {
-        //Ã¼·Â ÀûÀ» ¶§ Ãß°¡µ¥¹ÌÁö
+        //Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         float hpRatio = currentHp / maxHp;
         float damageMultiplier = Mathf.Lerp(1, 2, 1 - hpRatio);
         currentMp -= value * damageMultiplier;
@@ -738,7 +724,7 @@ public class PlayerController : MonoBehaviour
             totalDamage *= GameManager.Instance.playerData.damageTakenMultiplier;
         }
 
-        Effect_cr("e_at", transform.position, 0);//ÀÌÆåÆ®
+        Effect_cr("e_at", transform.position, 0);//ï¿½ï¿½ï¿½ï¿½Æ®
 
         if (currentExtraHp > 0)
         {
@@ -761,7 +747,11 @@ public class PlayerController : MonoBehaviour
 
     public void DamagedMP(float value)
     {
-        currentMp -= value;
+        //Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        float hpRatio = currentHp / maxHp;
+        float damageMultiplier = Mathf.Lerp(1, 2, 1 - hpRatio);
+
+        currentMp -= value * damageMultiplier;
 
         if (currentMp <= 0)
         {
@@ -771,7 +761,7 @@ public class PlayerController : MonoBehaviour
     }
     public void Die()
     {
-        //Á×¾úÀ» ¶§ Çàµ¿
+        //ï¿½×¾ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½àµ¿
         Debug.Log("Player Die..");
         if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_player_die"));
         StartCoroutine(ReviveRoutine(Vector3.zero));
@@ -782,13 +772,13 @@ public class PlayerController : MonoBehaviour
         float offsetX = Random.Range(-offset, offset);
         float offsetY = Random.Range(-offset, offset);
 
-        // ÃÖÁ¾ À§Ä¡
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
         Vector3 spawnPos = basePos + new Vector3(offsetX, offsetY, 0f);
 
-        // ÀÌÆåÆ® »ý¼º
+        // ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
         GameObject effectObj = Instantiate(Effect_pr, spawnPos, Quaternion.identity);
 
-        // Effect_scÀÇ ty °ª ¼³Á¤
+        // Effect_scï¿½ï¿½ ty ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         Effect_sc effectScript = effectObj.GetComponent<Effect_sc>();
         effectScript.ty = ty;
     }
@@ -796,29 +786,30 @@ public class PlayerController : MonoBehaviour
     {
         Instantiate(corpse, gameObject.transform.position, Quaternion.identity);
 
-        //±¸»çÀÏ»ý È°¼ºÈ­ ½Ã
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Ï»ï¿½ È°ï¿½ï¿½È­ ï¿½ï¿½
         if (GameManager.Instance != null && !GameManager.Instance.playerData.isDropWhenRevive)
             player_Item_Use.Drop_All_Item();
 
         yield return new WaitForSeconds(0.1f);
 
-        if (placeManager.resurrection) // ºÎÈ°ÀÌ °¡´ÉÇÏ´Ù¸é
+        if (placeManager.resurrection) // ï¿½ï¿½È°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´Ù¸ï¿½
         {
             Revive();
             placeManager.resurrection = false;
         }
         else
         {
-            placeManager.Go_to_escape(); //»ç¸Á ÈÄ ¾À ÀÌµ¿
+            placeManager.Go_to_escape(); //ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ìµï¿½
         }
     }
 
     public void Revive()
     {
-        //½ÃÃ¼ »ý¼º ÄÚµå ÇÊ¿ä
-        SetPosition(placeManager.resurrection_pos);// ºÎÈ° Àå¼Ò·Î ¼ø°£ ÀÌµ¿ ÇÏ±â
+        //ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ ï¿½Ê¿ï¿½
+        SetPosition(placeManager.resurrection_pos);// ï¿½ï¿½È° ï¿½ï¿½Ò·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Ï±ï¿½
         currentHp = maxHp;
         currentMp = maxMp;
+        currentSp = maxSp;
         isFreeze = false;
     }
 
