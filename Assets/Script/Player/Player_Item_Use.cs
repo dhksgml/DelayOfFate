@@ -115,10 +115,7 @@ public class Player_Item_Use : MonoBehaviour
                     playercontroller.SpendMp(Random.Range(selectedItem.spendSPAmount - 2, selectedItem.spendSPAmount + 2));
                 } 
             }
-            else
-            {
-                playercontroller.SpendSp(selectedItem.spendSPAmount);
-            }
+
             itemUsageManager.UseItem(selectedItem.itemName);
             TutorialEvents.OnWeaponUsed?.Invoke(selectedItem);
             animator.SetTrigger("Attack");

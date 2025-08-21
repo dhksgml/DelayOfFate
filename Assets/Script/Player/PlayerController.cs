@@ -194,8 +194,6 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (isAutoSPRegen && (!isFreeze && !IsRun)) HandleSpRegen(); //�ڵ� ȸ��
-
         if ((currentState == PlayerState.Recovery || currentState == PlayerState.Resting) && Input.anyKeyDown)
         {
             // ȸ�� �� �Է��� ������ ȸ�� ���
@@ -209,7 +207,6 @@ public class PlayerController : MonoBehaviour
         }
         HandleInputAndState();
         HandleFlashlight();
-        HandleSpSpend();
 
         HandleMouseClick(); // Ŭ�� �� ���� ����
         PlayerAnimation();
@@ -419,7 +416,6 @@ public class PlayerController : MonoBehaviour
         }
 
         HandleMovementInput();
-        HandleRunInput();
 
         if (Input.GetKeyDown(KeyCode.C)) DoRecovery();
     }
@@ -438,22 +434,6 @@ public class PlayerController : MonoBehaviour
         if (isMoving)
         {
             lastMoveDirection = new Vector2(x, y);
-        }
-    }
-    void HandleRunInput()
-    {
-        if ((currentSp > runThreshold))
-        {
-            isEmptySP = false;
-        }
-        if (currentSp <= 0)
-        {
-            isEmptySP = true;
-            isRun = false;
-        }
-        else if(!isEmptySP)
-        {
-            isRun = Input.GetKey(KeyCode.LeftShift) && isMoving;
         }
     }
 
