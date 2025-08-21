@@ -80,8 +80,6 @@ public class PlayerController : MonoBehaviour
     public GameObject Effect_pr;//이펙트 오브젝트
     private float effectTimer = 0f; //이펙트 쿨타임
 
-    public bool IsRun => isRun;
-
     Player_Item_Use player_Item_Use;
     public GameObject corpse; // 플레이어 시체
 
