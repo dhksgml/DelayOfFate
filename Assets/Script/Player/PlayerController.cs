@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
 
     public float maxHp = 100; //�ִ� ü��
     public float maxMp = 100; //�ִ� ���ŷ�
+    public float maxSp = 100; //�ִ� ���
 
     public float currentHp; //���� ü��
     public float currentMp; //���� ���ŷ�
