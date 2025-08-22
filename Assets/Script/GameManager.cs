@@ -81,8 +81,10 @@ public class GameManager : MonoBehaviour
     {
         playerData.maxHp = 100;
         playerData.maxMp = 100;
+        playerData.maxSp = 100;
         playerData.currentHp = 100;
         playerData.currentMp = 100;
+        playerData.currentSp = 100;
         playerData.flashLightLevel = 1;
         playerData.gold = 0;
         playerData.soul = 0;

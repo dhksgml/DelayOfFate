@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
     public float rayCastDistance = 2f;
 
     [SerializeField] private float hpRecoveryDuration = 10f;
-    //[SerializeField] private float mpRecoveryDuration = 10f;
 
     const float runThreshold = 10f; //�޸��⿡ �ʿ��� �ּ� sp
 
@@ -433,7 +432,7 @@ public class PlayerController : MonoBehaviour
 
             //달리기 관련
             walkTimer = Mathf.Clamp(walkTimer += Time.deltaTime, 0, walkThreshold);
-            if(walkTimer >= walkThreshold)
+            if (walkTimer >= walkThreshold)
             {
                 isRun = true;
             }
@@ -706,7 +705,10 @@ public class PlayerController : MonoBehaviour
     #region MP
     public void SpendMp(float value)
     {
-        currentMp -= value;
+        //ü�� ���� �� �߰�������
+        float hpRatio = currentHp / maxHp;
+        float damageMultiplier = Mathf.Lerp(1, 2, 1 - hpRatio);
+        currentMp -= value * damageMultiplier;
 
         if (currentMp <= 0)
         {
@@ -752,7 +754,11 @@ public class PlayerController : MonoBehaviour
 
     public void DamagedMP(float value)
     {
-        currentMp -= value;
+        //ü�� ���� �� �߰�������
+        float hpRatio = currentHp / maxHp;
+        float damageMultiplier = Mathf.Lerp(1, 2, 1 - hpRatio);
+
+        currentMp -= value * damageMultiplier;
 
         if (currentMp <= 0)
         {

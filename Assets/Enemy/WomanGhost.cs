@@ -226,7 +226,6 @@ public class WomanGhost : Enemy
         // �̰� ���߿� �ܺη� �E ����
         int randomHpDamage = Random.Range(10, 16);
         int randomMpDamage = Random.Range(3, 5);
-        int randomSpDamage = 3;
 
         //�÷��̾ �̵� ���ϰ� ����. �̺κ��� ��ũ��Ʈ �������°ɷ�
         player.isFreeze = true;

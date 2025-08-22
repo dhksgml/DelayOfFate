@@ -9,7 +9,6 @@ public class PlayerInfoUI : MonoBehaviour
     private PlayerController playerController;
     public Image playerHpBar;
     public Image playerBonusHpBar;
-    public Image playerSpBar;
     public Image playerMPsc;
     public Image playerMPSC;// 가장자리 이미지 지정
     public Sprite[] Mp_sc; // 가장자리 이미지 3개
@@ -23,7 +22,6 @@ public class PlayerInfoUI : MonoBehaviour
     public float fadeDuration = 1f; // 페이드 아웃 시간
 
     private float maxHpBarWidth; // 실제 UI에서의 최대 바 너비
-    private float maxSpBarWidth;
 
     [SerializeField] private RectTransform frameRect;
     [SerializeField] private RectTransform hpBarRect;
@@ -60,7 +58,6 @@ public class PlayerInfoUI : MonoBehaviour
     {
         playerController = FindObjectOfType<PlayerController>();
         maxHpBarWidth = playerHpBar.rectTransform.sizeDelta.x;
-        maxSpBarWidth = playerSpBar.rectTransform.sizeDelta.x;
         add_text_reset();
     }
 
