@@ -12,16 +12,7 @@ public class TutorialRecoveryStep : TutorialStep
         playerController = FindObjectOfType<PlayerController>();
         if (playerController != null)
         {
-            playerController.isAutoSPRegen = false;
             playerController.DamagedHP(10);
-        }
-    }
-
-    public override void OnStepEnd()
-    {
-        if(playerController != null)
-        {
-            playerController.isAutoSPRegen = true;
         }
     }
 }

@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float hpRecoveryDuration = 10f;
     //[SerializeField] private float mpRecoveryDuration = 10f;
-    [SerializeField] private float spRecoveryDuration = 7.5f;
 
     const float runThreshold = 10f; //�޸��⿡ �ʿ��� �ּ� sp
 
@@ -27,11 +26,9 @@ public class PlayerController : MonoBehaviour
 
     public float maxHp = 100; //�ִ� ü��
     public float maxMp = 100; //�ִ� ���ŷ�
-    public float maxSp = 100; //�ִ� ���
 
     public float currentHp; //���� ü��
     public float currentMp; //���� ���ŷ�
-    public float currentSp; //���� ���
 
     public bool isFreeze;
     //�Է��� Ű�� ������� Ȯ��
@@ -39,7 +36,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float minMoveSpeed = 0.4f;  //���� �߰�
 
     public bool isRecovering = false;
-    public bool isAutoSPRegen = true;
 
     public bool isPickUpableItem = false;   //������ �ֿ� �� �ִ��� ����
     public bool isHavingFlashLight = false; //������ ȹ�� ����
@@ -434,6 +430,18 @@ public class PlayerController : MonoBehaviour
         if (isMoving)
         {
             lastMoveDirection = new Vector2(x, y);
+
+            //달리기 관련
+            walkTimer = Mathf.Clamp(walkTimer += Time.deltaTime, 0, walkThreshold);
+            if(walkTimer >= walkThreshold)
+            {
+                isRun = true;
+            }
+        }
+        else
+        {
+            walkTimer = 0;
+            isRun = false;
         }
     }
 
@@ -698,10 +706,7 @@ public class PlayerController : MonoBehaviour
     #region MP
     public void SpendMp(float value)
     {
-        //ü�� ���� �� �߰�������
-        float hpRatio = currentHp / maxHp;
-        float damageMultiplier = Mathf.Lerp(1, 2, 1 - hpRatio);
-        currentMp -= value * damageMultiplier;
+        currentMp -= value;
 
         if (currentMp <= 0)
         {
