@@ -106,7 +106,7 @@ public class Player_Item_Use : MonoBehaviour
 
     void TryUseItem(Item selectedItem)
     {
-        if(!playercontroller.isRecovering && selectedItem.spendSPAmount < playercontroller.currentSp)
+        if(!playercontroller.isRecovering)
         {
             if (selectedItem.id == 995) //족자의 경우 기력 대신 정신력 사용
             {
