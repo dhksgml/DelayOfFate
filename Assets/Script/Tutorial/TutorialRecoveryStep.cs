@@ -12,7 +12,6 @@ public class TutorialRecoveryStep : TutorialStep
         playerController = FindObjectOfType<PlayerController>();
         if (playerController != null)
         {
-
             playerController.DamagedHP(10);
         }
     }
