@@ -112,12 +112,18 @@ public class ItemObject : MonoBehaviour
 
     public void UpdateHoldGauge()
     {
+
         if (name_text != null) name_text.text = string.Format("[{0}]", itemData.itemName);
 
         if (coin_text != null)
         {
+<<<<<<< HEAD
             int total_coin = itemData.Coin;
             coin_text.text = string.Format("[<b>E</b>] 줍기\n[<b>F</b>] 즉시 판매: {0}<sprite=9>", total_coin);
+=======
+            int total_coin = itemData.Coin * itemData.Count;
+            if (itemData.Sell_immediately) { coin_text.text = string.Format("[<b>E</b>] 줍기\n[<b>F</b>] 즉시 판매: 000<sprite=9>", total_coin); }
+>>>>>>> parent of e3d24ca (Mjs 2 (#187))
         }
     }
 }
