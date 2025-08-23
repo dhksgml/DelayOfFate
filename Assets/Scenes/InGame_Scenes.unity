@@ -1053,6 +1053,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7508967128715654823, guid: a64d25c8f27fd854cb891326e199f315, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7634148361807346024, guid: a64d25c8f27fd854cb891326e199f315, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 112
@@ -1064,6 +1068,10 @@ PrefabInstance:
     - target: {fileID: 8282319381871569484, guid: a64d25c8f27fd854cb891326e199f315, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8301962729134472848, guid: a64d25c8f27fd854cb891326e199f315, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8384770879488941174, guid: a64d25c8f27fd854cb891326e199f315, type: 3}
       propertyPath: m_Name
@@ -1086,11 +1094,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+<<<<<<< Updated upstream
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8793266777844940728, guid: a64d25c8f27fd854cb891326e199f315, type: 3}
       insertIndex: -1
       addedObject: {fileID: 607179021}
+=======
+    m_RemovedGameObjects:
+    - {fileID: 2992564977186116264, guid: a64d25c8f27fd854cb891326e199f315, type: 3}
+    - {fileID: 2497102613804213861, guid: a64d25c8f27fd854cb891326e199f315, type: 3}
+    - {fileID: 2405981665160388836, guid: a64d25c8f27fd854cb891326e199f315, type: 3}
+    - {fileID: 3899085253400929854, guid: a64d25c8f27fd854cb891326e199f315, type: 3}
+    m_AddedGameObjects: []
+>>>>>>> Stashed changes
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a64d25c8f27fd854cb891326e199f315, type: 3}
 --- !u!1660057539 &9223372036854775807
