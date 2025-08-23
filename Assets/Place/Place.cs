@@ -5,7 +5,7 @@ using System.Collections;
 public class Place : MonoBehaviour
 {
 	private PlaceManager placeManager;
-
+	private bool ui_on = false; // 닿고 있는지 여부
 	private enum Place_enum
 	{
 		escape,
@@ -26,26 +26,47 @@ public class Place : MonoBehaviour
 		placeManager = FindObjectOfType<PlaceManager>();
 		registered = 1;
 		if (warningText != null) warningText.SetActive(false);
+		if (key_UI_iamge != null) key_UI_iamge.gameObject.SetActive(false);
 	}
 
-	void OnTriggerStay2D(Collider2D collision)
+    private void Update()
     {
-		if (registered > 0) //횟수 제한이 있어야함
+		if (Input.GetKeyDown(KeyCode.E))
 		{
-			if (collision.gameObject.CompareTag("Player"))
-			{
-				if (key_UI_iamge != null) key_UI_iamge.gameObject.SetActive(true);
-				if (Input.GetKeyDown(KeyCode.E))
-				{
-					Interaction(); //모든 장소는 1회용
-				}
-			}
-			else
-			{
-				if (key_UI_iamge != null) key_UI_iamge.gameObject.SetActive(false);
+			if (registered > 0)
+            {
+				if (ui_on) Interaction(); //모든 장소는 1회용
 			}
 		}
 	}
+
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.CompareTag("Player"))
+		{
+			if (registered > 0) //횟수 제한이 있어야함
+            {
+				if (key_UI_iamge != null) key_UI_iamge.gameObject.SetActive(true);
+				other.GetComponent<PlayerController>().isPickUpableItem = true;
+				ui_on = true;
+			}
+		}
+	}
+
+	void OnTriggerExit2D(Collider2D other)
+	{
+		if (other.CompareTag("Player"))
+		{
+			if (registered > 0) //횟수 제한이 있어야함
+			{
+				if (key_UI_iamge != null) key_UI_iamge.gameObject.SetActive(false);
+				other.GetComponent<PlayerController>().isPickUpableItem = false;
+				ui_on = false;
+			}
+		}
+	}
+
+
 	public void Interaction()
     {
 		switch (place_enum)

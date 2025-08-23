@@ -9,6 +9,7 @@ public class PlayerInfoUI : MonoBehaviour
     private PlayerController playerController;
     public Image playerHpBar;
     public Image playerBonusHpBar;
+    public TMP_Text playerHP_Text;
     public Image playerMPsc;
     public Image playerMPSC;// 가장자리 이미지 지정
     public Sprite[] Mp_sc; // 가장자리 이미지 3개
@@ -32,11 +33,11 @@ public class PlayerInfoUI : MonoBehaviour
     [SerializeField] private float distanceFromPlayer;
     [SerializeField] private float hideUIArrowDistance;
 
-    private const float HP_WIDTH = 288f;
+    /*private const float HP_WIDTH = 288f;
     private const float HP_HEIGHT = 32f;
     private const float TOTAL_WIDTH = 320f;
     private const float TOTAL_HEIGHT = 40f;
-    private const float MAX_BAR_WIDTH = 500f;
+    private const float MAX_BAR_WIDTH = 500f;*/
 
     private Coroutine showRoutine;
     private void OnEnable()
@@ -65,6 +66,7 @@ public class PlayerInfoUI : MonoBehaviour
     {
         coin_text.text = $" : {(int)GameManager.Instance.Gold}";
         soul_text.text = $" : {(int)GameManager.Instance.Soul} / <color=#ff0000>{(int)GameManager.Instance.N_Day_Cost}</color>";
+        playerHP_Text.text = $"{(int)playerController.currentHp} / {(int)playerController.maxHp}";
 
         if (playerController == null) // 플레이어가 없는 경우 (상점, 스테이지 선택)
         {
@@ -76,7 +78,7 @@ public class PlayerInfoUI : MonoBehaviour
             hpSize.x = maxHpBarWidth * Mathf.Clamp01(hpRatio);
             playerHpBar.rectTransform.sizeDelta = hpSize;
 
-            UpdateHealthBar(playerData.currentHp, playerData.maxHp, playerData.currentExtraHp, playerData.extraHp);
+            //UpdateHealthBar(playerData.currentHp, playerData.maxHp, playerData.currentExtraHp, playerData.extraHp);
         }
         else // 인게임 에서 보여줄것
         {
@@ -87,7 +89,7 @@ public class PlayerInfoUI : MonoBehaviour
             hpSize.x = maxHpBarWidth * Mathf.Clamp01(hpRatio);
             playerHpBar.rectTransform.sizeDelta = hpSize;
 
-            UpdateHealthBar(playerController.currentHp, playerController.maxHp, playerController.currentExtraHp, playerController.extraHp);
+            //UpdateHealthBar(playerController.currentHp, playerController.maxHp, playerController.currentExtraHp, playerController.extraHp);
             //if(PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_5_1"))
             if (GameManager.Instance != null && GameManager.Instance.playerData.isFindNearestItem)
             {
@@ -139,7 +141,7 @@ public class PlayerInfoUI : MonoBehaviour
 
     }
 
-    public void UpdateHealthBar(float currentHP, float maxHP, float currentExtraHP, float extraHP)
+    /*public void UpdateHealthBar(float currentHP, float maxHP, float currentExtraHP, float extraHP)
     {
         float totalMaxHP = maxHP + extraHP;
         float totalWidth = Mathf.Min(HP_WIDTH * (totalMaxHP / maxHP), MAX_BAR_WIDTH);
@@ -169,7 +171,7 @@ public class PlayerInfoUI : MonoBehaviour
 
         float totalFrameWidth = totalWidth + (TOTAL_WIDTH - HP_WIDTH);
         frameRect.sizeDelta = new Vector2(totalFrameWidth, TOTAL_HEIGHT);
-    }
+    }*/
 
     public void ShowDirectionToItem(Vector3 itemWorldPosition)
     {
