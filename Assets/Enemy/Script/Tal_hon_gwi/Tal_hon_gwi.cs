@@ -203,10 +203,15 @@ public class Tal_hon_gwi : Enemy
         // ������ ��ġ ǥ��
         if (coin_text != null)
         {
-            int total_coin = item.Coin;
-            coin_text.text = string.Format("[<b>E</b>] �ݱ�\n[<b>E~</b>] ��� �Ǹ�: {0} ȥ", total_coin);
-            //coin_text.text = string.Format("[<b>E</b>] �ݱ�\n{0} ��", total_coin);
-            
+            int total_coin = item.Coin * item.Count;
+            if (item.Sell_immediately)
+            {
+                coin_text.text = string.Format("[<b>E</b>] �ݱ�\n[<b>E~</b>] ��� �Ǹ�: {0} ȥ", total_coin);
+            }
+            else
+            {
+                coin_text.text = string.Format("[<b>E</b>] �ݱ�\n{0} ��", total_coin);
+            }
         }
     }
 

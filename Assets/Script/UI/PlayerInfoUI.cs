@@ -66,7 +66,7 @@ public class PlayerInfoUI : MonoBehaviour
     {
         coin_text.text = $" : {(int)GameManager.Instance.Gold}";
         soul_text.text = $" : {(int)GameManager.Instance.Soul} / <color=#ff0000>{(int)GameManager.Instance.N_Day_Cost}</color>";
-        playerHP_Text.text = $"{(int)GameManager.Instance.playerData.currentHp} / {(int)GameManager.Instance.playerData.maxHp}";
+        playerHP_Text.text = $"{(int)playerController.currentHp} / {(int)playerController.maxHp}";
 
         if (playerController == null) // 플레이어가 없는 경우 (상점, 스테이지 선택)
         {
