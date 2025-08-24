@@ -6,23 +6,15 @@ public class ItemObject : MonoBehaviour
 {
     public ItemData itemDataTemplate;
     public Item itemData;
-    private SpriteRenderer spriteRenderer;
-    private Player_Item_Use player_item_use;
-    //public GameObject item_soul;
     public GameObject infoPanel; // ���� UI (Canvas) ����
     public TMP_Text name_text; // �ؽ�Ʈ ����
     public TMP_Text coin_text; // �ؽ�Ʈ ����
-    public GameObject holdGaugeUI; // �Ǹ� Ű ������ UI
-    public Image holdGauge; // ������ �̹��� (Fill Amount ���)
 
+    private SpriteRenderer spriteRenderer;
+    private Player_Item_Use player_item_use;
     private const float maxHoldTime = 1f; // �Ǹ� Ű �ִ� �ð� 
     private PlayerController playerController;
     private Material material;
-
-
-    Collider2D coll;
-    Rigidbody2D rb;
-
 
     void Start()
     {
@@ -30,9 +22,6 @@ public class ItemObject : MonoBehaviour
         player_item_use = FindObjectOfType<Player_Item_Use>();
         playerController = FindObjectOfType<PlayerController>();
         material = spriteRenderer.material;
-
-        coll = GetComponent<Collider2D>();
-        rb = GetComponent<Rigidbody2D>();
 
         if (itemDataTemplate != null)
         {
@@ -44,7 +33,6 @@ public class ItemObject : MonoBehaviour
         }
         if (itemData != null && itemData.Drop_item == false) { itemData.SetRandomValues(); } // ���� ������ ���� �� ����
         infoPanel?.SetActive(false);
-        holdGaugeUI?.SetActive(false);
     }
 
     void Update()
@@ -109,7 +97,6 @@ public class ItemObject : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             infoPanel?.SetActive(true);
-            holdGaugeUI?.SetActive(true); // �÷��̾ ������ ���� ������ UI Ȱ��ȭ
             other.GetComponent<PlayerController>().isPickUpableItem = true;
         }
     }
@@ -119,20 +106,18 @@ public class ItemObject : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             infoPanel?.SetActive(false);
-            holdGaugeUI?.SetActive(false); // �÷��̾ �־����� UI ����
             other.GetComponent<PlayerController>().isPickUpableItem = false;
         }
     }
 
     public void UpdateHoldGauge()
     {
-
         if (name_text != null) name_text.text = string.Format("[{0}]", itemData.itemName);
 
         if (coin_text != null)
         {
-            int total_coin = itemData.Coin * itemData.Count;
-            if (itemData.Sell_immediately) { coin_text.text = string.Format("[<b>E</b>] 줍기\n[<b>F</b>] 즉시 판매: {0}<sprite=9>", total_coin); }
+            int total_coin = itemData.Coin;
+            coin_text.text = string.Format("[<b>E</b>] 줍기\n[<b>F</b>] 즉시 판매: {0}<sprite=9>", total_coin);
         }
     }
 }
