@@ -12,20 +12,17 @@ public class ShopQuickSlot : MonoBehaviour
 
     public Image[] slotImages;          // 각 슬롯의 아이템 아이콘
     public Image[] slotBackgrounds;     // 각 슬롯의 배경 이미지 (활성화 표시)
-    public TMP_Text[] slotCounts;       // 각 슬롯의 아이템 갯수 텍스트
     public Sprite default_Item_Sprite;  // 기본 아이템 아이콘
     public Sprite defaultSlotSprite;    // 기본 슬롯 배경
     public Sprite selectedSlotSprite;   // 선택된 슬롯 배경
     public TMP_Text Item_Name;          // 선택한 아이템의 이름
     public TMP_Text Item_Coin;          // 선택한 아이템의 가치
-    public TMP_Text Item_Weight;        // 선택한 아이템의 무게
     public TMP_Text timeText;           // UI 텍스트 오브젝트
 
     private void Start()
     {
         Item_Name.text = null;
         Item_Coin.text = null;
-        Item_Weight.text = null;
     }
 
     private void Update()
@@ -62,23 +59,12 @@ public class ShopQuickSlot : MonoBehaviour
                 // 아이템 아이콘 설정
                 slotImages[i].sprite = item.icon;
                 slotImages[i].color = new Color(1f, 1f, 1f, 1f);
-                // 아이템 곗수 표시 여부
-                if (item.Count_Check)
-                {
-                    slotCounts[i].gameObject.SetActive(true);
-                    slotCounts[i].text = item.Count.ToString();
-                }
-                else
-                {
-                    slotCounts[i].gameObject.SetActive(false);
-                }
             }
             else
             {
                 // 빈 슬롯 처리
                 slotImages[i].sprite = default_Item_Sprite;
                 slotImages[i].color = new Color(1f, 1f, 1f, 0.3f);
-                slotCounts[i].gameObject.SetActive(false);
             }
 
             // 선택된 슬롯 배경 표시
@@ -90,17 +76,14 @@ public class ShopQuickSlot : MonoBehaviour
         ItemData selectedItem = SlotsData[selectedSlotIndex];
         if (selectedItem != null && !string.IsNullOrEmpty(selectedItem.itemName))
         {
-            int total_coin = selectedItem.Coin * selectedItem.Count;
-            int total_Weight = selectedItem.Weight * selectedItem.Count;
+            int total_coin = selectedItem.Coin;
             Item_Name.text = string.Format("[{0}]", selectedItem.itemName);
             Item_Coin.text = total_coin.ToString() + " 값";
-            Item_Weight.text = total_Weight.ToString() + " 근";
         }
         else
         {
             Item_Name.text = null;
             Item_Coin.text = null;
-            Item_Weight.text = null;
         }
     }
 }
