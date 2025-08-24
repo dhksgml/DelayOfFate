@@ -1,18 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class Eo_dook_jwi : Enemy
 {
     [Header("Eo_dook_jwi")]
     [SerializeField] float waitTime = 0f;
-    [SerializeField] float moveTime = 0f;
-    //[SerializeField] bool isLighting;
-    //[SerializeField] bool isAction;
     [SerializeField] bool isStop;
     [SerializeField] int enemyDamage;
+    [SerializeField] int enemyOriginDamage = 0;
     PlayerController player;
 
+    // 돌진 
+    [SerializeField] public bool isRush = false;
+    [HideInInspector] public Vector3 playerTrs;
+    [Header("어둑쥐 돌진 스텟")]
+    [SerializeField] float rushTime = 0f;
+    [SerializeField] float enemyOriginSpeed = 0f;
+    [SerializeField] float enemyRushSpeed = 0f;
+    [SerializeField] int enemyRushDamage = 0;
+    [SerializeField] bool isRushReady = false;
 
 
     void Awake()
@@ -24,6 +33,8 @@ public class Eo_dook_jwi : Enemy
     void Start()
     {
         EnemyInt();
+
+        enemyOriginSpeed = enemyMoveSpeed;
 
         // 처음에 랜덤한 방향 설정
         ChooseNewDirection();
@@ -45,64 +56,38 @@ public class Eo_dook_jwi : Enemy
         }
         else
         {
-            if (!isStop) { EnemyMove(); }
 
-            // 10초 움직이고 5초 멈춰줌
-            if (enemyMoveTime >= moveTime)
+            EnemyMove();
+
+            // 돌진 상태가 되면
+            if (isRush && !isRushReady)
             {
-                // 에니메이션
-                anim.SetBool("isMove", false);
-
-                //멈춰준 후
-                isStop = true;
-
-                // 대기 시간을 더해줌
-                enemyWaitTime += Time.deltaTime;
-
-                //5초가 지나면 false로 바꾸어 줌
-                if (enemyWaitTime >= waitTime)
-                {
-                    // bool 초기화
-                    isArrive = false;
-                    isStop = false;
-
-                    // 초기화
-                    enemyWaitTime = 0f;
-                    enemyMoveTime = 0f;
-                }
+                StartCoroutine(RushRoutine());
             }
+
         }
     }
 
     public override void EnemyMove()
     {
-        // 빛에 닿으면 도망가는 기믹은 일단 제거해줌
-        ////빛에 닿았을 시
-        //if(isLighting)
-        //{
-        //    enemyMoveDir = -(player.transform.position - transform.position).normalized;
+        if (isStop)
+        {
+            return;
+        }
 
-        //    transform.Translate(enemyMoveDir * enemyRunSpeed * Time.deltaTime);
-        //}
+        // 돌진
+        else if (isRush)
+        {
+            // 에니메이션
 
-        ////추적중이 아니면
-        //else if (!isTrace && !isDie && !isEnemyHit)
-        //{
-        //    //스프라이트 때문에 이걸 사용해줌
-        //    //EnemyNormalTurn2();
+            EnemyNormalTurn2();
 
-        //    //에니메이션, 추적 false로 바꾸어줌
-        //    //anim.SetBool("isTrace", false);
-
-        //    // 현재 방향으로 이동
-        //    transform.Translate(moveDirection * enemyMoveSpeed * Time.deltaTime);
-
-        //    // 시간을 더해줌
-        //    moveTime += Time.deltaTime;
-        //}
+            // 이동
+            transform.Translate(enemyTargetDir * enemyMoveSpeed * Time.deltaTime);
+        }
 
         //추적중이 아니면
-        if (!isDie && !isEnemyHit)
+        else
         {
             // 에니메이션
             anim.SetBool("isMove", true);
@@ -116,8 +101,6 @@ public class Eo_dook_jwi : Enemy
             // 현재 방향으로 이동
             transform.Translate(moveDirection * enemyMoveSpeed * Time.deltaTime);
 
-            // 시간을 더해줌
-            enemyMoveTime += Time.deltaTime;
         }
     }
 
@@ -145,17 +128,12 @@ public class Eo_dook_jwi : Enemy
                 EnemyHit(attack.damage);
 
             }
-            // 지금은 사용 안함
-            //if (collision.gameObject.CompareTag("Light"))
-            //{
-            //    //빛에 닿으면 true로 해주고 도망가게 해줌
-            //    isLighting = true;
-            //}
+
 
             // 충돌 시 데미지를 부여
             if (collision.gameObject.CompareTag("Player"))
             {
-                player.DamagedHP(enemyDamage);
+                if (enemyDamage != 0) { player.DamagedHP(enemyDamage); }
             }
         }
     }
@@ -184,29 +162,45 @@ public class Eo_dook_jwi : Enemy
         }
     }
 
-    // 지금은 사용 안함
-    //void OnTriggerExit2D(Collider2D collision)
-    //{
-    //    if (collision != null)
-    //    {
-    //        if (collision.gameObject.CompareTag("Light"))
-    //        {
-    //            if(!isAction)
-    //            {
-    //                //빛에서 벗어나면 3초 뒹 빛이 꺼지게 해줌
-    //                StartCoroutine(Delay());
-    //            }
-    //        }
-    //    }
-    //}
-
-    /*IEnumerator Delay()
+    void PlayerTrsFind()
     {
-        isAction = true;
+        enemyTargetDir = (player.transform.position - transform.position).normalized;
+    }
 
-        yield return new WaitForSeconds(3f);
 
-        isLighting = false;
-        isAction = false;
-    }*/
+    IEnumerator RushRoutine()
+    {
+        // 준비 동작
+        anim.SetBool("isMove", false);
+
+        isRushReady = true;
+        isStop = true;
+
+        yield return new WaitForSeconds(waitTime);
+
+        PlayerTrsFind();
+        isStop = false;
+
+        // 돌진 시작
+        anim.SetBool("isMove", true);
+
+
+        // 이동 속도 및 데미지 추가
+        enemyMoveSpeed += enemyRushSpeed;
+        enemyDamage = enemyRushDamage;
+
+        yield return new WaitForSeconds(rushTime);
+
+        // 돌진 종료
+        anim.SetBool("isMove", false);
+
+        // 초기화
+        enemyMoveSpeed = enemyOriginSpeed;
+        enemyDamage = enemyOriginDamage;
+
+        ChooseNewDirection();
+
+        isRush = false;
+        isRushReady = false;
+    }
 }

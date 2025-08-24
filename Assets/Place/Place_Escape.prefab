@@ -178,8 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   place_enum: 0
   key_UI_iamge: {fileID: 4717186045452493207}
-  Special_text_obj: {fileID: 7472106432466303098}
-  Special_Text: {fileID: 7996759285171749790}
+  warningText: {fileID: 7472106432466303098}
 --- !u!61 &-8066532982033315929
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -699,14 +698,3 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4409971884041188562, guid: 41285955be8ebaa428508bbede5ebffa, type: 3}
   m_PrefabInstance: {fileID: 8655269082463752386}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7996759285171749790 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1650432292450227036, guid: 41285955be8ebaa428508bbede5ebffa, type: 3}
-  m_PrefabInstance: {fileID: 8655269082463752386}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

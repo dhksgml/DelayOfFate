@@ -155,6 +155,10 @@ public class Shop : MonoBehaviour
             SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
 
         shopQuickSlot.SlotsData[emptySlotIndex] = weaponData[index];
+        if (weaponData[index].id == 997)
+        {
+            shopQuickSlot.SlotsData[emptySlotIndex].Count = 20;
+        }
         OnItemHover(emptySlotIndex, weaponData[index]);
     }
 

@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using System.Collections;
 
 public class Place : MonoBehaviour
@@ -18,15 +17,15 @@ public class Place : MonoBehaviour
 	public GameObject key_UI_iamge;
 	private int registered; // 횟수 제한(패시브 없으면 1회)
 
-	public GameObject Special_text_obj; // 특수 텍스트 오브젝트
-	public TMP_Text Special_Text; // 특수 텍스트
+	public GameObject warningText; // 탈출 실패 경고 텍스트 (비활성 상태)
+
 	private Coroutine warningCoroutine;
 
 	private void Start()
 	{
 		placeManager = FindObjectOfType<PlaceManager>();
 		registered = 1;
-		if (Special_text_obj != null) Special_text_obj.SetActive(false);
+		if (warningText != null) warningText.SetActive(false);
 		if (key_UI_iamge != null) key_UI_iamge.gameObject.SetActive(false);
 	}
 
@@ -50,22 +49,6 @@ public class Place : MonoBehaviour
 				if (key_UI_iamge != null) key_UI_iamge.gameObject.SetActive(true);
 				other.GetComponent<PlayerController>().isPickUpableItem = true;
 				ui_on = true;
-				if (place_enum == Place_enum.sale)
-                {
-					if (Special_text_obj != null) Special_text_obj.SetActive(true);
-					Player_Item_Use player_Item_Use = other.GetComponent<Player_Item_Use>();
-					int item_soul = 0;
-					int item_coin = 0;
-					for (int i = 0; i < player_Item_Use.quickSlots.Length; i++)
-					{
-						if (player_Item_Use.quickSlots[i] != null && !string.IsNullOrEmpty(player_Item_Use.quickSlots[i].itemName))
-						{
-							item_coin += player_Item_Use.quickSlots[i].Coin*2;
-							item_soul += player_Item_Use.quickSlots[i].Coin;
-						}
-					}
-					if (Special_text_obj != null) Special_Text.text = string.Format("<sprite=8> +{0} / <sprite=9> +{1}",item_soul,item_coin);
-				}
 			}
 		}
 	}
@@ -125,28 +108,28 @@ public class Place : MonoBehaviour
 		{
 			if (warningCoroutine != null) StopCoroutine(warningCoroutine);
 
-			if (Special_text_obj != null) warningCoroutine = StartCoroutine(ShowSpecial_text_obj());
+			if (warningText != null) warningCoroutine = StartCoroutine(ShowWarningText());
 		}
 	}
 	public void SellItems()
 	{
 		// 아무것도 없을 때: 투명도 1 → 0으로 서서히 사라지기
-		if (Special_text_obj != null)
+		if (warningText != null)
 		{
 			// 기존 페이드아웃 코루틴이 있다면 중지
 			if (warningCoroutine != null) StopCoroutine(warningCoroutine);
-			if (Special_text_obj != null) warningCoroutine = StartCoroutine(ShowSpecial_text_obj());
+			if (warningText != null) warningCoroutine = StartCoroutine(ShowWarningText());
 			Player_Item_Use player_Item_Use = FindObjectOfType<Player_Item_Use>();
 			player_Item_Use.Sale("all",0);
 		}
 		if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_all_sell"));
 	}
-	private IEnumerator ShowSpecial_text_obj()
+	private IEnumerator ShowWarningText()
 	{
-		Special_text_obj.SetActive(true);
+		warningText.SetActive(true);
 
-		CanvasGroup canvasGroup = Special_text_obj.GetComponent<CanvasGroup>();
-		if (canvasGroup == null) canvasGroup = Special_text_obj.AddComponent<CanvasGroup>();
+		CanvasGroup canvasGroup = warningText.GetComponent<CanvasGroup>();
+		if (canvasGroup == null) canvasGroup = warningText.AddComponent<CanvasGroup>();
 
 		canvasGroup.alpha = 1f;
 
@@ -162,6 +145,6 @@ public class Place : MonoBehaviour
 			yield return null;
 		}
 
-		Special_text_obj.SetActive(false);
+		warningText.SetActive(false);
 	}
 }

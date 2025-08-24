@@ -137,6 +137,20 @@ public class Attack_sc : MonoBehaviour
                         {
                             damage = 0;
                         }
+                        else
+                        {
+                            if (attackType.ToString() != enemy.enemyWeakness.ToString())//������ �ƴ϶��
+                            {
+                                player_Item_Use.quickSlots[player_Item_Use.selectedSlotIndex].Count--; //������ �����ߴٸ� ���� ����
+
+                                // ����� 0�� �Ǹ� ���� ����
+                                if (player_Item_Use.quickSlots[player_Item_Use.selectedSlotIndex].Count <= 0)
+                                {
+                                    player_Item_Use.quickSlots[player_Item_Use.selectedSlotIndex] = null;
+                                }
+                            }
+
+                        }
                     }
                 }
             }
