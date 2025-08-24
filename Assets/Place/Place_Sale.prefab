@@ -178,7 +178,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   place_enum: 2
   key_UI_iamge: {fileID: 2612968922515381066}
-  warningText: {fileID: 85418133830509673}
+  Special_text_obj: {fileID: 85418133830509673}
+  Special_Text: {fileID: 8236592237176355952}
 --- !u!61 &7407756221932529927
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -574,7 +575,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1650432292450227036, guid: 41285955be8ebaa428508bbede5ebffa, type: 3}
       propertyPath: m_text
-      value: "\uBB3C\uAC74 \uC5C6\uC74C"
+      value: <sprite=8> +100 / <sprite=9> +200
       objectReference: {fileID: 0}
     - target: {fileID: 1650432292450227036, guid: 41285955be8ebaa428508bbede5ebffa, type: 3}
       propertyPath: m_fontColor.b
@@ -588,6 +589,10 @@ PrefabInstance:
       propertyPath: m_fontColor.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1650432292450227036, guid: 41285955be8ebaa428508bbede5ebffa, type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e5c5e79a0702876479cc3f7ba1cbe9ea, type: 2}
     - target: {fileID: 1650432292450227036, guid: 41285955be8ebaa428508bbede5ebffa, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4278190080
@@ -686,3 +691,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4409971884041188562, guid: 41285955be8ebaa428508bbede5ebffa, type: 3}
   m_PrefabInstance: {fileID: 7253542447961517868}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8236592237176355952 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1650432292450227036, guid: 41285955be8ebaa428508bbede5ebffa, type: 3}
+  m_PrefabInstance: {fileID: 7253542447961517868}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

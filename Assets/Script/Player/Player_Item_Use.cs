@@ -40,14 +40,7 @@ public class Player_Item_Use : MonoBehaviour
                 Item selectedItem = quickSlots[selectedSlotIndex];
                 if (selectedItem != null)
                 {
-                    if (selectedItem.Charging)
-                    {
-                        chargingItem = selectedItem;
-                    }
-                    else
-                    {
-                        UseItem(); // 사용                   
-                    }
+                    UseItem(); // 사용                   
                 }
             }
         }
@@ -67,7 +60,7 @@ public class Player_Item_Use : MonoBehaviour
                 if (nearestItemCollider != null)
                 {
                     ItemObject itemObject = nearestItemCollider.GetComponent<ItemObject>();
-                    if (itemObject != null && itemObject.itemData.Sell_immediately)
+                    if (itemObject != null)
                     {
                         PickUpItem();
                         //isAnyItemBeingSold = true;
@@ -110,9 +103,10 @@ public class Player_Item_Use : MonoBehaviour
         {
             if (selectedItem.id == 995) //족자의 경우 기력 대신 정신력 사용
             {
-                if (!playercontroller.isRecovering && selectedItem.spendSPAmount < playercontroller.currentMp)
+                int mp_down = Random.Range(6 - 2, 6 + 2);
+                if (!playercontroller.isRecovering && mp_down < playercontroller.currentMp)
                 {
-                    playercontroller.SpendMp(Random.Range(selectedItem.spendSPAmount - 2, selectedItem.spendSPAmount + 2));
+                    playercontroller.SpendMp(mp_down);
                 } 
             }
 
@@ -134,37 +128,24 @@ public class Player_Item_Use : MonoBehaviour
         {
             Item selectedItem = quickSlots[selectedSlotIndex];
 
-            if (selectedItem != null && selectedItem.isUsable)
+            if (selectedItem != null)
             {
                 // 중복 아이템일 경우
-                if (selectedItem.Count_Check)
-                {
-                    if (selectedItem.Count > 0)
-                    {
-                        if (selectedItem.id != 996)
-                        {
-                            selectedItem.Count--;
 
-                            // 곗수가 0이 되면 슬롯 비우기
-                            if (selectedItem.Count <= 0)
-                            {
-                                quickSlots[selectedSlotIndex] = null;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Debug.Log("아이템 곗수가 부족합니다.");
-                        return;
-                    }
+
+                if (selectedItem.id != 996)
+                {
+                    quickSlots[selectedSlotIndex] = null; 
                 }
+                
+
 
                 // 아이템 사용 처리
                 TryUseItem(selectedItem);
 
                 // 쿨다운 적용
-                playercontroller.Player_Usage_cu_cool_down = selectedItem.Usage_cool_down;
-                playercontroller.SetUseItemCooltime(selectedItem.Usage_cool_down);
+                //playercontroller.Player_Usage_cu_cool_down = selectedItem.Usage_cool_down;
+                //playercontroller.SetUseItemCooltime(selectedItem.Usage_cool_down);
 
                 // UI 갱신
                 UpdateQuickSlotUI();
@@ -282,7 +263,6 @@ public class Player_Item_Use : MonoBehaviour
                 spriteRenderer.sprite = newItemComponent.itemData.InGameSprite;
             }
 
-            Debug.Log($"버린 아이템: {newItemComponent.itemData.itemName}, 금액: {newItemComponent.itemData.Coin}, 무게: {newItemComponent.itemData.Weight}");
             // 퀵슬롯에서 해당 아이템 제거
             quickSlots[selectedSlotIndex] = null;
             UpdateQuickSlotUI();
@@ -375,7 +355,7 @@ public class Player_Item_Use : MonoBehaviour
         {
             if (item != null)
             {
-                totalWeight += item.Weight;
+                totalWeight += 0;//item.Weight;
             }
         }
         return totalWeight;
