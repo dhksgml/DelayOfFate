@@ -32,7 +32,7 @@ public class Item_Spawn : MonoBehaviour
             if (item != null)
             {
                 spawnableItems.Add(prefab);
-                int cost = item.itemData.Coin;
+                int cost = item.itemData.ValPoint;
                 if (cost < minCost)
                     minCost = cost;
             }
@@ -56,7 +56,7 @@ public class Item_Spawn : MonoBehaviour
                 continue;
             }
 
-            int cost = io.itemData.Coin;
+            int cost = io.itemData.ValPoint;
 
             if (cost <= currentPoint)
             {
