@@ -42,10 +42,7 @@ public class EnemyTrace : MonoBehaviour
 
         [Header("¾îµÏÁã")]
         public Eo_dook_jwi eo_dook_jwi;
-
-        // ¾îµÏÁã Àü¿ë
-        [Tooltip("ÃßÈÄ ÇÃ·¹ÀÌ¾îÀÇ Intensity°¡ ¹Ù²ð‹š °°ÀÌ ÇØÁà¾ß ÇÔ")]
-        public float playerOrigin_Light_Intensity;
+        public Vector3 playerTrs;
     }
 
     [SerializeField] EnemyScript enemyScript;
@@ -281,21 +278,14 @@ public class EnemyTrace : MonoBehaviour
                 }
             }
             // ¾îµÏÁã Àü¿ë
-            //if (enemyScript.eo_dook_jwi != null)
-            //{
-                
-            //    foreach (Transform child in collision.transform.GetComponentsInChildren<Transform>(true))
-            //    {
-            //        if (child.CompareTag("Light"))
-            //        {
-            //            Light2D light = child.GetComponent<Light2D>();
-            //            if (light != null)
-            //            {
-            //                light.intensity = 0.1f;
-            //            }
-            //        }
-            //    }
-            //}
+            if (enemyScript.eo_dook_jwi != null)
+            {
+                if (collision.gameObject.CompareTag("Player"))
+                {
+                    enemyScript.eo_dook_jwi.isRush = true;
+                    enemyScript.eo_dook_jwi.playerTrs = enemyScript.playerTrs;
+                }
+            }
 
             // ¼Ò¸é±Í Àü¿ë
             if (enemyScript.somyeon_Gwi != null)
@@ -347,22 +337,6 @@ public class EnemyTrace : MonoBehaviour
                 }
 
             }
-
-            // ¾îµÏÁã Àü¿ë
-            //if (enemyScript.eo_dook_jwi != null)
-            //{
-            //    foreach (Transform child in collision.transform.GetComponentsInChildren<Transform>(true))
-            //    {
-            //        if (child.CompareTag("Light"))
-            //        {
-            //            Light2D light = child.GetComponent<Light2D>();
-            //            if (light != null)
-            //            {
-            //                light.intensity = enemyScript.playerOrigin_Light_Intensity;
-            //            }
-            //        }
-            //    }
-            //}
 
         }
     }

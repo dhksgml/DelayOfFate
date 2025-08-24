@@ -451,7 +451,9 @@ Mesh:
     offset: 0
     size: 0
     path: 
+
 --- !u!1001 &785303489
+
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -738,6 +740,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+
   - component: {fileID: 855791380}
   - component: {fileID: 855791383}
   - component: {fileID: 855791382}
@@ -808,6 +811,7 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+
 --- !u!81 &855791382
 AudioListener:
   m_ObjectHideFlags: 0
