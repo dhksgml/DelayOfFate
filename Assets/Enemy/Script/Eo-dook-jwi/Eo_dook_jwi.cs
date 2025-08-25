@@ -43,8 +43,6 @@ public class Eo_dook_jwi : Enemy
         StartCoroutine(ChangeDirectionRoutine());
     }
 
-    float enemyMoveTime = 0f;
-    float enemyWaitTime = 0f;
 
     void Update()
     {
@@ -72,6 +70,8 @@ public class Eo_dook_jwi : Enemy
     {
         if (isStop)
         {
+            // 에니메이션
+            anim.SetBool("isMove", false);
             return;
         }
 
@@ -80,7 +80,7 @@ public class Eo_dook_jwi : Enemy
         {
             // 에니메이션
 
-            EnemyNormalTurn2();
+            EnemyTraceTurn2();
 
             // 이동
             transform.Translate(enemyTargetDir * enemyMoveSpeed * Time.deltaTime);
@@ -171,7 +171,6 @@ public class Eo_dook_jwi : Enemy
     IEnumerator RushRoutine()
     {
         // 준비 동작
-        anim.SetBool("isMove", false);
 
         isRushReady = true;
         isStop = true;
@@ -182,7 +181,7 @@ public class Eo_dook_jwi : Enemy
         isStop = false;
 
         // 돌진 시작
-        anim.SetBool("isMove", true);
+        anim.SetBool("isRush", true);
 
 
         // 이동 속도 및 데미지 추가
@@ -192,7 +191,7 @@ public class Eo_dook_jwi : Enemy
         yield return new WaitForSeconds(rushTime);
 
         // 돌진 종료
-        anim.SetBool("isMove", false);
+        anim.SetBool("isRush", false);
 
         // 초기화
         enemyMoveSpeed = enemyOriginSpeed;
