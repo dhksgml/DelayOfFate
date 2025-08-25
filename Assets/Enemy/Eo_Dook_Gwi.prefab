@@ -206,7 +206,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 5
 --- !u!114 &5208748269198255614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b465f2af24839454186a76a4aa87e458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTraceRange: 3
+  enemyTraceRange: 10
   enemyTraceCollider: {fileID: 455802276215988635}
   targetPos: {x: 0, y: 0, z: 0}
   enemy: {fileID: 8266421726944146670}
@@ -234,7 +234,7 @@ MonoBehaviour:
     duoksini: {fileID: 0}
     duoksini_Attack: {fileID: 0}
     eo_dook_jwi: {fileID: 8266421726944146670}
-    playerOrigin_Light_Intensity: 0.5
+    playerTrs: {x: 0, y: 0, z: 0}
   landSharkAttackTime: 0
 --- !u!1 &8715100621815237470
 GameObject:
@@ -359,7 +359,7 @@ MonoBehaviour:
   enemyName: 
   enemyHp: 0
   enemyMaxHp: 0
-  enemyMoveSpeed: 3.5
+  enemyMoveSpeed: 2
   enemyRunSpeed: 0
   enemyPriceMin: 0
   enemyPriceMax: 0
@@ -386,6 +386,7 @@ MonoBehaviour:
   anim: {fileID: 6262192447617324782}
   enemyCorpse: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
   enemyCorpseData: {fileID: 11400000, guid: 160f2d3033bb9524fa884c730fd94f73, type: 2}
+  uiCanvas: {fileID: 0}
   Sale_Effect: {fileID: 8897711660315164129, guid: 688a73bcb2a05e64fb2f70898fc84aa7, type: 3}
   enemySelf: {fileID: 1930194308981125956}
   enemyColl: {fileID: 2902647822814001550}
@@ -397,8 +398,13 @@ MonoBehaviour:
   enemyMoveDir: {x: 0, y: 0, z: 0}
   moveDirection: {x: 0, y: 0, z: 0}
   waitTime: 1
-  moveTime: 10
-  isLighting: 0
-  isAction: 0
   isStop: 0
   enemyDamage: 10
+  enemyOriginDamage: 0
+  isRush: 0
+  playerTrs: {x: 0, y: 0, z: 0}
+  rushTime: 3
+  enemyOriginSpeed: 0
+  enemyRushSpeed: 5
+  enemyRushDamage: 10
+  isRushReady: 0
