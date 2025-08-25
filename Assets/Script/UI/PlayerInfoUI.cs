@@ -24,20 +24,10 @@ public class PlayerInfoUI : MonoBehaviour
 
     private float maxHpBarWidth; // 실제 UI에서의 최대 바 너비
 
-    [SerializeField] private RectTransform frameRect;
-    [SerializeField] private RectTransform hpBarRect;
-    [SerializeField] private RectTransform extraHpRect;
-
     //ItemFinderArrow Item
     [SerializeField] private RectTransform UIArrow;
     [SerializeField] private float distanceFromPlayer;
     [SerializeField] private float hideUIArrowDistance;
-
-    /*private const float HP_WIDTH = 288f;
-    private const float HP_HEIGHT = 32f;
-    private const float TOTAL_WIDTH = 320f;
-    private const float TOTAL_HEIGHT = 40f;
-    private const float MAX_BAR_WIDTH = 500f;*/
 
     private Coroutine showRoutine;
     private void OnEnable()
@@ -66,22 +56,15 @@ public class PlayerInfoUI : MonoBehaviour
     {
         coin_text.text = $" : {(int)GameManager.Instance.Gold}";
         soul_text.text = $" : {(int)GameManager.Instance.Soul} / <color=#ff0000>{(int)GameManager.Instance.N_Day_Cost}</color>";
-        playerHP_Text.text = $"{(int)playerController.currentHp} / {(int)playerController.maxHp}";
+        //playerHP_Text.text = $"{(int)playerController.currentHp} / {(int)playerController.maxHp}";
 
         if (playerController == null) // 플레이어가 없는 경우 (상점, 스테이지 선택)
         {
-            PlayerData playerData = GameManager.Instance.playerData;
-
-            float hpRatio = GameManager.Instance.playerData.currentHp / GameManager.Instance.playerData.maxHp;
-
-            Vector2 hpSize = playerHpBar.rectTransform.sizeDelta;
-            hpSize.x = maxHpBarWidth * Mathf.Clamp01(hpRatio);
-            playerHpBar.rectTransform.sizeDelta = hpSize;
-
-            //UpdateHealthBar(playerData.currentHp, playerData.maxHp, playerData.currentExtraHp, playerData.extraHp);
+            playerHP_Text.text = $"{(int)GameManager.Instance.playerData.currentHp} / {(int)GameManager.Instance.playerData.maxHp}";
         }
         else // 인게임 에서 보여줄것
         {
+            playerHP_Text.text = $"{(int)playerController.currentHp} / {(int)playerController.maxHp}";
 
             float hpRatio = playerController.currentHp / playerController.maxHp;
 

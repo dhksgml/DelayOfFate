@@ -148,6 +148,8 @@ public class Shop : MonoBehaviour
 
         weaponSlots[index].text = "구매 완료";
 
+        GameEvents.CallBuyWeapon();
+
         Button btn = weaponSlots[index].GetComponentInParent<Button>();
         if (btn != null) btn.interactable = false;
 

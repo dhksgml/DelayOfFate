@@ -17,4 +17,7 @@ public static class GameEvents
 
     public static event Action OnTimeAngleUnit18;
     public static void CallTimeAngleUnit18() => OnTimeAngleUnit18?.Invoke();
+
+    public static event Action OnBuyWeapon;
+    public static void CallBuyWeapon() => OnBuyWeapon?.Invoke();
 }
