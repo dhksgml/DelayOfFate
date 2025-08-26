@@ -11,33 +11,23 @@ public class PlayerInfoUI : MonoBehaviour
     public Image playerBonusHpBar;
     public TMP_Text playerHP_Text;
     public Image playerMPsc;
-    public Image playerMPSC;// °¡ÀåÀÚ¸® ÀÌ¹ÌÁö ÁöÁ¤
-    public Sprite[] Mp_sc; // °¡ÀåÀÚ¸® ÀÌ¹ÌÁö 3°³
+    public Image playerMPSC;// ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public Sprite[] Mp_sc; // ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ 3ï¿½ï¿½
 
     public TMP_Text coin_text;
     public TMP_Text soul_text;
-    public TMP_Text add_coin_text; //ÀÏ½ÃÀû Ãß°¡ ÇßÀ»¶§ ui
-    public TMP_Text add_soul_text; //ÀÏ½ÃÀû Ãß°¡ ÇßÀ»¶§ ui
+    public TMP_Text add_coin_text; //ï¿½Ï½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ui
+    public TMP_Text add_soul_text; //ï¿½Ï½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ui
 
-    public float showDuration = 1f; // ¿ÏÀü Ç¥½ÃµÇ´Â ½Ã°£
-    public float fadeDuration = 1f; // ÆäÀÌµå ¾Æ¿ô ½Ã°£
+    public float showDuration = 1f; // ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ÃµÇ´ï¿½ ï¿½Ã°ï¿½
+    public float fadeDuration = 1f; // ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Æ¿ï¿½ ï¿½Ã°ï¿½
 
-    private float maxHpBarWidth; // ½ÇÁ¦ UI¿¡¼­ÀÇ ÃÖ´ë ¹Ù ³Êºñ
-
-    [SerializeField] private RectTransform frameRect;
-    [SerializeField] private RectTransform hpBarRect;
-    [SerializeField] private RectTransform extraHpRect;
+    private float maxHpBarWidth; // ï¿½ï¿½ï¿½ï¿½ UIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ ï¿½Êºï¿½
 
     //ItemFinderArrow Item
     [SerializeField] private RectTransform UIArrow;
     [SerializeField] private float distanceFromPlayer;
     [SerializeField] private float hideUIArrowDistance;
-
-    /*private const float HP_WIDTH = 288f;
-    private const float HP_HEIGHT = 32f;
-    private const float TOTAL_WIDTH = 320f;
-    private const float TOTAL_HEIGHT = 40f;
-    private const float MAX_BAR_WIDTH = 500f;*/
 
     private Coroutine showRoutine;
     private void OnEnable()
@@ -66,22 +56,15 @@ public class PlayerInfoUI : MonoBehaviour
     {
         coin_text.text = $" : {(int)GameManager.Instance.Gold}";
         soul_text.text = $" : {(int)GameManager.Instance.Soul} / <color=#ff0000>{(int)GameManager.Instance.N_Day_Cost}</color>";
-        playerHP_Text.text = $"{(int)GameManager.Instance.playerData.currentHp} / {(int)GameManager.Instance.playerData.maxHp}";
+        //playerHP_Text.text = $"{(int)playerController.currentHp} / {(int)playerController.maxHp}";
 
-        if (playerController == null) // ÇÃ·¹ÀÌ¾î°¡ ¾ø´Â °æ¿ì (»óÁ¡, ½ºÅ×ÀÌÁö ¼±ÅÃ)
+        if (playerController == null) // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
         {
-            PlayerData playerData = GameManager.Instance.playerData;
-
-            float hpRatio = GameManager.Instance.playerData.currentHp / GameManager.Instance.playerData.maxHp;
-
-            Vector2 hpSize = playerHpBar.rectTransform.sizeDelta;
-            hpSize.x = maxHpBarWidth * Mathf.Clamp01(hpRatio);
-            playerHpBar.rectTransform.sizeDelta = hpSize;
-
-            //UpdateHealthBar(playerData.currentHp, playerData.maxHp, playerData.currentExtraHp, playerData.extraHp);
+            playerHP_Text.text = $"{(int)GameManager.Instance.playerData.currentHp} / {(int)GameManager.Instance.playerData.maxHp}";
         }
-        else // ÀÎ°ÔÀÓ ¿¡¼­ º¸¿©ÁÙ°Í
+        else // ï¿½Î°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ù°ï¿½
         {
+            playerHP_Text.text = $"{(int)playerController.currentHp} / {(int)playerController.maxHp}";
 
             float hpRatio = playerController.currentHp / playerController.maxHp;
 
@@ -103,13 +86,13 @@ public class PlayerInfoUI : MonoBehaviour
         {
             float mpRatio = playerController.currentMp / playerController.maxMp;
 
-            // Åõ¸íµµ Á¶Àý
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             float alpha = Mathf.Lerp(0.1f, 0f, mpRatio);
             Color color = playerMPsc.color;
             color.a = alpha;
             playerMPsc.color = color;
 
-            // ÀÌ¹ÌÁö ½ºÇÁ¶óÀÌÆ® ±³Ã¼
+            // ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Ã¼
             if (Mp_sc != null && Mp_sc.Length >= 3)
             {
                 Color color_sc = playerMPSC.color;
@@ -135,7 +118,7 @@ public class PlayerInfoUI : MonoBehaviour
                     color_sc.a = 0f;
                 }
 
-                playerMPSC.color = color_sc; // º¯°æµÈ ¾ËÆÄ°ªÀ» ¿©±â¼­ ¹Ý¿µ
+                playerMPSC.color = color_sc; // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¼­ ï¿½Ý¿ï¿½
             }
         }
 
@@ -146,11 +129,11 @@ public class PlayerInfoUI : MonoBehaviour
         float totalMaxHP = maxHP + extraHP;
         float totalWidth = Mathf.Min(HP_WIDTH * (totalMaxHP / maxHP), MAX_BAR_WIDTH);
 
-        // ±âº» Ã¼·Â ¹Ù Å©±â
+        // ï¿½âº» Ã¼ï¿½ï¿½ ï¿½ï¿½ Å©ï¿½ï¿½
         float hpWidth = totalWidth * (currentHP / totalMaxHP);
         hpBarRect.sizeDelta = new Vector2(hpWidth, HP_HEIGHT);
 
-        // Ãß°¡ Ã¼·Â ¹Ù
+        // ï¿½ß°ï¿½ Ã¼ï¿½ï¿½ ï¿½ï¿½
         if (extraHP > 0)
         {
             float extraWidth = totalWidth * (extraHP / totalMaxHP);
@@ -216,8 +199,8 @@ public class PlayerInfoUI : MonoBehaviour
     private IEnumerator ShowAndFade()
     {
         //bool isShowing = true;
-        add_coin_text.alpha = 1f; // ¼ø°£ÀûÀ¸·Î º¸ÀÌ±â
-        add_soul_text.alpha = 1f; // ¼ø°£ÀûÀ¸·Î º¸ÀÌ±â
+        add_coin_text.alpha = 1f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì±ï¿½
+        add_soul_text.alpha = 1f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì±ï¿½
         yield return new WaitForSeconds(showDuration);
 
         float elapsed = 0f;
