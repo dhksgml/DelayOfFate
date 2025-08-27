@@ -4,6 +4,7 @@ using UnityEngine;
 public class ItemData : ScriptableObject
 {
     public int id; // 고유 ID
+    public ItemType itemType;
 
     [Header("이름, 인게임, 아이콘")]
     public string itemName;

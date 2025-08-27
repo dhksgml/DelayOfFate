@@ -4,6 +4,8 @@ public class Player_Item_Use : MonoBehaviour
 {
     public Item[] quickSlots = new Item[4]; // 4개의 퀵슬롯
     public int selectedSlotIndex = 0; // 현재 선택된 슬롯
+    public Item[] weaponSlots = new Item[2];
+    public int selectedWeaponIndex = 0;
     public Transform dropPoint; // 아이템 드롭 위치
     public LayerMask itemLayer; // 아이템 레이어 설정
     public GameObject item_Prefab; // 아이템을 생성 할때 사용 할 빈 프리팹
@@ -35,9 +37,9 @@ public class Player_Item_Use : MonoBehaviour
         float weight = GetTotalItemWeight();
         if (Input.GetMouseButtonDown(0))
         {
-            if (selectedSlotIndex >= 0 && selectedSlotIndex < quickSlots.Length)
+            if (selectedWeaponIndex >= 0 && selectedWeaponIndex < weaponSlots.Length)
             {
-                Item selectedItem = quickSlots[selectedSlotIndex];
+                Item selectedItem = weaponSlots[selectedWeaponIndex];
                 if (selectedItem != null)
                 {
                     if (selectedItem.Charging)
@@ -87,6 +89,12 @@ public class Player_Item_Use : MonoBehaviour
 
     void HandleSlotSelection()
     {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            selectedWeaponIndex++;
+            selectedWeaponIndex = selectedWeaponIndex % 2;
+        }
+
         // 슬롯 선택 (1~4 키)
         if (Input.GetKeyDown(KeyCode.Alpha1)) selectedSlotIndex = 0;
         if (Input.GetKeyDown(KeyCode.Alpha2)) selectedSlotIndex = 1;
@@ -130,9 +138,9 @@ public class Player_Item_Use : MonoBehaviour
             return;
         }
 
-        if (selectedSlotIndex >= 0 && selectedSlotIndex < quickSlots.Length)
+        if (selectedWeaponIndex >= 0 && selectedWeaponIndex < weaponSlots.Length)
         {
-            Item selectedItem = quickSlots[selectedSlotIndex];
+            Item selectedItem = weaponSlots[selectedWeaponIndex];
 
             if (selectedItem != null && selectedItem.isUsable)
             {
@@ -148,7 +156,7 @@ public class Player_Item_Use : MonoBehaviour
                             // 곗수가 0이 되면 슬롯 비우기
                             if (selectedItem.Count <= 0)
                             {
-                                quickSlots[selectedSlotIndex] = null;
+                                weaponSlots[selectedWeaponIndex] = null;
                             }
                         }
                     }

@@ -1,9 +1,17 @@
 using UnityEngine;
 
 //[CreateAssetMenu(fileName = "NewItem", menuName = "Item/ItemData")]
+
+public enum ItemType
+{
+    nomal,
+    weapon
+}
+
 public class Item
 {
     public int id; // 고유 ID
+    public ItemType itemType;
 
     [Header("이름, 인게임, 아이콘")]
     public string itemName;
@@ -48,6 +56,7 @@ public class Item
     public Item(ItemData itemData)
     {
         this.id = itemData.id;
+        this.itemType = itemData.itemType;
         this.itemName = itemData.itemName;
         this.InGameSprite = itemData.InGameSprite;
         this.icon = itemData.icon;
@@ -80,6 +89,7 @@ public class Item
         ItemData data = new ItemData();
 
         data.id = this.id;
+        data.itemType = this.itemType;
         data.itemName = this.itemName;
         data.InGameSprite = this.InGameSprite;
         data.icon = this.icon;
