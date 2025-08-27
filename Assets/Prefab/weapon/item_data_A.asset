@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: item_data_A
   m_EditorClassIdentifier: 
   id: 999
+  itemType: 1
   itemName: "\uD658\uB3C4"
   InGameSprite: {fileID: 21300000, guid: 095c617d6261b6d45836d14aa2e73d6a, type: 3}
   icon: {fileID: 21300000, guid: 095c617d6261b6d45836d14aa2e73d6a, type: 3}

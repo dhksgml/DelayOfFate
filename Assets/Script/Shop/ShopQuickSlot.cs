@@ -8,8 +8,13 @@ public class ShopQuickSlot : MonoBehaviour
 {
     public Item[] quickSlots = new Item[4]; // 4개의 퀵슬롯
     public ItemData[] SlotsData; // 슬롯이 가지고 있는 아이템 데이터
+    //public Item[] weaponSlots = new Item[2];
+    public ItemData[] weaponSlotsData;
+    public int selectedWeaponIndex = 0;
     public int selectedSlotIndex = 0; // 현재 선택된 슬롯
 
+    public Image[] weaponSlotImage;
+    public Image[] weaponSlotBackgrounds;
     public Image[] slotImages;          // 각 슬롯의 아이템 아이콘
     public Image[] slotBackgrounds;     // 각 슬롯의 배경 이미지 (활성화 표시)
     public TMP_Text[] slotCounts;       // 각 슬롯의 아이템 갯수 텍스트
@@ -35,6 +40,11 @@ public class ShopQuickSlot : MonoBehaviour
     }
     void HandleSlotSelection()
     {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            selectedWeaponIndex++;
+            selectedWeaponIndex = selectedWeaponIndex % 2;
+        }
         // 슬롯 선택 (1~4 키)
         if (Input.GetKeyDown(KeyCode.Alpha1)) selectedSlotIndex = 0;
         if (Input.GetKeyDown(KeyCode.Alpha2)) selectedSlotIndex = 1;
@@ -86,6 +96,29 @@ public class ShopQuickSlot : MonoBehaviour
                 ? selectedSlotSprite
                 : defaultSlotSprite;
         }
+
+        for (int i = 0; i < 2; i++)
+        {
+            ItemData item = weaponSlotsData[i];
+            if (item != null && !string.IsNullOrEmpty(item.itemName))
+            {
+                // 아이템 아이콘 설정
+                weaponSlotImage[i].sprite = item.icon;
+                weaponSlotImage[i].color = new Color(1f, 1f, 1f, 1f);
+            }
+            else
+            {
+                // 빈 슬롯 처리
+                weaponSlotImage[i].sprite = default_Item_Sprite;
+                weaponSlotImage[i].color = new Color(1f, 1f, 1f, 0.3f);
+            }
+
+            // 선택된 슬롯 배경 표시
+            weaponSlotBackgrounds[i].sprite = (i == selectedWeaponIndex)
+                ? selectedSlotSprite
+                : defaultSlotSprite;
+        }
+
         // 선택된 슬롯의 아이템 정보만 UI에 표시
         ItemData selectedItem = SlotsData[selectedSlotIndex];
         if (selectedItem != null && !string.IsNullOrEmpty(selectedItem.itemName))

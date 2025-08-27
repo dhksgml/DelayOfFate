@@ -122,9 +122,9 @@ public class Shop : MonoBehaviour
 
         // ºó ½½·Ô Ã£±â
         int emptySlotIndex = -1;
-        for (int i = 0; i < shopQuickSlot.quickSlots.Length; i++)
+        for (int i = 0; i < shopQuickSlot.weaponSlotsData.Length; i++)
         {
-            ItemData item = shopQuickSlot.SlotsData[i];
+            ItemData item = shopQuickSlot.weaponSlotsData[i];
             if (item == null || string.IsNullOrEmpty(item.itemName))
             {
                 emptySlotIndex = i;
@@ -147,7 +147,6 @@ public class Shop : MonoBehaviour
         }
 
         weaponSlots[index].text = "±¸¸Å ¿Ï·á";
-
         GameEvents.CallBuyWeapon();
 
         Button btn = weaponSlots[index].GetComponentInParent<Button>();
@@ -156,7 +155,8 @@ public class Shop : MonoBehaviour
         if (SoundManager.Instance != null)
             SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
 
-        shopQuickSlot.SlotsData[emptySlotIndex] = weaponData[index];
+        shopQuickSlot.weaponSlotsData[emptySlotIndex] = weaponData[index];
+        GameManager.Instance.WeaponData[emptySlotIndex] = shopQuickSlot.weaponSlotsData[emptySlotIndex];
         if (weaponData[index].id == 997)
         {
             shopQuickSlot.SlotsData[emptySlotIndex].Count = 20;
