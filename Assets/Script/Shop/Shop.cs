@@ -18,17 +18,17 @@ public class Shop : MonoBehaviour
 
     private List<string> soulNames = new List<string>();
     private List<int> soulPrices = new List<int>();
-    private bool[] soulPurchased = new bool[4]; // ¿µÈ¥ 4°³ ±¸¸Å ¿©ºÎ
+    private bool[] soulPurchased = new bool[4]; // ï¿½ï¿½È¥ 4ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     private List<string> allSoulIds = new List<string>();
 
-    public Image[] soulIcons; // UI¿¡ º¸¿©ÁÙ ¾ÆÀÌÄÜ 4°³
+    public Image[] soulIcons; // UIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 4ï¿½ï¿½
 
-    public TMP_Text[] weaponSlots; // »óÇ° ¸ñ·Ïµé ¹«±â, ¿µÈ¥, ÃÊ·Õ
-    public ItemData[] weaponData; // ¹«±â µ¥ÀÌÅÍ
-    public GameObject ch_soul_gold_bt;//±³È¯ ¹öÆ° (ºñÈ°¼ºÈ­ ¿ë)
-    public GameObject ch_gold_soul_bt;//±³È¯ ¹öÆ° (ºñÈ°¼ºÈ­ ¿ë)
-    public QuickSlotUI quickSlotUI; // Äü½½·Ô ¿¬°á
+    public TMP_Text[] weaponSlots; // ï¿½ï¿½Ç° ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½È¥, ï¿½Ê·ï¿½
+    public ItemData[] weaponData; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public GameObject ch_soul_gold_bt;//ï¿½ï¿½È¯ ï¿½ï¿½Æ° (ï¿½ï¿½È°ï¿½ï¿½È­ ï¿½ï¿½)
+    public GameObject ch_gold_soul_bt;//ï¿½ï¿½È¯ ï¿½ï¿½Æ° (ï¿½ï¿½È°ï¿½ï¿½È­ ï¿½ï¿½)
+    public QuickSlotUI quickSlotUI; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private PassiveItemManager passiveItemManager;
     void Awake()
     {
@@ -62,7 +62,7 @@ public class Shop : MonoBehaviour
     void Start()
     {
         InitializeShop();
-        if (GameManager.Instance.Day == 1) ch_bt_1day_no(); //1ÀÏÂ÷¸é ±³È¯ ¸·±â + È¯µµ °­Á¦ ±¸¸Å
+        if (GameManager.Instance.Day == 1) ch_bt_1day_no(); //1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½ + È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         passiveItemManager = FindObjectOfType<PassiveItemManager>();
     }
     void Update()
@@ -76,7 +76,7 @@ public class Shop : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             weaponPrices.Add(GameManager.Instance.Day * 100);
-            if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_3_2")) //´Ù´ÙÀÍ¼± º¸À¯½Ã
+            if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_3_2")) //ï¿½Ù´ï¿½ï¿½Í¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             {
                 weaponSlots_text(i, 0, "Gold");
             }
@@ -86,10 +86,10 @@ public class Shop : MonoBehaviour
             }
         }
 
-        weaponSlots_text(9, lantern_1, "Soul"); // ÃÊ·Õ°¡°Ý
-        weaponSlots_text(10, rerollCost, "Soul"); // ¸®·Ñ °¡°Ý
+        weaponSlots_text(9, lantern_1, "Soul"); // ï¿½Ê·Õ°ï¿½ï¿½ï¿½
+        weaponSlots_text(10, rerollCost, "Soul"); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-        // ¿µÈ¥ ±¸¸Å »óÅÂ ÃÊ±âÈ­
+        // ï¿½ï¿½È¥ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
         soulPurchased = new bool[4];
         RerollSouls();
     }
@@ -105,7 +105,7 @@ public class Shop : MonoBehaviour
             weaponSlots[Slot].text += "<sprite=9> ";
         }
     }
-    public void BuyWeapon(int index) // ¹«±â ±¸¸Å
+    public void BuyWeapon(int index) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         if (index < 0 || index >= 5) return;
 
@@ -116,15 +116,15 @@ public class Shop : MonoBehaviour
 
         if (Gold < price) return;
 
-        // ³»ºÎ¿¡¼­ ¹Ù·Î Äü½½·Ô ÂüÁ¶
+        // ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         ShopQuickSlot shopQuickSlot = FindObjectOfType<ShopQuickSlot>();
         if (shopQuickSlot == null) return;
 
-        // ºó ½½·Ô Ã£±â
+        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½
         int emptySlotIndex = -1;
-        for (int i = 0; i < shopQuickSlot.quickSlots.Length; i++)
+        for (int i = 0; i < shopQuickSlot.weaponSlotsData.Length; i++)
         {
-            ItemData item = shopQuickSlot.SlotsData[i];
+            ItemData item = shopQuickSlot.weaponSlotsData[i];
             if (item == null || string.IsNullOrEmpty(item.itemName))
             {
                 emptySlotIndex = i;
@@ -134,11 +134,11 @@ public class Shop : MonoBehaviour
 
         if (emptySlotIndex == -1)
         {
-            Debug.Log("Äü½½·ÔÀÌ ¸ðµÎ Ã¡½À´Ï´Ù.");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ã¡ï¿½ï¿½ï¿½Ï´ï¿½.");
             return;
         }
 
-        // ´Ù´ÙÀÍ¼± È¿°ú°¡ ¾øÀ» ¶§¸¸ ¼Ò¿ï Â÷°¨
+        // ï¿½Ù´ï¿½ï¿½Í¼ï¿½ È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¿ï¿½ ï¿½ï¿½ï¿½ï¿½
         bool hasSoulAddEffect = PassiveItemManager.Instance != null &&
                                 PassiveItemManager.Instance.HasEffect("Soul_Add_3_2");
         if (!hasSoulAddEffect)
@@ -146,8 +146,7 @@ public class Shop : MonoBehaviour
             GameManager.Instance.Sub_Gold(price);
         }
 
-        weaponSlots[index].text = "±¸¸Å ¿Ï·á";
-
+        weaponSlots[index].text = "ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½";
         GameEvents.CallBuyWeapon();
 
         Button btn = weaponSlots[index].GetComponentInParent<Button>();
@@ -166,7 +165,7 @@ public class Shop : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
-            if (PassiveItemManager.Instance.HasEffect("Soul_Add_3_2")) //´Ù´ÙÀÍ¼± º¸À¯½Ã
+            if (PassiveItemManager.Instance.HasEffect("Soul_Add_3_2")) //ï¿½Ù´ï¿½ï¿½Í¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             {
                 weaponSlots_text(i, 0, "Soul");
             }
@@ -195,17 +194,17 @@ public class Shop : MonoBehaviour
             GameManager.Instance.Sub_Gold(price);
             soulPurchased[index] = true;
 
-            weaponSlots[index + 5].text = "±¸¸Å ¿Ï·á";
+            weaponSlots[index + 5].text = "ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½";
             Button btn = weaponSlots[index + 5].GetComponentInParent<Button>();
             Soul_in_text slot = soulIcons[index].GetComponentInParent<Soul_in_text>();
             if (btn != null)
             {
                 btn.interactable = false;
-                slot.show = false; // ±¸¸Å ¿Ï·á ÇÑ°Ç »ìÆì º¸±â ÇØµµ ¾Èº¸ÀÌ°í ÀÎº¥Åä¸® °¡¼­ ºÁ¾ßÇÔ
+                slot.show = false; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ ï¿½Ñ°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Øµï¿½ ï¿½Èºï¿½ï¿½Ì°ï¿½ ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             }
             if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_2"));
-            // ±¸¸Å È¿°ú Àû¿ë ½ÅÈ£ º¸³»±â
-            string itemId = soulNames[index]; // ¡ç ÀÌ¹Ì RerollSouls()¿¡¼­ ÇÒ´çµÊ
+            // ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            string itemId = soulNames[index]; // ï¿½ï¿½ ï¿½Ì¹ï¿½ RerollSouls()ï¿½ï¿½ï¿½ï¿½ ï¿½Ò´ï¿½ï¿½
             PassiveItemManager.Instance.PurchaseItem(itemId);
             UpdateWeaponPrice();
         }
@@ -214,7 +213,7 @@ public class Shop : MonoBehaviour
             Debug.Log("Not enough coins to buy soul.");
         }
     }
-    public void BuyLantern() // È£·Õ ¾÷±Û
+    public void BuyLantern() // È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         int F_leval = GameManager.Instance.playerData.flashLightLevel;
         if (F_leval >= 2)
@@ -227,11 +226,11 @@ public class Shop : MonoBehaviour
 
         if (F_leval == 0)
         {
-            price = lantern_1; // 2´Ü°è
+            price = lantern_1; // 2ï¿½Ü°ï¿½
         }
         else if (F_leval == 1)
         {
-            price = lantern_2; // 3´Ü°è
+            price = lantern_2; // 3ï¿½Ü°ï¿½
         }
 
         if (Soul >= price)
@@ -239,10 +238,10 @@ public class Shop : MonoBehaviour
             GameManager.Instance.Sub_Soul(price);
             GameManager.Instance.playerData.flashLightLevel = Mathf.Clamp(GameManager.Instance.playerData.flashLightLevel + 1, 1, 3);
             if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_2"));
-            // ´ÙÀ½ ´Ü°è °¡°Ý Ç¥½Ã ¶Ç´Â "±¸¸Å ¿Ï·á"
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½Ü°ï¿½ ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ ï¿½Ç´ï¿½ "ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½"
             if (F_leval == 2)
             {
-                weaponSlots[9].text = "±¸¸Å ¿Ï·á";
+                weaponSlots[9].text = "ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½";
             }
             else
             {
@@ -261,7 +260,7 @@ public class Shop : MonoBehaviour
 
     public void RerollSouls()
     {
-        // ¸®½ºÆ® ÃÊ±âÈ­ º¸Àå
+        // ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ê±ï¿½È­ ï¿½ï¿½ï¿½ï¿½
         if (soulNames.Count < 4)
         {
             soulNames.Clear();
@@ -273,15 +272,15 @@ public class Shop : MonoBehaviour
             }
         }
 
-        // 1. ÈÄº¸±º ¸¸µé±â (¹Ì±¸¸Å ¾ÆÀÌÅÛ¸¸)
+        // 1. ï¿½Äºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½)
         List<string> availableSouls = new List<string>();
         foreach (var id in allSoulIds)
         {
-            if (!PassiveItemManager.Instance.IsPurchased(id)) // ±¸¸Å ¾È ÇÑ °Í¸¸
+            if (!PassiveItemManager.Instance.IsPurchased(id)) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Í¸ï¿½
                 availableSouls.Add(id);
         }
 
-        // 2. ·£´ý ¼¯±â & 4°³ ÃßÃâ (Áßº¹ Á¦°Å)
+        // 2. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ & 4ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½)
         availableSouls = availableSouls.OrderBy(x => Random.value).ToList();
         for (int i = 0; i < 4; i++)
         {
@@ -289,7 +288,7 @@ public class Shop : MonoBehaviour
 
             if (i >= availableSouls.Count)
             {
-                Debug.LogWarning("¹Ì±¸¸Å ¾ÆÀÌÅÛÀÌ 4°³ ¹Ì¸¸ÀÔ´Ï´Ù!");
+                Debug.LogWarning("ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 4ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½Ô´Ï´ï¿½!");
                 soulNames[i] = "";
                 soulPrices[i] = 0;
                 weaponSlots_text(5 + i, 0, "Gold");
@@ -300,7 +299,7 @@ public class Shop : MonoBehaviour
             string id = availableSouls[i];
             soulNames[i] = id;
             PassiveItemData itemData = passiveItemManager.passiveItems.Find(x => x.id == id);
-            int rating = itemData != null ? itemData.rating : 1; // ±âº»°ªÀº 1
+            int rating = itemData != null ? itemData.rating : 1; // ï¿½âº»ï¿½ï¿½ï¿½ï¿½ 1
             switch (rating)
             {
                 case 1:
@@ -322,27 +321,27 @@ public class Shop : MonoBehaviour
                 default:
                     break;
             }
-            // UI ÅØ½ºÆ® °»½Å
+            // UI ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
             weaponSlots_text(5 + i, soulPrices[i], "Gold");
 
-            // ¾ÆÀÌÄÜ °»½Å
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             SetSoulIcon(i, id);
 
-            // ½½·Ô¿¡ ÀÖ´Â ShopSlot ÄÄÆ÷³ÍÆ®¿¡ itemId Àü´Þ
+            // ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½Ö´ï¿½ ShopSlot ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ itemId ï¿½ï¿½ï¿½ï¿½
             Soul_in_text slot = soulIcons[i].GetComponentInParent<Soul_in_text>();
             if (slot != null)
             {
                 slot.itemId = id;
             }
 
-            // ÄÜ¼Ö¿¡ ¾î¶² ¾ÆÀÌÅÛÀÌ ¹èÄ¡µÇ¾ú´ÂÁö Ãâ·Â (µð¹ö±×¿ë)
-            Debug.Log($"½½·Ô {i}¹ø ¡æ {id}, °¡°Ý: {soulPrices[i]} È¥");
+            // ï¿½Ü¼Ö¿ï¿½ ï¿½î¶² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½×¿ï¿½)
+            Debug.Log($"ï¿½ï¿½ï¿½ï¿½ {i}ï¿½ï¿½ ï¿½ï¿½ {id}, ï¿½ï¿½ï¿½ï¿½: {soulPrices[i]} È¥");
         }
     }
 
     void SetSoulIcon(int slotIndex, string id)
     {
-        // ¿¹: "Soul_Add_2_3" ¡æ group = 2, num = 3
+        // ï¿½ï¿½: "Soul_Add_2_3" ï¿½ï¿½ group = 2, num = 3
         string[] parts = id.Split('_');
         int group = int.Parse(parts[2]); // 1~7
         int number = int.Parse(parts[3]); // 1~3
@@ -352,7 +351,7 @@ public class Shop : MonoBehaviour
             soulIcons[slotIndex].sprite = icon;
     }
 
-    public void Soul_c_Gold() // 100 È¥ ¡æ 50 Àü
+    public void Soul_c_Gold() // 100 È¥ ï¿½ï¿½ 50 ï¿½ï¿½
     {
         if (Soul >= 100f)
         {
@@ -362,11 +361,11 @@ public class Shop : MonoBehaviour
         }
         else
         {
-            Debug.Log("È¥ÀÌ ºÎÁ·ÇÕ´Ï´Ù.");
+            Debug.Log("È¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.");
         }
     }
 
-    public void Goul_c_Soul() // 100 Àü ¡æ 50 È¥
+    public void Goul_c_Soul() // 100 ï¿½ï¿½ ï¿½ï¿½ 50 È¥
     {
         if (Gold >= 100f)
         {
@@ -376,11 +375,11 @@ public class Shop : MonoBehaviour
         }
         else
         {
-            Debug.Log("ÀüÀÌ ºÎÁ·ÇÕ´Ï´Ù.");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.");
         }
     }
 
-    void ch_bt_1day_no()//1ÀÏÂ÷¿¡ ¹öÆ° ºñÈ°¼ºÈ­
+    void ch_bt_1day_no()//1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½ï¿½È°ï¿½ï¿½È­
     {
         ch_soul_gold_bt.gameObject.SetActive(false);
         ch_gold_soul_bt.gameObject.SetActive(false);

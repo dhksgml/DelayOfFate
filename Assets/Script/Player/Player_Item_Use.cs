@@ -2,23 +2,25 @@ using UnityEngine;
 
 public class Player_Item_Use : MonoBehaviour
 {
-    public Item[] quickSlots = new Item[4]; // 4°³ÀÇ Äü½½·Ô
-    public int selectedSlotIndex = 0; // ÇöÀç ¼±ÅÃµÈ ½½·Ô
-    public Transform dropPoint; // ¾ÆÀÌÅÛ µå·Ó À§Ä¡
-    public LayerMask itemLayer; // ¾ÆÀÌÅÛ ·¹ÀÌ¾î ¼³Á¤
-    public GameObject item_Prefab; // ¾ÆÀÌÅÛÀ» »ý¼º ÇÒ¶§ »ç¿ë ÇÒ ºó ÇÁ¸®ÆÕ
+    public Item[] quickSlots = new Item[4]; // 4ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public int selectedSlotIndex = 0; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½
+    public Item[] weaponSlots = new Item[2];
+    public int selectedWeaponIndex = 0;
+    public Transform dropPoint; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
+    public LayerMask itemLayer; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public GameObject item_Prefab; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¶ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private const float requiredHoldTime = 1f;
     private ItemUsageManager itemUsageManager;
     private PlayerController playercontroller;
     private Animator animator;
     private Item chargingItem = null;
-    private Transform uiCanvas; // ÀÌÆåÆ®°¡ »ý¼ºµÉ À§Ä¡
-    public GameObject Sale_Effect; // ÀÌÆåÆ® ¿ÀºêÁ§Æ®
+    private Transform uiCanvas; // ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
+    public GameObject Sale_Effect; // ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 
-    // ¼Ò¸é±Í¿ë
+    // ï¿½Ò¸ï¿½Í¿ï¿½
     public bool isItemTouch = false;
 
-    //public static bool isAnyItemBeingSold = false; // Àü¿ª Áßº¹ ¹æÁö ÇÃ·¡±×
+    //public static bool isAnyItemBeingSold = false; // ï¿½ï¿½ï¿½ï¿½ ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½
     private ItemObject currentSellingItem = null;
 
     void Start()
@@ -31,31 +33,31 @@ public class Player_Item_Use : MonoBehaviour
     void Update()
     {
         //print(quickSlots[selectedSlotIndex]);
-        HandleSlotSelection(); // ½½·Ô º¯°æ Ã³¸®
+        HandleSlotSelection(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
         float weight = GetTotalItemWeight();
         if (Input.GetMouseButtonDown(0))
         {
-            if (selectedSlotIndex >= 0 && selectedSlotIndex < quickSlots.Length)
+            if (selectedWeaponIndex >= 0 && selectedWeaponIndex < weaponSlots.Length)
             {
-                Item selectedItem = quickSlots[selectedSlotIndex];
+                Item selectedItem = weaponSlots[selectedWeaponIndex];
                 if (selectedItem != null)
                 {
-                    UseItem(); // »ç¿ë                   
+                    UseItem(); // ï¿½ï¿½ï¿½                   
                 }
             }
         }
-        else if (Input.GetKeyDown(KeyCode.F)) // ¹ö¸®±â
+        else if (Input.GetKeyDown(KeyCode.F)) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         {
             //DropItem();
             TutorialEvents.OnItemDropped?.Invoke(quickSlots[selectedSlotIndex]);
             playercontroller.OnPickUpStart(false);
             HandleSellAction();
         }
-        else if (Input.GetKeyDown(KeyCode.E) && !playercontroller.isRecovering) // ÁÝ±â
+        else if (Input.GetKeyDown(KeyCode.E) && !playercontroller.isRecovering) // ï¿½Ý±ï¿½
         {
             //if (!isAnyItemBeingSold)
             //{
-                // ÁÖº¯¿¡¼­ Áï½Ã ÆÇ¸Å °¡´ÉÇÑ ¾ÆÀÌÅÛ Áß Ã¹ ¹øÂ° ÇÏ³ª¸¸ Ã£±â
+                // ï¿½Öºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã¹ ï¿½ï¿½Â° ï¿½Ï³ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½
                 Collider2D nearestItemCollider = Physics2D.OverlapCircle(transform.position, 1f, itemLayer);
                 if (nearestItemCollider != null)
                 {
@@ -65,14 +67,14 @@ public class Player_Item_Use : MonoBehaviour
                         PickUpItem();
                         //isAnyItemBeingSold = true;
                         isItemTouch = true;
-                        currentSellingItem = itemObject; // »õ º¯¼ö, ÇöÀç ÆÇ¸Å ÁßÀÎ ¾ÆÀÌÅÛ ÀúÀå
+                        currentSellingItem = itemObject; // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                     }
                 }
             //}
         }
     }
 
-    //ÇöÀç ½½·ÔÀÌ ºñ¾ú´ÂÁö ÆÇ´Ü
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½
     bool CheckCurrentSlotEmpty()
     {
         return quickSlots[selectedSlotIndex] == null;
@@ -80,18 +82,24 @@ public class Player_Item_Use : MonoBehaviour
 
     void HandleSlotSelection()
     {
-        // ½½·Ô ¼±ÅÃ (1~4 Å°)
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            selectedWeaponIndex++;
+            selectedWeaponIndex = selectedWeaponIndex % 2;
+        }
+
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (1~4 Å°)
         if (Input.GetKeyDown(KeyCode.Alpha1)) selectedSlotIndex = 0;
         if (Input.GetKeyDown(KeyCode.Alpha2)) selectedSlotIndex = 1;
         if (Input.GetKeyDown(KeyCode.Alpha3)) selectedSlotIndex = 2;
         if (Input.GetKeyDown(KeyCode.Alpha4)) selectedSlotIndex = 3;
 
-        // ¸¶¿ì½º ÈÙ·Î ½½·Ô º¯°æ
+        // ï¿½ï¿½ï¿½ì½º ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         float scroll = Input.GetAxis("Mouse ScrollWheel");
-        if (scroll > 0f) selectedSlotIndex = (selectedSlotIndex + 3) % 4;  // ¿ª¹æÇâ ½ºÅ©·Ñ (0~3 ¹üÀ§·Î µ¹¾Æ°¡µµ·Ï)
-        if (scroll < 0f) selectedSlotIndex = (selectedSlotIndex + 1) % 4;  // 0~3 ¹üÀ§·Î µ¹¾Æ°¡µµ·Ï
+        if (scroll > 0f) selectedSlotIndex = (selectedSlotIndex + 3) % 4;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ (0~3 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ï¿½ï¿½)
+        if (scroll < 0f) selectedSlotIndex = (selectedSlotIndex + 1) % 4;  // 0~3 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ï¿½ï¿½
 
-        // selectedSlotIndex°¡ 0~3 ¹üÀ§ ³»·Î À¯ÁöµÇµµ·Ï º¸Àå
+        // selectedSlotIndexï¿½ï¿½ 0~3 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         selectedSlotIndex = Mathf.Clamp(selectedSlotIndex, 0, 3);
 
         UpdateQuickSlotUI();
@@ -101,7 +109,7 @@ public class Player_Item_Use : MonoBehaviour
     {
         if(!playercontroller.isRecovering)
         {
-            if (selectedItem.id == 995) //Á·ÀÚÀÇ °æ¿ì ±â·Â ´ë½Å Á¤½Å·Â »ç¿ë
+            if (selectedItem.id == 995) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Å·ï¿½ ï¿½ï¿½ï¿½
             {
                 int mp_down = Random.Range(6 - 2, 6 + 2);
                 if (!playercontroller.isRecovering && mp_down < playercontroller.currentMp)
@@ -120,17 +128,17 @@ public class Player_Item_Use : MonoBehaviour
     {
         if (playercontroller.Player_Usage_cu_cool_down > 0f)
         {
-            Debug.Log("¾ÆÀÌÅÛ »ç¿ë ÄðÅ¸ÀÓ ÁßÀÔ´Ï´Ù.");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½Ô´Ï´ï¿½.");
             return;
         }
 
-        if (selectedSlotIndex >= 0 && selectedSlotIndex < quickSlots.Length)
+        if (selectedWeaponIndex >= 0 && selectedWeaponIndex < weaponSlots.Length)
         {
-            Item selectedItem = quickSlots[selectedSlotIndex];
+            Item selectedItem = weaponSlots[selectedWeaponIndex];
 
             if (selectedItem != null)
             {
-                // Áßº¹ ¾ÆÀÌÅÛÀÏ °æ¿ì
+                // ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
 
                 if (selectedItem.id != 996)
@@ -140,23 +148,23 @@ public class Player_Item_Use : MonoBehaviour
                 
 
 
-                // ¾ÆÀÌÅÛ »ç¿ë Ã³¸®
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
                 TryUseItem(selectedItem);
 
-                // Äð´Ù¿î Àû¿ë
+                // ï¿½ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½ï¿½
                 //playercontroller.Player_Usage_cu_cool_down = selectedItem.Usage_cool_down;
                 //playercontroller.SetUseItemCooltime(selectedItem.Usage_cool_down);
 
-                // UI °»½Å
+                // UI ï¿½ï¿½ï¿½ï¿½
                 UpdateQuickSlotUI();
             }
         }
     }
 
-    public void PickUpItem()//ÁÝ±â
+    public void PickUpItem()//ï¿½Ý±ï¿½
     {
         Collider2D[] itemColliders = Physics2D.OverlapCircleAll(transform.position, 1f, itemLayer);
-        print("ÁÝ±â ¹ßµ¿");
+        print("ï¿½Ý±ï¿½ ï¿½ßµï¿½");
         foreach (Collider2D collider in itemColliders)
         {
             ItemObject itemObject = collider.GetComponent<ItemObject>();
@@ -165,7 +173,7 @@ public class Player_Item_Use : MonoBehaviour
                 print(itemObject);
                 Item droppedItem = itemObject.itemData;
                 Item slotItem = quickSlots[selectedSlotIndex];
-                // ½½·ÔÀÌ ºñ¾îÀÖ´Â °æ¿ì
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½
                 if (slotItem == null || string.IsNullOrEmpty(slotItem.itemName))
                 {
                     print(slotItem);
@@ -176,16 +184,16 @@ public class Player_Item_Use : MonoBehaviour
                     UpdateQuickSlotUI();
                     GameEvents.CallPickupItem();
                 }
-                // ½½·Ô¿¡ ´Ù¸¥ ¾ÆÀÌÅÛÀÌ ÀÖ´Â °æ¿ì
+                // ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½
                 else
                 {
-                    // ¸ÕÀú ´Ù¸¥ ½½·Ô Áß ºó ½½·ÔÀÌ ÀÖ´ÂÁö È®ÀÎ
+                    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
                     bool placedInEmptySlot = false;
                     for (int i = 0; i < quickSlots.Length; i++)
                     {
                         if (quickSlots[i] == null || string.IsNullOrEmpty(quickSlots[i].itemName))
                         {
-                            // ºó ½½·Ô ¹ß°ß ¡æ ±× ½½·Ô¿¡ ¾ÆÀÌÅÛ ³Ö±â
+                            // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½
                             TutorialEvents.OnItemPickedUp?.Invoke(droppedItem);
                             quickSlots[i] = droppedItem;
 
@@ -197,11 +205,11 @@ public class Player_Item_Use : MonoBehaviour
                             GameEvents.CallPickupItem();
 
                             placedInEmptySlot = true;
-                            break; // ÇÑ ½½·Ô¿¡¸¸ ³Ö°í Á¾·á
+                            break; // ï¿½ï¿½ ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½
                         }
                     }
 
-                    // ¸ðµç ½½·ÔÀÌ ²Ë Â÷ÀÖ´Ù¸é ±âÁ¸ ·ÎÁ÷´ë·Î ÇöÀç ½½·Ô°ú ±³Ã¼
+                    // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ô°ï¿½ ï¿½ï¿½Ã¼
                     if (!placedInEmptySlot)
                     {
                         DropItem();
@@ -216,21 +224,21 @@ public class Player_Item_Use : MonoBehaviour
     }
     private void HandleSellAction()
     {
-        // 1. ¹Ù´Ú ¾ÆÀÌÅÛ ÀÖ´ÂÁö °Ë»ç
+        // 1. ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
         if (CheckCurrentSlotEmpty())
         {
-            // ¹Ù´Ú ¾ÆÀÌÅÛ ÆÇ¸Å
+            // ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¸ï¿½
             RemoveItem();
             return;
         }
-        // 2. ÇöÀç ½½·Ô¿¡ ¾ÆÀÌÅÛÀÌ ÀÖ´ÂÁö È®ÀÎ
+        // 2. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
         SellCurrentSlotItem();
         return;
         
-        // 3. ¾Æ¹« °Íµµ ¾øÀ¸¸é ¾Æ¹« ÀÏµµ ¾È ÇÔ
+        // 3. ï¿½Æ¹ï¿½ ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¹ï¿½ ï¿½Ïµï¿½ ï¿½ï¿½ ï¿½ï¿½
     }
 
-    // ½½·Ô ¾ÆÀÌÅÛ ÆÇ¸Å
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¸ï¿½
     private void SellCurrentSlotItem()
     {
         if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_drop"));
@@ -245,16 +253,16 @@ public class Player_Item_Use : MonoBehaviour
         {
             Item selectedItem = quickSlots[selectedSlotIndex];
 
-            // ºó ¾ÆÀÌÅÛ ÇÁ¸®ÆÕÀ» ±â¹ÝÀ¸·Î »õ·Î¿î ¾ÆÀÌÅÛ »ý¼º
+            // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             GameObject newItem = Instantiate(item_Prefab, dropPoint.position, Quaternion.identity);
             if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_drop"));
-            // »õ·Î »ý¼ºµÈ ¾ÆÀÌÅÛ¿¡ ItemObject ½ºÅ©¸³Æ® Ãß°¡ ÈÄ µ¥ÀÌÅÍ º¹»ç
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ItemObject ï¿½ï¿½Å©ï¿½ï¿½Æ® ï¿½ß°ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             ItemObject newItemComponent = newItem.GetComponent<ItemObject>();
             if (newItemComponent != null)
             {
-                newItemComponent.itemData = selectedItem.Clone(); // °´Ã¼ º¹»ç
-                newItemComponent.itemData = selectedItem; // °´Ã¼ µ¥ÀÌÅÍ º¹»çÈÄ ¶³±¸±â
-                newItemComponent.itemData.Drop_item = true; // *¶³¾îÆ®¸° Àû ÀÖ´Â ¾ÆÀÌÅÛ À¸·Î º¯°æ*
+                newItemComponent.itemData = selectedItem.Clone(); // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
+                newItemComponent.itemData = selectedItem; // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                newItemComponent.itemData.Drop_item = true; // *ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½*
             }
 
             SpriteRenderer spriteRenderer = newItem.GetComponent<SpriteRenderer>();
@@ -263,7 +271,7 @@ public class Player_Item_Use : MonoBehaviour
                 spriteRenderer.sprite = newItemComponent.itemData.InGameSprite;
             }
 
-            // Äü½½·Ô¿¡¼­ ÇØ´ç ¾ÆÀÌÅÛ Á¦°Å
+            // ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             quickSlots[selectedSlotIndex] = null;
             UpdateQuickSlotUI();
             GameEvents.CallDropItem();
@@ -276,11 +284,11 @@ public class Player_Item_Use : MonoBehaviour
             if (quickSlots[i] != null && !string.IsNullOrEmpty(quickSlots[i].itemName))
             {
                 selectedSlotIndex = i;
-                DropItem(); // ±âÁ¸ ¸Þ¼­µå »ç¿ë
+                DropItem(); // ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
             }
         }
     }
-    void RemoveItem() // Áï½Ã ÆÇ¸Å
+    void RemoveItem() // ï¿½ï¿½ï¿½ ï¿½Ç¸ï¿½
     {
         Collider2D[] itemColliders = Physics2D.OverlapCircleAll(transform.position, 1f, itemLayer);
 
@@ -348,7 +356,7 @@ public class Player_Item_Use : MonoBehaviour
         }
     }
 
-    public float GetTotalItemWeight()//µé°í ÀÖ´Â ¸ðµç ¾ÆÀÌÅÛÀÇ ¹«°Ô
+    public float GetTotalItemWeight()//ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         float totalWeight = 0f;
         foreach (Item item in quickSlots)
@@ -369,7 +377,7 @@ public class Player_Item_Use : MonoBehaviour
         }
     }
 
-    //ºó¼Õ Ã¼Å© ÇÔ¼ö
+    //ï¿½ï¿½ï¿½ Ã¼Å© ï¿½Ô¼ï¿½
     public int CheckEmptySlotsCount()
     {
         int emptyCount = 0;

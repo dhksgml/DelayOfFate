@@ -22,9 +22,11 @@ public class GameManager : MonoBehaviour
     public float N_Day_Cost; //�ش� �����Ͽ� �� ��
     [HideInInspector] public float[] Cost_list;
     public Item[] currentQuickSlot = new Item[4];
+    //public Item[] currentWeaponSlots = new Item[2];
     public int killcount = 0; //óġ�� �Ǳ� ��
 
     public ItemData[] SlotsData;
+    public ItemData[] WeaponData;
     private bool initialized; // �÷��̾� ���� �޾ƿ��� ��
     private void Awake()
     {
@@ -61,6 +63,13 @@ public class GameManager : MonoBehaviour
                 if (SlotsData[i] == null) continue;
                 player_Item_Use.quickSlots[i] = new Item(SlotsData[i]);
             }
+
+            for (int i = 0; i < player_Item_Use.weaponSlots.Length; i++)
+            {
+                if (WeaponData[i] == null) continue;
+                player_Item_Use.weaponSlots[i] = new Item(WeaponData[i]);
+            }
+
             initialized = true; // �� �� ���� �� �ٽ� �� �ϵ���
         }
         else if (initialized && SceneManager.GetActiveScene().name == "Stage_Scene")
@@ -73,6 +82,13 @@ public class GameManager : MonoBehaviour
                 if (SlotsData[i] == null) continue;
                 shopQuickSlot.SlotsData[i] = SlotsData[i];
             }
+            
+            for (int i = 0; i < WeaponData.Length; i++)
+            {
+                if (WeaponData[i] == null) continue;
+                shopQuickSlot.weaponSlotsData[i] = WeaponData[i];
+            }
+            
             initialized = false; // �� �� ���� �� �ٽ� �� �ϵ���
         }
         N_Day_Cost = Cost_list[Day-1];
@@ -80,11 +96,8 @@ public class GameManager : MonoBehaviour
     public void AlldataReset()
     {
         playerData.maxHp = 100;
-        playerData.maxMp = 100;
-        playerData.maxSp = 100;
         playerData.currentHp = 100;
         playerData.currentMp = 100;
-        playerData.currentSp = 100;
         playerData.flashLightLevel = 1;
         playerData.gold = 0;
         playerData.soul = 0;
@@ -100,6 +113,7 @@ public class GameManager : MonoBehaviour
         currentQuickSlot = new Item[4];
         killcount = 0;
         SlotsData = new ItemData[4];
+        WeaponData = new ItemData[2];
     }
     public void Next_data_reset()
     {
@@ -169,7 +183,6 @@ public class GameManager : MonoBehaviour
         playerData.gold = this.Gold;
         playerData.soul = this.Soul;
         playerData.quickSlots = this.currentQuickSlot;
-
     }
     public void SaveCurrentQuickSlot(Item[] quickSlots)
     {
@@ -181,6 +194,7 @@ public class GameManager : MonoBehaviour
                 SlotsData[i] = null;
         }
     }
+
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;

@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 mousePosition;
     private float angle;
 
-    private bool isMoveAble = true;
+    public bool isMoveAble { private get; set; } = true;
     private bool isRun = false;
     public PlayerState currentState = PlayerState.Idle;
 

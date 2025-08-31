@@ -7,11 +7,9 @@ public class PlayerData
 {
     public float maxHp = 100;
     public float maxMp = 100;
-    public float maxSp = 100;
 
     public float currentHp = 100;
     public float currentMp = 100;
-    public float currentSp = 100;
 
     public float currentExtraHp;
     public float extraHp;
@@ -20,7 +18,6 @@ public class PlayerData
     public float gold = 0; //돈
     public float soul = 0; //영혼
     public Item[] quickSlots = new Item[4]; //플레이어가 파밍한 아이템
-    //public Item[] soulItems = new Item[14]; //영혼으로 아이템 사는 거
 
     public float damageTakenMultiplier = 1.0f; //받는 데미지 가중치
     public float damageMultiplier = 1.0f; //주는 데미지 가중치
@@ -35,6 +32,5 @@ public class PlayerData
 
         currentHp = maxHp;
         currentMp = maxMp;
-        currentSp = maxSp;
     }
 }

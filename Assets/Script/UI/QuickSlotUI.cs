@@ -5,6 +5,8 @@ using TMPro;
 
 public class QuickSlotUI : MonoBehaviour
 {
+    public Image[] weaponSlotImage;
+    public Image[] weaponSlotBackgrounds;
     public Image[] slotImages;          // 각 슬롯의 아이템 아이콘
     public Image[] slotBackgrounds;     // 각 슬롯의 배경 이미지 (활성화 표시)
     public Sprite default_Item_Sprite;  // 기본 아이템 아이콘
@@ -99,6 +101,27 @@ public class QuickSlotUI : MonoBehaviour
 
             // 선택된 슬롯 배경 표시
             slotBackgrounds[i].sprite = (i == playerItemUse.selectedSlotIndex)
+                ? selectedSlotSprite
+                : defaultSlotSprite;
+        }
+        for (int i = 0; i < 2; i++)
+        {
+            Item item = playerItemUse.weaponSlots[i];
+            if (item != null && !string.IsNullOrEmpty(item.itemName))
+            {
+                // 아이템 아이콘 설정
+                weaponSlotImage[i].sprite = item.icon;
+                weaponSlotImage[i].color = new Color(1f, 1f, 1f, 1f);
+            }
+            else
+            {
+                // 빈 슬롯 처리
+                weaponSlotImage[i].sprite = default_Item_Sprite;
+                weaponSlotImage[i].color = new Color(1f, 1f, 1f, 0.3f);
+            }
+
+            // 선택된 슬롯 배경 표시
+            weaponSlotBackgrounds[i].sprite = (i == playerItemUse.selectedWeaponIndex)
                 ? selectedSlotSprite
                 : defaultSlotSprite;
         }

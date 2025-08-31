@@ -20,6 +20,7 @@ public class ShopManager : MonoBehaviour
             shop.Soul = playerData.soul;
 
             shopQuickSlot.quickSlots = playerData.quickSlots;
+            shopQuickSlot.weaponSlotsData = GameManager.Instance.WeaponData;
         }
     }
 }
