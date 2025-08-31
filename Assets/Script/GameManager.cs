@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        if (!initialized && SceneManager.GetActiveScene().name == "InGame_Scenes")
+        if (!initialized && SceneManager.GetActiveScene().name == "InGame_Scenes" || SceneManager.GetActiveScene().name == "New_Tutorial_Scenes")
         {
             Player_Item_Use player_Item_Use = FindObjectOfType<Player_Item_Use>();
             if (player_Item_Use == null) return; // ���� ���� �� �ƴٸ� ���� ������ �ٽ� �õ�

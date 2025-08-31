@@ -1,12 +1,23 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(DialogSystem))]
 public class TutorialDialog : TutorialBase
 {
     private DialogSystem dialogSystem;
+    private PlayerController playerController;
+    private Player_Item_Use playerItemUse;
 
     public override void Enter()
     {
+        if(SceneManager.GetActiveScene().name == "InGame_Scenes" || SceneManager.GetActiveScene().name == "New_Tutorial_Scenes")
+        {
+            playerController = FindObjectOfType<PlayerController>();
+            playerItemUse = FindObjectOfType<Player_Item_Use>();
+            playerController.isMoveAble = false;
+            playerItemUse.isUseAble = false;
+        }
+
         dialogSystem = GetComponent<DialogSystem>();
         dialogSystem.Setup();
     }
@@ -22,5 +33,10 @@ public class TutorialDialog : TutorialBase
 
     public override void Exit()
     {
+        if (playerController != null)
+        {
+            playerController.isMoveAble = true;
+            playerItemUse.isUseAble = true;
+        }
     }
 }
