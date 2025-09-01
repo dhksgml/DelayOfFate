@@ -27,8 +27,6 @@ public class TutorialTrigger : TutorialBase
 
     public override void Exit()
     {
-        if (GameManager.Instance)
-            GameManager.Instance.playerData.isFindNearestItem = false;
         playerController.isMoveAble = false;
         triggerObject.gameObject.SetActive(false);
     }

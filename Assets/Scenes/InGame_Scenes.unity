@@ -1304,7 +1304,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6036c4bd04337fc4fb7e7fcce7276cdd, type: 3}
---- !u!43 &1727297421
+--- !u!43 &1828057787
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1698,6 +1698,10 @@ PrefabInstance:
     - target: {fileID: 1080896599292874791, guid: d958a2ab5a163de448ef93dfb29f51ab, type: 3}
       propertyPath: Cost_list.Array.size
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080896599292874791, guid: d958a2ab5a163de448ef93dfb29f51ab, type: 3}
+      propertyPath: WeaponData.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1080896599292874791, guid: d958a2ab5a163de448ef93dfb29f51ab, type: 3}
       propertyPath: Cost_list.Array.data[3]
