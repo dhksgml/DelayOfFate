@@ -22,6 +22,7 @@ public class Player_Item_Use : MonoBehaviour
 
     //public static bool isAnyItemBeingSold = false; // ���� �ߺ� ���� �÷���
     private ItemObject currentSellingItem = null;
+    public bool isUseAble { private get; set; } = true;
 
     void Start()
     {
@@ -35,7 +36,7 @@ public class Player_Item_Use : MonoBehaviour
         //print(quickSlots[selectedSlotIndex]);
         HandleSlotSelection(); // ���� ���� ó��
         float weight = GetTotalItemWeight();
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && isUseAble)
         {
             if (selectedWeaponIndex >= 0 && selectedWeaponIndex < weaponSlots.Length)
             {
