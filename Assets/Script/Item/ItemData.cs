@@ -9,6 +9,7 @@ public class ItemData : ScriptableObject
     [Header("이름, 인게임, 아이콘")]
     public string itemName;
     public Sprite InGameSprite;
+    public Sprite icon;
 
     [Header("아이템 사용 SP")]
     public float spendSPAmount;

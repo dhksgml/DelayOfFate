@@ -59,7 +59,7 @@ public class QuickSlotUI : MonoBehaviour
 
         if (item != null && !string.IsNullOrEmpty(item.itemName))
         {
-            slotImages[index].sprite = item.InGameSprite;
+            slotImages[index].sprite = item.icon;
             slotImages[index].color = new Color(1f, 1f, 1f, 1f);
             if (item.Count_Check)
             {
@@ -102,7 +102,7 @@ public class QuickSlotUI : MonoBehaviour
             if (item != null && !string.IsNullOrEmpty(item.itemName))
             {
                 // 아이템 아이콘 설정
-                slotImages[i].sprite = item.InGameSprite;
+                slotImages[i].sprite = item.icon;
                 slotImages[i].color = new Color(1f, 1f, 1f, 1f);
                 // 아이템 곗수 표시 여부
                 if (item.Count_Check)
@@ -134,7 +134,7 @@ public class QuickSlotUI : MonoBehaviour
             if (item != null && !string.IsNullOrEmpty(item.itemName))
             {
                 // 아이템 아이콘 설정
-                weaponSlotImage[i].sprite = item.InGameSprite;
+                weaponSlotImage[i].sprite = item.icon;
                 weaponSlotImage[i].color = new Color(1f, 1f, 1f, 1f);
             }
             else
@@ -178,7 +178,7 @@ public class QuickSlotUI : MonoBehaviour
 
             if (item != null && !string.IsNullOrEmpty(item.itemName))
             {
-                slotImages[i].sprite = item.InGameSprite;
+                slotImages[i].sprite = item.icon;
 
                 if (item.Count_Check)
                 {

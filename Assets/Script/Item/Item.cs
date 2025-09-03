@@ -59,6 +59,7 @@ public class Item
         this.itemType = itemData.itemType;
         this.itemName = itemData.itemName;
         this.InGameSprite = itemData.InGameSprite;
+        this.icon = itemData.icon;
 
         this.spendSPAmount = itemData.spendSPAmount;
 
@@ -91,6 +92,7 @@ public class Item
         data.itemType = this.itemType;
         data.itemName = this.itemName;
         data.InGameSprite = this.InGameSprite;
+        data.icon = this.icon;
 
         data.spendSPAmount = this.spendSPAmount;
 
