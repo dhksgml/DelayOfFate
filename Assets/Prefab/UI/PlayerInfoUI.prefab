@@ -860,7 +860,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 112, y: -368}
+  m_AnchoredPosition: {x: 0, y: -336}
   m_SizeDelta: {x: 256, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3293174427813702368
@@ -925,7 +925,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 4
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -2523,7 +2523,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -112, y: -368}
+  m_AnchoredPosition: {x: -112, y: -336}
   m_SizeDelta: {x: 256, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &156229974074613018
@@ -3700,7 +3700,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8611978393553594872
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3717,7 +3717,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 112, y: -368}
+  m_AnchoredPosition: {x: 112, y: -336}
   m_SizeDelta: {x: 256, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8517098776115322742
@@ -3877,6 +3877,9 @@ MonoBehaviour:
   add_soul_text: {fileID: 7493214036599282627}
   showDuration: 1
   fadeDuration: 1
+  frameRect: {fileID: 5290914257821300365}
+  hpBarRect: {fileID: 1201205360308012521}
+  extraHpRect: {fileID: 2480641912163361351}
   UIArrow: {fileID: 5118511674228985132}
   distanceFromPlayer: 100
   hideUIArrowDistance: 2
@@ -4293,7 +4296,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5875015460330557077, guid: 0c4d060804bac7843b88fa3a4ab5fb53, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -436
+      value: -548
       objectReference: {fileID: 0}
     - target: {fileID: 5875015460330557077, guid: 0c4d060804bac7843b88fa3a4ab5fb53, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4444,7 +4447,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7467194802794875366, guid: 430951d764cc030478d6f92a0684e76f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -436
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7467194802794875366, guid: 430951d764cc030478d6f92a0684e76f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
