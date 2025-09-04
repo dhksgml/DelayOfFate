@@ -141,12 +141,15 @@ public class Attack_sc : MonoBehaviour
                         {
                             if (attackType.ToString() != enemy.enemyWeakness.ToString())//������ �ƴ϶��
                             {
-                                player_Item_Use.quickSlots[player_Item_Use.selectedSlotIndex].Count--; //������ �����ߴٸ� ���� ����
+                                print(player_Item_Use.weaponSlots);
+                                print(player_Item_Use.weaponSlots[player_Item_Use.selectedWeaponIndex]);
+                                print(player_Item_Use.weaponSlots[player_Item_Use.selectedWeaponIndex].Count);
+                                player_Item_Use.weaponSlots[player_Item_Use.selectedWeaponIndex].Count--; //������ �����ߴٸ� ���� ����
 
                                 // ����� 0�� �Ǹ� ���� ����
-                                if (player_Item_Use.quickSlots[player_Item_Use.selectedSlotIndex].Count <= 0)
+                                if (player_Item_Use.weaponSlots[player_Item_Use.selectedWeaponIndex].Count <= 0)
                                 {
-                                    player_Item_Use.quickSlots[player_Item_Use.selectedSlotIndex] = null;
+                                    player_Item_Use.weaponSlots[player_Item_Use.selectedWeaponIndex] = null;
                                 }
                             }
 

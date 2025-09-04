@@ -157,10 +157,6 @@ public class Shop : MonoBehaviour
 
         shopQuickSlot.weaponSlotsData[emptySlotIndex] = weaponData[index];
         GameManager.Instance.WeaponData[emptySlotIndex] = shopQuickSlot.weaponSlotsData[emptySlotIndex];
-        if (weaponData[index].id == 997)
-        {
-            shopQuickSlot.SlotsData[emptySlotIndex].Count = 20;
-        }
         OnItemHover(emptySlotIndex, weaponData[index]);
     }
 
@@ -190,7 +186,6 @@ public class Shop : MonoBehaviour
     }
     public void BuySoul(int index)
     {
-        if (index < 0 || index >= soulNames.Count) return;
         if (soulPurchased[index]) return;
 
         int price = soulPrices[index];

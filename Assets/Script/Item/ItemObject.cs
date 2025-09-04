@@ -112,14 +112,12 @@ public class ItemObject : MonoBehaviour
 
     public void UpdateHoldGauge()
     {
-
         if (name_text != null) name_text.text = string.Format("[{0}]", itemData.itemName);
 
         if (coin_text != null)
         {
             int total_coin = itemData.Coin * itemData.Count;
             if (itemData.Sell_immediately) { coin_text.text = string.Format("[<b>E</b>] 줍기\n[<b>F</b>] 즉시 판매: {0}<sprite=9>", total_coin); }
-
         }
     }
 }

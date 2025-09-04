@@ -19,8 +19,6 @@ public class Tal_hon_gwi : Enemy
     [Header("����")]
     public ItemData[] itemDataTemplate;
     public Item item;
-    public GameObject holdGaugeUI; 
-    public Image holdGauge;
     public GameObject infoPanel;                   // ������ ���� UI �г� (���� �󿡼� ǥ��)
     //public GameObject Sale_Effect;                 // �Ǹ� �� ����Ʈ ������
     public TMP_Text name_text;                     // ������ �̸� �ؽ�Ʈ
@@ -69,7 +67,6 @@ public class Tal_hon_gwi : Enemy
         // UI ���� ���� �� ��Ȱ��ȭ
         // uiCanvas = GameObject.Find("Player_Canvas")?.transform;
         infoPanel?.SetActive(false);
-        holdGaugeUI?.SetActive(false);
     }
 
 
@@ -141,7 +138,6 @@ public class Tal_hon_gwi : Enemy
             if (collision.CompareTag("Player"))
             {
                 infoPanel?.SetActive(true);
-                holdGaugeUI?.SetActive(true);
                 collision.GetComponent<PlayerController>().isPickUpableItem = true;
             }
         }
@@ -151,7 +147,6 @@ public class Tal_hon_gwi : Enemy
         if (other.CompareTag("Player"))
         {
             infoPanel?.SetActive(false);
-            holdGaugeUI?.SetActive(false);
             other.GetComponent<PlayerController>().isPickUpableItem = false;
         }
     }
@@ -196,21 +191,15 @@ public class Tal_hon_gwi : Enemy
     // ������ �� �ؽ�Ʈ UI ������Ʈ
     public void UpdateHoldGauge(float progress)
     {
-        // ������ �̸� ǥ��
-        if (name_text != null)
-            name_text.text = string.Format("[{0}]", item.itemName);
+        if (name_text != null) name_text.text = string.Format("[{0}]", item.itemName);
 
         // ������ ��ġ ǥ��
         if (coin_text != null)
         {
-            int total_coin = item.Coin * item.Count;
-            if (item.Sell_immediately)
+            if (coin_text != null)
             {
-                coin_text.text = string.Format("[<b>E</b>] �ݱ�\n[<b>E~</b>] ��� �Ǹ�: {0} ȥ", total_coin);
-            }
-            else
-            {
-                coin_text.text = string.Format("[<b>E</b>] �ݱ�\n{0} ��", total_coin);
+                int total_coin = item.Coin * item.Count;
+                coin_text.text = string.Format("[<b>E</b>] 줍기\n[<b>F</b>] 즉시 판매: {0}<sprite=9>", total_coin);
             }
         }
     }
