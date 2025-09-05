@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class MapSpawn : MonoBehaviour
 {
-    public RoomRandomPlacement roomGenerator; // RoomRandomPlacement 참조
-    public Vector3 baseOffset = new Vector3(0, -2000, 0);
+    [SerializeField] RoomRandomPlacement roomGenerator; // RoomRandomPlacement 참조
+    [SerializeField] Vector3 baseOffset = new Vector3(0, -2000, 0);
 
-    public GameObject verticalCorridorPrefab;    // 위/아래 연결
-    public GameObject horizontalCorridorPrefab;  // 좌/우 연결
+    [SerializeField] GameObject verticalCorridorPrefab;    // 위/아래 연결
+    [SerializeField] GameObject horizontalCorridorPrefab;  // 좌/우 연결
+
+    // 장소
+    [SerializeField] GameObject miniPlace_Resurrection;
+    [SerializeField] GameObject miniPlace_Sale;
+    [SerializeField] GameObject miniPlace_Escape;
 
     [SerializeField] Camera minimapCam;
 
@@ -53,13 +58,32 @@ public class MapSpawn : MonoBehaviour
             }
         }
 
-        // 3. 카메라를 맵 중심으로 이동
+        // 3. 미니맵에 부활/판매/탈출 장소 복제
+        foreach (Vector2 pos in roomGenerator.randomPlace)
+        {
+            Vector2 baseOff = new Vector2(baseOffset.x, baseOffset.y); 
+
+            // 실제 맵 좌표 기준으로 어떤 장소인지 확인
+            if (roomGenerator.placeManager.resurrection_pos == pos)
+            {
+                Instantiate(miniPlace_Resurrection, pos + baseOff, Quaternion.identity, transform);
+            }
+            else if (roomGenerator.placeManager.sale_pos == pos)
+            {
+                Instantiate(miniPlace_Sale, pos + baseOff, Quaternion.identity, transform);
+            }
+            else if (roomGenerator.placeManager.escape_pos == pos)
+            {
+                Instantiate(miniPlace_Escape, pos + baseOff, Quaternion.identity, transform);
+            }
+        }
+
+        // 4. 카메라를 맵 중심으로 이동
         if (minimapCam != null)
         {
             Vector3 minPos = new Vector3(float.MaxValue, float.MaxValue, 0);
             Vector3 maxPos = new Vector3(float.MinValue, float.MinValue, 0);
 
-            // 방 위치 포함
             foreach (var room in roomGenerator.roomObjects.Values)
             {
                 Vector3 pos = room.transform.position + baseOffset;
@@ -67,7 +91,6 @@ public class MapSpawn : MonoBehaviour
                 maxPos = Vector3.Max(maxPos, pos);
             }
 
-            // 복도 위치 포함
             foreach (Transform child in transform)
             {
                 if (child.name.Contains("Corridor"))
@@ -79,11 +102,10 @@ public class MapSpawn : MonoBehaviour
             }
 
             Vector3 center = (minPos + maxPos) / 2f;
-            center.z = minimapCam.transform.position.z; // 기존 Z 유지
+            center.z = minimapCam.transform.position.z;
             minimapCam.transform.position = center;
         }
 
-
-        Debug.Log($"총 {roomGenerator.roomObjects.Count}개의 방과 복도를 미니맵에 복제했습니다.");
+        Debug.Log($"총 {roomGenerator.roomObjects.Count}개의 방, 복도, 장소를 미니맵에 복제했습니다.");
     }
 }
