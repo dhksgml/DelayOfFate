@@ -28,7 +28,7 @@ public class RoomRandomPlacement : MonoBehaviour
     public GameObject Place_Resurrection; // 부활 장소
     public GameObject Place_Sale; // 판매 장소
     public GameObject Place_Escape; // 탈출 장소
-    private PlaceManager placeManager;
+    public PlaceManager placeManager;
 
     public List<Vector2Int> roomPositions = new();
     // 수정을 위해 비활성화
