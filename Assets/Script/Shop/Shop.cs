@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,7 +29,19 @@ public class Shop : MonoBehaviour
     public ItemData[] weaponData; // 무기 데이터
     public GameObject ch_soul_gold_bt;//교환 버튼 (비활성화 용)
     public GameObject ch_gold_soul_bt;//교환 버튼 (비활성화 용)
-    public QuickSlotUI quickSlotUI; // 퀵슬롯 연결
+    public GameObject Smoke_Effect; //담배연기 이펙트
+    public Vector2 SE_pos;//담배연기 좌표
+    public Image speech_bubble_image;//말풍선 이미지
+    public Sprite[] speech_bubble_sprite;//말풍선 이미지
+    public TMP_Text speech_bubble_text;//말풍선 텍스트
+    private System.Random rand = new System.Random();
+    private bool isJokeOnCooldown = false;
+    private Coroutine currentBubbleRoutine;
+    private string[] buyLines = {"고맙네", "신상품이네", "문제 없는\n물건이네", "오늘은\n매출이 좋구만", "신상품이지"};//구매
+    private string[] tradeLines = {"고맙네","후원 고맙네", "사고 싶은\n물건이라도?" };//교환
+    private string[] rerollLines = {"여기 새 품목들이네", "이 물건 맞나?", "이걸 찾나?" };//리롤
+    private string[] notEnoughLines = { "이건 자선사업이\n아니네", "냥이 없나?", "냥이 부족한거\n같네만?", "공짜는 안되네" };//부족
+    private string[] jokeLines = {"이 곰방대는 안파네", "뭐라도 하나\n사지 그러나", "(한숨)", "자네도 삿갓을\n좋아하나?", "천천히 둘러보게나", "몸은 괜찮나?", "안전이 최고지", "흠...", "또 악귀들이\n기승인가?", "좋아하는 색이 있나?" };//농담
     private PassiveItemManager passiveItemManager;
     void Awake()
     {
@@ -64,6 +77,11 @@ public class Shop : MonoBehaviour
         InitializeShop();
         if (GameManager.Instance.Day == 1) ch_bt_1day_no(); //1일차면 교환 막기 + 환도 강제 구매
         passiveItemManager = FindObjectOfType<PassiveItemManager>();
+        // 말풍선초기화
+        speech_bubble_image.gameObject.SetActive(false);
+        speech_bubble_text.text = "";
+        speech_bubble_on("농담");
+        StartCoroutine(SpawnSmokeLoop()); //담배
     }
     void Update()
     {
@@ -114,7 +132,11 @@ public class Shop : MonoBehaviour
         if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_3_2"))
             price = 0;
 
-        if (Gold < price) return;
+        if (Gold < price) 
+        { 
+            speech_bubble_on("부족");
+            return;
+        }
 
         // 내부에서 바로 퀵슬롯 참조
         ShopQuickSlot shopQuickSlot = FindObjectOfType<ShopQuickSlot>();
@@ -148,7 +170,7 @@ public class Shop : MonoBehaviour
 
         weaponSlots[index].text = "구매 완료";
         GameEvents.CallBuyWeapon();
-
+        speech_bubble_on("구매");
         Button btn = weaponSlots[index].GetComponentInParent<Button>();
         if (btn != null) btn.interactable = false;
 
@@ -195,6 +217,7 @@ public class Shop : MonoBehaviour
             soulPurchased[index] = true;
 
             weaponSlots[index + 5].text = "구매 완료";
+            speech_bubble_on("구매");
             Button btn = weaponSlots[index + 5].GetComponentInParent<Button>();
             Soul_in_text slot = soulIcons[index].GetComponentInParent<Soul_in_text>();
             if (btn != null)
@@ -210,7 +233,7 @@ public class Shop : MonoBehaviour
         }
         else
         {
-            Debug.Log("Not enough coins to buy soul.");
+            speech_bubble_on("부족");
         }
     }
     public void BuyLantern() // 호롱 업글
@@ -242,6 +265,7 @@ public class Shop : MonoBehaviour
             if (F_leval == 2)
             {
                 weaponSlots[9].text = "구매 완료";
+                speech_bubble_on("구매");
             }
             else
             {
@@ -253,7 +277,7 @@ public class Shop : MonoBehaviour
         }
         else
         {
-            Debug.Log("Not enough coins to buy lantern.");
+            speech_bubble_on("부족");
         }
     }
 
@@ -333,9 +357,6 @@ public class Shop : MonoBehaviour
             {
                 slot.itemId = id;
             }
-
-            // 콘솔에 어떤 아이템이 배치되었는지 출력 (디버그용)
-            Debug.Log($"슬롯 {i}번 → {id}, 가격: {soulPrices[i]} 혼");
         }
     }
 
@@ -357,11 +378,12 @@ public class Shop : MonoBehaviour
         {
             GameManager.Instance.Sub_Soul(100);
             GameManager.Instance.Add_Gold(50);
+            speech_bubble_on("교환");
             if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
         }
         else
         {
-            Debug.Log("혼이 부족합니다.");
+            speech_bubble_on("부족");
         }
     }
 
@@ -371,12 +393,142 @@ public class Shop : MonoBehaviour
         {
             GameManager.Instance.Sub_Gold(100);
             GameManager.Instance.Add_Soul(50);
+            speech_bubble_on("교환");
             if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
         }
         else
         {
-            Debug.Log("전이 부족합니다.");
+            speech_bubble_on("부족");
         }
+    }
+    private IEnumerator SpawnSmokeLoop()
+    {
+        while (true)
+        {
+            // 생성
+            Instantiate(Smoke_Effect, SE_pos, Quaternion.identity, this.transform);
+
+            // 대기 시간 (2~4초 랜덤)
+            float delay = Random.Range(2f, 4f);
+            yield return new WaitForSeconds(delay);
+        }
+    }
+    public void speech_bubble_on(string text_t)
+    {
+        speech_bubble_image.sprite=speech_bubble_sprite[Random.Range(0, 3)];
+        string line = "";
+
+        if (text_t == "구매")
+        {
+            line = GetRandomLine(buyLines);
+            if (!isJokeOnCooldown) StartCoroutine(JokeCooldown());
+        }
+        else if (text_t == "교환")
+        {
+            line = GetRandomLine(tradeLines);
+            if (!isJokeOnCooldown) StartCoroutine(JokeCooldown());
+        }
+        else if (text_t == "리롤")
+        {
+            line = GetRandomLine(rerollLines);
+            if (!isJokeOnCooldown) StartCoroutine(JokeCooldown());
+        }
+        else if (text_t == "부족")
+        {
+            line = GetRandomLine(notEnoughLines);
+            if (!isJokeOnCooldown) StartCoroutine(JokeCooldown());
+        }
+        else if (text_t == "농담")
+        {
+            if (isJokeOnCooldown) return;
+            line = GetRandomLine(jokeLines);
+            StartCoroutine(JokeCooldown());
+        }
+
+
+        if (!string.IsNullOrEmpty(line))
+        {
+            // 이전 코루틴 정리
+            if (currentBubbleRoutine != null)
+                StopCoroutine(currentBubbleRoutine);
+
+            currentBubbleRoutine = StartCoroutine(ShowSpeechBubble(line));
+        }
+    }
+
+    private IEnumerator ShowSpeechBubble(string text)
+    {
+        speech_bubble_image.gameObject.SetActive(true);
+        speech_bubble_text.text = text;
+
+        Color imgColor = speech_bubble_image.color;
+        Color txtColor = speech_bubble_text.color;
+
+        // 처음엔 완전히 투명
+        imgColor.a = 0f;
+        txtColor.a = 0f;
+        speech_bubble_image.color = imgColor;
+        speech_bubble_text.color = txtColor;
+
+        // 0.25초 동안 페이드 인
+        float fadeInTime = 0.25f;
+        float elapsed = 0f;
+        while (elapsed < fadeInTime)
+        {
+            elapsed += Time.deltaTime;
+            float alpha = Mathf.Lerp(0f, 1f, elapsed / fadeInTime);
+            imgColor.a = alpha;
+            txtColor.a = alpha;
+            speech_bubble_image.color = imgColor;
+            speech_bubble_text.color = txtColor;
+            yield return null;
+        }
+
+        // 3초 동안 유지 (알파=1 확실히 고정)
+        imgColor.a = 1f;
+        txtColor.a = 1f;
+        speech_bubble_image.color = imgColor;
+        speech_bubble_text.color = txtColor;
+        yield return new WaitForSeconds(3f);
+
+        // 1초 동안 페이드 아웃
+        float fadeOutTime = 1f;
+        elapsed = 0f;
+        while (elapsed < fadeOutTime)
+        {
+            elapsed += Time.deltaTime;
+            float alpha = Mathf.Lerp(1f, 0f, elapsed / fadeOutTime);
+            imgColor.a = alpha;
+            txtColor.a = alpha;
+            speech_bubble_image.color = imgColor;
+            speech_bubble_text.color = txtColor;
+            yield return null;
+        }
+
+        // 초기화
+        speech_bubble_image.gameObject.SetActive(false);
+        speech_bubble_text.text = "";
+        currentBubbleRoutine = null;
+    }
+
+    private IEnumerator JokeCooldown()
+    {
+        isJokeOnCooldown = true;
+
+        // 10~15초 랜덤 쿨타임
+        float cooldown = UnityEngine.Random.Range(10f, 15f);
+        yield return new WaitForSeconds(cooldown);
+
+        isJokeOnCooldown = false;
+
+        // 자동 농담 실행
+        speech_bubble_on("농담");
+    }
+
+    private string GetRandomLine(string[] lines)
+    {
+        if (lines.Length == 0) return "";
+        return lines[rand.Next(lines.Length)];
     }
 
     void ch_bt_1day_no()//1일차에 버튼 비활성화
@@ -394,11 +546,11 @@ public class Shop : MonoBehaviour
             weaponSlots_text(10, rerollCost, "Soul");
             RerollSouls();
             if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
-            Debug.Log($"Rerolled souls. Next reroll cost: {rerollCost}");
+            speech_bubble_on("리롤");
         }
         else
         {
-            Debug.Log(Gold);
+            speech_bubble_on("부족");
         }
     }
 }

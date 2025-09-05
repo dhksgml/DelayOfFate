@@ -145,7 +145,7 @@ public class QuickSlotUI : MonoBehaviour
             Item_Coin.text = total_coin.ToString() + " 값";
             Item_Weight.text = total_Weight.ToString() + " 근";
             if (selectedItem.isUsable) { Use_text.text = "[<space=15><voffset=14><sprite=1><voffset=0><space=-25>] 사용</voffset>"; } else { Use_text.text = null; } //사용 가능한 경우만 표기
-            Discard_text.text = "[<b>F</b>] 버리기";
+            Discard_text.text = "[<b>F</b>] 즉시판매";
         }
         else
         {
