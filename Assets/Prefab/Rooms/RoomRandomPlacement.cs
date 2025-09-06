@@ -28,11 +28,17 @@ public class RoomRandomPlacement : MonoBehaviour
     public GameObject Place_Resurrection; // 부활 장소
     public GameObject Place_Sale; // 판매 장소
     public GameObject Place_Escape; // 탈출 장소
-    private PlaceManager placeManager;
+    public PlaceManager placeManager;
 
-    private List<Vector2Int> roomPositions = new();
-    private Dictionary<Vector2Int, string> roomDirections = new();
-    private Dictionary<Vector2Int, GameObject> roomObjects = new();
+    public List<Vector2Int> roomPositions = new();
+    // 수정을 위해 비활성화
+    public Dictionary<Vector2Int, string> roomDirections = new();
+    //private Dictionary<Vector2Int, GameObject> roomObjects = new();
+
+    public Dictionary<Vector2Int, GameObject> roomObjects = new Dictionary<Vector2Int, GameObject>();
+
+    // 추가됨: 방 좌표 -> 사용된 프리팹 원본
+    public Dictionary<Vector2Int, GameObject> roomPrefabsUsed = new Dictionary<Vector2Int, GameObject>();
 
     // 사신 소환을 위함
     public List<Vector3> randomPlace;
@@ -78,6 +84,27 @@ public class RoomRandomPlacement : MonoBehaviour
         int error = value_error[Day];
         spawnManager.totalValPoint += Random.Range(-error, +error+1);
     }
+    // 수정을 위해 비활성화
+    //void GenerateRooms()
+    //{
+    //    while (true)
+    //    {
+    //        TryRandomRoomPositions();
+    //        FilterLargestConnectedComponent();
+
+    //        while (roomPositions.Count < roomCount)
+    //        {
+    //            TryExpandConnectedComponent();
+    //        }
+
+    //        if (roomPositions.Count == roomCount)
+    //            break;
+    //    }
+
+    //    GenerateRoomData();
+    //    PlaceRooms();
+    //    ConnectCorridors();
+    //}
     void GenerateRooms()
     {
         while (true)
@@ -98,6 +125,7 @@ public class RoomRandomPlacement : MonoBehaviour
         PlaceRooms();
         ConnectCorridors();
     }
+
     void MovePlayerToRandomRoom()
     {
         if (roomObjects.Count < 4 || player == null)
@@ -145,9 +173,10 @@ public class RoomRandomPlacement : MonoBehaviour
         }
     }
 
-
+    // 방 생성
     void TryRandomRoomPositions()
     {
+        // 방 생성
         roomPositions.Clear();
         while (roomPositions.Count < roomCount)
         {
@@ -254,6 +283,22 @@ public class RoomRandomPlacement : MonoBehaviour
         }
     }
 
+    // 수정하느라 잠굼
+    //void PlaceRooms()
+    //{
+    //    foreach (Vector2Int pos in roomPositions)
+    //    {
+    //        string exits = roomDirections[pos];
+    //        GameObject prefab = GetPrefabByExits(exits);
+    //        if (prefab != null)
+    //        {
+    //            Vector3 worldPos = new(pos.x * spacing, pos.y * spacing, 0);
+    //            GameObject room = Instantiate(prefab, worldPos, Quaternion.identity, transform);
+    //            roomObjects[pos] = room;
+    //        }
+    //    }
+    //}
+
     void PlaceRooms()
     {
         foreach (Vector2Int pos in roomPositions)
@@ -264,7 +309,11 @@ public class RoomRandomPlacement : MonoBehaviour
             {
                 Vector3 worldPos = new(pos.x * spacing, pos.y * spacing, 0);
                 GameObject room = Instantiate(prefab, worldPos, Quaternion.identity, transform);
+
                 roomObjects[pos] = room;
+
+                // 추가: prefab 원본 기록
+                roomPrefabsUsed[pos] = prefab;
             }
         }
     }
@@ -322,7 +371,7 @@ public class RoomRandomPlacement : MonoBehaviour
         return candidates[Random.Range(0, candidates.Count)];
     }
 
-    Vector2Int GetNeighbor(Vector2Int pos, char dir)
+    public Vector2Int GetNeighbor(Vector2Int pos, char dir)
     {
         return dir switch
         {
@@ -334,6 +383,7 @@ public class RoomRandomPlacement : MonoBehaviour
         };
     }
 
+    // 방을 연결
     void ConnectRoomsWithDoubleCorridor(GameObject roomA, GameObject roomB, string direction)
     {
         string oppDirection = GetOppositeDirection(direction);
@@ -420,3 +470,4 @@ public class RoomRandomPlacement : MonoBehaviour
     }
 
 }
+

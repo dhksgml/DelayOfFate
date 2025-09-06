@@ -140,7 +140,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8786482593783432978, guid: f1bd5f6fa56e72749b1678bd53f77e8a, type: 3}
       propertyPath: m_text
-      value: "\uD14C\uC2A4\uD2B8"
+      value: "\uC57D\uAC12 \uC9C0\uBD88 \uD6C4 \uBCF4\uC720\uD55C <sprite=8>\uC758\\n3\uD560
+        \uB9CC\uD07C \uD68D\uB4DD"
       objectReference: {fileID: 0}
     - target: {fileID: 8786482593783432978, guid: f1bd5f6fa56e72749b1678bd53f77e8a, type: 3}
       propertyPath: m_fontSize

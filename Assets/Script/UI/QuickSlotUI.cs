@@ -9,7 +9,8 @@ public class QuickSlotUI : MonoBehaviour
     public Image[] weaponSlotBackgrounds;
     public Image[] slotImages;          // 각 슬롯의 아이템 아이콘
     public Image[] slotBackgrounds;     // 각 슬롯의 배경 이미지 (활성화 표시)
-    public TMP_Text[] slotCounts;       // 각 슬롯의 아이템 갯수 텍스트
+    public TMP_Text[] weapon_Count;     // 무기 개수 (없애야 하나 고민중)
+    public TMP_Text weapon_name;     // 무기 이름 
     public Sprite default_Item_Sprite;  // 기본 아이템 아이콘
     public Sprite defaultSlotSprite;    // 기본 슬롯 배경
     public Sprite selectedSlotSprite;   // 선택된 슬롯 배경
@@ -59,24 +60,14 @@ public class QuickSlotUI : MonoBehaviour
 
         if (item != null && !string.IsNullOrEmpty(item.itemName))
         {
-            slotImages[index].sprite = item.icon;
+            slotImages[index].sprite = item.InGameSprite;
             slotImages[index].color = new Color(1f, 1f, 1f, 1f);
-            if (item.Count_Check)
-            {
-                slotCounts[index].gameObject.SetActive(true);
-                slotCounts[index].text = item.Count.ToString();
-            }
-            else
-            {
-                slotCounts[index].gameObject.SetActive(false);
-            }
         }
         else
         {
             // 빈 슬롯 처리
             slotImages[index].sprite = default_Item_Sprite;
             slotImages[index].color = new Color(1f, 1f, 1f, 0.3f);
-            slotCounts[index].gameObject.SetActive(false);
         }
     }
     public void UpdateUI()
@@ -102,25 +93,14 @@ public class QuickSlotUI : MonoBehaviour
             if (item != null && !string.IsNullOrEmpty(item.itemName))
             {
                 // 아이템 아이콘 설정
-                slotImages[i].sprite = item.icon;
+                slotImages[i].sprite = item.InGameSprite;
                 slotImages[i].color = new Color(1f, 1f, 1f, 1f);
-                // 아이템 곗수 표시 여부
-                if (item.Count_Check)
-                {
-                    slotCounts[i].gameObject.SetActive(true);
-                    slotCounts[i].text = item.Count.ToString();
-                }
-                else
-                {
-                    slotCounts[i].gameObject.SetActive(false);
-                }
             }
             else
             {
                 // 빈 슬롯 처리
                 slotImages[i].sprite = default_Item_Sprite;
                 slotImages[i].color = new Color(1f, 1f, 1f, 0.3f);
-                slotCounts[i].gameObject.SetActive(false);
             }
 
             // 선택된 슬롯 배경 표시
@@ -134,16 +114,22 @@ public class QuickSlotUI : MonoBehaviour
             if (item != null && !string.IsNullOrEmpty(item.itemName))
             {
                 // 아이템 아이콘 설정
-                weaponSlotImage[i].sprite = item.icon;
+                weaponSlotImage[i].sprite = item.InGameSprite;
                 weaponSlotImage[i].color = new Color(1f, 1f, 1f, 1f);
+                weapon_Count[i].text = item.Count.ToString();
+                weapon_Count[i].gameObject.SetActive(true);
+                weapon_name.text = "[" + item.itemName + "]";
             }
             else
             {
                 // 빈 슬롯 처리
                 weaponSlotImage[i].sprite = default_Item_Sprite;
                 weaponSlotImage[i].color = new Color(1f, 1f, 1f, 0.3f);
+                weapon_Count[i].gameObject.SetActive(false);
+                weapon_name.gameObject.SetActive(false);
             }
-
+            Item item_0 = playerItemUse.weaponSlots[0];
+            weapon_name.gameObject.SetActive(item_0 != null); // 무기 이름 표기
             // 선택된 슬롯 배경 표시
             weaponSlotBackgrounds[i].sprite = (i == playerItemUse.selectedWeaponIndex)
                 ? selectedSlotSprite
@@ -159,7 +145,7 @@ public class QuickSlotUI : MonoBehaviour
             Item_Coin.text = total_coin.ToString() + " 값";
             Item_Weight.text = total_Weight.ToString() + " 근";
             if (selectedItem.isUsable) { Use_text.text = "[<space=15><voffset=14><sprite=1><voffset=0><space=-25>] 사용</voffset>"; } else { Use_text.text = null; } //사용 가능한 경우만 표기
-            Discard_text.text = "[<b>F</b>] 버리기";
+            Discard_text.text = "[<b>F</b>] 즉시판매";
         }
         else
         {
@@ -178,24 +164,8 @@ public class QuickSlotUI : MonoBehaviour
 
             if (item != null && !string.IsNullOrEmpty(item.itemName))
             {
-                slotImages[i].sprite = item.icon;
-
-                if (item.Count_Check)
-                {
-                    slotCounts[i].gameObject.SetActive(true);
-                    slotCounts[i].text = item.Count.ToString();
-                }
-                else
-                {
-                    slotCounts[i].gameObject.SetActive(false);
-                }
+                slotImages[i].sprite = item.InGameSprite;
             }
-            else
-            {
-                slotImages[i].sprite = default_Item_Sprite;
-                slotCounts[i].gameObject.SetActive(false);
-            }
-
             slotBackgrounds[i].sprite = (i == selectedIndex) ? selectedSlotSprite : defaultSlotSprite;
         }
 
