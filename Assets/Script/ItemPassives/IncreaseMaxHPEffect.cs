@@ -16,13 +16,13 @@ public class IncreaseMaxHPEffect : IPassiveEffect
 
     public void ApplyEffect()
     {
-        stats.extraHp += bonusMaxHP;
-        stats.currentExtraHp = stats.extraHp;
+        stats.maxHp += bonusMaxHP;
+        stats.currentHp = stats.maxHp;
     }
 
     public void RemoveEffect()
     {
-        stats.extraHp -= bonusMaxHP;
-        stats.currentExtraHp = stats.extraHp;
+        stats.maxHp -= bonusMaxHP;
+        stats.currentHp = stats.maxHp;
     }
 }
