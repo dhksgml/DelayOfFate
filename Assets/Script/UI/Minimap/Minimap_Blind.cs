@@ -10,6 +10,8 @@ public class Minimap_Blind : MonoBehaviour
     // 방을 가리는 블라인드
     public GameObject blindRoomObj;
 
+    SpriteRenderer sp;
+
 
     // 카피된 방의 블라인드 오브젝트를 가져오는 메서드
     public void CopyRoomBlindGet()
@@ -20,6 +22,36 @@ public class Minimap_Blind : MonoBehaviour
         blindRoomObj = blindCopy.blindRoomObj;
     }
 
+    // 플레이어가 맵에 존재하면
+    public void PlayerStayMap()
+    {
+        if (blindRoomObj != null)
+        {
+            sp = blindRoomObj.GetComponent<SpriteRenderer>();
+
+            sp.color = Color.white;
+
+            blindRoomObj.SetActive(false);
+        }
+    }
+
+    // 플레이어가 맵을 처음 봤으면
+    public void PlayerSeeMap()
+    {
+        if (blindRoomObj != null)
+        {
+            sp = blindRoomObj.GetComponent<SpriteRenderer>();
+
+            Color c = Color.gray;
+
+            c.a = 0.5f;
+
+            sp.color = c;   
+
+            blindRoomObj.SetActive(true);
+        }
+    }
+
     void OnTriggerStay2D(Collider2D collision)
     {
         if (blindRoomObj == null) { return; }
@@ -27,8 +59,7 @@ public class Minimap_Blind : MonoBehaviour
         // 만약 플레이어가 들어와 있으면
         if (collision.CompareTag("Player"))
         {
-            // 일단꺼주는걸로, 추후 하양 > 회색 > 검은색(기본)으로 변경
-            blindRoomObj.SetActive(false);
+            PlayerStayMap();
         }
     }
 
@@ -39,8 +70,7 @@ public class Minimap_Blind : MonoBehaviour
         // 만약 플레이어가 방을 떠나면
         if (collision.CompareTag("Player"))
         {
-            // 일단꺼주는걸로, 추후 하양 > 회색 > 검은색(기본)으로 변경
-            blindRoomObj.SetActive(true);
+            PlayerSeeMap();
         }
     }
 }

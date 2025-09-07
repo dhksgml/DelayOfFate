@@ -23,6 +23,10 @@ public class MapSpawn : MonoBehaviour
     // 맵 저장용
     [SerializeField] GameObject mapSave;
 
+    // 카메라 최대 사이즈
+    [SerializeField] int cameraMaxSize;
+    // 카메라 기본 사이즈
+    [SerializeField] int cameraBaseSize;
 
 
     IEnumerator Start()
@@ -76,6 +80,43 @@ public class MapSpawn : MonoBehaviour
         //    }
         //}
 
+        //foreach (var kvp in roomGenerator.roomObjects)
+        //{
+        //    Vector2Int pos = kvp.Key;
+        //    // 복도에 값을 전달해주기 위함
+        //    GameObject originCor = roomGenerator.tossCor;
+        //    Minimap_Blind corBlind = originCor.GetComponent<Minimap_Blind>();
+        //    Debug.Log(" 복사할 복도 : " + originCor);
+
+        //    string exits = roomGenerator.roomDirections[pos];
+
+
+        //    foreach (char dir in exits)
+        //    {
+        //        Vector2Int neighborPos = roomGenerator.GetNeighbor(pos, dir);
+
+        //        if (!roomGenerator.roomObjects.ContainsKey(neighborPos)) continue;
+        //        if (pos.y > neighborPos.y || (pos.y == neighborPos.y && pos.x > neighborPos.x)) continue;
+
+        //        Vector3 worldPos = (new Vector3(pos.x, pos.y, 0) + new Vector3(neighborPos.x, neighborPos.y, 0)) / 2f;
+        //        worldPos = worldPos * roomGenerator.spacing + baseOffset;
+
+        //        GameObject corridorPrefabToUse = (dir == 'U' || dir == 'D')
+        //            ? verticalCorridorPrefab
+        //            : horizontalCorridorPrefab;
+
+
+
+        //        // 복제
+        //        GameObject mapCorridor = Instantiate(corridorPrefabToUse, worldPos, Quaternion.identity, transform);
+
+        //        corBlind.copyRoomObj = mapCorridor;
+
+        //        corBlind.CopyRoomBlindGet();
+        //        Debug.Log(" 복사된 복도 : " + corBlind.copyRoomObj);
+        //    }
+        //}
+
         foreach (var kvp in roomGenerator.roomObjects)
         {
             Vector2Int pos = kvp.Key;
@@ -84,7 +125,6 @@ public class MapSpawn : MonoBehaviour
             foreach (char dir in exits)
             {
                 Vector2Int neighborPos = roomGenerator.GetNeighbor(pos, dir);
-
                 if (!roomGenerator.roomObjects.ContainsKey(neighborPos)) continue;
                 if (pos.y > neighborPos.y || (pos.y == neighborPos.y && pos.x > neighborPos.x)) continue;
 
@@ -95,17 +135,31 @@ public class MapSpawn : MonoBehaviour
                     ? verticalCorridorPrefab
                     : horizontalCorridorPrefab;
 
-                // 복제
+                // 미니맵용 복도 생성
                 GameObject mapCorridor = Instantiate(corridorPrefabToUse, worldPos, Quaternion.identity, transform);
 
-                // Minimap_Blind 복제 처리
-                Minimap_Blind originBlind = corridorPrefabToUse.GetComponent<Minimap_Blind>();
-                Minimap_Blind blind = mapCorridor.GetComponent<Minimap_Blind>();
-
-                if (originBlind != null && blind != null)
+                // 원본 복도 찾기: 좌표 기준
+                if (roomGenerator.corridorDict.TryGetValue((pos, neighborPos), out List<GameObject> originCors))
                 {
-                    originBlind.copyRoomObj = mapCorridor;
-                    originBlind.CopyRoomBlindGet();
+                    foreach (var originCor in originCors)
+                    {
+                        Minimap_Blind corBlind = originCor.GetComponent<Minimap_Blind>();
+                        corBlind.copyRoomObj = mapCorridor;
+                        corBlind.CopyRoomBlindGet();
+                    }
+                }
+                else if (roomGenerator.corridorDict.TryGetValue((neighborPos, pos), out originCors))
+                {
+                    foreach (var originCor in originCors)
+                    {
+                        Minimap_Blind corBlind = originCor.GetComponent<Minimap_Blind>();
+                        corBlind.copyRoomObj = mapCorridor;
+                        corBlind.CopyRoomBlindGet();
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning($"원본 복도를 찾을 수 없음: {pos} - {neighborPos}");
                 }
             }
         }
@@ -158,23 +212,39 @@ public class MapSpawn : MonoBehaviour
         //    minimapCam.transform.position = center;
         //}
 
-        // 4. 카메라를 맵 중심으로 이동
-        if (minimapCam != null)
+        // 4. 카메라를 맵 중심으로 이동 및 사이즈 조정
+        // 1. 미니맵 전용 맵만 선택
+        List<Transform> minimapObjects = new List<Transform>();
+        foreach (Transform child in transform)
+        {
+            // 예: 이름이나 레이어 등으로 미니맵 전용만 필터링
+            if (child.name.Contains("Mini") || child.name.Contains("Corridor") || child.name.Contains("Place"))
+                minimapObjects.Add(child);
+        }
+
+        if (minimapObjects.Count > 0)
         {
             Vector3 minPos = new Vector3(float.MaxValue, float.MaxValue, 0);
             Vector3 maxPos = new Vector3(float.MinValue, float.MinValue, 0);
 
-            // 모든 복제된 자식 오브젝트 기준으로 min/max 계산
-            foreach (Transform child in transform)
+            foreach (var obj in minimapObjects)
             {
-                Vector3 pos = child.position; // 이미 spawn 시 baseOffset 적용
-                minPos = Vector3.Min(minPos, pos);
-                maxPos = Vector3.Max(maxPos, pos);
+                minPos = Vector3.Min(minPos, obj.position);
+                maxPos = Vector3.Max(maxPos, obj.position);
             }
 
             Vector3 center = (minPos + maxPos) / 2f;
             center.z = minimapCam.transform.position.z;
             minimapCam.transform.position = center;
+
+            // 카메라 사이즈 계산
+            float mapWidth = maxPos.x - minPos.x;
+            float mapHeight = maxPos.y - minPos.y;
+            float aspect = minimapCam.aspect;
+
+            float size = Mathf.Max(mapHeight / 4f, mapWidth / 4f / aspect);
+            size = Mathf.Clamp(cameraBaseSize + size + 1f, 5f, cameraMaxSize);
+            minimapCam.orthographicSize = size;
         }
 
         Debug.Log($"총 {roomGenerator.roomObjects.Count}개의 방, 복도, 장소를 미니맵에 복제했습니다.");

@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8013803728290735039}
   - component: {fileID: 938841946674343757}
-  m_Layer: 6
+  - component: {fileID: 5215516629665805545}
+  m_Layer: 0
   m_Name: CheckWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,8 +76,20 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 3.5}
+  m_Size: {x: 1, y: 15}
   m_EdgeRadius: 0
+--- !u!114 &5215516629665805545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2245008272860080649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 379244d25ef727443a49b41e337700d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2397570491956597122
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +295,7 @@ MonoBehaviour:
   - {x: 0.49999997, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 164200
+  m_InstanceId: 230990
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.5, y: 0.5, z: 0}
