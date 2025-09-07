@@ -32,7 +32,7 @@ public class Shop : MonoBehaviour
     public GameObject Smoke_Effect; //담배연기 이펙트
     public Vector2 SE_pos;//담배연기 좌표
     public Image speech_bubble_image;//말풍선 이미지
-    public Sprite[] speech_bubble_sprite;//말풍선 이미지
+    //public Sprite[] speech_bubble_sprite;//말풍선 이미지
     public TMP_Text speech_bubble_text;//말풍선 텍스트
     private System.Random rand = new System.Random();
     private bool isJokeOnCooldown = false;
@@ -415,7 +415,6 @@ public class Shop : MonoBehaviour
     }
     public void speech_bubble_on(string text_t)
     {
-        speech_bubble_image.sprite=speech_bubble_sprite[Random.Range(0, 3)];
         string line = "";
 
         if (text_t == "구매")
