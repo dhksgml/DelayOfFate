@@ -120,6 +120,7 @@ public class Place : MonoBehaviour
 			if (warningCoroutine != null) StopCoroutine(warningCoroutine);
 			if (warningText != null) warningCoroutine = StartCoroutine(ShowWarningText());
 			Player_Item_Use player_Item_Use = FindObjectOfType<Player_Item_Use>();
+			registered -= 1;
 			player_Item_Use.Sale("all",0);
 		}
 		if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_all_sell"));

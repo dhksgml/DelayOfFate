@@ -352,9 +352,9 @@ public class Player_Item_Use : MonoBehaviour
                     quickSlots[i] = null;
                 }
             }
-            GameManager.Instance?.Add_Gold(itemValue);
+            GameManager.Instance?.Add_Gold(itemValue * 2);
             SpawnEffectParts(itemValue * 2, "Coin");
-            GameManager.Instance?.Add_Soul(itemValue * 2);
+            GameManager.Instance?.Add_Soul(itemValue);
             SpawnEffectParts(itemValue, "Soul");
         }
     }
