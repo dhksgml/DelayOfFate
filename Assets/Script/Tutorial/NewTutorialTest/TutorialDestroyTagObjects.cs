@@ -5,23 +5,22 @@ using UnityEngine;
 public class TutorialDestroyTagObjects : TutorialBase
 {
     [SerializeField] private PlayerController playerController;
-    [SerializeField] private GameObject[] objectList;
-    [SerializeField] private string tagName;
+    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private Vector3 enemySpawnPos;
+    //[SerializeField] private string tagName;
+    private GameObject aliveEnemy;
 
     public override void Enter()
     {
         playerController.isMoveAble = true;
 
-        for(int i = 0; i < objectList.Length; ++i)
-        {
-            objectList[i].SetActive(true);
-        }
+        aliveEnemy = Instantiate(enemyPrefab, enemySpawnPos, Quaternion.identity);
     }
 
     public override void Execute(TutorialController controller)
     {
-        GameObject[] objects = GameObject.FindGameObjectsWithTag(tagName);
-        if(objects.Length == 0)
+        //GameObject[] objects = GameObject.FindGameObjectsWithTag(tagName);
+        if (aliveEnemy == null)
         {
             controller.SetNextTutorial();
         }

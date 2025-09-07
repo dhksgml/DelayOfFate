@@ -17,6 +17,7 @@ public class PlaceManager : MonoBehaviour
         GameManager.Instance.SaveCurrentQuickSlot(FindObjectOfType<Player_Item_Use>().quickSlots);
         GameManager.Instance.SavePlayerInfo(FindObjectOfType<PlayerController>());
         GameManager.Instance.New_Day_date(FindObjectOfType<QuickSlotUI>().angleUnit);
+        GameManager.Instance.WeaponData = new ItemData[2];
         SceneManager.LoadScene("Result_Scene");
     }
 }

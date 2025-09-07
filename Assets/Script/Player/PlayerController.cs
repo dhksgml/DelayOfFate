@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
     public GameObject lightCircleObject;
     public float flashLightDistance = 3f;
 
-    public bool isUseItem = false;
+    private bool isUseItem = false;
     public float Player_Usage_cu_cool_down = 0;//�÷��̾� ������ ���� ��ٿ�
     private Coroutine currentItemUseCoroutine = null;
 

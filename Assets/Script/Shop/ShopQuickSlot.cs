@@ -95,8 +95,11 @@ public class ShopQuickSlot : MonoBehaviour
                 // 아이템 아이콘 설정
                 weaponSlotImage[i].sprite = item.InGameSprite;
                 weaponSlotImage[i].color = new Color(1f, 1f, 1f, 1f);
-                weapon_Count[i].text = item.Count.ToString();
-                weapon_Count[i].gameObject.SetActive(true);
+                if (item.Count_Check)
+                {
+                    weapon_Count[i].text = item.Count.ToString();
+                    weapon_Count[i].gameObject.SetActive(true);
+                }
                 weapon_name.text = "[" + item.itemName + "]";
                 
             }

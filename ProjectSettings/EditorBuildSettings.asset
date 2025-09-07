@@ -40,7 +40,7 @@ EditorBuildSettings:
     guid: 1749071a2b59e9e408febfaa893084cb
   - enabled: 1
     path: Assets/Scenes/New_Tutorial_ShopScenes.unity
-    guid: 02fb09cefd53ca44db6b14feec42d318
+    guid: 0902289a674db2e469d94bf52e9a3edf
   - enabled: 1
     path: Assets/Scenes/Clear_Scene.unity
     guid: a7792e900d09a6345ae3b70781c84f80

@@ -7,7 +7,7 @@ public class TutorialController : MonoBehaviour
 {
     [SerializeField] private List<TutorialBase> tutorials;
     [SerializeField] private string nextSceneName = "";
-
+    [SerializeField] private bool isBattleTutorial;
     private TutorialBase currentTutorial = null;
     private int currentIndex = -1;
 
@@ -48,6 +48,12 @@ public class TutorialController : MonoBehaviour
         currentTutorial = null;
         if(!nextSceneName.Equals(""))
         {
+            if (isBattleTutorial)
+            {
+                if (GameManager.Instance != null)
+                    GameManager.Instance.AlldataReset();
+            }
+
             SceneManager.LoadScene(nextSceneName);
         }
     }

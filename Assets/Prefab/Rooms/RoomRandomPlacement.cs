@@ -28,7 +28,7 @@ public class RoomRandomPlacement : MonoBehaviour
     public GameObject Place_Resurrection; // 부활 장소
     public GameObject Place_Sale; // 판매 장소
     public GameObject Place_Escape; // 탈출 장소
-    private PlaceManager placeManager;
+    public PlaceManager placeManager;
 
     public List<Vector2Int> roomPositions = new();
     // 수정을 위해 비활성화
@@ -40,8 +40,13 @@ public class RoomRandomPlacement : MonoBehaviour
     // 추가됨: 방 좌표 -> 사용된 프리팹 원본
     public Dictionary<Vector2Int, GameObject> roomPrefabsUsed = new Dictionary<Vector2Int, GameObject>();
 
+    // 복도값을 주기 위함
+    public List<GameObject> tossCors = new List<GameObject>();
+
     // 사신 소환을 위함
     public List<Vector3> randomPlace;
+
+    public List<GameObject> randomPlaceObj;
 
     private void Awake() //배열 초기화
     {
@@ -151,6 +156,7 @@ public class RoomRandomPlacement : MonoBehaviour
             GameObject obj = Instantiate(Place_Resurrection, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
             placeManager.resurrection_pos = shuffledRooms[roomIndex].transform.position;
             randomPlace.Add(obj.transform.position);
+            randomPlaceObj.Add(obj);
             roomIndex++;
         }
 
@@ -160,6 +166,7 @@ public class RoomRandomPlacement : MonoBehaviour
             GameObject obj = Instantiate(Place_Sale, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
             placeManager.sale_pos = shuffledRooms[roomIndex].transform.position;
             randomPlace.Add(obj.transform.position);
+            randomPlaceObj.Add(obj);
             roomIndex++;
         }
 
@@ -169,6 +176,7 @@ public class RoomRandomPlacement : MonoBehaviour
             GameObject obj = Instantiate(Place_Escape, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
             placeManager.escape_pos = shuffledRooms[roomIndex].transform.position;
             randomPlace.Add(obj.transform.position);
+            randomPlaceObj.Add(obj);
             roomIndex++;
         }
     }
@@ -384,6 +392,72 @@ public class RoomRandomPlacement : MonoBehaviour
     }
 
     // 방을 연결
+    //void ConnectRoomsWithDoubleCorridor(GameObject roomA, GameObject roomB, string direction)
+    //{
+    //    string oppDirection = GetOppositeDirection(direction);
+    //    string[] postfixes = { "1", "2" };
+
+    //    foreach (string p in postfixes)
+    //    {
+    //        string exitNameA = $"Exit_{direction}_{p}";
+    //        string exitNameB = $"Exit_{oppDirection}_{p}";
+
+    //        Transform exitA = roomA.transform.Find(exitNameA);
+    //        Transform exitB = roomB.transform.Find(exitNameB);
+
+    //        if (exitA == null || exitB == null)
+    //        {
+    //            Debug.LogWarning($"Missing exits: {exitNameA} or {exitNameB}");
+    //            continue;
+    //        }
+
+    //        Vector3 dirVec = (exitB.position - exitA.position).normalized;
+    //        float length = Vector3.Distance(exitA.position, exitB.position);
+    //        Vector3 mid = (exitA.position + exitB.position) / 2f;
+
+    //        GameObject corridor = Instantiate(corridorPrefab, mid, Quaternion.identity, transform);
+    //        corridor.transform.right = dirVec;
+    //        corridor.transform.localScale = new Vector3(length, corridorThickness, corridorThickness);
+    //    }
+    //}
+
+    // RoomRandomPlacement에 추가
+    public Dictionary<(Vector2Int, Vector2Int), List<GameObject>> corridorDict = new();
+
+    // 방을 연결
+    //void ConnectRoomsWithDoubleCorridor(GameObject roomA, GameObject roomB, string direction)
+    //{
+    //    string oppDirection = GetOppositeDirection(direction);
+    //    string[] postfixes = { "1", "2" };
+
+    //    foreach (string p in postfixes)
+    //    {
+    //        string exitNameA = $"Exit_{direction}_{p}";
+    //        string exitNameB = $"Exit_{oppDirection}_{p}";
+
+    //        Transform exitA = roomA.transform.Find(exitNameA);
+    //        Transform exitB = roomB.transform.Find(exitNameB);
+
+    //        if (exitA == null || exitB == null)
+    //        {
+    //            Debug.LogWarning($"Missing exits: {exitNameA} or {exitNameB}");
+    //            continue;
+    //        }
+
+    //        Vector3 dirVec = (exitB.position - exitA.position).normalized;
+    //        float length = Vector3.Distance(exitA.position, exitB.position);
+    //        Vector3 mid = (exitA.position + exitB.position) / 2f;
+
+    //        GameObject corridor = Instantiate(corridorPrefab, mid, Quaternion.identity, transform);
+    //        corridor.transform.right = dirVec;
+    //        corridor.transform.localScale = new Vector3(length, corridorThickness, corridorThickness);
+
+    //        // 리스트에 추가
+    //        tossCors.Add(corridor);
+    //    }
+    //}
+
+
     void ConnectRoomsWithDoubleCorridor(GameObject roomA, GameObject roomB, string direction)
     {
         string oppDirection = GetOppositeDirection(direction);
@@ -391,17 +465,9 @@ public class RoomRandomPlacement : MonoBehaviour
 
         foreach (string p in postfixes)
         {
-            string exitNameA = $"Exit_{direction}_{p}";
-            string exitNameB = $"Exit_{oppDirection}_{p}";
-
-            Transform exitA = roomA.transform.Find(exitNameA);
-            Transform exitB = roomB.transform.Find(exitNameB);
-
-            if (exitA == null || exitB == null)
-            {
-                Debug.LogWarning($"Missing exits: {exitNameA} or {exitNameB}");
-                continue;
-            }
+            Transform exitA = roomA.transform.Find($"Exit_{direction}_{p}");
+            Transform exitB = roomB.transform.Find($"Exit_{oppDirection}_{p}");
+            if (exitA == null || exitB == null) continue;
 
             Vector3 dirVec = (exitB.position - exitA.position).normalized;
             float length = Vector3.Distance(exitA.position, exitB.position);
@@ -410,8 +476,20 @@ public class RoomRandomPlacement : MonoBehaviour
             GameObject corridor = Instantiate(corridorPrefab, mid, Quaternion.identity, transform);
             corridor.transform.right = dirVec;
             corridor.transform.localScale = new Vector3(length, corridorThickness, corridorThickness);
+
+            tossCors.Add(corridor);
+
+            // 좌표 기반으로 딕셔너리에 저장
+            Vector2Int startPos = new Vector2Int(Mathf.RoundToInt(exitA.position.x / spacing), Mathf.RoundToInt(exitA.position.y / spacing));
+            Vector2Int endPos = new Vector2Int(Mathf.RoundToInt(exitB.position.x / spacing), Mathf.RoundToInt(exitB.position.y / spacing));
+
+            if (!corridorDict.ContainsKey((startPos, endPos)))
+                corridorDict[(startPos, endPos)] = new List<GameObject>();
+
+            corridorDict[(startPos, endPos)].Add(corridor);
         }
     }
+
 
     string GetOppositeDirection(string dir)
     {
