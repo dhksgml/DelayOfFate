@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6118702571318767708}
   - component: {fileID: 4707302419557312770}
+  - component: {fileID: 6882643023004387509}
   - component: {fileID: 7065677994999204319}
   - component: {fileID: 5527380200257563260}
   - component: {fileID: 1179224993230781712}
@@ -49,7 +50,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundTilemap: {fileID: 6879656552102193385}
-  floorTiles: {fileID: 11400000, guid: a7f9d745c132bfc4e8e0aa172629c098, type: 2}
+  floorTiles:
+  - {fileID: 11400000, guid: a7f9d745c132bfc4e8e0aa172629c098, type: 2}
+  - {fileID: 11400000, guid: df577670c98228748b8d4533e98eab8c, type: 2}
   width: 3
   height: 3
   roomCount: 8
@@ -86,12 +89,41 @@ MonoBehaviour:
   - {fileID: 3463885864821706135, guid: 7d4dff565d683bb40b36ebe31fde9e70, type: 3}
   - {fileID: 3463885864821706135, guid: c9fadf1cad0f0284e9d25c8cd4446072, type: 3}
   - {fileID: 3463885864821706135, guid: 901cf013966317a4eae615eff275d331, type: 3}
-  corridorPrefab: {fileID: 2397570491956597122, guid: 1cbf2292152381b419260e1070094160, type: 3}
+  corridorPrefab: {fileID: 2397570491956597122, guid: 36ab345f336850e439f08a814046d0ca, type: 3}
   corridorThickness: 2.5
   Place_Resurrection: {fileID: 6373634918162350719, guid: 5e2095dff9d456a43ab46a2190b13978, type: 3}
   Place_Sale: {fileID: 1044354756543004560, guid: 2dc94e4bb87af7043a43e1b85daa30d9, type: 3}
   Place_Escape: {fileID: 6146136370363173489, guid: f67d7223472b9bd43b099ff957901841, type: 3}
+  placeManager: {fileID: 0}
+  roomPositions: []
+  tossCors: []
   randomPlace: []
+  randomPlaceObj: []
+--- !u!114 &6882643023004387509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467880456937811478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68f459690cc3bae4cb25e9855cd78848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomGenerator: {fileID: 4707302419557312770}
+  baseOffset: {x: 0, y: -2000, z: 0}
+  verticalCorridorPrefab: {fileID: 4109208096964386233, guid: 53bd94a3386fda34984c259a0264c46e, type: 3}
+  horizontalCorridorPrefab: {fileID: 4109208096964386233, guid: 50b750c4f60a043449506d54fa334451, type: 3}
+  miniPlace_Resurrection: {fileID: 6373634918162350719, guid: 5e2095dff9d456a43ab46a2190b13978, type: 3}
+  miniPlace_Sale: {fileID: 1044354756543004560, guid: 2dc94e4bb87af7043a43e1b85daa30d9, type: 3}
+  miniPlace_Escape: {fileID: 6146136370363173489, guid: f67d7223472b9bd43b099ff957901841, type: 3}
+  minimapCam: {fileID: 0}
+  blindScript: {fileID: 0}
+  mapSave: {fileID: 0}
+  cameraMaxSize: 200
+  cameraBaseSize: 100
+  blindList: []
 --- !u!114 &7065677994999204319
 MonoBehaviour:
   m_ObjectHideFlags: 0
