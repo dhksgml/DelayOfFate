@@ -28,6 +28,7 @@ public class MapSpawn : MonoBehaviour
     // 카메라 기본 사이즈
     [SerializeField] int cameraBaseSize;
 
+    [SerializeField] List<Minimap_Blind> blindList = new ();
 
     IEnumerator Start()
     {
@@ -48,11 +49,14 @@ public class MapSpawn : MonoBehaviour
             Minimap_Blind originBlind = originalRoom.GetComponent<Minimap_Blind>();
 
             originBlind.copyRoomObj = mapSave;
+            originBlind.dontSeeRoom = mapSave;
 
             originBlind.CopyRoomBlindGet();
 
-        }
+            blindList.Add(originBlind);
 
+        }
+        #region 구 코드
         // 2. 복도 생성
         //foreach (var kvp in roomGenerator.roomObjects)
         //{
@@ -116,6 +120,7 @@ public class MapSpawn : MonoBehaviour
         //        Debug.Log(" 복사된 복도 : " + corBlind.copyRoomObj);
         //    }
         //}
+        #endregion
 
         foreach (var kvp in roomGenerator.roomObjects)
         {
@@ -145,7 +150,9 @@ public class MapSpawn : MonoBehaviour
                     {
                         Minimap_Blind corBlind = originCor.GetComponent<Minimap_Blind>();
                         corBlind.copyRoomObj = mapCorridor;
+                        corBlind.dontSeeRoom = mapCorridor;
                         corBlind.CopyRoomBlindGet();
+                        blindList.Add(corBlind);
                     }
                 }
                 else if (roomGenerator.corridorDict.TryGetValue((neighborPos, pos), out originCors))
@@ -154,7 +161,9 @@ public class MapSpawn : MonoBehaviour
                     {
                         Minimap_Blind corBlind = originCor.GetComponent<Minimap_Blind>();
                         corBlind.copyRoomObj = mapCorridor;
+                        corBlind.dontSeeRoom = mapCorridor;
                         corBlind.CopyRoomBlindGet();
+                        blindList.Add(corBlind);    
                     }
                 }
                 else
@@ -165,25 +174,62 @@ public class MapSpawn : MonoBehaviour
         }
 
         // 3. 미니맵에 부활/판매/탈출 장소 복제
-        foreach (Vector2 pos in roomGenerator.randomPlace)
+        //foreach (Vector2 pos in roomGenerator.randomPlace)
+        //{
+        //    Vector2 baseOff = new Vector2(baseOffset.x, baseOffset.y);
+
+        //    // 실제 맵 좌표 기준으로 어떤 장소인지 확인
+        //    if (roomGenerator.placeManager.resurrection_pos == pos)
+        //    {
+        //        Instantiate(miniPlace_Resurrection, pos + baseOff, Quaternion.identity, transform);
+
+        //    }
+        //    else if (roomGenerator.placeManager.sale_pos == pos)
+        //    {
+        //        Instantiate(miniPlace_Sale, pos + baseOff, Quaternion.identity, transform);
+        //    }
+        //    else if (roomGenerator.placeManager.escape_pos == pos)
+        //    {
+        //        Instantiate(miniPlace_Escape, pos + baseOff, Quaternion.identity, transform);
+        //    }
+        //}
+
+        // 3. 미니맵에 부활/판매/탈출 장소 복제
+        foreach (GameObject originPlace in roomGenerator.randomPlaceObj)  // 오브젝트 기준
         {
-            Vector2 baseOff = new Vector2(baseOffset.x, baseOffset.y); 
+            Vector2 pos = originPlace.transform.position;
+            Vector2 baseOff = new Vector2(baseOffset.x, baseOffset.y);
+
+            GameObject minimapPlace = null;
 
             // 실제 맵 좌표 기준으로 어떤 장소인지 확인
-            if (roomGenerator.placeManager.resurrection_pos == pos)
+            if (roomGenerator.placeManager.resurrection_pos == (Vector2)originPlace.transform.position)
             {
-                Instantiate(miniPlace_Resurrection, pos + baseOff, Quaternion.identity, transform);
+                minimapPlace = Instantiate(miniPlace_Resurrection, pos + baseOff, Quaternion.identity, transform);
             }
-            else if (roomGenerator.placeManager.sale_pos == pos)
+            else if (roomGenerator.placeManager.sale_pos == (Vector2)originPlace.transform.position)
             {
-                Instantiate(miniPlace_Sale, pos + baseOff, Quaternion.identity, transform);
+                minimapPlace = Instantiate(miniPlace_Sale, pos + baseOff, Quaternion.identity, transform);
             }
-            else if (roomGenerator.placeManager.escape_pos == pos)
+            else if (roomGenerator.placeManager.escape_pos == (Vector2)originPlace.transform.position)
             {
-                Instantiate(miniPlace_Escape, pos + baseOff, Quaternion.identity, transform);
+                minimapPlace = Instantiate(miniPlace_Escape, pos + baseOff, Quaternion.identity, transform);
+            }
+
+            // Place_Player_Find 연결
+            if (minimapPlace != null)
+            {
+                Place_Player_Find finder = originPlace.GetComponentInChildren <Place_Player_Find>();
+                if (finder != null)
+                {
+                    Place_Player_Find toss = minimapPlace.GetComponentInChildren<Place_Player_Find>();
+                    finder.minimapPlace = toss.minimapPlace;
+                }
             }
         }
 
+
+        #region 구 코드
         // 4. 카메라를 맵 중심으로 이동
         //if (minimapCam != null)
         //{
@@ -211,6 +257,7 @@ public class MapSpawn : MonoBehaviour
         //    center.z = minimapCam.transform.position.z;
         //    minimapCam.transform.position = center;
         //}
+        #endregion
 
         // 4. 카메라를 맵 중심으로 이동 및 사이즈 조정
         // 1. 미니맵 전용 맵만 선택
@@ -245,6 +292,11 @@ public class MapSpawn : MonoBehaviour
             float size = Mathf.Max(mapHeight / 4f, mapWidth / 4f / aspect);
             size = Mathf.Clamp(cameraBaseSize + size + 1f, 5f, cameraMaxSize);
             minimapCam.orthographicSize = size;
+        }
+        // 방 꺼주기
+        foreach(var blind in blindList)
+        {
+            blind.RoomSetActiveFalse();
         }
 
         Debug.Log($"총 {roomGenerator.roomObjects.Count}개의 방, 복도, 장소를 미니맵에 복제했습니다.");

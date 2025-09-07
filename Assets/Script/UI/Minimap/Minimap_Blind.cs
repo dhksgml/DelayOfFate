@@ -10,7 +10,16 @@ public class Minimap_Blind : MonoBehaviour
     // 방을 가리는 블라인드
     public GameObject blindRoomObj;
 
+    // 아직 방을 안갔을 시 비활성화 해주기 위함
+    public GameObject dontSeeRoom;
+
+    // 장소 아이콘 저장용
+    public GameObject placeIcon;
+
     SpriteRenderer sp;
+
+    bool isFind = false;
+
 
 
     // 카피된 방의 블라인드 오브젝트를 가져오는 메서드
@@ -22,6 +31,11 @@ public class Minimap_Blind : MonoBehaviour
         blindRoomObj = blindCopy.blindRoomObj;
     }
 
+    public void RoomSetActiveFalse()
+    {
+        dontSeeRoom.SetActive(false);
+    }
+
     // 플레이어가 맵에 존재하면
     public void PlayerStayMap()
     {
@@ -31,7 +45,14 @@ public class Minimap_Blind : MonoBehaviour
 
             sp.color = Color.white;
 
+            isFind = true;
+
             blindRoomObj.SetActive(false);
+
+            if (isFind == true)
+            {
+                dontSeeRoom.SetActive(true);
+            }
         }
     }
 
@@ -59,6 +80,7 @@ public class Minimap_Blind : MonoBehaviour
         // 만약 플레이어가 들어와 있으면
         if (collision.CompareTag("Player"))
         {
+
             PlayerStayMap();
         }
     }

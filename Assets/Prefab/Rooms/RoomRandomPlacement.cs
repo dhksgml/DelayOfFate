@@ -46,6 +46,8 @@ public class RoomRandomPlacement : MonoBehaviour
     // 사신 소환을 위함
     public List<Vector3> randomPlace;
 
+    public List<GameObject> randomPlaceObj;
+
     private void Awake() //배열 초기화
     {
         Cost_list = new int[] { 0, 0, 0, 0, 0 }; //약값
@@ -154,6 +156,7 @@ public class RoomRandomPlacement : MonoBehaviour
             GameObject obj = Instantiate(Place_Resurrection, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
             placeManager.resurrection_pos = shuffledRooms[roomIndex].transform.position;
             randomPlace.Add(obj.transform.position);
+            randomPlaceObj.Add(obj);
             roomIndex++;
         }
 
@@ -163,6 +166,7 @@ public class RoomRandomPlacement : MonoBehaviour
             GameObject obj = Instantiate(Place_Sale, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
             placeManager.sale_pos = shuffledRooms[roomIndex].transform.position;
             randomPlace.Add(obj.transform.position);
+            randomPlaceObj.Add(obj);
             roomIndex++;
         }
 
@@ -172,6 +176,7 @@ public class RoomRandomPlacement : MonoBehaviour
             GameObject obj = Instantiate(Place_Escape, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
             placeManager.escape_pos = shuffledRooms[roomIndex].transform.position;
             randomPlace.Add(obj.transform.position);
+            randomPlaceObj.Add(obj);
             roomIndex++;
         }
     }
