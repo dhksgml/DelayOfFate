@@ -242,11 +242,11 @@ public class PlayerController : MonoBehaviour
             //HandleItemPickup();
             player_Item_Use.PickUpItem();
         }
-        else
-        {
-            //HandleItemDrop();
-            player_Item_Use.DropItem();
-        }
+        //else
+        //{
+        //    //HandleItemDrop();
+        //    player_Item_Use.DropItem();
+        //}
     }
     public void OnPickUpFinished()
     {

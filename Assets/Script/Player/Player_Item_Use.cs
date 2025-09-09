@@ -58,7 +58,7 @@ public class Player_Item_Use : MonoBehaviour
         {
             //DropItem();
             TutorialEvents.OnItemDropped?.Invoke(quickSlots[selectedSlotIndex]);
-            playercontroller.OnPickUpStart(false);
+            //playercontroller.OnPickUpStart(false);
             HandleSellAction();
         }
         else if (Input.GetKeyDown(KeyCode.E) && !playercontroller.isRecovering) // 줍기
@@ -203,6 +203,7 @@ public class Player_Item_Use : MonoBehaviour
                     Destroy(itemObject.gameObject);
                     UpdateQuickSlotUI();
                     GameEvents.CallPickupItem();
+                    playercontroller.OnPickUpStart(true);
                 }
                 // 슬롯에 다른 아이템이 있는 경우
                 else
@@ -223,6 +224,7 @@ public class Player_Item_Use : MonoBehaviour
                             Destroy(itemObject.gameObject);
                             UpdateQuickSlotUI();
                             GameEvents.CallPickupItem();
+                            playercontroller.OnPickUpStart(true);
 
                             placedInEmptySlot = true;
                             break; // 한 슬롯에만 넣고 종료
@@ -233,10 +235,12 @@ public class Player_Item_Use : MonoBehaviour
                     if (!placedInEmptySlot)
                     {
                         DropItem();
+                        playercontroller.OnPickUpStart(false);
                         quickSlots[selectedSlotIndex] = droppedItem;
                         Destroy(itemObject.gameObject);
                         UpdateQuickSlotUI();
                     }
+
                 }
 
             }
