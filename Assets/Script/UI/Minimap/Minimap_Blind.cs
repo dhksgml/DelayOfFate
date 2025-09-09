@@ -49,7 +49,7 @@ public class Minimap_Blind : MonoBehaviour
 
             blindRoomObj.SetActive(false);
 
-            if (isFind == true)
+            if (isFind == true && dontSeeRoom != null)
             {
                 dontSeeRoom.SetActive(true);
             }
