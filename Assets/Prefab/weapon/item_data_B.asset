@@ -25,7 +25,7 @@ MonoBehaviour:
   Sell_whether: 0
   Sell_immediately: 0
   isUsable: 1
-  Usage_cool_down: 1
+  Usage_cool_down: 0.75
   Charging: 0
   CoinDeviation: 0
   WeightDeviation: 0
