@@ -49,12 +49,17 @@ public class Death_Jangseung_Attack : EnemyAttack
             // 범위가 표시되고 지정한 초 뒤에 공격
             jangseungAttackTime += Time.deltaTime;
 
+            // 에니메이션 처리
+            death_Jangseung.anim.SetBool("isAttack", true);
 
-            if(jangseungAttackTime >= jangseungAttackDelay)
+
+            if (jangseungAttackTime >= jangseungAttackDelay)
             {
+
                 // 에니메이션 처리
-                death_Jangseung.anim.SetBool("isAttack", true);
-                
+                death_Jangseung.anim.SetBool("isAttack", false);
+                death_Jangseung.anim.SetBool("isAttackReal", true);
+
                 attackSprite.SetActive(true);
 
                 // 사거리 비활성화
@@ -91,6 +96,8 @@ public class Death_Jangseung_Attack : EnemyAttack
     {
         attackSprite.SetActive(false);
         enemyAttackCollider.enabled = false;
-        death_Jangseung.anim.SetBool("isAttack", false);
+
+        // 에니메이션 처리
+        death_Jangseung.anim.SetBool("isAttackReal", false);
     }
 }
