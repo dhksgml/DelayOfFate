@@ -203,15 +203,15 @@ public class MapSpawn : MonoBehaviour
             GameObject minimapPlace = null;
 
             // 실제 맵 좌표 기준으로 어떤 장소인지 확인
-            if (roomGenerator.placeManager.resurrection_pos == (Vector2)originPlace.transform.position)
+            if (roomGenerator.placeManager.resurrection_positions.Contains((Vector2)originPlace.transform.position))
             {
                 minimapPlace = Instantiate(miniPlace_Resurrection, pos + baseOff, Quaternion.identity, transform);
             }
-            else if (roomGenerator.placeManager.sale_pos == (Vector2)originPlace.transform.position)
+            else if (roomGenerator.placeManager.sale_positions.Contains((Vector2)originPlace.transform.position))
             {
                 minimapPlace = Instantiate(miniPlace_Sale, pos + baseOff, Quaternion.identity, transform);
             }
-            else if (roomGenerator.placeManager.escape_pos == (Vector2)originPlace.transform.position)
+            else if (roomGenerator.placeManager.escape_positions.Contains((Vector2)originPlace.transform.position))
             {
                 minimapPlace = Instantiate(miniPlace_Escape, pos + baseOff, Quaternion.identity, transform);
             }
