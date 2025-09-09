@@ -11207,7 +11207,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -600566131, guid: 51fc66902a0daa54a914208c397ebc9f, type: 3}
+  m_Sprite: {fileID: -322435216, guid: 51fc66902a0daa54a914208c397ebc9f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -14702,7 +14702,6 @@ GameObject:
   - component: {fileID: 1472916104697040484}
   - component: {fileID: 377669512363646275}
   - component: {fileID: 3803090890255317905}
-  - component: {fileID: 3559117096446497102}
   - component: {fileID: 7577114955931517678}
   m_Layer: 5
   m_Name: Player_UI
@@ -14808,47 +14807,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &3559117096446497102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8585446797077261984}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 923bb9a10237bf141a3a7de0bdfd4340, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponSlotImage:
-  - {fileID: 8545428382637559031}
-  - {fileID: 8345239865240161882}
-  weaponSlotBackgrounds:
-  - {fileID: 7226513036246792591}
-  - {fileID: 885737654973765947}
-  slotImages:
-  - {fileID: 5789335109966004050}
-  - {fileID: 8599801973211060958}
-  - {fileID: 5592870646851704089}
-  - {fileID: 1365106171037005587}
-  slotBackgrounds:
-  - {fileID: 7611219815136047388}
-  - {fileID: 5945477118709347010}
-  - {fileID: 8949151785150055853}
-  - {fileID: 8982069549230650770}
-  weapon_Count: []
-  weapon_name: {fileID: 0}
-  default_Item_Sprite: {fileID: 21300000, guid: 553ef37e75be1f746a740f03b04d78f5, type: 3}
-  defaultSlotSprite: {fileID: -600566131, guid: 51fc66902a0daa54a914208c397ebc9f, type: 3}
-  selectedSlotSprite: {fileID: -322435216, guid: 51fc66902a0daa54a914208c397ebc9f, type: 3}
-  Item_Name: {fileID: 8365844325690471575}
-  Item_Coin: {fileID: 8972020107526826128}
-  Use_text: {fileID: 0}
-  Discard_text: {fileID: 0}
-  Item_Weight: {fileID: 5976194067562677606}
-  playerItemUse: {fileID: 0}
-  timeText: {fileID: 8916271205752668731}
-  angleUnit: 0
 --- !u!114 &7577114955931517678
 MonoBehaviour:
   m_ObjectHideFlags: 0

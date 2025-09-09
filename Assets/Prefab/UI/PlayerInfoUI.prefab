@@ -1319,9 +1319,6 @@ MonoBehaviour:
   weaponSlotImage:
   - {fileID: 4211391688570475781}
   - {fileID: 7828219131231082377}
-  weaponSlotBackgrounds:
-  - {fileID: 152678058533596634}
-  - {fileID: 6789790774151399902}
   slotImages:
   - {fileID: 6132554383244994628}
   - {fileID: 8220281492998163912}
@@ -1568,7 +1565,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -600566131, guid: 51fc66902a0daa54a914208c397ebc9f, type: 3}
+  m_Sprite: {fileID: -322435216, guid: 51fc66902a0daa54a914208c397ebc9f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
