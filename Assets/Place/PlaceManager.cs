@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +11,12 @@ public class PlaceManager : MonoBehaviour
 
     [HideInInspector] public bool sale; // 판매
     [HideInInspector] public Vector2 sale_pos;
+
+
+    // 미니맵용
+    [HideInInspector] public List<Vector2> resurrection_positions = new();
+    [HideInInspector] public List<Vector2> sale_positions = new();
+    [HideInInspector] public List<Vector2> escape_positions = new();
 
     public void Go_to_escape()
     {
