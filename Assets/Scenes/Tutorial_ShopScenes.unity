@@ -299,9 +299,6 @@ MonoBehaviour:
   weaponSlotImage:
   - {fileID: 8545428383540509830}
   - {fileID: 8345239864950554155}
-  weaponSlotBackgrounds:
-  - {fileID: 7226513037634030078}
-  - {fileID: 885737654257838410}
   weapon_Count:
   - {fileID: 6259767436103335288}
   - {fileID: 4551814690786355930}
@@ -321,7 +318,6 @@ MonoBehaviour:
   selectedSlotSprite: {fileID: -322435216, guid: 51fc66902a0daa54a914208c397ebc9f, type: 3}
   Item_Name: {fileID: 8365844327454246118}
   Item_Coin: {fileID: 8972020109427316961}
-  Item_Weight: {fileID: 5976194066843514135}
   timeText: {fileID: 8916271204968526410}
 --- !u!114 &51276607
 MonoBehaviour:
@@ -9632,11 +9628,6 @@ MonoBehaviour:
   Smoke_Effect: {fileID: 4550187494590708576, guid: 250484679bb1e7046b6ba444e250da25, type: 3}
   SE_pos: {x: 352, y: 416}
   speech_bubble_image: {fileID: 5650985782449383545}
-  speech_bubble_sprite:
-  - {fileID: 1121846691, guid: a8fdc3abedd5f244f956bdaacc6f6dde, type: 3}
-  - {fileID: -871372146, guid: a8fdc3abedd5f244f956bdaacc6f6dde, type: 3}
-  - {fileID: 510575700, guid: a8fdc3abedd5f244f956bdaacc6f6dde, type: 3}
-  - {fileID: -1034592644, guid: a8fdc3abedd5f244f956bdaacc6f6dde, type: 3}
   speech_bubble_text: {fileID: 4451309763196153573}
 --- !u!224 &3020115528934539689
 RectTransform:
@@ -10419,9 +10410,6 @@ MonoBehaviour:
   weaponSlotImage:
   - {fileID: 8545428383540509830}
   - {fileID: 8345239864950554155}
-  weaponSlotBackgrounds:
-  - {fileID: 7226513037634030078}
-  - {fileID: 885737654257838410}
   slotImages:
   - {fileID: 5789335108131983139}
   - {fileID: 8599801973365877423}
@@ -10439,9 +10427,7 @@ MonoBehaviour:
   selectedSlotSprite: {fileID: -322435216, guid: 51fc66902a0daa54a914208c397ebc9f, type: 3}
   Item_Name: {fileID: 8365844327454246118}
   Item_Coin: {fileID: 8972020109427316961}
-  Use_text: {fileID: 0}
   Discard_text: {fileID: 0}
-  Item_Weight: {fileID: 5976194066843514135}
   playerItemUse: {fileID: 0}
   timeText: {fileID: 8916271204968526410}
   angleUnit: 0
@@ -11416,8 +11402,8 @@ RectTransform:
   - {fileID: 5395720633716841407}
   - {fileID: 41224515098808869}
   - {fileID: 6098247981152545193}
-  - {fileID: 5712020134039305071}
   - {fileID: 7028476011455114038}
+  - {fileID: 5712020134039305071}
   m_Father: {fileID: 1221797771}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}

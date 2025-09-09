@@ -29,8 +29,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stage_Scene.unity
     guid: 1783a3c4eb5d22e4e8a50b84c7b83ad5
-  - enabled: 1
-    path: Assets/Scenes/Tutorial_ShopScenes.unity
+  - enabled: 0
+    path: Assets/Scenes/Old_Tutorial_ShopScenes2.unity
     guid: ed2b7e14c559c7e4aa9493e1ba580ed8
   - enabled: 1
     path: Assets/Scenes/Tutorial_Scenes.unity
@@ -39,7 +39,7 @@ EditorBuildSettings:
     path: Assets/Scenes/New_Tutorial_Scenes.unity
     guid: 1749071a2b59e9e408febfaa893084cb
   - enabled: 1
-    path: Assets/Scenes/New_Tutorial_ShopScenes.unity
+    path: Assets/Scenes/Tutorial_ShopScenes.unity
     guid: 0902289a674db2e469d94bf52e9a3edf
   - enabled: 1
     path: Assets/Scenes/Clear_Scene.unity
