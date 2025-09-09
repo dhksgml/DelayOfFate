@@ -30,6 +30,9 @@ public class RoomRandomPlacement : MonoBehaviour
     public GameObject Place_Escape; // 탈출 장소
     public PlaceManager placeManager;
 
+
+
+
     public List<Vector2Int> roomPositions = new();
     // 수정을 위해 비활성화
     public Dictionary<Vector2Int, string> roomDirections = new();
@@ -148,31 +151,66 @@ public class RoomRandomPlacement : MonoBehaviour
 
         int roomIndex = 1;
 
+        #region 구코드
+        // 부활 장소 배치
+        //for (int i = 0; i < objectCountPerType && roomIndex < shuffledRooms.Count; i++)
+        //{
+        //    GameObject obj = Instantiate(Place_Resurrection, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
+        //    placeManager.resurrection_pos = shuffledRooms[roomIndex].transform.position;
+        //    randomPlace.Add(obj.transform.position);
+        //    randomPlaceObj.Add(obj);
+        //    roomIndex++;
+        //}
+
+        //// 판매 장소 배치
+        //for (int i = 0; i < objectCountPerType && roomIndex < shuffledRooms.Count; i++)
+        //{
+        //    GameObject obj = Instantiate(Place_Sale, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
+        //    placeManager.sale_pos = shuffledRooms[roomIndex].transform.position;
+        //    randomPlace.Add(obj.transform.position);
+        //    randomPlaceObj.Add(obj);
+        //    roomIndex++;
+        //}
+
+        //// 탈출 장소 배치
+        //for (int i = 0; i < objectCountPerType && roomIndex < shuffledRooms.Count; i++)
+        //{
+        //    GameObject obj = Instantiate(Place_Escape, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
+        //    placeManager.escape_pos = shuffledRooms[roomIndex].transform.position;
+        //    randomPlace.Add(obj.transform.position);
+        //    randomPlaceObj.Add(obj);
+        //    roomIndex++;
+        //}
+        #endregion
+
         // 부활 장소 배치
         for (int i = 0; i < objectCountPerType && roomIndex < shuffledRooms.Count; i++)
         {
             GameObject obj = Instantiate(Place_Resurrection, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
-            placeManager.resurrection_pos = shuffledRooms[roomIndex].transform.position;
+
+            // 리스트에 저장
+            placeManager.resurrection_positions.Add(shuffledRooms[roomIndex].transform.position);
+
             randomPlace.Add(obj.transform.position);
             randomPlaceObj.Add(obj);
             roomIndex++;
         }
 
-        // 판매 장소 배치
+        // 판매 장소
         for (int i = 0; i < objectCountPerType && roomIndex < shuffledRooms.Count; i++)
         {
             GameObject obj = Instantiate(Place_Sale, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
-            placeManager.sale_pos = shuffledRooms[roomIndex].transform.position;
+            placeManager.sale_positions.Add(shuffledRooms[roomIndex].transform.position);
             randomPlace.Add(obj.transform.position);
             randomPlaceObj.Add(obj);
             roomIndex++;
         }
 
-        // 탈출 장소 배치
+        // 탈출 장소
         for (int i = 0; i < objectCountPerType && roomIndex < shuffledRooms.Count; i++)
         {
             GameObject obj = Instantiate(Place_Escape, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
-            placeManager.escape_pos = shuffledRooms[roomIndex].transform.position;
+            placeManager.escape_positions.Add(shuffledRooms[roomIndex].transform.position);
             randomPlace.Add(obj.transform.position);
             randomPlaceObj.Add(obj);
             roomIndex++;
