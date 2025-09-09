@@ -12,11 +12,6 @@ public class SpawnManager : MonoBehaviour
 	private List<Transform> enemySpawnPoints = new List<Transform>();
 	private List<Transform> itemSpawnPoints = new List<Transform>();
 
-	void Start()
-	{
-		//SpawnWave_ByPattern(GameManager.Instance.Day - 1);
-	}
-
 	public List<List<int>> Wave_Data(int day)
 	{
 		// 0: 어둑쥐(21), 1: 처녀귀신(65), 2: 음양(72), 3: 분열귀(100), 4: 약탈귀(50),
@@ -77,7 +72,6 @@ public class SpawnManager : MonoBehaviour
 
 		List<List<List<int>>> pool = wavePoolByDay[day];
 		int index = Random.Range(0, pool.Count);
-		Debug.Log($"[SpawnWave_ByPattern] Day {day + 1} - Selected Pattern Index: {index}");
 		return pool[index];
 	}
 
@@ -88,6 +82,7 @@ public class SpawnManager : MonoBehaviour
 
 		foreach (GameObject obj in GameObject.FindGameObjectsWithTag("EnemyPoint"))
 		{
+			print("스폰직전찾음");
 			if (obj.name.Contains("EnemyPoint"))
 			{
 				enemySpawnPoints.Add(obj.transform);
@@ -125,7 +120,6 @@ public class SpawnManager : MonoBehaviour
 				int index = Random.Range(0, enemySpawnPoints.Count);
 				Transform spawnPoint = enemySpawnPoints[index];
 				enemySpawnPoints.RemoveAt(index);
-
 				GameObject enemyObj = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
 				Enemy enemyScript = enemyObj.GetComponentInChildren<Enemy>();
 				if (enemyScript == null || enemyScript.enemyData == null) continue;
@@ -183,21 +177,21 @@ public class SpawnManager : MonoBehaviour
 		int coinRemain = totalValPoint /*- usedCoinTotal*/;
 		List<ItemData> validItems = item_date.Where(i => i != null).ToList();
 
-		Debug.Log($"[아이템 소환] 전체 포인트: {totalValPoint}, 몬스터 사용 포인트: {usedCoinTotal}, 남은 포인트: {coinRemain}");
-		Debug.Log($"[아이템 소환] 사용 가능한 아이템 개수: {validItems.Count}");
+		//Debug.Log($"[아이템 소환] 전체 포인트: {totalValPoint}, 몬스터 사용 포인트: {usedCoinTotal}, 남은 포인트: {coinRemain}");
+		//Debug.Log($"[아이템 소환] 사용 가능한 아이템 개수: {validItems.Count}");
 		if (validItems.Count == 0) return;
 
 		int minItemCoin = validItems.Min(i => i.Coin);
-		Debug.Log($"[아이템 소환] 가장 저렴한 아이템 포인트: {minItemCoin}");
+		//Debug.Log($"[아이템 소환] 가장 저렴한 아이템 포인트: {minItemCoin}");
 
 		while (coinRemain >= minItemCoin && itemSpawnPoints.Count > 0)
 		{
 			List<ItemData> spawnables = validItems.FindAll(i => i.Coin <= coinRemain);
-			Debug.Log($"[아이템 소환] 현재 남은 포인트: {coinRemain}, 생성 가능한 아이템 수: {spawnables.Count}, 남은 스폰 지점 수: {itemSpawnPoints.Count}");
+			//Debug.Log($"[아이템 소환] 현재 남은 포인트: {coinRemain}, 생성 가능한 아이템 수: {spawnables.Count}, 남은 스폰 지점 수: {itemSpawnPoints.Count}");
 
 			if (spawnables.Count == 0)
 			{
-				Debug.Log("[아이템 소환] 남은 포인트로 생성 가능한 아이템이 없습니다.");
+				//Debug.Log("[아이템 소환] 남은 포인트로 생성 가능한 아이템이 없습니다.");
 				break;
 			}
 
@@ -209,7 +203,7 @@ public class SpawnManager : MonoBehaviour
 			GameObject itemObj = Instantiate(itemPrefab, spawnPoint.position, Quaternion.identity);
 			ItemObject itemObjComp = itemObj.GetComponentInChildren<ItemObject>();
 
-			Debug.Log($"[아이템 소환] 아이템 생성: {randomItem.name}, 위치: {spawnPoint.position}, 소모 포인트: {randomItem.Coin}");
+			//Debug.Log($"[아이템 소환] 아이템 생성: {randomItem.name}, 위치: {spawnPoint.position}, 소모 포인트: {randomItem.Coin}");
 
 			if (itemObjComp != null)
 			{
@@ -218,7 +212,7 @@ public class SpawnManager : MonoBehaviour
 			}
 			else
 			{
-				Debug.LogWarning("[아이템 소환] 프리팹에 ItemObject 컴포넌트가 없습니다.");
+				//Debug.LogWarning("[아이템 소환] 프리팹에 ItemObject 컴포넌트가 없습니다.");
 			}
 
 			coinRemain -= randomItem.Coin;

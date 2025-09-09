@@ -10,18 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
-  m_Name: R_Tile
+  m_Name: R_Tile_2
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: -933704475, guid: a81ddb9db58a04b4aa02360f30ae9826, type: 3}
+  m_DefaultSprite: {fileID: -813855551, guid: 687b7791543f78e4a81c155ed831a8c3, type: 3}
   m_DefaultGameObject: {fileID: 0}
   m_DefaultColliderType: 1
   m_TilingRules:
   - m_Id: 0
     m_Sprites:
-    - {fileID: -933704475, guid: a81ddb9db58a04b4aa02360f30ae9826, type: 3}
-    - {fileID: 245018793, guid: a81ddb9db58a04b4aa02360f30ae9826, type: 3}
-    - {fileID: 1494805226, guid: a81ddb9db58a04b4aa02360f30ae9826, type: 3}
-    - {fileID: -256824090, guid: a81ddb9db58a04b4aa02360f30ae9826, type: 3}
+    - {fileID: 738269901, guid: 687b7791543f78e4a81c155ed831a8c3, type: 3}
+    - {fileID: 1912386699, guid: 687b7791543f78e4a81c155ed831a8c3, type: 3}
+    - {fileID: 1625609616, guid: 687b7791543f78e4a81c155ed831a8c3, type: 3}
+    - {fileID: 1081034509, guid: 687b7791543f78e4a81c155ed831a8c3, type: 3}
+    - {fileID: 1298220404, guid: 687b7791543f78e4a81c155ed831a8c3, type: 3}
+    - {fileID: 1363388541, guid: 687b7791543f78e4a81c155ed831a8c3, type: 3}
+    - {fileID: -1253893248, guid: 687b7791543f78e4a81c155ed831a8c3, type: 3}
+    - {fileID: -1700177838, guid: 687b7791543f78e4a81c155ed831a8c3, type: 3}
+    - {fileID: -813855551, guid: 687b7791543f78e4a81c155ed831a8c3, type: 3}
     m_GameObject: {fileID: 0}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1

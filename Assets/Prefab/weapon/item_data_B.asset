@@ -16,7 +16,6 @@ MonoBehaviour:
   itemType: 1
   itemName: "\uBC29\uB9DD\uC774"
   InGameSprite: {fileID: 21300000, guid: e6f99322bf5d9584eadac3f6c781a803, type: 3}
-  icon: {fileID: 21300000, guid: e6f99322bf5d9584eadac3f6c781a803, type: 3}
   spendSPAmount: 15
   Coin: 0
   Weight: 35
@@ -26,7 +25,7 @@ MonoBehaviour:
   Sell_whether: 0
   Sell_immediately: 0
   isUsable: 1
-  Usage_cool_down: 0.5
+  Usage_cool_down: 0.75
   Charging: 0
   CoinDeviation: 0
   WeightDeviation: 0

@@ -7,7 +7,7 @@ using Unity.VisualScripting;
 public class RoomRandomPlacement : MonoBehaviour
 {
     public Tilemap groundTilemap;
-    public TileBase floorTiles;
+    public TileBase[] floorTiles;
 
     public int width;
     public int height;
@@ -66,9 +66,8 @@ public class RoomRandomPlacement : MonoBehaviour
         Room_re_data(); // 현재 날짜에 맞게 값 재조정
         GenerateRooms();
         FillTilemapWithFloorTiles(); //타일맵 먼저 깔기
-        spawnManager.SpawnWave_ByPattern(GameManager.Instance.Day - 1); //요소들 스폰
-        MovePlayerToRandomRoom(); // 추가
-        
+        MovePlayerToRandomRoom(); // 추가 플레이어 스폰 후
+        spawnManager.SpawnWave_ByPattern(GameManager.Instance.Day - 1); //요소들 스폰 적, 아이템 스폰
     }
     void Room_re_data()
     {
@@ -89,27 +88,7 @@ public class RoomRandomPlacement : MonoBehaviour
         int error = value_error[Day];
         spawnManager.totalValPoint += Random.Range(-error, +error+1);
     }
-    // 수정을 위해 비활성화
-    //void GenerateRooms()
-    //{
-    //    while (true)
-    //    {
-    //        TryRandomRoomPositions();
-    //        FilterLargestConnectedComponent();
 
-    //        while (roomPositions.Count < roomCount)
-    //        {
-    //            TryExpandConnectedComponent();
-    //        }
-
-    //        if (roomPositions.Count == roomCount)
-    //            break;
-    //    }
-
-    //    GenerateRoomData();
-    //    PlaceRooms();
-    //    ConnectCorridors();
-    //}
     void GenerateRooms()
     {
         while (true)
@@ -146,7 +125,26 @@ public class RoomRandomPlacement : MonoBehaviour
         var shuffledRooms = roomObjects.Values.OrderBy(x => Random.value).ToList();
 
         // 플레이어 위치 (첫 번째 방)
+        // 플레이어 이동
         player.transform.position = shuffledRooms[0].transform.position;
+
+        // 모든 EnemyPoint 찾기
+        GameObject[] enemyPoints = GameObject.FindGameObjectsWithTag("EnemyPoint");
+        
+        foreach (GameObject point in enemyPoints)
+        {
+            print("찾음");
+            // 플레이어와의 거리 계산
+            float distance = Vector2.Distance(player.transform.position, point.transform.position);
+
+            if (distance <= 32f)
+            {
+                print("제거 시도");
+                point.tag = "Untagged"; // 제거 직전 태그를 변경해서 스폰쪽에서 못찾게 만듬
+                // 반경 32 안 -> 제거
+                Destroy(point);
+            }
+        }
 
         int roomIndex = 1;
 
@@ -510,7 +508,31 @@ public class RoomRandomPlacement : MonoBehaviour
             return;
         }
 
-        TileBase chosenTile = floorTiles;
+        int[,] dayToIndex = new int[,]//각 일차별 맞는 타일들 2일차 마다 타일이 변경되야함 (원래는 장소를 선택하는 느낌을 주고 싶긴한데... 일단 이렇게)
+        {
+            {1, 0},
+            {2, 0},
+            {3, 1},
+            {4, 1},
+            {5, 1},
+            {6, 1},
+            {7, 1}
+        };//(지금은 1만 있는데 2,3 도 있어야맞음)
+
+        int day = GameManager.Instance.Day;
+        int index = 0;
+
+        for (int i = 0; i < dayToIndex.GetLength(0); i++)
+        {
+            if (dayToIndex[i, 0] == day)
+            {
+                index = dayToIndex[i, 1];
+                break;
+            }
+        }
+
+        TileBase chosenTile = floorTiles[index]; //타일 설정 완료
+
 
         foreach (var kvp in roomObjects)
         {

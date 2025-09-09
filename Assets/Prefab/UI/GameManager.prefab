@@ -48,10 +48,8 @@ MonoBehaviour:
   playerData:
     maxHp: 100
     maxMp: 100
-    maxSp: 100
     currentHp: 100
     currentMp: 100
-    currentSp: 100
     currentExtraHp: 0
     extraHp: 0
     flashLightLevel: 1
@@ -64,8 +62,10 @@ MonoBehaviour:
     isFindNearestItem: 0
   isTutorial: 0
   Day: 1
-  Gold: 100
-  Soul: 250
+  Gold: 250
+  Soul: 100
+  One_Time_Gold: 0
+  One_Time_Soul: 0
   N_Day_Add_Soul: 0
   N_Day_current_Soul: 0
   N_Day_Time: 0
@@ -78,6 +78,9 @@ MonoBehaviour:
   SlotsData:
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  WeaponData:
   - {fileID: 0}
   - {fileID: 0}
 --- !u!114 &2930368111101819406
