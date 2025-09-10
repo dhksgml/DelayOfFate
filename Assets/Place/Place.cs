@@ -14,16 +14,19 @@ public class Place : MonoBehaviour
 	}
 
 	[SerializeField] private Place_enum place_enum;
-	public GameObject key_UI_iamge;
-	private int registered; // 횟수 제한(패시브 없으면 1회)
+    public GameObject key_UI_iamge;
+	public Sprite[] sprite_ch_spr;//장소가 변경했을때의 이미지 장소마다 집적 다르게 변경하기
+    private int registered; // 횟수 제한(패시브 없으면 1회)
 
 	public GameObject warningText; // 탈출 실패 경고 텍스트 (비활성 상태)
 
 	private Coroutine warningCoroutine;
+	private SpriteRenderer spriteRenderer;
 
 	private void Start()
 	{
 		placeManager = FindObjectOfType<PlaceManager>();
+		spriteRenderer = GetComponent<SpriteRenderer>();
 		registered = 1;
 		if (warningText != null) warningText.SetActive(false);
 		if (key_UI_iamge != null) key_UI_iamge.gameObject.SetActive(false);
@@ -38,6 +41,16 @@ public class Place : MonoBehaviour
 				if (ui_on) Interaction(); //모든 장소는 1회용
 			}
 		}
+		if (place_enum == Place_enum.resurrection)//부활장소고
+        {
+			if (registered == 0)//부활찬스도 썻고
+            {
+				if (placeManager.resurrection == false)//부활 한것도 확인 되었으면 
+                {
+					spriteRenderer.sprite = sprite_ch_spr[1]; //스프라이트 변경
+				}
+			}
+        }
 	}
 
     void OnTriggerEnter2D(Collider2D other)
@@ -89,6 +102,7 @@ public class Place : MonoBehaviour
 	private void RegisterResurrection()
 	{
 		registered -= 1;
+		spriteRenderer.sprite = sprite_ch_spr[0];
 		SoundManager.Instance?.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_resurrection_register"));
 		placeManager.resurrection = true;
 	}
@@ -122,6 +136,7 @@ public class Place : MonoBehaviour
 			if (warningText != null) warningCoroutine = StartCoroutine(ShowWarningText());
 			Player_Item_Use player_Item_Use = FindObjectOfType<Player_Item_Use>();
 			registered -= 1;
+			spriteRenderer.sprite = sprite_ch_spr[0];
 			player_Item_Use.Sale("all",0);
 		}
 		if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_all_sell"));

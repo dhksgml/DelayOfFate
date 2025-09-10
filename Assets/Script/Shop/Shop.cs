@@ -100,7 +100,7 @@ public class Shop : MonoBehaviour
             }
             else
             {
-                weaponSlots_text(i, GameManager.Instance.Day * 100, "Gold");
+                weaponSlots_text(i, 30 + (GameManager.Instance.Day * 30), "Gold");
             }
         }
 
@@ -190,11 +190,11 @@ public class Shop : MonoBehaviour
         {
             if (PassiveItemManager.Instance.HasEffect("Soul_Add_3_2")) //다다익선 보유시
             {
-                weaponSlots_text(i, 0, "Soul");
+                weaponSlots_text(i, 0, "Gold");
             }
             else
             {
-                weaponSlots_text(i, GameManager.Instance.Day * 100, "Soul");
+                weaponSlots_text(i, 30 + (GameManager.Instance.Day * 30), "Gold");
             }
         }
     }

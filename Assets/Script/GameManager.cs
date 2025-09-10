@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     private bool initialized; // �÷��̾� ���� �޾ƿ��� ��
     private void Awake()
     {
-        Cost_list = new float[] { 500, 1000, 1500, 2250, 3000 }; //약값
+        Cost_list = new float[] { 500, 1000, 1500, 2000, 2500 }; //약값
         // ���� ���� �ڽŰ� ���� Ÿ���� ������Ʈ�� 2�� �̻� �ִ� ��� ��� ����
         if (Instance == null)
         {
@@ -104,8 +104,8 @@ public class GameManager : MonoBehaviour
         playerData.isFindNearestItem = false;
 
         Day = 1;
-        Gold = 100;
-        Soul = 250;
+        Gold = 250;
+        Soul = 100;
         N_Day_Add_Soul = 0;
         N_Day_current_Soul = 0;
         N_Day_Time = 0;

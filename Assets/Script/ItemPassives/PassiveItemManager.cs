@@ -121,7 +121,7 @@ public class PassiveItemManager : MonoBehaviour
     {
         switch ($"{group}_{number}")
         {
-            case "1_1": return "천하장사";
+            //case "1_1": return "천하장사";
             case "1_2": return "정정당당";
             //case "2_1": return "문전박대";
             //case "2_2": return "백발백중";
@@ -165,7 +165,7 @@ public class PassiveItemManager : MonoBehaviour
         {
             //<sprite=8> 
             //<sprite=9> 
-            case "1_1": return "물건의 무게로 인한 이동속도\n감속이 제거됨";
+            //case "1_1": return "물건의 무게로 인한 이동속도\n감속이 제거됨";
             case "1_2": return "악귀에게 주는 피해가 10할 증가\n악귀의 약점을 공격 할 수 없음";
             //case "2_1": return "방망이의 공격 범위가 10할 증가\n방망이가 즉시 시전 방망이의 피해량이 5할 증가";
             //case "2_2": return "부적의 추격 범위가 20할 증가\n부적의 피해량이 5할 증가";
@@ -206,7 +206,7 @@ public class PassiveItemManager : MonoBehaviour
     {
         switch ($"{group}_{number}")
         {
-            case "1_1": return 1;
+            //case "1_1": return 1;
             case "1_2": return 3;
             //case "2_1": return 1;
             //case "2_2": return 1;
