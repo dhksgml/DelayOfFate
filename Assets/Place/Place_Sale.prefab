@@ -180,6 +180,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   place_enum: 2
   key_UI_iamge: {fileID: 2612968922515381066}
+  sprite_ch_spr:
+  - {fileID: 21300000, guid: 3c7e67c7422896943aeed9b3784629e8, type: 3}
   warningText: {fileID: 85418133830509673}
 --- !u!61 &7407756221932529927
 BoxCollider2D:

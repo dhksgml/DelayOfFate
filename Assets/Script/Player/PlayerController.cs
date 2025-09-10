@@ -535,14 +535,14 @@ public class PlayerController : MonoBehaviour
         Vector3 moveDir = new Vector3(x, y, 0).normalized;
         if (moveDir != Vector3.zero && CanMove(moveDir))
         {
-            UpdateMoveSpeedByWeight(); // �߰�
+            //UpdateMoveSpeedByWeight(); // �߰�
             transform.position += moveDir * currentMoveSpeed * speedMultiplier * Time.fixedDeltaTime;
 
             if (nearestItemFinder != null && GameManager.Instance != null && GameManager.Instance.playerData.isFindNearestItem)
                 nearestItemFinder.FindNearestItem();
         }
     }
-    void UpdateMoveSpeedByWeight()
+    /*void UpdateMoveSpeedByWeight()
     {
         if (player_Item_Use != null)
         {
@@ -555,7 +555,7 @@ public class PlayerController : MonoBehaviour
             }
             currentMoveSpeed = Mathf.Max(currentMoveSpeed - penalty, minMoveSpeed);
         }
-    }
+    }*/
     void PlayerAnimation()
     {
         Vector2 direction;
@@ -799,14 +799,14 @@ public class PlayerController : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
 
-        if (placeManager.resurrection) // ��Ȱ�� �����ϴٸ�
+        if (placeManager.resurrection) // 부활
         {
             Revive();
-            placeManager.resurrection = false;
+            placeManager.Resurrection();
         }
         else
         {
-            placeManager.Go_to_escape(); //��� �� �� �̵�
+            placeManager.Go_to_escape(); //로비로
         }
     }
 
