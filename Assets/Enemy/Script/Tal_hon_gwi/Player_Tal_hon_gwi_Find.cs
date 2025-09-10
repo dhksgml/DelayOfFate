@@ -14,7 +14,7 @@ public class Player_Tal_hon_gwi_Find : MonoBehaviour
 
                 if (talhongwi != null)
                 {
-                    if (Input.GetKeyUp(KeyCode.E) || Input.GetKey(KeyCode.E))
+                    if (Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.F))
                     {
                         talhongwi.isSeek = true;
                     }

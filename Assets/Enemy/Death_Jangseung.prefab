@@ -328,6 +328,7 @@ MonoBehaviour:
   anim: {fileID: 178935967364608311}
   enemyCorpse: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
   enemyCorpseData: {fileID: 11400000, guid: 160f2d3033bb9524fa884c730fd94f73, type: 2}
+  uiCanvas: {fileID: 0}
   Sale_Effect: {fileID: 8897711660315164129, guid: 688a73bcb2a05e64fb2f70898fc84aa7, type: 3}
   enemySelf: {fileID: 8018078762037570581}
   enemyColl: {fileID: 6247268231170617652}
@@ -459,7 +460,7 @@ GameObject:
   - component: {fileID: 5601182011757851058}
   - component: {fileID: 3006386731923588659}
   - component: {fileID: 5460545671364773488}
-  m_Layer: 31
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -683,5 +684,5 @@ MonoBehaviour:
     duoksini: {fileID: 0}
     duoksini_Attack: {fileID: 0}
     eo_dook_jwi: {fileID: 0}
-    playerOrigin_Light_Intensity: 0
+    playerTrs: {x: 0, y: 0, z: 0}
   landSharkAttackTime: 0

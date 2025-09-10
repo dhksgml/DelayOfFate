@@ -192,23 +192,28 @@ public class PlayerInfoUI : MonoBehaviour
         else
             add_coin_text.text = text;
 
-        showRoutine = StartCoroutine(ShowAndFade());
+        showRoutine = StartCoroutine(ShowAndFade(soul));
     }
 
 
-    private IEnumerator ShowAndFade()
+    private IEnumerator ShowAndFade(bool soul)
     {
         //bool isShowing = true;
-        add_coin_text.alpha = 1f; // 순간적으로 보이기
-        add_soul_text.alpha = 1f; // 순간적으로 보이기
+        if(soul)
+            add_soul_text.alpha = 1f; // 순간적으로 보이기
+        else
+            add_coin_text.alpha = 1f; // 순간적으로 보이기
+        
         yield return new WaitForSeconds(showDuration);
 
         float elapsed = 0f;
         while (elapsed < fadeDuration)
         {
             elapsed += Time.deltaTime;
-            add_coin_text.alpha = Mathf.Lerp(1f, 0f, elapsed / fadeDuration);
-            add_soul_text.alpha = Mathf.Lerp(1f, 0f, elapsed / fadeDuration);
+            if(soul)
+                add_soul_text.alpha = Mathf.Lerp(1f, 0f, elapsed / fadeDuration);
+            else
+                add_coin_text.alpha = Mathf.Lerp(1f, 0f, elapsed / fadeDuration);
             yield return null;
         }
 
