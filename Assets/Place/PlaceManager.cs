@@ -17,6 +17,10 @@ public class PlaceManager : MonoBehaviour
     [HideInInspector] public List<Vector2> resurrection_positions = new();
     [HideInInspector] public List<Vector2> sale_positions = new();
     [HideInInspector] public List<Vector2> escape_positions = new();
+    public void Resurrection()
+    {
+        resurrection = false;
+    }
 
     public void Go_to_escape()
     {

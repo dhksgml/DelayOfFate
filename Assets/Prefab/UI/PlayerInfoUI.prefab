@@ -1229,9 +1229,9 @@ RectTransform:
   - {fileID: 7758832371868684107}
   - {fileID: 6460128486247341557}
   - {fileID: 5379158224370558601}
-  - {fileID: 4753237922910792228}
   - {fileID: 5118511674228985132}
   - {fileID: 7154469578868345624}
+  - {fileID: 4753237922910792228}
   - {fileID: 4472584110002748328}
   - {fileID: 2895603780845374714}
   m_Father: {fileID: 1103574006069205676}
@@ -1338,9 +1338,7 @@ MonoBehaviour:
   selectedSlotSprite: {fileID: -322435216, guid: 51fc66902a0daa54a914208c397ebc9f, type: 3}
   Item_Name: {fileID: 4269257497122503051}
   Item_Coin: {fileID: 6314072699754153807}
-  Use_text: {fileID: 2824680689328550481}
   Discard_text: {fileID: 2817239971399408139}
-  Item_Weight: {fileID: 8289471610995506994}
   playerItemUse: {fileID: 0}
   timeText: {fileID: 8314106459287313551}
   angleUnit: 0
@@ -3738,6 +3736,14 @@ PrefabInstance:
     - target: {fileID: 4032514674834385239, guid: f35965f6d31045d4a8341791bcb88f9d, type: 3}
       propertyPath: m_Name
       value: mouse_text
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496124339999630562, guid: f35965f6d31045d4a8341791bcb88f9d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496124339999630562, guid: f35965f6d31045d4a8341791bcb88f9d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 5496124339999630562, guid: f35965f6d31045d4a8341791bcb88f9d, type: 3}
       propertyPath: m_LocalPosition.x

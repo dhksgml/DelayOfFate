@@ -74,6 +74,8 @@ MonoBehaviour:
   - 500
   - 1000
   - 2000
+  - 2000
+  - 2000
   killcount: 0
   SlotsData:
   - {fileID: 0}

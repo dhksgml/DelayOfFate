@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 687b7791543f78e4a81c155ed831a8c3
+guid: 66da1cac3e201384a992d500fb0b7c96
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,7 +97,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sprite31_strip9_0
+      name: sprite225_strip9_0
       rect:
         serializedVersion: 2
         x: 0
@@ -111,14 +111,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d5845227bb07b5845a3f9d98e71e9f9e
-      internalID: 738269901
+      spriteID: b7fbdcdb6ae28a8429727ec7040cd9cf
+      internalID: -1858073429
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite31_strip9_1
+      name: sprite225_strip9_1
       rect:
         serializedVersion: 2
         x: 128
@@ -132,14 +132,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2629d09ef7c4b594c9b744d32368e026
-      internalID: 1912386699
+      spriteID: a9c774a3fbecde24c84f51dd47599623
+      internalID: -1897765323
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite31_strip9_2
+      name: sprite225_strip9_2
       rect:
         serializedVersion: 2
         x: 256
@@ -153,14 +153,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 04a9a0cc5187357409feae17d5ed0440
-      internalID: 1625609616
+      spriteID: e133e57393dc98845b12e4aa9a24469e
+      internalID: 417762919
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite31_strip9_3
+      name: sprite225_strip9_3
       rect:
         serializedVersion: 2
         x: 384
@@ -174,14 +174,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e647069994c0fb4489b5e42124bb0253
-      internalID: 1081034509
+      spriteID: 31a93e96bac32f24289365be564cd115
+      internalID: 1402436275
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite31_strip9_4
+      name: sprite225_strip9_4
       rect:
         serializedVersion: 2
         x: 512
@@ -195,14 +195,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 88aedfb797bd3994087ff8a8d41b4466
-      internalID: 1298220404
+      spriteID: 047b7747f7415ad46abf318c91ae98b1
+      internalID: -1539947896
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite31_strip9_5
+      name: sprite225_strip9_5
       rect:
         serializedVersion: 2
         x: 640
@@ -216,14 +216,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6def6e1ea3021d14fbde71222d157a08
-      internalID: 1363388541
+      spriteID: 5e99fd06cb6261b47b2a49c3d2c324cb
+      internalID: -1656294821
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite31_strip9_6
+      name: sprite225_strip9_6
       rect:
         serializedVersion: 2
         x: 768
@@ -237,14 +237,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9c63bfbbebc3c6d4ab819eaa135430d6
-      internalID: -1253893248
+      spriteID: d1b3136030cfd2a459160173e11d6fd6
+      internalID: 1587195493
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite31_strip9_7
+      name: sprite225_strip9_7
       rect:
         serializedVersion: 2
         x: 896
@@ -258,14 +258,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 06bb039949ad446409c8135f6bf98ad0
-      internalID: -1700177838
+      spriteID: 0da6002fcc892844c8b745846f601e0e
+      internalID: -1399318442
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite31_strip9_8
+      name: sprite225_strip9_8
       rect:
         serializedVersion: 2
         x: 1024
@@ -279,8 +279,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7dd217e9a373d82449a557d5431b0dac
-      internalID: -813855551
+      spriteID: 63b3df1977b0b674db637f06a082cdfb
+      internalID: 114370146
       vertices: []
       indices: 
       edges: []
@@ -296,15 +296,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      sprite31_strip9_0: 738269901
-      sprite31_strip9_1: 1912386699
-      sprite31_strip9_2: 1625609616
-      sprite31_strip9_3: 1081034509
-      sprite31_strip9_4: 1298220404
-      sprite31_strip9_5: 1363388541
-      sprite31_strip9_6: -1253893248
-      sprite31_strip9_7: -1700177838
-      sprite31_strip9_8: -813855551
+      sprite225_strip9_0: -1858073429
+      sprite225_strip9_1: -1897765323
+      sprite225_strip9_2: 417762919
+      sprite225_strip9_3: 1402436275
+      sprite225_strip9_4: -1539947896
+      sprite225_strip9_5: -1656294821
+      sprite225_strip9_6: 1587195493
+      sprite225_strip9_7: -1399318442
+      sprite225_strip9_8: 114370146
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

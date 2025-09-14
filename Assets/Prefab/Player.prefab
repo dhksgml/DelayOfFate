@@ -137,7 +137,7 @@ MonoBehaviour:
   m_ApplyToSortingLayers: e9503d0800000000
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
-  m_LightOrder: 30
+  m_LightOrder: 31
   m_AlphaBlendOnOverlap: 0
   m_OverlapOperation: 1
   m_NormalMapDistance: 3
@@ -807,7 +807,6 @@ MonoBehaviour:
   flashLightObject: {fileID: 5451118422819145829}
   lightCircleObject: {fileID: 2122436353}
   flashLightDistance: 1
-  isUseItem: 1
   Player_Usage_cu_cool_down: 0
   walkThreshold: 1
   currentState: 0
@@ -845,7 +844,7 @@ Animator:
   m_GameObject: {fileID: 5401896716427406278}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c1a2962add2a0c149968684ecd08f136, type: 2}
+  m_Controller: {fileID: 9100000, guid: 22527adeae732044f8ba28d9b1fca0ff, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -905,7 +904,7 @@ MonoBehaviour:
   - {x: -0.05387208, y: -0.22353303, z: 0}
   m_ShapePathHash: -1562121249
   m_Mesh: {fileID: 0}
-  m_InstanceId: -283064
+  m_InstanceId: 103246
   m_LocalBounds:
     m_Center: {x: 0.0002822429, y: -0.064456046, z: 0}
     m_Extent: {x: 0.114839226, y: 0.39820114, z: 0}
@@ -1027,7 +1026,7 @@ MonoBehaviour:
   m_ApplyToSortingLayers: 00000000
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
-  m_LightOrder: 30
+  m_LightOrder: 31
   m_AlphaBlendOnOverlap: 0
   m_OverlapOperation: 1
   m_NormalMapDistance: 3
@@ -1388,7 +1387,7 @@ MonoBehaviour:
   m_ApplyToSortingLayers: e9503d0800000000
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
-  m_LightOrder: 30
+  m_LightOrder: 31
   m_AlphaBlendOnOverlap: 0
   m_OverlapOperation: 1
   m_NormalMapDistance: 3
