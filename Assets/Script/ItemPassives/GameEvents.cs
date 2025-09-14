@@ -20,4 +20,7 @@ public static class GameEvents
 
     public static event Action OnBuyWeapon;
     public static void CallBuyWeapon() => OnBuyWeapon?.Invoke();
+
+    public static event Action<Attack_sc.AttackType> OnUseItem;
+    public static void CallUseItem(Attack_sc.AttackType type) => OnUseItem?.Invoke(type);
 }
