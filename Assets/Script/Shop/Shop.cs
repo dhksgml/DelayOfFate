@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using System.Collections;
@@ -19,29 +19,31 @@ public class Shop : MonoBehaviour
 
     private List<string> soulNames = new List<string>();
     private List<int> soulPrices = new List<int>();
-    private bool[] soulPurchased = new bool[4]; // ¿µÈ¥ 4°³ ±¸¸Å ¿©ºÎ
+    private bool[] soulPurchased = new bool[4]; // ì˜í˜¼ 4ê°œ êµ¬ë§¤ ì—¬ë¶€
 
     private List<string> allSoulIds = new List<string>();
 
-    public Image[] soulIcons; // UI¿¡ º¸¿©ÁÙ ¾ÆÀÌÄÜ 4°³
+    public Image[] soulIcons; // UIì— ë³´ì—¬ì¤„ ì•„ì´ì½˜ 4ê°œ
 
-    public TMP_Text[] weaponSlots; // »óÇ° ¸ñ·Ïµé ¹«±â, ¿µÈ¥, ÃÊ·Õ
-    public ItemData[] weaponData; // ¹«±â µ¥ÀÌÅÍ
-    public GameObject ch_soul_gold_bt;//±³È¯ ¹öÆ° (ºñÈ°¼ºÈ­ ¿ë)
-    public GameObject ch_gold_soul_bt;//±³È¯ ¹öÆ° (ºñÈ°¼ºÈ­ ¿ë)
-    public GameObject Smoke_Effect; //´ã¹è¿¬±â ÀÌÆåÆ®
-    public Vector2 SE_pos;//´ã¹è¿¬±â ÁÂÇ¥
-    public Image speech_bubble_image;//¸»Ç³¼± ÀÌ¹ÌÁö
-    //public Sprite[] speech_bubble_sprite;//¸»Ç³¼± ÀÌ¹ÌÁö
-    public TMP_Text speech_bubble_text;//¸»Ç³¼± ÅØ½ºÆ®
+    public TMP_Text[] weaponSlots; // ìƒí’ˆ ëª©ë¡ë“¤ ë¬´ê¸°, ì˜í˜¼, ì´ˆë¡±
+    public ItemData[] weaponData; // ë¬´ê¸° ë°ì´í„°
+    public GameObject ch_soul_gold_bt;//êµí™˜ ë²„íŠ¼ (ë¹„í™œì„±í™” ìš©)
+    public GameObject ch_gold_soul_bt;//êµí™˜ ë²„íŠ¼ (ë¹„í™œì„±í™” ìš©)
+    public GameObject Smoke_Effect; //ë‹´ë°°ì—°ê¸° ì´í™íŠ¸
+    public Vector2 SE_pos;//ë‹´ë°°ì—°ê¸° ì¢Œí‘œ
+    public Image speech_bubble_image;//ë§í’ì„  ì´ë¯¸ì§€
+    //public Sprite[] speech_bubble_sprite;//ë§í’ì„  ì´ë¯¸ì§€
+    public TMP_Text speech_bubble_text;//ë§í’ì„  í…ìŠ¤íŠ¸
     private System.Random rand = new System.Random();
     private bool isJokeOnCooldown = false;
     private Coroutine currentBubbleRoutine;
-    private string[] buyLines = {"°í¸¿³×", "½Å»óÇ°ÀÌ³×", "¹®Á¦ ¾ø´Â\n¹°°ÇÀÌ³×", "¿À´ÃÀº\n¸ÅÃâÀÌ ÁÁ±¸¸¸", "½Å»óÇ°ÀÌÁö"};//±¸¸Å
-    private string[] tradeLines = {"°í¸¿³×","ÈÄ¿ø °í¸¿³×", "»ç°í ½ÍÀº\n¹°°ÇÀÌ¶óµµ?" };//±³È¯
-    private string[] rerollLines = {"¿©±â »õ Ç°¸ñµéÀÌ³×", "ÀÌ ¹°°Ç ¸Â³ª?", "ÀÌ°É Ã£³ª?" };//¸®·Ñ
-    private string[] notEnoughLines = { "ÀÌ°Ç ÀÚ¼±»ç¾÷ÀÌ\n¾Æ´Ï³×", "³ÉÀÌ ¾ø³ª?", "³ÉÀÌ ºÎÁ·ÇÑ°Å\n°°³×¸¸?", "°øÂ¥´Â ¾ÈµÇ³×" };//ºÎÁ·
-    private string[] jokeLines = {"ÀÌ °õ¹æ´ë´Â ¾ÈÆÄ³×", "¹¹¶óµµ ÇÏ³ª\n»çÁö ±×·¯³ª", "(ÇÑ¼û)", "ÀÚ³×µµ »ñ°«À»\nÁÁ¾ÆÇÏ³ª?", "ÃµÃµÈ÷ µÑ·¯º¸°Ô³ª", "¸öÀº ±¦Âú³ª?", "¾ÈÀüÀÌ ÃÖ°íÁö", "Èì...", "¶Ç ¾Ç±ÍµéÀÌ\n±â½ÂÀÎ°¡?", "ÁÁ¾ÆÇÏ´Â »öÀÌ ÀÖ³ª?" };//³ó´ã
+    private string[] buyLines = {"ê³ ë§™ë„¤", "ì‹ ìƒí’ˆì´ë„¤", "ë¬¸ì œ ì—†ëŠ”\në¬¼ê±´ì´ë„¤", "ì˜¤ëŠ˜ì€\në§¤ì¶œì´ ì¢‹êµ¬ë§Œ", "ì‹ ìƒí’ˆì´ì§€"};//êµ¬ë§¤
+    private string[] tradeLines = {"ê³ ë§™ë„¤","í›„ì› ê³ ë§™ë„¤", "ì‚¬ê³  ì‹¶ì€\në¬¼ê±´ì´ë¼ë„?" };//êµí™˜
+    private string[] rerollLines = {"ì—¬ê¸° ìƒˆ í’ˆëª©ë“¤ì´ë„¤", "ì´ ë¬¼ê±´ ë§ë‚˜?", "ì´ê±¸ ì°¾ë‚˜?" };//ë¦¬ë¡¤
+    private string[] notEnoughLines = { "ì´ê±´ ìì„ ì‚¬ì—…ì´\nì•„ë‹ˆë„¤", "ëƒ¥ì´ ì—†ë‚˜?", "ëƒ¥ì´ ë¶€ì¡±í•œê±°\nê°™ë„¤ë§Œ?", "ê³µì§œëŠ” ì•ˆë˜ë„¤"};//ë¶€ì¡±
+    private string[] jokeLines = {"ì´ ê³°ë°©ëŒ€ëŠ” ì•ˆíŒŒë„¤", "ë­ë¼ë„ í•˜ë‚˜\nì‚¬ì§€ ê·¸ëŸ¬ë‚˜", "(í•œìˆ¨)", "ìë„¤ë„ ì‚¿ê°“ì„\nì¢‹ì•„í•˜ë‚˜?", "ì²œì²œíˆ ë‘˜ëŸ¬ë³´ê²Œë‚˜", "ëª¸ì€ ê´œì°®ë‚˜?", "ì•ˆì „ì´ ìµœê³ ì§€", "í ...", "ë˜ ì•…ê·€ë“¤ì´\nê¸°ìŠ¹ì¸ê°€?", "ì¢‹ì•„í•˜ëŠ” ìƒ‰ì´ ìˆë‚˜?" };//ë†ë‹´
+    private string[] noWeaponLines = { "ì–´ì´, \në¬´ê¸°ëŠ” ê°€ì ¸ê°€ì•¼ì§€!" };
+    private string[] enoughWeaponLines = { "ë¬´ê¸°ëŠ” 2ê°œë©´\nì¶©ë¶„í•˜ì§€." };
     private PassiveItemManager passiveItemManager;
     void Awake()
     {
@@ -75,13 +77,13 @@ public class Shop : MonoBehaviour
     void Start()
     {
         InitializeShop();
-        if (GameManager.Instance.Day == 1) ch_bt_1day_no(); //1ÀÏÂ÷¸é ±³È¯ ¸·±â + È¯µµ °­Á¦ ±¸¸Å
+        if (GameManager.Instance.Day == 1) ch_bt_1day_no(); //1ì¼ì°¨ë©´ êµí™˜ ë§‰ê¸° + í™˜ë„ ê°•ì œ êµ¬ë§¤
         passiveItemManager = FindObjectOfType<PassiveItemManager>();
-        // ¸»Ç³¼±ÃÊ±âÈ­
+        // ë§í’ì„ ì´ˆê¸°í™”
         speech_bubble_image.gameObject.SetActive(false);
         speech_bubble_text.text = "";
-        speech_bubble_on("³ó´ã");
-        StartCoroutine(SpawnSmokeLoop()); //´ã¹è
+        speech_bubble_on("ë†ë‹´");
+        StartCoroutine(SpawnSmokeLoop()); //ë‹´ë°°
     }
     void Update()
     {
@@ -93,21 +95,22 @@ public class Shop : MonoBehaviour
         weaponPrices.Clear();
         for (int i = 0; i < 5; i++)
         {
-            weaponPrices.Add(GameManager.Instance.Day * 100);
-            if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_3_2")) //´Ù´ÙÀÍ¼± º¸À¯½Ã
+            int weaponPrice = 30 + (GameManager.Instance.Day * 30);
+            weaponPrices.Add(weaponPrice);
+            if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_3_2")) //ë‹¤ë‹¤ìµì„  ë³´ìœ ì‹œ
             {
                 weaponSlots_text(i, 0, "Gold");
             }
             else
             {
-                weaponSlots_text(i, 30 + (GameManager.Instance.Day * 30), "Gold");
+                weaponSlots_text(i, weaponPrice, "Gold");
             }
         }
 
-        weaponSlots_text(9, lantern_1, "Soul"); // ÃÊ·Õ°¡°İ
-        weaponSlots_text(10, rerollCost, "Soul"); // ¸®·Ñ °¡°İ
+        weaponSlots_text(9, lantern_1, "Soul"); // ì´ˆë¡±ê°€ê²©
+        weaponSlots_text(10, rerollCost, "Soul"); // ë¦¬ë¡¤ ê°€ê²©
 
-        // ¿µÈ¥ ±¸¸Å »óÅÂ ÃÊ±âÈ­
+        // ì˜í˜¼ êµ¬ë§¤ ìƒíƒœ ì´ˆê¸°í™”
         soulPurchased = new bool[4];
         RerollSouls();
     }
@@ -123,7 +126,7 @@ public class Shop : MonoBehaviour
             weaponSlots[Slot].text += "<sprite=9> ";
         }
     }
-    public void BuyWeapon(int index) // ¹«±â ±¸¸Å
+    public void BuyWeapon(int index) // ë¬´ê¸° êµ¬ë§¤
     {
         if (index < 0 || index >= 5) return;
 
@@ -134,15 +137,15 @@ public class Shop : MonoBehaviour
 
         if (Gold < price) 
         { 
-            speech_bubble_on("ºÎÁ·");
+            speech_bubble_on("ë¶€ì¡±");
             return;
         }
 
-        // ³»ºÎ¿¡¼­ ¹Ù·Î Äü½½·Ô ÂüÁ¶
+        // ë‚´ë¶€ì—ì„œ ë°”ë¡œ í€µìŠ¬ë¡¯ ì°¸ì¡°
         ShopQuickSlot shopQuickSlot = FindObjectOfType<ShopQuickSlot>();
         if (shopQuickSlot == null) return;
 
-        // ºó ½½·Ô Ã£±â
+        // ë¹ˆ ìŠ¬ë¡¯ ì°¾ê¸°
         int emptySlotIndex = -1;
         for (int i = 0; i < shopQuickSlot.weaponSlotsData.Length; i++)
         {
@@ -156,11 +159,14 @@ public class Shop : MonoBehaviour
 
         if (emptySlotIndex == -1)
         {
-            Debug.Log("Äü½½·ÔÀÌ ¸ğµÎ Ã¡½À´Ï´Ù.");
+            Debug.Log("í€µìŠ¬ë¡¯ì´ ëª¨ë‘ ì°¼ìŠµë‹ˆë‹¤.");
+            Shop shop = FindObjectOfType<Shop>();
+            if (shop != null)
+                shop.speech_bubble_on("ë¬´ê¸°ì¶©ë¶„");
             return;
         }
 
-        // ´Ù´ÙÀÍ¼± È¿°ú°¡ ¾øÀ» ¶§¸¸ ¼Ò¿ï Â÷°¨
+        // ë‹¤ë‹¤ìµì„  íš¨ê³¼ê°€ ì—†ì„ ë•Œë§Œ ì†Œìš¸ ì°¨ê°
         bool hasSoulAddEffect = PassiveItemManager.Instance != null &&
                                 PassiveItemManager.Instance.HasEffect("Soul_Add_3_2");
         if (!hasSoulAddEffect)
@@ -168,9 +174,9 @@ public class Shop : MonoBehaviour
             GameManager.Instance.Sub_Gold(price);
         }
 
-        weaponSlots[index].text = "±¸¸Å ¿Ï·á";
+        weaponSlots[index].text = "êµ¬ë§¤ ì™„ë£Œ";
         GameEvents.CallBuyWeapon();
-        speech_bubble_on("±¸¸Å");
+        speech_bubble_on("êµ¬ë§¤");
         Button btn = weaponSlots[index].GetComponentInParent<Button>();
         if (btn != null) btn.interactable = false;
 
@@ -188,7 +194,7 @@ public class Shop : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
-            if (PassiveItemManager.Instance.HasEffect("Soul_Add_3_2")) //´Ù´ÙÀÍ¼± º¸À¯½Ã
+            if (PassiveItemManager.Instance.HasEffect("Soul_Add_3_2")) //ë‹¤ë‹¤ìµì„  ë³´ìœ ì‹œ
             {
                 weaponSlots_text(i, 0, "Gold");
             }
@@ -216,27 +222,27 @@ public class Shop : MonoBehaviour
             GameManager.Instance.Sub_Gold(price);
             soulPurchased[index] = true;
 
-            weaponSlots[index + 5].text = "±¸¸Å ¿Ï·á";
-            speech_bubble_on("±¸¸Å");
+            weaponSlots[index + 5].text = "êµ¬ë§¤ ì™„ë£Œ";
+            speech_bubble_on("êµ¬ë§¤");
             Button btn = weaponSlots[index + 5].GetComponentInParent<Button>();
             Soul_in_text slot = soulIcons[index].GetComponentInParent<Soul_in_text>();
             if (btn != null)
             {
                 btn.interactable = false;
-                slot.show = false; // ±¸¸Å ¿Ï·á ÇÑ°Ç »ìÆì º¸±â ÇØµµ ¾Èº¸ÀÌ°í ÀÎº¥Åä¸® °¡¼­ ºÁ¾ßÇÔ
+                slot.show = false; // êµ¬ë§¤ ì™„ë£Œ í•œê±´ ì‚´í´ ë³´ê¸° í•´ë„ ì•ˆë³´ì´ê³  ì¸ë²¤í† ë¦¬ ê°€ì„œ ë´ì•¼í•¨
             }
             if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_2"));
-            // ±¸¸Å È¿°ú Àû¿ë ½ÅÈ£ º¸³»±â
-            string itemId = soulNames[index]; // ¡ç ÀÌ¹Ì RerollSouls()¿¡¼­ ÇÒ´çµÊ
+            // êµ¬ë§¤ íš¨ê³¼ ì ìš© ì‹ í˜¸ ë³´ë‚´ê¸°
+            string itemId = soulNames[index]; // â† ì´ë¯¸ RerollSouls()ì—ì„œ í• ë‹¹ë¨
             PassiveItemManager.Instance.PurchaseItem(itemId);
             UpdateWeaponPrice();
         }
         else
         {
-            speech_bubble_on("ºÎÁ·");
+            speech_bubble_on("ë¶€ì¡±");
         }
     }
-    public void BuyLantern() // È£·Õ ¾÷±Û
+    public void BuyLantern() // í˜¸ë¡± ì—…ê¸€
     {
         int F_leval = GameManager.Instance.playerData.flashLightLevel;
         if (F_leval >= 2)
@@ -249,11 +255,11 @@ public class Shop : MonoBehaviour
 
         if (F_leval == 0)
         {
-            price = lantern_1; // 2´Ü°è
+            price = lantern_1; // 2ë‹¨ê³„
         }
         else if (F_leval == 1)
         {
-            price = lantern_2; // 3´Ü°è
+            price = lantern_2; // 3ë‹¨ê³„
         }
 
         if (Soul >= price)
@@ -261,11 +267,11 @@ public class Shop : MonoBehaviour
             GameManager.Instance.Sub_Soul(price);
             GameManager.Instance.playerData.flashLightLevel = Mathf.Clamp(GameManager.Instance.playerData.flashLightLevel + 1, 1, 3);
             if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_2"));
-            // ´ÙÀ½ ´Ü°è °¡°İ Ç¥½Ã ¶Ç´Â "±¸¸Å ¿Ï·á"
+            // ë‹¤ìŒ ë‹¨ê³„ ê°€ê²© í‘œì‹œ ë˜ëŠ” "êµ¬ë§¤ ì™„ë£Œ"
             if (F_leval == 2)
             {
-                weaponSlots[9].text = "±¸¸Å ¿Ï·á";
-                speech_bubble_on("±¸¸Å");
+                weaponSlots[9].text = "êµ¬ë§¤ ì™„ë£Œ";
+                speech_bubble_on("êµ¬ë§¤");
             }
             else
             {
@@ -277,14 +283,14 @@ public class Shop : MonoBehaviour
         }
         else
         {
-            speech_bubble_on("ºÎÁ·");
+            speech_bubble_on("ë¶€ì¡±");
         }
     }
 
 
     public void RerollSouls()
     {
-        // ¸®½ºÆ® ÃÊ±âÈ­ º¸Àå
+        // ë¦¬ìŠ¤íŠ¸ ì´ˆê¸°í™” ë³´ì¥
         if (soulNames.Count < 4)
         {
             soulNames.Clear();
@@ -296,15 +302,15 @@ public class Shop : MonoBehaviour
             }
         }
 
-        // 1. ÈÄº¸±º ¸¸µé±â (¹Ì±¸¸Å ¾ÆÀÌÅÛ¸¸)
+        // 1. í›„ë³´êµ° ë§Œë“¤ê¸° (ë¯¸êµ¬ë§¤ ì•„ì´í…œë§Œ)
         List<string> availableSouls = new List<string>();
         foreach (var id in allSoulIds)
         {
-            if (!PassiveItemManager.Instance.IsPurchased(id)) // ±¸¸Å ¾È ÇÑ °Í¸¸
+            if (!PassiveItemManager.Instance.IsPurchased(id)) // êµ¬ë§¤ ì•ˆ í•œ ê²ƒë§Œ
                 availableSouls.Add(id);
         }
 
-        // 2. ·£´ı ¼¯±â & 4°³ ÃßÃâ (Áßº¹ Á¦°Å)
+        // 2. ëœë¤ ì„ê¸° & 4ê°œ ì¶”ì¶œ (ì¤‘ë³µ ì œê±°)
         availableSouls = availableSouls.OrderBy(x => Random.value).ToList();
         for (int i = 0; i < 4; i++)
         {
@@ -312,7 +318,7 @@ public class Shop : MonoBehaviour
 
             if (i >= availableSouls.Count)
             {
-                Debug.LogWarning("¹Ì±¸¸Å ¾ÆÀÌÅÛÀÌ 4°³ ¹Ì¸¸ÀÔ´Ï´Ù!");
+                Debug.LogWarning("ë¯¸êµ¬ë§¤ ì•„ì´í…œì´ 4ê°œ ë¯¸ë§Œì…ë‹ˆë‹¤!");
                 soulNames[i] = "";
                 soulPrices[i] = 0;
                 weaponSlots_text(5 + i, 0, "Gold");
@@ -323,7 +329,7 @@ public class Shop : MonoBehaviour
             string id = availableSouls[i];
             soulNames[i] = id;
             PassiveItemData itemData = passiveItemManager.passiveItems.Find(x => x.id == id);
-            int rating = itemData != null ? itemData.rating : 1; // ±âº»°ªÀº 1
+            int rating = itemData != null ? itemData.rating : 1; // ê¸°ë³¸ê°’ì€ 1
             switch (rating)
             {
                 case 1:
@@ -345,13 +351,13 @@ public class Shop : MonoBehaviour
                 default:
                     break;
             }
-            // UI ÅØ½ºÆ® °»½Å
+            // UI í…ìŠ¤íŠ¸ ê°±ì‹ 
             weaponSlots_text(5 + i, soulPrices[i], "Gold");
 
-            // ¾ÆÀÌÄÜ °»½Å
+            // ì•„ì´ì½˜ ê°±ì‹ 
             SetSoulIcon(i, id);
 
-            // ½½·Ô¿¡ ÀÖ´Â ShopSlot ÄÄÆ÷³ÍÆ®¿¡ itemId Àü´Ş
+            // ìŠ¬ë¡¯ì— ìˆëŠ” ShopSlot ì»´í¬ë„ŒíŠ¸ì— itemId ì „ë‹¬
             Soul_in_text slot = soulIcons[i].GetComponentInParent<Soul_in_text>();
             if (slot != null)
             {
@@ -362,7 +368,7 @@ public class Shop : MonoBehaviour
 
     void SetSoulIcon(int slotIndex, string id)
     {
-        // ¿¹: "Soul_Add_2_3" ¡æ group = 2, num = 3
+        // ì˜ˆ: "Soul_Add_2_3" â†’ group = 2, num = 3
         string[] parts = id.Split('_');
         int group = int.Parse(parts[2]); // 1~7
         int number = int.Parse(parts[3]); // 1~3
@@ -372,43 +378,43 @@ public class Shop : MonoBehaviour
             soulIcons[slotIndex].sprite = icon;
     }
 
-    public void Soul_c_Gold() // 100 È¥ ¡æ 50 Àü
+    public void Soul_c_Gold() // 100 í˜¼ â†’ 50 ì „
     {
         if (Soul >= 100f)
         {
             GameManager.Instance.Sub_Soul(100);
             GameManager.Instance.Add_Gold(50);
-            speech_bubble_on("±³È¯");
+            speech_bubble_on("êµí™˜");
             if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
         }
         else
         {
-            speech_bubble_on("ºÎÁ·");
+            speech_bubble_on("ë¶€ì¡±");
         }
     }
 
-    public void Goul_c_Soul() // 100 Àü ¡æ 50 È¥
+    public void Goul_c_Soul() // 100 ì „ â†’ 50 í˜¼
     {
         if (Gold >= 100f)
         {
             GameManager.Instance.Sub_Gold(100);
             GameManager.Instance.Add_Soul(50);
-            speech_bubble_on("±³È¯");
+            speech_bubble_on("êµí™˜");
             if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
         }
         else
         {
-            speech_bubble_on("ºÎÁ·");
+            speech_bubble_on("ë¶€ì¡±");
         }
     }
     private IEnumerator SpawnSmokeLoop()
     {
         while (true)
         {
-            // »ı¼º
+            // ìƒì„±
             Instantiate(Smoke_Effect, SE_pos, Quaternion.identity, this.transform);
 
-            // ´ë±â ½Ã°£ (2~4ÃÊ ·£´ı)
+            // ëŒ€ê¸° ì‹œê°„ (2~4ì´ˆ ëœë¤)
             float delay = Random.Range(2f, 4f);
             yield return new WaitForSeconds(delay);
         }
@@ -417,37 +423,47 @@ public class Shop : MonoBehaviour
     {
         string line = "";
 
-        if (text_t == "±¸¸Å")
+        if (text_t == "êµ¬ë§¤")
         {
             line = GetRandomLine(buyLines);
             if (!isJokeOnCooldown) StartCoroutine(JokeCooldown());
         }
-        else if (text_t == "±³È¯")
+        else if (text_t == "êµí™˜")
         {
             line = GetRandomLine(tradeLines);
             if (!isJokeOnCooldown) StartCoroutine(JokeCooldown());
         }
-        else if (text_t == "¸®·Ñ")
+        else if (text_t == "ë¦¬ë¡¤")
         {
             line = GetRandomLine(rerollLines);
             if (!isJokeOnCooldown) StartCoroutine(JokeCooldown());
         }
-        else if (text_t == "ºÎÁ·")
+        else if (text_t == "ë¶€ì¡±")
         {
             line = GetRandomLine(notEnoughLines);
             if (!isJokeOnCooldown) StartCoroutine(JokeCooldown());
         }
-        else if (text_t == "³ó´ã")
+        else if (text_t == "ë†ë‹´")
         {
             if (isJokeOnCooldown) return;
             line = GetRandomLine(jokeLines);
             StartCoroutine(JokeCooldown());
         }
+        else if(text_t == "ë¬´ê¸°")
+        {
+            line = GetRandomLine(noWeaponLines);
+            if (!isJokeOnCooldown) StartCoroutine(JokeCooldown());
+        }
+        else if(text_t == "ë¬´ê¸°ì¶©ë¶„")
+        {
+            line = GetRandomLine(enoughWeaponLines);
+            if (!isJokeOnCooldown) StartCoroutine(JokeCooldown());
+        }
 
 
         if (!string.IsNullOrEmpty(line))
         {
-            // ÀÌÀü ÄÚ·çÆ¾ Á¤¸®
+            // ì´ì „ ì½”ë£¨í‹´ ì •ë¦¬
             if (currentBubbleRoutine != null)
                 StopCoroutine(currentBubbleRoutine);
 
@@ -463,13 +479,13 @@ public class Shop : MonoBehaviour
         Color imgColor = speech_bubble_image.color;
         Color txtColor = speech_bubble_text.color;
 
-        // Ã³À½¿£ ¿ÏÀüÈ÷ Åõ¸í
+        // ì²˜ìŒì—” ì™„ì „íˆ íˆ¬ëª…
         imgColor.a = 0f;
         txtColor.a = 0f;
         speech_bubble_image.color = imgColor;
         speech_bubble_text.color = txtColor;
 
-        // 0.25ÃÊ µ¿¾È ÆäÀÌµå ÀÎ
+        // 0.25ì´ˆ ë™ì•ˆ í˜ì´ë“œ ì¸
         float fadeInTime = 0.25f;
         float elapsed = 0f;
         while (elapsed < fadeInTime)
@@ -483,14 +499,14 @@ public class Shop : MonoBehaviour
             yield return null;
         }
 
-        // 3ÃÊ µ¿¾È À¯Áö (¾ËÆÄ=1 È®½ÇÈ÷ °íÁ¤)
+        // 3ì´ˆ ë™ì•ˆ ìœ ì§€ (ì•ŒíŒŒ=1 í™•ì‹¤íˆ ê³ ì •)
         imgColor.a = 1f;
         txtColor.a = 1f;
         speech_bubble_image.color = imgColor;
         speech_bubble_text.color = txtColor;
         yield return new WaitForSeconds(3f);
 
-        // 1ÃÊ µ¿¾È ÆäÀÌµå ¾Æ¿ô
+        // 1ì´ˆ ë™ì•ˆ í˜ì´ë“œ ì•„ì›ƒ
         float fadeOutTime = 1f;
         elapsed = 0f;
         while (elapsed < fadeOutTime)
@@ -504,7 +520,7 @@ public class Shop : MonoBehaviour
             yield return null;
         }
 
-        // ÃÊ±âÈ­
+        // ì´ˆê¸°í™”
         speech_bubble_image.gameObject.SetActive(false);
         speech_bubble_text.text = "";
         currentBubbleRoutine = null;
@@ -514,14 +530,14 @@ public class Shop : MonoBehaviour
     {
         isJokeOnCooldown = true;
 
-        // 10~15ÃÊ ·£´ı ÄğÅ¸ÀÓ
+        // 10~15ì´ˆ ëœë¤ ì¿¨íƒ€ì„
         float cooldown = UnityEngine.Random.Range(10f, 15f);
         yield return new WaitForSeconds(cooldown);
 
         isJokeOnCooldown = false;
 
-        // ÀÚµ¿ ³ó´ã ½ÇÇà
-        speech_bubble_on("³ó´ã");
+        // ìë™ ë†ë‹´ ì‹¤í–‰
+        speech_bubble_on("ë†ë‹´");
     }
 
     private string GetRandomLine(string[] lines)
@@ -530,7 +546,7 @@ public class Shop : MonoBehaviour
         return lines[rand.Next(lines.Length)];
     }
 
-    void ch_bt_1day_no()//1ÀÏÂ÷¿¡ ¹öÆ° ºñÈ°¼ºÈ­
+    void ch_bt_1day_no()//1ì¼ì°¨ì— ë²„íŠ¼ ë¹„í™œì„±í™”
     {
         ch_soul_gold_bt.gameObject.SetActive(false);
         ch_gold_soul_bt.gameObject.SetActive(false);
@@ -545,11 +561,11 @@ public class Shop : MonoBehaviour
             weaponSlots_text(10, rerollCost, "Soul");
             RerollSouls();
             if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
-            speech_bubble_on("¸®·Ñ");
+            speech_bubble_on("ë¦¬ë¡¤");
         }
         else
         {
-            speech_bubble_on("ºÎÁ·");
+            speech_bubble_on("ë¶€ì¡±");
         }
     }
 }
