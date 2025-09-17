@@ -5,6 +5,7 @@ public class ItemUsageManager : MonoBehaviour
     public GameObject at_Prefab; // 공격 프리팹
     public Transform spawnPoint; // 플레이어 생성 위치
     public GameObject Paper; // 부적 투사체 프리팹
+
     public void UseItem(string itemName)
     {
         //Sword   // 환도
@@ -36,6 +37,7 @@ public class ItemUsageManager : MonoBehaviour
     }
     void SpawnAttackEffect(Attack_sc.AttackType type)
     {
+        GameEvents.CallUseItem(type);
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = mouseWorldPos - spawnPoint.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;

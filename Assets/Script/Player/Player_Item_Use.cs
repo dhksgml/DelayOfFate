@@ -24,6 +24,18 @@ public class Player_Item_Use : MonoBehaviour
     private ItemObject currentSellingItem = null;
     public bool isUseAble { private get; set; } = true;
 
+    [SerializeField] private AnimatorOverrideController swordAOC;
+    [SerializeField] private AnimatorOverrideController batAOC;
+    [SerializeField] private AnimatorOverrideController amuletAOC;
+
+    private void OnEnable()
+    {
+        GameEvents.OnUseItem += ChangeAnimator;
+    }
+    private void OnDisable()
+    {
+        GameEvents.OnUseItem -= ChangeAnimator;
+    }
     void Start()
     {
         itemUsageManager = GetComponent<ItemUsageManager>();
@@ -128,6 +140,25 @@ public class Player_Item_Use : MonoBehaviour
             itemUsageManager.UseItem(selectedItem.itemName);
             TutorialEvents.OnWeaponUsed?.Invoke(selectedItem);
             animator.SetTrigger("Attack");
+        }
+    }
+
+    void ChangeAnimator(Attack_sc.AttackType attackType)
+    {
+        switch(attackType)
+        {
+            case Attack_sc.AttackType.Sword:
+                animator.runtimeAnimatorController = swordAOC;
+                break;
+            case Attack_sc.AttackType.Bat:
+                animator.runtimeAnimatorController = batAOC;
+                break;
+            case Attack_sc.AttackType.Paper:
+                animator.runtimeAnimatorController = amuletAOC;
+                break;
+            default:
+                animator.runtimeAnimatorController = swordAOC;
+                break;
         }
     }
 
