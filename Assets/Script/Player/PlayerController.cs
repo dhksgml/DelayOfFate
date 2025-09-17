@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
     private float x;
     private float y;
     [HideInInspector] public bool isMoving;
-    private Vector2 lastMoveDirection;
+    [HideInInspector] public Vector2 lastMoveDirection;
 
     SpriteRenderer spriteRenderer;
     Animator animator;
@@ -422,20 +422,26 @@ public class PlayerController : MonoBehaviour
     }
     void HandleMovementInput()
     {
-        x = Input.GetAxisRaw("Horizontal");
-        y = Input.GetAxisRaw("Vertical");
+        // 방향키 입력만 받기
+        x = 0f;
+        y = 0f;
+
+        if (Input.GetKey(KeyCode.LeftArrow))  x = -1f;
+        else if (Input.GetKey(KeyCode.RightArrow))  x = 1f;
+
+        if (Input.GetKey(KeyCode.UpArrow)) y = 1f;
+        else if (Input.GetKey(KeyCode.DownArrow)) y = -1f;
 
         isMoving = x != 0 || y != 0;
+
         if (isMoving)
         {
             lastMoveDirection = new Vector2(x, y);
 
-            //달리기 관련
-            walkTimer = Mathf.Clamp(walkTimer += Time.deltaTime, 0, walkThreshold);
+            // 달리기 관련
+            walkTimer = Mathf.Clamp(walkTimer + Time.deltaTime, 0, walkThreshold);
             if (walkTimer >= walkThreshold)
-            {
                 isRun = true;
-            }
         }
         else
         {
@@ -443,6 +449,7 @@ public class PlayerController : MonoBehaviour
             isRun = false;
         }
     }
+
 
     void LookMousePlayer()
     {
