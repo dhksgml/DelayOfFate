@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
 
     public ItemData[] SlotsData;
     public ItemData[] WeaponData;
+    public bool[] weaponUnlockArray = new bool[5];
     private bool initialized; // �÷��̾� ���� �޾ƿ��� ��
     private void Awake()
     {

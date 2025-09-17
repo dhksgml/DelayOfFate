@@ -176,6 +176,7 @@ public class Shop : MonoBehaviour
 
         weaponSlots[index].text = "구매 완료";
         GameEvents.CallBuyWeapon();
+        UnlockWeapon(index);
         speech_bubble_on("구매");
         Button btn = weaponSlots[index].GetComponentInParent<Button>();
         if (btn != null) btn.interactable = false;
@@ -186,6 +187,11 @@ public class Shop : MonoBehaviour
         shopQuickSlot.weaponSlotsData[emptySlotIndex] = weaponData[index];
         GameManager.Instance.WeaponData[emptySlotIndex] = shopQuickSlot.weaponSlotsData[emptySlotIndex];
         OnItemHover(emptySlotIndex, weaponData[index]);
+    }
+
+    public void UnlockWeapon(int weaponUnlockIndex)
+    {
+        GameManager.Instance.weaponUnlockArray[weaponUnlockIndex] = true;
     }
 
     public void UpdateWeaponPrice()
