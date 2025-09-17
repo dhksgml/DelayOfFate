@@ -54,6 +54,7 @@ public class Reaper : Enemy
     {
         // 나중에 사망처리도 넣어줘야함
         EnemyMove();
+        HpBarUpdate();
     }
 
     //활성화시 실행
