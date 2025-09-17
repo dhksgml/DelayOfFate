@@ -67,6 +67,8 @@ public class Boon_yeol_gwi : Enemy
     float listTime = 0;
     void Update()
     {
+        HpBarUpdate();
+
         // 리스트 관련
         if (!isDie) { listTime += Time.deltaTime; }
 

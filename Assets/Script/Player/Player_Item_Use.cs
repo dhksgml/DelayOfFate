@@ -48,7 +48,7 @@ public class Player_Item_Use : MonoBehaviour
         //print(quickSlots[selectedSlotIndex]);
         HandleSlotSelection(); // 슬롯 변경 처리
         float weight = GetTotalItemWeight();
-        if (Input.GetMouseButtonDown(0) && isUseAble)
+        if (Input.GetKeyDown(KeyCode.Z) && isUseAble)
         {
             if (selectedWeaponIndex >= 0 && selectedWeaponIndex < weaponSlots.Length)
             {
@@ -66,14 +66,14 @@ public class Player_Item_Use : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetKeyDown(KeyCode.F)) // 버리기
+        else if (Input.GetKeyDown(KeyCode.X)) // 버리기
         {
             //DropItem();
             TutorialEvents.OnItemDropped?.Invoke(quickSlots[selectedSlotIndex]);
             //playercontroller.OnPickUpStart(false);
             HandleSellAction();
         }
-        else if (Input.GetKeyDown(KeyCode.E) && !playercontroller.isRecovering) // 줍기
+        else if (Input.GetKeyDown(KeyCode.C) && !playercontroller.isRecovering) // 줍기
         {
             //if (!isAnyItemBeingSold)
             //{

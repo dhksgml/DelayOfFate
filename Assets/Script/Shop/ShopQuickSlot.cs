@@ -38,6 +38,22 @@ public class ShopQuickSlot : MonoBehaviour
     {
         HandleSlotSelection();
         Update_UI();
+        if (Input.GetKeyDown(KeyCode.X)) // ¹ö¸®±â
+        {
+
+            if (quickSlots[selectedSlotIndex] != null)
+            {
+                //DropItem();
+                TutorialEvents.OnItemDropped?.Invoke(quickSlots[selectedSlotIndex]);
+                //playercontroller.OnPickUpStart(false);
+                if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_drop"));
+                int itemValue = SlotsData[selectedSlotIndex].Coin;
+                SlotsData[selectedSlotIndex] = null;
+                GameManager.Instance.Add_Gold(itemValue);
+                GameEvents.CallDropItem();
+            }
+
+        }
     }
     void HandleSlotSelection()
     {
