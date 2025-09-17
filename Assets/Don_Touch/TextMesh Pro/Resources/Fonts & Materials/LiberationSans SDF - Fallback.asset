@@ -272,6 +272,7 @@ MonoBehaviour:
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
+
   m_CharacterTable:
   - m_ElementType: 1
     m_Unicode: 32
