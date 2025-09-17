@@ -123,6 +123,9 @@ MonoBehaviour:
   scaleUpValue: {x: 0.1, y: 0.1, z: 0.1}
   colliderUpValue: 0.05
   circleCollider: {fileID: 6401522816899453545}
+  originSpeed: 1.5
+  originScale: {x: 1, y: 1, z: 1}
+  originColl: 0.5
   summon_Text_Bar: {fileID: 0}
   summon_Text: {fileID: 0}
   summonTextTime: 3
