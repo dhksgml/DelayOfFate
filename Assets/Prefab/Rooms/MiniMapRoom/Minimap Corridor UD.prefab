@@ -49,6 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   copyRoomObj: {fileID: 0}
   blindRoomObj: {fileID: 8811988010077654587}
+  dontSeeRoom: {fileID: 0}
+  placeIcon: {fileID: 0}
 --- !u!1001 &5523824224276328314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -75,11 +77,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5594583838859473455, guid: 1cbf2292152381b419260e1070094160, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.4999998
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5594583838859473455, guid: 1cbf2292152381b419260e1070094160, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.75
+      value: 8.5
       objectReference: {fileID: 0}
     - target: {fileID: 5594583838859473455, guid: 1cbf2292152381b419260e1070094160, type: 3}
       propertyPath: m_LocalPosition.y
@@ -145,6 +147,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blind_Corridor_UD
       objectReference: {fileID: 0}
+    - target: {fileID: 3006630662582454314, guid: af9b966f101ad1f4d8cbf430e407a6df, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3127342630225647317, guid: af9b966f101ad1f4d8cbf430e407a6df, type: 3}
       propertyPath: m_Color.a
       value: 1
@@ -153,6 +159,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 4998898127438244743, guid: af9b966f101ad1f4d8cbf430e407a6df, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 4998898127438244743, guid: af9b966f101ad1f4d8cbf430e407a6df, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -246,11 +256,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5594583838859473455, guid: 1cbf2292152381b419260e1070094160, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.4999998
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5594583838859473455, guid: 1cbf2292152381b419260e1070094160, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.75
+      value: -8.5
       objectReference: {fileID: 0}
     - target: {fileID: 5594583838859473455, guid: 1cbf2292152381b419260e1070094160, type: 3}
       propertyPath: m_LocalPosition.y
