@@ -24,6 +24,8 @@ public class Seokdeungnyeong : Enemy
 
     void Update()
     {
+        HpBarUpdate();
+
         //적의 체력이 0이하일시.
         if (enemyHp <= 0 && !isDie)
         {
@@ -36,11 +38,6 @@ public class Seokdeungnyeong : Enemy
             // 빛 활성화
             lightObj.SetActive(true);
             sp.sprite = lightOnSprite;
-
-            if (enemyColl == null) { return; }
-
-            // 무적o
-            enemyColl.enabled = false;
         }
 
         else if (!isPlayer)
@@ -48,11 +45,6 @@ public class Seokdeungnyeong : Enemy
             // 빛 비활성화
             lightObj.SetActive(false);
             sp.sprite = originSprite;
-
-            if (enemyColl == null) { return; }
-
-            // 무적x
-            enemyColl.enabled = true;
         }
     }
 
@@ -66,19 +58,26 @@ public class Seokdeungnyeong : Enemy
 
             if (collision.gameObject.CompareTag("Attack") && !isEnemyHit && attack != null)
             {
+                if (isPlayer)
+                {
+                    enemyHp -= 0;
+                    EnemyHit(0);
+                }
                 // 타입이 일치하면 즉사
-                if (!attack.CheckWeaknessPassive() && attack.attackType.ToString() == enemyWeakness.ToString())
+                else if (!attack.CheckWeaknessPassive() && attack.attackType.ToString() == enemyWeakness.ToString())
                 {
                     //이부분 없다 나와서 일단 주석 처리 해주었음.
                     Enemy_Weakness_Hit(attack.damage, attack.attackType.ToString(), enemyHp);
                     enemyHp = 0f;
                 }
+
                 else
                 {
                     enemyHp -= attack.damage;
+                    EnemyHit(attack.damage);
                 }
 
-                EnemyHit(attack.damage);
+                
             }
         }
     }
