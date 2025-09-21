@@ -116,8 +116,8 @@
 		<div id="main">
 			<div id="header">
 				<div id="title">Cartoon FX Remaster FREE</div>
-				<div id="version">R 1.5.0, May 2025 (<a href="#changelog">changelog</a>)</div>
-				<div id="copyright">© 2012-2025 - Jean Moreno</div>
+				<div id="version">R 1.4.2, December 2024 (<a href="#changelog">changelog</a>)</div>
+				<div id="copyright">© 2012-2024 - Jean Moreno</div>
 				<div id="email"><span id="email_link">jean&#46;&#109;oreno&#46;<b>nonsense</b>pu&#98;lic+&#117;&#110;i&#116;&#121;&#64;gmai&#108;&#46;com</span></div>
 			</div>
 			<hr>
@@ -202,7 +202,6 @@ The full license can be found here: <a href="https://unity.com/legal/as-terms" t
 					<li><b>CFXR_Effect script:</b><br>Almost all prefabs have the CFXR_Effect script attached: it handles auto-destruction or deactivation of the GameObject once an effect has finished playing, as well as camera shake and light animation where relevant</li>
 					<li><b>Sorting:</b><br>If you have problems with z-sorting (transparent objects appearing in front of other when their position is actually behind), try changing the values in the <span class='code'>Particle&nbsp;System&nbsp;>&nbsp;Renderer&nbsp;>&nbsp;Sorting&nbsp;Fudge</span>; as long as the relative order is respected between the different particle systems of a same prefab, it should work ok.</li>
 					<li><b>Color Space:</b><br>Effects were authored using <em>Linear Color Space</em>; use that for the best results (in the <span class='code'>Player</span> project settings)</li>
-					<li><b>Light Intensities:</b><br>Effects were authored with the Built-in Render Pipeline, which by default converts light intensity values to gamma space before sending them to the GPU.<br>When installing the URP pipeline, Unity silently changes the setting <span class='code'>GraphicsSettings.lightsUseLinearIntensity</span> to <span class='code'>true</span>, so that linear intensity values are sent instead. This setting remains enabled even if URP is uninstalled or unused.<br>As of <em>v1.5.0</em>, effects light intensities were updated to their corresponding gamma values, and the CFXR_Effect script will revert those values back to linear at runtime if the <span class='code'>GraphicsSettings.lightsUseLinearIntensity</span> flag is set to <span class='code'>false</span>. You can disable that behavior by uncommenting the <span class='code'>DISABLE_LIGHTS_LINEAR_REMAPPING</span> define in the <em>CFXR_Effect.cs</em> file.</li>
 					<li><b>HDR:</b><br>If some effects show washed out colors, it likely is because HDR isn't enabled for the camera (or in the URP asset), and thus colors will be clamped.</li>
 					<li><b>License:</b><br>The full legal license can be found here: <a href="https://unity.com/legal/as-terms" target="_blank">https://unity.com/legal/as-terms</a> (see <em>Appendix 1: Asset Store End User License Agreement</em>)<br>
 					You can only use the effects in a commercial game or application when used as described in the above license.</li>
@@ -211,12 +210,7 @@ The full license can be found here: <a href="https://unity.com/legal/as-terms" t
 			</div>
 			<h2 id="changelog">Changelog</h2>
 			<div class="section">
-				<div id="changelog_content"> R 1.5.0
-  - Fixed demo scene so that bloom also works with URP
-  - Fixed demo scene so that it uses new input system for Unity 6+
-  - Fixed inconsistent lighting values between BIRP and URP: see "Light Intensities" troubleshooting above for more details
-  
-  R 1.4.2
+				<div id="changelog_content"> R 1.4.2
   - Updated readme with a specific troubleshooting section for effects not showing on Android/other platforms
   
   R 1.4.1
