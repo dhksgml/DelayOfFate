@@ -1,6 +1,6 @@
 ﻿//--------------------------------------------------------------------------------------------------------------------------------
 // Cartoon FX
-// (c) 2012-2025 Jean Moreno
+// (c) 2012-2020 Jean Moreno
 //--------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -10,13 +10,11 @@
 
 //#define DISABLE_CAMERA_SHAKE
 //#define DISABLE_LIGHTS
-//#define DISABLE_LIGHTS_LINEAR_REMAPPING
 //#define DISABLE_CLEAR_BEHAVIOR
 
 //--------------------------------------------------------------------------------------------------------------------------------
 
 using UnityEngine;
-using UnityEngine.Rendering;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -496,32 +494,17 @@ namespace CartoonFX
 	#endif
 	#if !DISABLE_CLEAR_BEHAVIOR
 			startFrameOffset = GlobalStartFrameOffset++;
-	#endif
+#endif
 			// Detect if world position needs to be passed to the shader
 			particleRenderer = this.GetComponent<ParticleSystemRenderer>();
 			if (particleRenderer.sharedMaterial != null && particleRenderer.sharedMaterial.IsKeywordEnabled("_CFXR_LIGHTING_WPOS_OFFSET"))
-			{
+			{ 
 				materialPropertyBlock = new MaterialPropertyBlock();
 			}
-
-	#if !DISABLE_LIGHTS && !DISABLE_LIGHTS_LINEAR_REMAPPING
-			// Lights were calibrated using the built-in rendering pipeline, but
-			// when using URP their intensities are transmitted using linear values.
-			// This internal Unity flag defines that behavior, so we compensate here
-			// such that original values remain.
-			if (!GraphicsSettings.lightsUseLinearIntensity && animatedLights != null)
-			{
-				foreach (var animLight in animatedLights)
-				{
-					animLight.intensityStart = Mathf.LinearToGammaSpace(animLight.intensityStart);
-					animLight.intensityEnd = Mathf.LinearToGammaSpace(animLight.intensityEnd);
-				}
-			}
-	#endif
 		}
 #endif
 
-		void OnEnable()
+			void OnEnable()
 		{
 			foreach (var animLight in animatedLights)
 			{

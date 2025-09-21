@@ -39,14 +39,25 @@ public class PlayerController : MonoBehaviour
     public bool isPickUpableItem = false;   //������ �ֿ� �� �ִ��� ����
     public bool isHavingFlashLight = false; //������ ȹ�� ����
 
+    [Header("Flashlight")]
     public int flashLightLevel = 1;
     public GameObject flashLightObject;
     public GameObject lightCircleObject;
     public float flashLightDistance = 3f;
 
-    private bool isUseItem = false;
+    private Light2D flashLight;
+    private float flashlightRadius;
+    private float startRadius = 10f;
+    private float minRadius = 0f;
+    private float decreaseDuration = 180f;
+    private float currentRadius;
+    private float decreaseRate;
+    private Coroutine refillCoroutine;
+
+    [Header("ItemCooltime")]
     public float Player_Usage_cu_cool_down = 0;//�÷��̾� ������ ���� ��ٿ�
     private Coroutine currentItemUseCoroutine = null;
+    private bool isUseItem = false;
 
     private float walkTimer = 0f;
     [SerializeField] private float walkThreshold = 1f;
@@ -90,6 +101,8 @@ public class PlayerController : MonoBehaviour
     private NearestItemFinder nearestItemFinder; //����� ������ Ž��
     public NearestItemFinder NearestItemFinder => nearestItemFinder;
 
+    [SerializeField] private GameObject damageFX;
+
     public enum PlayerState
     {
         Idle,
@@ -112,6 +125,13 @@ public class PlayerController : MonoBehaviour
         lightCircleObject.SetActive(true);
         flashLightObject.SetActive(true);
         Init();
+        if (flashLightObject)
+        {
+            flashLight = flashLightObject.GetComponent<Light2D>();
+            flashlightRadius = flashLight.pointLightOuterRadius;
+            currentRadius = startRadius;
+            decreaseRate = (startRadius - minRadius) / decreaseDuration;
+        }
     }
 
     private void OnEnable()
@@ -161,9 +181,18 @@ public class PlayerController : MonoBehaviour
             currentMp = maxMp;
         }
     }
+
     // Update is called once per frame
     void Update()
     {
+        if (flashLightObject != null)
+        {
+            currentRadius -= decreaseRate * Time.deltaTime;
+            currentRadius = Mathf.Max(currentRadius, minRadius);
+
+            flashLight.pointLightOuterRadius = currentRadius;
+        }
+
         if (clickLookTimer > 0f)
         {
             clickLookTimer -= Time.deltaTime;
@@ -205,7 +234,31 @@ public class PlayerController : MonoBehaviour
 
         HandleMouseClick(); // Ŭ�� �� ���� ����
         PlayerAnimation();
+
+        
     }
+
+    public void RefillFlashlight(float amount)
+    {
+        if (refillCoroutine == null)
+            refillCoroutine = StartCoroutine(RefillFlashlightRoutine(amount));
+        
+    }
+
+    private IEnumerator RefillFlashlightRoutine(float amount)
+    {
+        currentRadius += amount;
+        currentRadius = Mathf.Min(currentRadius, startRadius);
+        yield return new WaitForSeconds(1);
+        refillCoroutine = null;
+    }
+
+    private void DecreaseFlashlight(float amount)
+    {
+        currentRadius -= amount;
+        currentRadius = Mathf.Max(currentRadius, minRadius);
+    }
+
     private IEnumerator HandleGetUp()
     {
         if (currentState != PlayerState.Recovery && currentState != PlayerState.Resting)
@@ -752,6 +805,10 @@ public class PlayerController : MonoBehaviour
             currentHp = Mathf.Max(currentHp - totalDamage, 0);
             if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_player_hit"));
         }
+
+        if(damageFX) 
+            Instantiate(damageFX, transform.position, Quaternion.identity);
+        DecreaseFlashlight(2);
 
         if (currentHp <= 0)
         {

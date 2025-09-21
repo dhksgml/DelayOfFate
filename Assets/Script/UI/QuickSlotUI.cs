@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.Rendering.Universal;
 
 public class QuickSlotUI : MonoBehaviour
 {
@@ -39,6 +40,7 @@ public class QuickSlotUI : MonoBehaviour
         angleStartTime = Time.time;
         ResetAngleUnit();
         UpdateUI();
+        
     }
     void Update()
     {
@@ -52,7 +54,6 @@ public class QuickSlotUI : MonoBehaviour
             GameEvents.CallTimeAngleUnit18();
         }
     }
-
     public void DisplayItemInfo(int index, ItemData item)
     {
 
