@@ -627,6 +627,7 @@ GameObject:
   - component: {fileID: 2287985814165917420}
   - component: {fileID: 4570968210770061853}
   - component: {fileID: 1500599929136598717}
+  - component: {fileID: 5963122259572717348}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -811,8 +812,10 @@ MonoBehaviour:
   walkThreshold: 1
   currentState: 0
   isMoving: 0
+  lastMoveDirection: {x: 0, y: 0}
   Effect_pr: {fileID: 2227231818856167281, guid: 28ce97d7594164b45a406c73c93b6fe7, type: 3}
   corpse: {fileID: 8291217679533633708, guid: 20be9ea67cd251e4d8479e6738e65c7e, type: 3}
+  damageFX: {fileID: 0}
 --- !u!114 &6102694892513399258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -834,6 +837,9 @@ MonoBehaviour:
   item_Prefab: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
   Sale_Effect: {fileID: 8897711660315164129, guid: 688a73bcb2a05e64fb2f70898fc84aa7, type: 3}
   isItemTouch: 0
+  swordAOC: {fileID: 0}
+  batAOC: {fileID: 0}
+  amuletAOC: {fileID: 0}
 --- !u!95 &8058544078991953991
 Animator:
   serializedVersion: 5
@@ -904,7 +910,7 @@ MonoBehaviour:
   - {x: -0.05387208, y: -0.22353303, z: 0}
   m_ShapePathHash: -1562121249
   m_Mesh: {fileID: 0}
-  m_InstanceId: 103246
+  m_InstanceId: 109712
   m_LocalBounds:
     m_Center: {x: 0.0002822429, y: -0.064456046, z: 0}
     m_Extent: {x: 0.114839226, y: 0.39820114, z: 0}
@@ -970,6 +976,18 @@ MonoBehaviour:
   isActive: 0
   leftKey: {fileID: 7849976470518531551}
   rightKey: {fileID: 8307003349619021305}
+--- !u!114 &5963122259572717348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5401896716427406278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9536ab1437867c74f83939404b0d24ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5451118422819145829
 GameObject:
   m_ObjectHideFlags: 0
