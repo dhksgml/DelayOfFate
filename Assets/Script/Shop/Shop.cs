@@ -27,6 +27,14 @@ public class Shop : MonoBehaviour
 
     public TMP_Text[] weaponSlots; // 상품 목록들 무기, 영혼, 초롱
     public ItemData[] weaponData; // 무기 데이터
+
+    [SerializeField] private List<Transform> menuItems; // 버튼 15개
+    [SerializeField] private int currentIndex = 0;
+    [SerializeField] private Transform selector; // 선택 표시용 오브젝트
+
+    private int rowSize = 5; // 가로 5개
+    private int rowCount = 3; // 세로 3줄
+
     public GameObject ch_soul_gold_bt;//교환 버튼 (비활성화 용)
     public GameObject ch_gold_soul_bt;//교환 버튼 (비활성화 용)
     public GameObject Smoke_Effect; //담배연기 이펙트
@@ -89,6 +97,65 @@ public class Shop : MonoBehaviour
     {
         Gold = GameManager.Instance.Gold;
         Soul = GameManager.Instance.Soul;
+
+        Shop_Key_col();
+    }
+    void Shop_Key_col()
+    {
+        // 위로 이동
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            currentIndex -= rowSize;
+            if (currentIndex < 0) currentIndex += rowSize * rowCount; // 맨 위 → 맨 아래
+            UpdateSelectorPosition();
+        }
+
+        // 아래로 이동
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            currentIndex += rowSize;
+            if (currentIndex >= rowSize * rowCount) currentIndex -= rowSize * rowCount; // 맨 아래 → 맨 위
+            UpdateSelectorPosition();
+        }
+
+        // 왼쪽 이동
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            int rowStart = (currentIndex / rowSize) * rowSize; // 현재 줄 시작 인덱스
+            currentIndex--;
+            if (currentIndex < rowStart) currentIndex = rowStart + rowSize - 1; // 왼쪽 끝 → 오른쪽 끝
+            UpdateSelectorPosition();
+        }
+
+        // 오른쪽 이동
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            int rowStart = (currentIndex / rowSize) * rowSize;
+            int rowEnd = rowStart + rowSize - 1;
+            currentIndex++;
+            if (currentIndex > rowEnd) currentIndex = rowStart; // 오른쪽 끝 → 왼쪽 끝
+            UpdateSelectorPosition();
+        }
+
+        // 선택 실행
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            ExecuteOption(currentIndex);
+        }
+    }
+
+    private void UpdateSelectorPosition()
+    {
+        if (selector != null && menuItems.Count > 0)
+        {
+            selector.position = menuItems[currentIndex].position;
+        }
+    }
+
+    private void ExecuteOption(int index)
+    {
+        Debug.Log("선택된 아이템: " + index);
+        // index 기준으로 상점 로직 실행 (예: 구매, 설명창 열기 등)
     }
     void InitializeShop()
     {
@@ -185,13 +252,7 @@ public class Shop : MonoBehaviour
 
         shopQuickSlot.weaponSlotsData[emptySlotIndex] = weaponData[index];
         GameManager.Instance.WeaponData[emptySlotIndex] = shopQuickSlot.weaponSlotsData[emptySlotIndex];
-        UnlockWeapon(index);
         OnItemHover(emptySlotIndex, weaponData[index]);
-    }
-
-    public void UnlockWeapon(int weaponUnlockIndex)
-    {
-        GameManager.Instance.weaponUnlockArray[weaponUnlockIndex] = true;
     }
 
     public void UpdateWeaponPrice()

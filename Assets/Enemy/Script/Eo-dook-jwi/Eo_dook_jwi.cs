@@ -46,8 +46,6 @@ public class Eo_dook_jwi : Enemy
 
     void Update()
     {
-        HpBarUpdate();
-
         //적의 체력이 0이하일시.
         if (enemyHp <= 0 && !isDie)
         {

@@ -97,7 +97,6 @@ public abstract class Enemy     : MonoBehaviour
     public Collider2D           enemyColl;
     public GameObject           enemyDeathEffect; // 사망 이펙트
     public GameObject           Damage_text; // 피해량 텍스트
-    public Enemy_HpBar          enemyHpBar; // 적 체력바
 
     [HideInInspector] public Vector3       enemyTargetDir; //적의 타겟 방향
 
@@ -153,13 +152,6 @@ public abstract class Enemy     : MonoBehaviour
         }
         uiCanvas = GameObject.Find("Player_Canvas")?.transform;
 
-    }
-
-    public void HpBarUpdate()
-    {
-        if (enemyHp <= 0) { enemyHp = 0; }
-        enemyHpBar.hpBar.value = enemyHp / enemyMaxHp;
-        enemyHpBar.hpBarText.text = $"{enemyHp} / {enemyMaxHp}";
     }
 
     //이젠 안씀

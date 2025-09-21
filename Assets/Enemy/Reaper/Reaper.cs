@@ -19,10 +19,6 @@ public class Reaper : Enemy
     //콜라이더
     [SerializeField] CircleCollider2D circleCollider;
 
-    [SerializeField] float originSpeed;
-    [SerializeField] Vector3 originScale;
-    [SerializeField] float originColl;
-
     // 텍스트 바
     [SerializeField] GameObject summon_Text_Bar;
     [SerializeField] TextMeshProUGUI summon_Text;
@@ -58,7 +54,6 @@ public class Reaper : Enemy
     {
         // 나중에 사망처리도 넣어줘야함
         EnemyMove();
-        HpBarUpdate();
     }
 
     //활성화시 실행
@@ -78,7 +73,6 @@ public class Reaper : Enemy
                 PlayerController player = collision.gameObject.GetComponent<PlayerController>();
                 // 데미지 처리 부분
                 player.DamagedHP(444444);
-                Init();
             }
         }
 
@@ -155,13 +149,6 @@ public class Reaper : Enemy
             sp.color = color;
             yield return new WaitForSeconds(0.05f);
         }
-    }
-
-    public void Init()
-    {
-        transform.localScale = originScale;
-        enemyMoveSpeed = originSpeed;
-        circleCollider.radius = originColl;
     }
 
     public void DeathJangseungStop()
