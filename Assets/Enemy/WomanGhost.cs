@@ -47,8 +47,6 @@ public class WomanGhost : Enemy
     }
     void Update()
     {
-        HpBarUpdate();
-
         if (isTrace) { isWomanTrace = true; }
         
         if (!isPlayerSee && isinvisible) { dontSeeTime += Time.deltaTime; }
