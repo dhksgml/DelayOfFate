@@ -99,6 +99,12 @@ public class WomanGhost : Enemy
             {
                 isPlayerSee = true;
             }
+
+            // 빛에 충돌시 은신 풀림
+            if (collision.gameObject.CompareTag("Light"))
+            {
+                EnemyLightHit();
+            }
         }
     }
 
@@ -118,9 +124,18 @@ public class WomanGhost : Enemy
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Sight"))
+        if(collision != null)
         {
-            isPlayerSee = false;
+            if (collision.gameObject.CompareTag("Sight"))
+            {
+                isPlayerSee = false;
+            }
+
+            // 빛에서 벗어날시 은신
+            if (collision.gameObject.CompareTag("Light"))
+            {
+                EnemyCloaking();
+            }
         }
     }
 

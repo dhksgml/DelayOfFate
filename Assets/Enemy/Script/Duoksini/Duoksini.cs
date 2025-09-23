@@ -121,6 +121,23 @@ public class Duoksini : Enemy
                 EnemyHit(attack.damage);
                 Invoke("EnemyHitRegen", enemyHitTime);
             }
+
+            if (collision.gameObject.CompareTag("Light"))
+            {
+                EnemyLightHit();
+            }
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision != null)
+        {
+            // ºû¿¡¼­ ¹þ¾î³¯½Ã Àº½Å
+            if (collision.gameObject.CompareTag("Light"))
+            {
+                EnemyCloaking();
+            }
         }
     }
 

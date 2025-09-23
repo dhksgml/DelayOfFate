@@ -165,6 +165,7 @@ public class StealEnemy : Enemy
             {
                 originalMoveSpeed = enemyMoveSpeed;
                 enemyMoveSpeed = enemyMoveSpeed * 0.5f;
+                EnemyLightHit();
             }
         }
     }
@@ -176,9 +177,11 @@ public class StealEnemy : Enemy
             if (collision.gameObject.CompareTag("Light"))
             {
                 enemyMoveSpeed = originalMoveSpeed;
+                EnemyCloaking();
             }
         }
     }
+
 
     public IEnumerator EnemySteal()
     {
