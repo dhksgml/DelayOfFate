@@ -267,8 +267,27 @@ public class Boon_yeol_gwi : Enemy
 
                 }
             }
+
+            // 빛에 충돌시 은신 풀림
+            if (collision.gameObject.CompareTag("Light"))
+            {
+                EnemyLightHit();
+            }
         }
     }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision != null)
+        {
+            // 빛에서 벗어날시 은신
+            if (collision.gameObject.CompareTag("Light"))
+            {
+                EnemyCloaking();
+            }
+        }
+    }
+
     // 분열체 전용 사망처리
     IEnumerator CopyDie()
     {
