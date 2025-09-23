@@ -63,22 +63,15 @@ public class Item
         this.spendSPAmount = itemData.spendSPAmount;
 
         this.Coin = itemData.Coin;
-        this.Weight = itemData.Weight;
-        this.ValPoint = itemData.ValPoint;
 
         this.Count_Check = itemData.Count_Check;
         this.Count = itemData.Count;
-
-        this.Sell_whether = itemData.Sell_whether;
-        this.Sell_immediately = itemData.Sell_immediately;
 
         this.isUsable = itemData.isUsable;
         this.Usage_cool_down = itemData.Usage_cool_down;
         this.Charging = itemData.Charging;
 
         this.CoinDeviation = itemData.CoinDeviation;
-        this.WeightDeviation = itemData.WeightDeviation;
-        this.CountDeviation = itemData.CountDeviation;
 
         this.Drop_item = itemData.Drop_item;
 
@@ -95,22 +88,15 @@ public class Item
         data.spendSPAmount = this.spendSPAmount;
 
         data.Coin = this.Coin;
-        data.Weight = this.Weight;
-        data.ValPoint = this.ValPoint;
 
         data.Count_Check = this.Count_Check;
         data.Count = this.Count;
-
-        data.Sell_whether = this.Sell_whether;
-        data.Sell_immediately = this.Sell_immediately;
 
         data.isUsable = this.isUsable;
         data.Usage_cool_down = this.Usage_cool_down;
         data.Charging = this.Charging;
 
         data.CoinDeviation = this.CoinDeviation;
-        data.WeightDeviation = this.WeightDeviation;
-        data.CountDeviation = this.CountDeviation;
 
         data.Drop_item = this.Drop_item;
         if (data == null) return null;

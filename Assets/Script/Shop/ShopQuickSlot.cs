@@ -164,7 +164,6 @@ public class ShopQuickSlot : MonoBehaviour
         if (selectedItem != null && !string.IsNullOrEmpty(selectedItem.itemName))
         {
             int total_coin = selectedItem.Coin * selectedItem.Count;
-            int total_Weight = selectedItem.Weight * selectedItem.Count;
             Item_Name.text = string.Format("[{0}]", selectedItem.itemName);
             Item_Coin.text = total_coin.ToString() + " °ª";
 
