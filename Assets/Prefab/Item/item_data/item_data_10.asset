@@ -13,21 +13,16 @@ MonoBehaviour:
   m_Name: item_data_10
   m_EditorClassIdentifier: 
   id: 10
+  itemType: 0
   itemName: "\uD33D\uC774"
+  item_Passive: 
   InGameSprite: {fileID: 21300000, guid: d954ab7fbbb1a904baf1bef0e76edd85, type: 3}
-  icon: {fileID: 21300000, guid: fdd866e72f2805b45936f7b417565067, type: 3}
   spendSPAmount: 0
-  Coin: 84
-  Weight: 20
-  ValPoint: 5
+  Coin: 225
   Count_Check: 0
   Count: 1
-  Sell_whether: 1
-  Sell_immediately: 1
   isUsable: 0
   Usage_cool_down: 0
   Charging: 0
-  CoinDeviation: 5
-  WeightDeviation: 5
-  CountDeviation: 0
+  CoinDeviation: 22
   Drop_item: 0

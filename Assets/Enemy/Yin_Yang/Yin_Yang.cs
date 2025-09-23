@@ -55,6 +55,8 @@ public class Yin_Yang : Enemy
 
     void Update()
     {
+        HpBarUpdate();
+
         //적의 체력이 0이하일시.
         if (enemyHp <= 0 && !isDie)
         {
