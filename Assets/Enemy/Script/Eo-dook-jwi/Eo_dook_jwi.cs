@@ -137,6 +137,24 @@ public class Eo_dook_jwi : Enemy
             {
                 if (enemyDamage != 0) { player.DamagedHP(enemyDamage); }
             }
+
+            // 빛에 충돌시 은신 풀림
+            if (collision.gameObject.CompareTag("Light"))
+            {
+                EnemyLightHit();
+            }
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision != null)
+        {
+            // 빛에서 벗어날시 은신
+            if (collision.gameObject.CompareTag("Light"))
+            {
+                EnemyCloaking();
+            }
         }
     }
 

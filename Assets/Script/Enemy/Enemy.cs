@@ -80,7 +80,7 @@ public abstract class Enemy     : MonoBehaviour
     public bool          isEnemyHit; //피격했나 확인하는 bool
     public bool          isEnemyChase; //보이지 않아도 적이 쫒아가는지 확인하는 bool
     public bool          isArrive; //웨이포인트를 지닌 적이 한 바퀴를 다 돌았을때 확인하는 bool
-
+    public bool          iscloaking; // 은신중
     //기본적으로 적이 죽었을떄와 적이 피격당했을때 움직이지 않게 설정해놨습니다.
 
     [Header("Reference")]
@@ -98,6 +98,7 @@ public abstract class Enemy     : MonoBehaviour
     public GameObject           enemyDeathEffect; // 사망 이펙트
     public GameObject           Damage_text; // 피해량 텍스트
     public Enemy_HpBar          enemyHpBar; // 적 체력바
+    public GameObject           nightVision; // 적 은신시 눈
 
     [HideInInspector] public Vector3       enemyTargetDir; //적의 타겟 방향
 
@@ -158,6 +159,8 @@ public abstract class Enemy     : MonoBehaviour
     public void HpBarUpdate()
     {
         if (enemyHp <= 0) { enemyHp = 0; }
+        if (enemyHp == enemyMaxHp) { return; } // 최대채력이면 보여주지않음
+        else if (!iscloaking) { enemyHpBar.hpObj.SetActive(true); }
         enemyHpBar.hpBar.value = enemyHp / enemyMaxHp;
         enemyHpBar.hpBarText.text = $"{enemyHp} / {enemyMaxHp}";
     }
@@ -283,6 +286,31 @@ public abstract class Enemy     : MonoBehaviour
         isEnemyHit = false;
         //동결해둔걸 다시 풀어줌
         rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+
+    public void EnemyLightHit()
+    {
+        // 클로킹 중이 아님
+        iscloaking = false;
+
+        // 이동속도, 공격력 2배 해제
+
+        // 눈 비활성화
+        nightVision.SetActive(false);
+    }
+
+    public void EnemyCloaking()
+    {
+        // 클로킹 중
+        iscloaking = true;
+
+        // 체력바를 비활성화 해줌
+        enemyHpBar.hpObj.SetActive(false);
+
+        // 이동속도, 공격력 2배
+
+        // 눈을 표시해줌
+        nightVision.SetActive(true);
     }
 
     #endregion
