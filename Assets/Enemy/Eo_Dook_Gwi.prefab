@@ -373,6 +373,8 @@ MonoBehaviour:
   enemyHitTime: 0
   enemyWeakness: 0
   enemyType: 0
+  cloakingSpeed: 1
+  cloakingDamage: 1
   enemy_Weak: 0
   enemyCurrentMove: 0
   enemyMovePoint: []
@@ -410,7 +412,7 @@ MonoBehaviour:
   playerTrs: {x: 0, y: 0, z: 0}
   rushTime: 1.5
   enemyOriginSpeed: 0
-  enemyRushSpeed: 10
+  enemyRushSpeed: 5
   enemyRushDamage: 10
   isRushReady: 0
 --- !u!1001 &3823324556162547153

@@ -100,7 +100,7 @@ public class Duoksini_Attack : EnemyAttack
         if (collision.gameObject.CompareTag("Player") && !isAttack)
         {
             // АјАн
-            player.DamagedHP(enemyDamage);
+            player.DamagedHP(enemyDamage * enemy.cloakingDamage);
         }
     }
 

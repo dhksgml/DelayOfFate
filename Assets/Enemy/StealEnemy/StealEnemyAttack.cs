@@ -61,7 +61,7 @@ public class StealEnemyAttack : EnemyAttack
             stealEnemy.isAttack = true;
 
             // ����
-            player.DamagedHP(enemyDamage);
+            player.DamagedHP(enemyDamage * enemy.cloakingDamage);
             // ��� ������. -50% �̱⿡ �ִ� ���׹̳� / 2 �� ���־���
         }
     }
