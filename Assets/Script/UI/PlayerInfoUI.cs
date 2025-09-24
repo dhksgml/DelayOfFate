@@ -13,6 +13,7 @@ public class PlayerInfoUI : MonoBehaviour
     public Image playerMPsc;
     public Image playerMPSC;// 가장자리 이미지 지정
     public Sprite[] Mp_sc; // 가장자리 이미지 3개
+    public Image currentBatteryUI; //배터리 UI
 
     public TMP_Text coin_text;
     public TMP_Text soul_text;
@@ -64,6 +65,9 @@ public class PlayerInfoUI : MonoBehaviour
         }
         else // 인게임 에서 보여줄것
         {
+            if(currentBatteryUI)
+                currentBatteryUI.fillAmount = playerController.GetCurrentBattery();
+
             playerHP_Text.text = $"{(int)playerController.currentHp} / {(int)playerController.maxHp}";
 
             float hpRatio = playerController.currentHp / playerController.maxHp;
