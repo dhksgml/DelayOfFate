@@ -193,6 +193,7 @@ public class PlayerController : MonoBehaviour
             {
                 SpendBattery();
                 flashLight.pointLightOuterRadius = currentRadius;
+                flashLightObject.GetComponent<CircleCollider2D>().radius = currentRadius;
             }
             
         }
@@ -242,6 +243,11 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    public float GetCurrentBattery()
+    {
+        return currentRadius / startRadius;
+    }
+
     private void HandleFlashlightInput()
     {
         if(Input.GetKeyDown(KeyCode.X))
@@ -282,6 +288,7 @@ public class PlayerController : MonoBehaviour
 
     private void DecreaseFlashlight(float amount)
     {
+        if (!isOn) return;
         currentRadius -= amount;
         currentRadius = Mathf.Max(currentRadius, minRadius);
     }
@@ -492,7 +499,7 @@ public class PlayerController : MonoBehaviour
 
         HandleMovementInput();
 
-        if (Input.GetKeyDown(KeyCode.C)) DoRecovery();
+        //if (Input.GetKeyDown(KeyCode.C)) DoRecovery();
     }
     void HandleBlockedInput()
     {
