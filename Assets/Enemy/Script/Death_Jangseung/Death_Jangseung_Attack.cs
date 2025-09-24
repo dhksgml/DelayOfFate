@@ -88,7 +88,7 @@ public class Death_Jangseung_Attack : EnemyAttack
         if (collision.gameObject.CompareTag("Player") && !isAttack)
         {
             // АјАн
-            player.DamagedHP(enemyDamage);
+            player.DamagedHP(enemyDamage * enemy.cloakingDamage);
         }
     }
 

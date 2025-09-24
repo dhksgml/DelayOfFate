@@ -66,6 +66,11 @@ public abstract class Enemy     : MonoBehaviour
     public EnemyWeakness enemyWeakness; //적의 약점
     [Space(20f)]
     public Classification enemyType; //적의 타입
+    [Space(20f)]
+    public int            cloakingSpeed = 1; // 은신 시 이동속도 배율
+    public int            cloakingDamage = 1; // 은신 시 공격력 배율
+    // 이걸 모든 몬슽터 공격력에 그냥 곱해주면 됨
+    [Space(40f)]
 
     public bool enemy_Weak = false;
 
@@ -153,6 +158,8 @@ public abstract class Enemy     : MonoBehaviour
 
         }
         uiCanvas = GameObject.Find("Player_Canvas")?.transform;
+        // 시작시 은신
+        EnemyCloaking();
 
     }
 
@@ -293,7 +300,13 @@ public abstract class Enemy     : MonoBehaviour
         // 클로킹 중이 아님
         iscloaking = false;
 
-        // 이동속도, 공격력 2배 해제
+        // 이동속도, 공격력 원래대로
+        cloakingSpeed = 1;
+        cloakingDamage = 1;
+
+        // 이동속도 반영
+        enemyMoveSpeed = enemyMoveSpeed * cloakingSpeed;
+        enemyRunSpeed = enemyRunSpeed * cloakingSpeed;
 
         // 눈 비활성화
         nightVision.SetActive(false);
@@ -308,6 +321,12 @@ public abstract class Enemy     : MonoBehaviour
         enemyHpBar.hpObj.SetActive(false);
 
         // 이동속도, 공격력 2배
+        cloakingSpeed = 2;
+        cloakingDamage = 2;
+
+        // 이동속도 반영
+        enemyMoveSpeed = enemyMoveSpeed * cloakingSpeed;
+        enemyRunSpeed = enemyRunSpeed * cloakingSpeed;
 
         // 눈을 표시해줌
         nightVision.SetActive(true);

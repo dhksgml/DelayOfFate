@@ -38,7 +38,7 @@ public class Somyeon_gwi_Attack : EnemyAttack
                     if (attackTime >= enemyAttackSpeed)
                     {
                         //충돌시 데미지를 줌
-                        player.DamagedHP(enemyDamage);
+                        player.DamagedHP(enemyDamage * enemy.cloakingDamage);
                         player.DamagedMP(somyeon_Gwi_Mind_Damage);
                         attackTime = 0;
                     }
