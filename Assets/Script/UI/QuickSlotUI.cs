@@ -27,6 +27,7 @@ public class QuickSlotUI : MonoBehaviour
     public TMP_Text timeText; // UI 텍스트 오브젝트
     public int angleUnit = 0;
     private float angleStartTime;
+    public bool time_ui = true;
 
     private bool isAngleUnit18;
 
@@ -81,7 +82,14 @@ public class QuickSlotUI : MonoBehaviour
         {
             if (playerController.currentState == PlayerController.PlayerState.Idle)
             {
-                timeText.text = angleUnit + " 각";
+                if (time_ui) //아이템 효과 발동시 안보임
+                {
+                    timeText.text = angleUnit + " 각";
+                }
+                else
+                {
+                    timeText.text = " ";
+                }
             }
         }
         if (playerItemUse == null)

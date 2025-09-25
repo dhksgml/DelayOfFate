@@ -137,7 +137,7 @@ public class Place : MonoBehaviour
 			Player_Item_Use player_Item_Use = FindObjectOfType<Player_Item_Use>();
 			registered -= 1;
 			spriteRenderer.sprite = sprite_ch_spr[0];
-			player_Item_Use.Sale("all",0);
+			player_Item_Use.Sale("all", player_Item_Use.quickSlots[0]);//[0]을 지정하지만 어차피 큰 의미는 없음
 		}
 		if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_all_sell"));
 	}
