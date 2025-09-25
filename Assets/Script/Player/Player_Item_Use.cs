@@ -19,9 +19,10 @@ public class Player_Item_Use : MonoBehaviour
 
     // 소면귀용
     public bool isItemTouch = false;
-
+    public bool qlsu = false;//비녀 판매시 혼으로 계산
     //public static bool isAnyItemBeingSold = false; // 전역 중복 방지 플래그
     private ItemObject currentSellingItem = null;
+    Player_Item_p player_Item_P;
     public bool isUseAble { private get; set; } = true;
 
     [SerializeField] private AnimatorOverrideController swordAOC;
@@ -40,6 +41,7 @@ public class Player_Item_Use : MonoBehaviour
     {
         itemUsageManager = GetComponent<ItemUsageManager>();
         playercontroller = GetComponent<PlayerController>();
+        player_Item_P = GetComponent<Player_Item_p>();
         animator = GetComponent<Animator>();
         uiCanvas = GameObject.Find("Player_Canvas")?.transform;
     }
@@ -66,7 +68,7 @@ public class Player_Item_Use : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetKeyDown(KeyCode.V)) // 버리기
+        else if (Input.GetKeyDown(KeyCode.X)) // 판매
         {
             //DropItem();
             TutorialEvents.OnItemDropped?.Invoke(quickSlots[selectedSlotIndex]);
@@ -77,21 +79,19 @@ public class Player_Item_Use : MonoBehaviour
         {
             //if (!isAnyItemBeingSold)
             //{
-            // 주변에서 즉시 판매 가능한 아이템 중 첫 번째 하나만 찾기
-            Collider2D nearestItemCollider = Physics2D.OverlapCircle(transform.position, 1f, itemLayer);
-            if (nearestItemCollider != null)
-            {
-                ItemObject itemObject = nearestItemCollider.GetComponent<ItemObject>();
-
-                Debug.Log(itemObject.name);
-                if (itemObject != null)// && itemObject.itemData.Sell_immediately)
+                // 주변에서 즉시 판매 가능한 아이템 중 첫 번째 하나만 찾기
+                Collider2D nearestItemCollider = Physics2D.OverlapCircle(transform.position, 1f, itemLayer);
+                if (nearestItemCollider != null)
                 {
-                    PickUpItem();
-                    //isAnyItemBeingSold = true;
-                    isItemTouch = true;
-                    currentSellingItem = itemObject; // 새 변수, 현재 판매 중인 아이템 저장
+                    ItemObject itemObject = nearestItemCollider.GetComponent<ItemObject>();
+                    if (itemObject != null && itemObject.itemData.Sell_immediately)
+                    {
+                        PickUpItem();
+                        //isAnyItemBeingSold = true;
+                        isItemTouch = true;
+                        currentSellingItem = itemObject; // 새 변수, 현재 판매 중인 아이템 저장
+                    }
                 }
-            }
             //}
         }
     }
@@ -129,14 +129,14 @@ public class Player_Item_Use : MonoBehaviour
 
     void TryUseItem(Item selectedItem)
     {
-        if (!playercontroller.isRecovering)
+        if(!playercontroller.isRecovering)
         {
             if (selectedItem.id == 995) //족자의 경우 기력 대신 정신력 사용
             {
                 if (!playercontroller.isRecovering && selectedItem.spendSPAmount < playercontroller.currentMp)
                 {
                     playercontroller.SpendMp(Random.Range(selectedItem.spendSPAmount - 2, selectedItem.spendSPAmount + 2));
-                }
+                } 
             }
 
             itemUsageManager.UseItem(selectedItem.itemName);
@@ -147,7 +147,7 @@ public class Player_Item_Use : MonoBehaviour
 
     void ChangeAnimator(Attack_sc.AttackType attackType)
     {
-        switch (attackType)
+        switch(attackType)
         {
             case Attack_sc.AttackType.Sword:
                 animator.runtimeAnimatorController = swordAOC;
@@ -216,7 +216,6 @@ public class Player_Item_Use : MonoBehaviour
 
     public void PickUpItem()//줍기
     {
-        Debug.Log("Asdfasdfdasff");
         Collider2D[] itemColliders = Physics2D.OverlapCircleAll(transform.position, 1f, itemLayer);
         print("줍기 발동");
         foreach (Collider2D collider in itemColliders)
@@ -292,7 +291,7 @@ public class Player_Item_Use : MonoBehaviour
         // 2. 현재 슬롯에 아이템이 있는지 확인
         SellCurrentSlotItem();
         return;
-
+        
         // 3. 아무 것도 없으면 아무 일도 안 함
     }
 
@@ -300,7 +299,7 @@ public class Player_Item_Use : MonoBehaviour
     private void SellCurrentSlotItem()
     {
         if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_drop"));
-        Sale("one", 0);
+        //Sale("one",0);
         UpdateQuickSlotUI();
         GameEvents.CallDropItem();
     }
@@ -358,26 +357,33 @@ public class Player_Item_Use : MonoBehaviour
             if (itemObject != null && itemObject.itemData != null)
             {
                 Destroy(itemObject.gameObject);
-                Sale("one", itemObject.itemData.Coin);
+                Sale("one", itemObject.itemData);
             }
         }
     }
-    public void Sale(string ty, int add_coin) // "one" or "all"
+    public void Sale(string ty, Item itemData) // "one" or "all"
     {
         int itemValue = 0;
+        
         if (ty == "one")
         {
             if (quickSlots[selectedSlotIndex] == null)
             {
-                itemValue = add_coin;
+                player_Item_P.Sell(itemData.id);//판매시 특수 효과 발동
+                itemValue = itemData.Coin;
             }
             else
             {
+                player_Item_P.Sell(quickSlots[selectedSlotIndex].id);//판매시 특수 효과 발동
                 itemValue = quickSlots[selectedSlotIndex].Coin;
                 quickSlots[selectedSlotIndex] = null;
             }
+            
             GameManager.Instance.Add_Gold(itemValue);
-            SpawnEffectParts(itemValue, "Coin");
+            if (qlsu == false) { SpawnEffectParts(itemValue, "Coin"); }
+            else { SpawnEffectParts(itemValue, "Soul"); }
+            
+
             SoundManager.Instance?.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
         }
         else if (ty == "all")
@@ -427,7 +433,7 @@ public class Player_Item_Use : MonoBehaviour
         }
         return totalWeight;
     }
-    public void UpdateQuickSlotUI()
+   public void UpdateQuickSlotUI()
     {
         QuickSlotUI quickSlotUI = FindObjectOfType<QuickSlotUI>();
         if (quickSlotUI != null)
@@ -440,9 +446,9 @@ public class Player_Item_Use : MonoBehaviour
     public int CheckEmptySlotsCount()
     {
         int emptyCount = 0;
-        foreach (var quickSlot in quickSlots)
+        foreach(var quickSlot in quickSlots)
         {
-            if (quickSlot == null)
+            if(quickSlot == null)
                 emptyCount++;
         }
         return emptyCount;

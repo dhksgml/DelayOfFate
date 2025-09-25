@@ -13,12 +13,13 @@ public class PlayerInfoUI : MonoBehaviour
     public Image playerMPsc;
     public Image playerMPSC;// 가장자리 이미지 지정
     public Sprite[] Mp_sc; // 가장자리 이미지 3개
-    public Image currentBatteryUI; //배터리 UI
 
     public TMP_Text coin_text;
     public TMP_Text soul_text;
     public TMP_Text add_coin_text; //일시적 추가 했을때 ui
     public TMP_Text add_soul_text; //일시적 추가 했을때 ui
+    public bool coin_ui = true;
+    public bool soul_ui = true;
 
     public float showDuration = 1f; // 완전 표시되는 시간
     public float fadeDuration = 1f; // 페이드 아웃 시간
@@ -55,8 +56,8 @@ public class PlayerInfoUI : MonoBehaviour
 
     private void Update()
     {
-        coin_text.text = $" : {(int)GameManager.Instance.Gold}";
-        soul_text.text = $" : {(int)GameManager.Instance.Soul} / <color=#ff0000>{(int)GameManager.Instance.N_Day_Cost}</color>";
+        if (coin_ui) { coin_text.text = $" : {(int)GameManager.Instance.Gold}"; } else { coin_text.text = " "; }
+        if (soul_ui) { soul_text.text = $" : {(int)GameManager.Instance.Soul} / <color=#ff0000>{(int)GameManager.Instance.N_Day_Cost}</color>"; } else { soul_text.text = " "; }
         //playerHP_Text.text = $"{(int)playerController.currentHp} / {(int)playerController.maxHp}";
 
         if (playerController == null) // 플레이어가 없는 경우 (상점, 스테이지 선택)
@@ -65,9 +66,6 @@ public class PlayerInfoUI : MonoBehaviour
         }
         else // 인게임 에서 보여줄것
         {
-            if(currentBatteryUI)
-                currentBatteryUI.fillAmount = playerController.GetCurrentBattery();
-
             playerHP_Text.text = $"{(int)playerController.currentHp} / {(int)playerController.maxHp}";
 
             float hpRatio = playerController.currentHp / playerController.maxHp;
