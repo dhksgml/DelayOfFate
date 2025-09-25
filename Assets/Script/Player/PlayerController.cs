@@ -46,12 +46,12 @@ public class PlayerController : MonoBehaviour
     public float flashLightDistance = 3f;
 
     private Light2D flashLight;
-    private float flashlightRadius;
-    private float startRadius = 10f;
-    private float minRadius = 0f;
-    private float decreaseDuration = 180f;
-    private float currentRadius;
-    private float decreaseRate;
+    //private float flashlightRadius;
+    private float startRadius = 10f; //최대 시야 크기
+    private float minRadius = 0f; //최소 시야 크기
+    private float currentRadius; //현재 시야 크기
+    private float decreaseRate = 0.1f; //시야 감소폭
+    private bool isOn = true; //플래시라이트 상태
     private Coroutine refillCoroutine;
 
     [Header("ItemCooltime")]
@@ -128,9 +128,9 @@ public class PlayerController : MonoBehaviour
         if (flashLightObject)
         {
             flashLight = flashLightObject.GetComponent<Light2D>();
-            flashlightRadius = flashLight.pointLightOuterRadius;
+            //flashlightRadius = flashLight.pointLightOuterRadius;
             currentRadius = startRadius;
-            decreaseRate = (startRadius - minRadius) / decreaseDuration;
+            flashLight.enabled = isOn;
         }
     }
 
@@ -187,10 +187,15 @@ public class PlayerController : MonoBehaviour
     {
         if (flashLightObject != null)
         {
-            currentRadius -= decreaseRate * Time.deltaTime;
-            currentRadius = Mathf.Max(currentRadius, minRadius);
+            HandleFlashlightInput();
 
-            flashLight.pointLightOuterRadius = currentRadius;
+            if (isOn)
+            {
+                SpendBattery();
+                flashLight.pointLightOuterRadius = currentRadius;
+                flashLightObject.GetComponent<CircleCollider2D>().radius = currentRadius;
+            }
+            
         }
 
         if (clickLookTimer > 0f)
@@ -238,6 +243,34 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    public float GetCurrentBattery()
+    {
+        return currentRadius / startRadius;
+    }
+
+    private void HandleFlashlightInput()
+    {
+        if(Input.GetKeyDown(KeyCode.X))
+        {
+            isOn = !isOn;
+            flashLight.enabled = isOn;
+        }
+    }
+
+    private void SpendBattery()
+    {
+        if(currentRadius > minRadius)
+        {
+            currentRadius -= decreaseRate * Time.deltaTime;
+            currentRadius = Mathf.Max(currentRadius, minRadius);
+        }
+        else
+        {
+            isOn = false;
+            flashLight.enabled = false;
+        }
+    }
+
     public void RefillFlashlight(float amount)
     {
         if (refillCoroutine == null)
@@ -255,6 +288,7 @@ public class PlayerController : MonoBehaviour
 
     private void DecreaseFlashlight(float amount)
     {
+        if (!isOn) return;
         currentRadius -= amount;
         currentRadius = Mathf.Max(currentRadius, minRadius);
     }
@@ -465,7 +499,7 @@ public class PlayerController : MonoBehaviour
 
         HandleMovementInput();
 
-        if (Input.GetKeyDown(KeyCode.C)) DoRecovery();
+        //if (Input.GetKeyDown(KeyCode.C)) DoRecovery();
     }
     void HandleBlockedInput()
     {

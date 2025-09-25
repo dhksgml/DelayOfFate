@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Enemy_HpBar : MonoBehaviour
 {
+    public GameObject hpObj;
     public Slider hpBar;
     public TextMeshProUGUI hpBarText;
 }

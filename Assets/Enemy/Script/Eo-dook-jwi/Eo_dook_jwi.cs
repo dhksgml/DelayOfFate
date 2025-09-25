@@ -135,7 +135,33 @@ public class Eo_dook_jwi : Enemy
             // 충돌 시 데미지를 부여
             if (collision.gameObject.CompareTag("Player"))
             {
-                if (enemyDamage != 0) { player.DamagedHP(enemyDamage); }
+                if (enemyDamage != 0) 
+                { 
+                    player.DamagedHP(enemyDamage * cloakingDamage); 
+                }
+            }
+
+            // 빛에 충돌시 은신 풀림
+            if (collision.gameObject.CompareTag("Light"))
+            {
+                EnemyLightHit();
+            }
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision != null)
+        {
+            // 빛에서 벗어날시 은신
+            if (collision.gameObject.CompareTag("Light"))
+            {
+                EnemyCloaking();
+                // 돌진 중 비정상적으로 빨라지는걸 방지
+                if (isRushReady)
+                {
+                    cloakingSpeed = 1;
+                }
             }
         }
     }
@@ -203,5 +229,10 @@ public class Eo_dook_jwi : Enemy
 
         isRush = false;
         isRushReady = false;
+        // 은신시 예외처리
+        if (iscloaking)
+        {
+            cloakingSpeed = 2;
+        }
     }
 }
