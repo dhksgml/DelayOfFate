@@ -23,4 +23,7 @@ public static class GameEvents
 
     public static event Action<Attack_sc.AttackType> OnUseItem;
     public static void CallUseItem(Attack_sc.AttackType type) => OnUseItem?.Invoke(type);
+
+    public static event Action<bool> OnClickLenton;
+    public static void CallClickLenton(bool isOn) => OnClickLenton?.Invoke(isOn);
 }

@@ -131,6 +131,7 @@ public class PlayerController : MonoBehaviour
             //flashlightRadius = flashLight.pointLightOuterRadius;
             currentRadius = startRadius;
             flashLight.enabled = isOn;
+            GameEvents.CallClickLenton(isOn);
         }
     }
 
@@ -254,6 +255,7 @@ public class PlayerController : MonoBehaviour
         {
             isOn = !isOn;
             flashLight.enabled = isOn;
+            GameEvents.CallClickLenton(isOn);
         }
     }
 
@@ -268,6 +270,7 @@ public class PlayerController : MonoBehaviour
         {
             isOn = false;
             flashLight.enabled = false;
+            GameEvents.CallClickLenton(isOn);
         }
     }
 
