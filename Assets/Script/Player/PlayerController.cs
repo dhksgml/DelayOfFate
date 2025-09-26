@@ -250,7 +250,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleFlashlightInput()
     {
-        if(Input.GetKeyDown(KeyCode.X))
+        if(Input.GetKeyDown(KeyCode.S))
         {
             isOn = !isOn;
             flashLight.enabled = isOn;
