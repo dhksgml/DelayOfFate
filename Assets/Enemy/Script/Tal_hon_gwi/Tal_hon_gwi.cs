@@ -198,7 +198,7 @@ public class Tal_hon_gwi : Enemy
         {
             if (coin_text != null)
             {
-                int total_coin = item.Coin * item.Count;
+                int total_coin = item.Coin;
                 coin_text.text = string.Format("[<b>E</b>] 줍기\n[<b>F</b>] 즉시 판매: {0}<sprite=9>", total_coin);
             }
         }
