@@ -117,7 +117,7 @@ public class ItemObject : MonoBehaviour
         if (coin_text != null)
         {
             int total_coin = itemData.Coin * itemData.Count;
-            if (itemData.Sell_immediately) { coin_text.text = string.Format("[<b>C</b>] 줍기\n[<b>X</b>] 즉시 판매: {0}<sprite=9>", total_coin); }
+            if (itemData.Sell_immediately) { coin_text.text = string.Format("[<b>Z</b>] 줍기\n[<b>X</b>] 즉시 판매: {0}<sprite=9>", total_coin); }
         }
     }
 }
