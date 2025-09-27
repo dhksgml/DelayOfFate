@@ -48,8 +48,6 @@ public class Player_Item_p : MonoBehaviour
 	// 시간에 따라 아이템 효과 종료
 	private void UpdateItemEffects()
 	{
-		print(item_p[0]);
-		print(Time.time - itemStartTime[0]);
 		if (item_p[0] && Time.time - itemStartTime[0] >= 80f) {item_p[0] = false; quickSlotUI.time_ui = true; } // 80초 지속
 		if (item_p[1] && Time.time - itemStartTime[1] >= 40f) {item_p[1] = false; } // 40초 지속
 		if (item_p[2] && Time.time - itemStartTime[2] >= 80f) {item_p[2] = false; playerInfoUI.coin_ui = true; }
