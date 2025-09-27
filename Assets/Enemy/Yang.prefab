@@ -148,7 +148,7 @@ MonoBehaviour:
   enemyName: "\uC591"
   enemyHp: 10
   enemyMaxHp: 0
-  enemyMoveSpeed: 3
+  enemyMoveSpeed: 5
   enemyRunSpeed: 0
   enemyPriceMin: 1
   enemyPriceMax: 1
@@ -160,6 +160,8 @@ MonoBehaviour:
   enemyHitTime: 0
   enemyWeakness: 0
   enemyType: 0
+  cloakingSpeed: 1
+  cloakingDamage: 1
   enemy_Weak: 0
   enemyCurrentMove: 0
   enemyMovePoint: []
@@ -195,6 +197,8 @@ MonoBehaviour:
   isFind: 0
   yinObj: {fileID: 958911829622340847, guid: 35dae5fb2b39a254cbf4f9199f0d80c4, type: 3}
   fusionTime: 1
+  time: {fileID: 0}
+  plusTime: -80
 --- !u!1 &6401074620460399457
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,7 +319,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
+  m_LocalScale: {x: 1.75, y: 1.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6309435514973207906}
