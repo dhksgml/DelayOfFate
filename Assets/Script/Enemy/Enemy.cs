@@ -67,8 +67,8 @@ public abstract class Enemy     : MonoBehaviour
     [Space(20f)]
     public Classification enemyType; //적의 타입
     [Space(20f)]
-    public int            cloakingSpeed = 1; // 은신 시 이동속도 배율
-    public int            cloakingDamage = 1; // 은신 시 공격력 배율
+    public float          cloakingSpeed = 1; // 은신 시 이동속도 배율
+    public float          cloakingDamage = 1; // 은신 시 공격력 배율
     // 이걸 모든 몬슽터 공격력에 그냥 곱해주면 됨
     [Space(40f)]
 
@@ -321,8 +321,8 @@ public abstract class Enemy     : MonoBehaviour
         enemyHpBar.hpObj.SetActive(false);
 
         // 이동속도, 공격력 2배
-        cloakingSpeed = 2;
-        cloakingDamage = 2;
+        cloakingSpeed = 1.2f;
+        cloakingDamage = 1.5f;
 
         // 이동속도 반영
         enemyMoveSpeed = enemyMoveSpeed * cloakingSpeed;
