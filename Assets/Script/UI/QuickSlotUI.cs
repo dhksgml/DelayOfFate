@@ -26,7 +26,7 @@ public class QuickSlotUI : MonoBehaviour
 
     public TMP_Text timeText; // UI 텍스트 오브젝트
     public int angleUnit = 0;
-    private float angleStartTime;
+    public float angleStartTime;
     public bool time_ui = true;
 
     private bool isAngleUnit18;

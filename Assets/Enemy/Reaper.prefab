@@ -34,6 +34,7 @@ Transform:
   m_Children:
   - {fileID: 8443102530628699239}
   - {fileID: 6858408559096982889}
+  - {fileID: 5585058945939808674}
   m_Father: {fileID: 4595476153123041049}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &6899121121192850365
@@ -91,6 +92,8 @@ MonoBehaviour:
   enemyHitTime: 0
   enemyWeakness: 0
   enemyType: 0
+  cloakingSpeed: 1
+  cloakingDamage: 1
   enemy_Weak: 0
   enemyCurrentMove: 0
   enemyMovePoint: []
@@ -100,6 +103,7 @@ MonoBehaviour:
   isEnemyHit: 0
   isEnemyChase: 0
   isArrive: 0
+  iscloaking: 0
   enemyTrace: {fileID: 0}
   enemyAttack: {fileID: 0}
   sp: {fileID: 4805011254266727187}
@@ -113,6 +117,7 @@ MonoBehaviour:
   enemyDeathEffect: {fileID: 5642766282230003982, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
   Damage_text: {fileID: 467691442841209291, guid: e4e0e37a16a362a4aabe4d4e6b8d17a0, type: 3}
   enemyHpBar: {fileID: 8058847935870905793}
+  nightVision: {fileID: 7209007982850563098}
   enemyTargetDir: {x: 0, y: 0, z: 0}
   isDie: 0
   rigid: {fileID: 0}
@@ -302,6 +307,37 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &7209007982850563098
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5585058945939808674}
+  m_Layer: 0
+  m_Name: Dump
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5585058945939808674
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7209007982850563098}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4104847102401129744}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1108526042610035475
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -28,6 +28,9 @@ public class Yin_Yang : Enemy
     // 바로 합체되는걸 막아주기 위함
     float delay;
     [SerializeField] float fusionTime = 5.0f;
+    [SerializeField] QuickSlotUI time;
+    [SerializeField] int plusTime;
+    [SerializeField] GameObject removeYin;
 
     // static으로 두 오브젝트가 공유하는 충돌 여부
     static bool hasFusion = false; 
@@ -36,11 +39,15 @@ public class Yin_Yang : Enemy
     {
         rigid = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        // 찾아서 저장
+        time = FindObjectOfType<QuickSlotUI>();
     }
 
     void Start()
     {
         EnemyInt();
+
+
 
         if (type == Yin_Yang_Type.Yang)
         {
@@ -79,6 +86,7 @@ public class Yin_Yang : Enemy
                 isSpawn = true;
                 // 음 0,0,0에 소환
                 GameObject test = Instantiate(yinObj, -transform.position, Quaternion.identity);
+                removeYin = test;
             }
         }
 
@@ -134,9 +142,19 @@ public class Yin_Yang : Enemy
                     if (!hasFusion)
                     {
                         Debug.Log("합체");
-                        SummonReaper();
+                        // 사신 소환 메서드 비활성화
+                        //SummonReaper();
+
+                        // 합채시 시간 증가
+                        Yin_Yang_Fusion();
                         hasFusion = true;
                     }
+
+                    if(yinObj != null)
+{
+                        Destroy(removeYin);
+                    }
+
                     Destroy(transform.parent.gameObject);
                 }
             }
@@ -183,6 +201,11 @@ public class Yin_Yang : Enemy
     {
         Debug.Log("음양합체");
         Instantiate(summonReaper, transform.position, Quaternion.identity);
+    }
+
+    void Yin_Yang_Fusion()
+    {
+        time.angleStartTime += plusTime;
     }
 
     //static 변수 초기화 메서드
