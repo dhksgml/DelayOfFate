@@ -77,22 +77,19 @@ public class Player_Item_Use : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Z) && !playercontroller.isRecovering) // 줍기
         {
-            //if (!isAnyItemBeingSold)
-            //{
-                // 주변에서 즉시 판매 가능한 아이템 중 첫 번째 하나만 찾기
-                Collider2D nearestItemCollider = Physics2D.OverlapCircle(transform.position, 1f, itemLayer);
-                if (nearestItemCollider != null)
+            Collider2D nearestItemCollider = Physics2D.OverlapCircle(transform.position, 1f, itemLayer);
+            print(nearestItemCollider);
+            if (nearestItemCollider != null)
+            {
+                ItemObject itemObject = nearestItemCollider.GetComponent<ItemObject>();
+                if (itemObject != null)
                 {
-                    ItemObject itemObject = nearestItemCollider.GetComponent<ItemObject>();
-                    if (itemObject != null && itemObject.itemData.Sell_immediately)
-                    {
-                        PickUpItem();
-                        //isAnyItemBeingSold = true;
-                        isItemTouch = true;
-                        currentSellingItem = itemObject; // 새 변수, 현재 판매 중인 아이템 저장
-                    }
+                    PickUpItem();
+                    //isAnyItemBeingSold = true;
+                    isItemTouch = true;
+                    currentSellingItem = itemObject; // 새 변수, 현재 판매 중인 아이템 저장
                 }
-            //}
+            }
         }
     }
 
