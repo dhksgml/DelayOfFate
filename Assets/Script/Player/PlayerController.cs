@@ -842,7 +842,8 @@ public class PlayerController : MonoBehaviour
 
         if(damageFX) 
             Instantiate(damageFX, transform.position, Quaternion.identity);
-        DecreaseFlashlight(2);
+        // 피격시 빛을 줄이는 함수 비활성화
+        //DecreaseFlashlight(2);
 
         if (currentHp <= 0)
         {
