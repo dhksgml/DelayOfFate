@@ -131,6 +131,7 @@ public class PlayerController : MonoBehaviour
             //flashlightRadius = flashLight.pointLightOuterRadius;
             currentRadius = startRadius;
             flashLight.enabled = isOn;
+            GameEvents.CallClickLenton(isOn);
         }
     }
 
@@ -254,6 +255,7 @@ public class PlayerController : MonoBehaviour
         {
             isOn = !isOn;
             flashLight.enabled = isOn;
+            GameEvents.CallClickLenton(isOn);
         }
     }
 
@@ -268,6 +270,7 @@ public class PlayerController : MonoBehaviour
         {
             isOn = false;
             flashLight.enabled = false;
+            GameEvents.CallClickLenton(isOn);
         }
     }
 
@@ -842,7 +845,8 @@ public class PlayerController : MonoBehaviour
 
         if(damageFX) 
             Instantiate(damageFX, transform.position, Quaternion.identity);
-        DecreaseFlashlight(2);
+        // 피격시 빛을 줄이는 함수 비활성화
+        //DecreaseFlashlight(2);
 
         if (currentHp <= 0)
         {

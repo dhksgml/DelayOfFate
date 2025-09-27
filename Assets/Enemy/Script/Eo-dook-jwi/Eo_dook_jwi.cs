@@ -232,7 +232,7 @@ public class Eo_dook_jwi : Enemy
         // 은신시 예외처리
         if (iscloaking)
         {
-            cloakingSpeed = 2;
+            cloakingSpeed = 1.2f;
         }
     }
 }
