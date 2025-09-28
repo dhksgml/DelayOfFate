@@ -14,7 +14,8 @@ public class Player_Tal_hon_gwi_Find : MonoBehaviour
 
                 if (talhongwi != null)
                 {
-                    if (Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.F))
+                    // 줍기 Z 판매 X
+                    if (Input.GetKeyUp(KeyCode.Z) || Input.GetKeyUp(KeyCode.X))
                     {
                         talhongwi.isSeek = true;
                     }
