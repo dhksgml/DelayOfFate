@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 1
   itemType: 0
   itemName: "\uBE44\uB140"
-  item_Passive: 
+  item_Passive: "[\uC989\uC2DC\uD310\uB9E4] \uD63C \uC73C\uB85C \uD68D\uB4DD"
   InGameSprite: {fileID: 21300000, guid: 1018c709797f7fc42b04e35f363668f2, type: 3}
   spendSPAmount: 0
   Coin: 100

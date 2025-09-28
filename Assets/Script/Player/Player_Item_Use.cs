@@ -49,7 +49,6 @@ public class Player_Item_Use : MonoBehaviour
     {
         //print(quickSlots[selectedSlotIndex]);
         HandleSlotSelection(); // 슬롯 변경 처리
-        float weight = GetTotalItemWeight();
         if (Input.GetKeyDown(KeyCode.A) && isUseAble)
         {
             if (selectedWeaponIndex >= 0 && selectedWeaponIndex < weaponSlots.Length)
@@ -324,8 +323,6 @@ public class Player_Item_Use : MonoBehaviour
             {
                 spriteRenderer.sprite = newItemComponent.itemData.InGameSprite;
             }
-
-            Debug.Log($"버린 아이템: {newItemComponent.itemData.itemName}, 금액: {newItemComponent.itemData.Coin}, 무게: {newItemComponent.itemData.Weight}");
             // 퀵슬롯에서 해당 아이템 제거
             quickSlots[selectedSlotIndex] = null;
             UpdateQuickSlotUI();
@@ -376,9 +373,9 @@ public class Player_Item_Use : MonoBehaviour
                 quickSlots[selectedSlotIndex] = null;
             }
             
-            GameManager.Instance.Add_Gold(itemValue);
-            if (qlsu == false) { SpawnEffectParts(itemValue, "Coin"); }
-            else { SpawnEffectParts(itemValue, "Soul"); }
+            
+            if (qlsu == false) { SpawnEffectParts(itemValue, "Coin"); GameManager.Instance.Add_Gold(itemValue); }
+            else { SpawnEffectParts(itemValue, "Soul"); GameManager.Instance.Add_Soul(itemValue); }
             
 
             SoundManager.Instance?.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
@@ -418,18 +415,6 @@ public class Player_Item_Use : MonoBehaviour
         }
     }
 
-    public float GetTotalItemWeight()//들고 있는 모든 아이템의 무게
-    {
-        float totalWeight = 0f;
-        foreach (Item item in quickSlots)
-        {
-            if (item != null)
-            {
-                totalWeight += item.Weight;
-            }
-        }
-        return totalWeight;
-    }
    public void UpdateQuickSlotUI()
     {
         QuickSlotUI quickSlotUI = FindObjectOfType<QuickSlotUI>();
