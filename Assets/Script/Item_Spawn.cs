@@ -11,7 +11,7 @@ public class Item_Spawn : MonoBehaviour
     {
 
     }
-    public void spoawn_item()
+    /*public void spoawn_item()
     {
         List<GameObject> spawnableItems = new List<GameObject>();
         int minCost = int.MaxValue;
@@ -32,7 +32,7 @@ public class Item_Spawn : MonoBehaviour
             if (item != null)
             {
                 spawnableItems.Add(prefab);
-                int cost = item.itemData.ValPoint;
+                int cost = item.itemData.Coin;
                 if (cost < minCost)
                     minCost = cost;
             }
@@ -56,7 +56,7 @@ public class Item_Spawn : MonoBehaviour
                 continue;
             }
 
-            int cost = io.itemData.ValPoint;
+            int cost = io.itemData.Coin;
 
             if (cost <= currentPoint)
             {
@@ -72,5 +72,5 @@ public class Item_Spawn : MonoBehaviour
                 Debug.Log($"스폰: {randomPrefab.name} at {spawnPoint.position} (cost: {cost}) / 남은 점수: {currentPoint}");
             }
         }
-    }
+    }*/
 }

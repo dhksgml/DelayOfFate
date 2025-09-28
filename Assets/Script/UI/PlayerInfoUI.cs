@@ -7,6 +7,7 @@ using System.Collections;
 public class PlayerInfoUI : MonoBehaviour
 {
     private PlayerController playerController;
+    private Player_Item_p player_Item_P;
     public Image playerHpBar;
     public Image playerBonusHpBar;
     public TMP_Text playerHP_Text;
@@ -19,8 +20,6 @@ public class PlayerInfoUI : MonoBehaviour
     public TMP_Text soul_text;
     public TMP_Text add_coin_text; //일시적 추가 했을때 ui
     public TMP_Text add_soul_text; //일시적 추가 했을때 ui
-    public bool coin_ui = true;
-    public bool soul_ui = true;
 
     public float showDuration = 1f; // 완전 표시되는 시간
     public float fadeDuration = 1f; // 페이드 아웃 시간
@@ -51,42 +50,63 @@ public class PlayerInfoUI : MonoBehaviour
     private void Start()
     {
         playerController = FindObjectOfType<PlayerController>();
+        player_Item_P = FindObjectOfType<Player_Item_p>();
         maxHpBarWidth = playerHpBar.rectTransform.sizeDelta.x;
         add_text_reset();
     }
 
     private void Update()
     {
-        if (coin_ui) { coin_text.text = $" : {(int)GameManager.Instance.Gold}"; } else { coin_text.text = " "; }
-        if (soul_ui) { soul_text.text = $" : {(int)GameManager.Instance.Soul} / <color=#ff0000>{(int)GameManager.Instance.N_Day_Cost}</color>"; } else { soul_text.text = " "; }
+        if (!player_Item_P.item_p[18]) { coin_text.text = $" : {(int)GameManager.Instance.Gold}"; } else { coin_text.text = " "; }
+        if (!player_Item_P.item_p[19]) { soul_text.text = $" : {(int)GameManager.Instance.Soul} / <color=#ff0000>{(int)GameManager.Instance.N_Day_Cost}</color>"; } else { soul_text.text = $" : / <color=#ff0000>{(int)GameManager.Instance.N_Day_Cost}</color>"; }
         //playerHP_Text.text = $"{(int)playerController.currentHp} / {(int)playerController.maxHp}";
 
         if (playerController == null) // 플레이어가 없는 경우 (상점, 스테이지 선택)
         {
-            playerHP_Text.text = $"{(int)GameManager.Instance.playerData.currentHp} / {(int)GameManager.Instance.playerData.maxHp}";
+            if (!player_Item_P.item_p[7]) { playerHP_Text.text = $"{(int)GameManager.Instance.playerData.currentHp} / {(int)GameManager.Instance.playerData.maxHp}"; } else { playerHP_Text.text = " "; }
         }
         else // 인게임 에서 보여줄것
         {
-            if (currentBatteryUI)
-                currentBatteryUI.fillAmount = playerController.GetCurrentBattery();
-
-            playerHP_Text.text = $"{(int)playerController.currentHp} / {(int)playerController.maxHp}";
-
-            float hpRatio = playerController.currentHp / playerController.maxHp;
-
-            Vector2 hpSize = playerHpBar.rectTransform.sizeDelta;
-            hpSize.x = maxHpBarWidth * Mathf.Clamp01(hpRatio);
-            playerHpBar.rectTransform.sizeDelta = hpSize;
-
-            //UpdateHealthBar(playerController.currentHp, playerController.maxHp, playerController.currentExtraHp, playerController.extraHp);
-            //if(PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_5_1"))
-            if (GameManager.Instance != null && GameManager.Instance.playerData.isFindNearestItem)
+            if (!player_Item_P.item_p[7])
             {
-                if (playerController.GetNearestItemDir() != null)
-                    ShowDirectionToItem((Vector3)playerController.GetNearestItemDir());
-                else
-                    HideDirectionToItem();
+                if (currentBatteryUI)
+                    currentBatteryUI.fillAmount = playerController.GetCurrentBattery();
+
+                playerHP_Text.text = $"{(int)playerController.currentHp} / {(int)playerController.maxHp}";
+
+                float hpRatio = playerController.currentHp / playerController.maxHp;
+
+                Vector2 hpSize = playerHpBar.rectTransform.sizeDelta;
+                hpSize.x = maxHpBarWidth * Mathf.Clamp01(hpRatio);
+                playerHpBar.rectTransform.sizeDelta = hpSize;
+
+                if (GameManager.Instance != null && GameManager.Instance.playerData.isFindNearestItem)
+                {
+                    if (playerController.GetNearestItemDir() != null)
+                        ShowDirectionToItem((Vector3)playerController.GetNearestItemDir());
+                    else
+                        HideDirectionToItem();
+                }
             }
+            else
+            {
+                // UI 비활성화 처리
+                if (currentBatteryUI)
+                    currentBatteryUI.fillAmount = 0f;
+
+                if (playerHP_Text)
+                    playerHP_Text.text = string.Empty;
+
+                if (playerHpBar)
+                {
+                    Vector2 hpSize = playerHpBar.rectTransform.sizeDelta;
+                    hpSize.x = 0f;
+                    playerHpBar.rectTransform.sizeDelta = hpSize;
+                }
+
+                HideDirectionToItem();
+            }
+
         }
         if (playerMPsc != null && playerController != null)
         {
