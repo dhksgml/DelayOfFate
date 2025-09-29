@@ -17,17 +17,18 @@ public class QuickSlotUI : MonoBehaviour
     public Sprite selectedSlotSprite;   // 선택된 슬롯 배경
     public TMP_Text Item_Name;          // 선택한 아이템의 이름
     public TMP_Text Item_Coin;          // 선택한 아이템의 가치
-    //public TMP_Text Use_text;           // 사용 가능한 아이템이라면 표기될 텍스트
     public TMP_Text Discard_text;       // 아이템을 들고 있다면 버리기 텍스트 표기
+    //public TMP_Text Use_text;           // 사용 가능한 아이템이라면 표기될 텍스트
+    public TMP_Text Item_Passive_text;       // 아이템을 들고 있다면 버리기 텍스트 표기
     //public TMP_Text Item_Weight;        // 선택한 아이템의 무게
 
     public Player_Item_Use playerItemUse;
     private PlayerController playerController;
+    private Player_Item_p player_Item_P;
 
     public TMP_Text timeText; // UI 텍스트 오브젝트
     public int angleUnit = 0;
-    private float angleStartTime;
-    public bool time_ui = true;
+    public float angleStartTime;
 
     private bool isAngleUnit18;
 
@@ -38,6 +39,7 @@ public class QuickSlotUI : MonoBehaviour
         //Item_Weight.text = null;
         playerItemUse = FindObjectOfType<Player_Item_Use>();
         playerController = FindObjectOfType<PlayerController>();
+        player_Item_P = FindObjectOfType<Player_Item_p>();
         angleStartTime = Time.time;
         ResetAngleUnit();
         UpdateUI();
@@ -82,7 +84,7 @@ public class QuickSlotUI : MonoBehaviour
         {
             if (playerController.currentState == PlayerController.PlayerState.Idle)
             {
-                if (time_ui) //아이템 효과 발동시 안보임
+                if (!player_Item_P.item_p[10]) //아이템 효과 발동시 안보임
                 {
                     timeText.text = angleUnit + " 각";
                 }
@@ -178,18 +180,20 @@ public class QuickSlotUI : MonoBehaviour
         Item selectedItem = playerItemUse.quickSlots[playerItemUse.selectedSlotIndex];
         if (selectedItem != null && !string.IsNullOrEmpty(selectedItem.itemName))
         {
-            int total_coin = selectedItem.Coin * selectedItem.Count;
+            int total_coin = selectedItem.Coin;
             //int total_Weight = selectedItem.Weight * selectedItem.Count;
             Item_Name.text = string.Format("[{0}]", selectedItem.itemName);
             Item_Coin.text = total_coin.ToString() + " 값";
             //Item_Weight.text = total_Weight.ToString() + " 근";
             //if (selectedItem.isUsable) { Use_text.text = "[<space=15><voffset=14><sprite=1><voffset=0><space=-25>] 사용</voffset>"; } else { Use_text.text = null; } //사용 가능한 경우만 표기
-            Discard_text.text = "[<b>F</b>] 즉시판매";
+            Item_Passive_text.text = selectedItem.item_Passive;
+            Discard_text.text = "[<b>X</b>] 즉시판매";
         }
         else
         {
             Item_Name.text = null;
             Item_Coin.text = null;
+            Item_Passive_text.text = null;
             //Item_Weight.text = null;
             //Use_text.text = null;
             Discard_text.text = null;

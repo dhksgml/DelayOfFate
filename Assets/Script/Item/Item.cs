@@ -15,25 +15,18 @@ public class Item
 
     [Header("이름, 인게임, 아이콘")]
     public string itemName;
+    public string item_Passive;
     public Sprite InGameSprite;
-    public Sprite icon;
 
     [Header("아이템 사용 SP")]
     public float spendSPAmount;
 
     [Space(10)]
     public int Coin;  // 코인
-    public int Weight;
-    [Header("점수")]
-    public int ValPoint;
 
     [Header("중복형 아이템인가")]
     public bool Count_Check;
     public int Count = 1;
-
-    [Header("판매 가능 / 즉시 판매 가능")]
-    public bool Sell_whether;
-    public bool Sell_immediately;
 
     [Header("사용 가능한 아이템인가")]
     public bool isUsable;
@@ -42,8 +35,6 @@ public class Item
 
     [Header("랜덤 값 설정")]
     public int CoinDeviation; // 오차 값 (±)
-    public int WeightDeviation; // 오차 값 (±)
-    public int CountDeviation; // 오차 값 (±)
 
     [HideInInspector]
     public bool Drop_item; // 떨어트린 적이 있는 아이템인가
@@ -58,6 +49,7 @@ public class Item
         this.id = itemData.id;
         this.itemType = itemData.itemType;
         this.itemName = itemData.itemName;
+        this.item_Passive = itemData.item_Passive;
         this.InGameSprite = itemData.InGameSprite;
 
         this.spendSPAmount = itemData.spendSPAmount;
@@ -83,6 +75,7 @@ public class Item
         data.id = this.id;
         data.itemType = this.itemType;
         data.itemName = this.itemName;
+        data.item_Passive = this.item_Passive;
         data.InGameSprite = this.InGameSprite;
 
         data.spendSPAmount = this.spendSPAmount;
@@ -109,53 +102,22 @@ public class Item
         return new Item
         {
             itemName = this.itemName,
-            icon = this.icon,
+            item_Passive = this.item_Passive,
             InGameSprite = this.InGameSprite,
             Count_Check = this.Count_Check,
             Count = this.Count,
             Coin = this.Coin,
             CoinDeviation = this.CoinDeviation,
-            Weight = this.Weight,
-            WeightDeviation = this.WeightDeviation,
-            CountDeviation = this.CountDeviation, // 오차 값 (±)
             Drop_item = this.Drop_item
         };
     }
 
     public void SetRandomValues()
     {
-        if (!Count_Check)
-        {
-            Count = 1;
-        }
-        else
-        {
-            // Count 오차 적용
-            int minCount = Mathf.Max(1, Count - CountDeviation);
-            int maxCount = Weight + CountDeviation + 1;
-
-            Count = Random.Range(minCount, maxCount);
-        }
-
         // coin 오차 적용
         int minCoin = Mathf.Max(1, Coin - CoinDeviation);
         int maxCoin = Coin + CoinDeviation + 1; // +1은 Random.Range(int, int)의 특성 (최댓값 미포함)
 
         Coin = Random.Range(minCoin, maxCoin);
-
-        // weight 오차 적용
-        int minWeight = Mathf.Max(1, Weight - WeightDeviation);
-        int maxWeight = Weight + WeightDeviation + 1;
-
-        Weight = Random.Range(minWeight, maxWeight);
-
-        // Count 오차 적용
-        if (CountDeviation > 0)
-        {
-            int minCount = Mathf.Max(1, Count - CountDeviation);
-            int maxCount = Count + CountDeviation + 1;
-
-            Count = Random.Range(minCount, maxCount);
-        }
     }
 }

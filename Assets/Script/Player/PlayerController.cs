@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
     public float currentMp; //���� ���ŷ�
 
     public bool isFreeze;
+    [HideInInspector] public float freezeTime;
     //�Է��� Ű�� ������� Ȯ��
     int inputKey = 0;
     [SerializeField] private float minMoveSpeed = 0.4f;  //���� �߰�
@@ -194,7 +196,7 @@ public class PlayerController : MonoBehaviour
             {
                 SpendBattery();
                 flashLight.pointLightOuterRadius = currentRadius;
-                flashLightObject.GetComponent<CircleCollider2D>().radius = currentRadius;
+                flashLightObject.GetComponent<CircleCollider2D>().radius = currentRadius / 2;
             }
             
         }
@@ -207,7 +209,8 @@ public class PlayerController : MonoBehaviour
 
         if (isFreeze)
         {
-            FreezingCancle();
+            //FreezingCancle();
+
         }
         UpdateItemCooldown();
 
@@ -487,6 +490,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // 처녀귀신 리메이크
+        if (isFreeze) { freezeTime -= Time.deltaTime; }
+        if (freezeTime <= 0) { isFreeze = false; }
+
         if (isMoveAble && !isFreeze) Move();
 
         //LookMousePlayer();
@@ -730,22 +737,23 @@ public class PlayerController : MonoBehaviour
         currentState = PlayerState.Idle;
     }
 
-    void FreezingCancle()
-    {
-        //a �Ǵ� D ��ư�� ���� 
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
-        {
-            //���� �ö�
-            inputKey++;
-        }
+    // 처녀귀신 전버전
+    //void FreezingCancle()
+    //{
+    //    //a �Ǵ� D ��ư�� ���� 
+    //    if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
+    //    {
+    //        //���� �ö�
+    //        inputKey++;
+    //    }
 
 
-        if (inputKey >= 10)
-        {
-            isFreeze = false;
-            inputKey = 0;
-        }
-    }
+    //    if (inputKey >= 10)
+    //    {
+    //        isFreeze = false;
+    //        inputKey = 0;
+    //    }
+    //}
     private IEnumerator RecoverOverTime()
     {
         isRecovering = true;
@@ -845,7 +853,8 @@ public class PlayerController : MonoBehaviour
 
         if(damageFX) 
             Instantiate(damageFX, transform.position, Quaternion.identity);
-        DecreaseFlashlight(2);
+        // 피격시 빛을 줄이는 함수 비활성화
+        //DecreaseFlashlight(2);
 
         if (currentHp <= 0)
         {
