@@ -252,6 +252,8 @@ MonoBehaviour:
   enemyHitTime: 0
   enemyWeakness: 0
   enemyType: 0
+  cloakingSpeed: 1
+  cloakingDamage: 1
   enemy_Weak: 0
   enemyCurrentMove: 0
   enemyMovePoint: []
@@ -261,17 +263,21 @@ MonoBehaviour:
   isEnemyHit: 0
   isEnemyChase: 0
   isArrive: 0
+  iscloaking: 0
   enemyTrace: {fileID: 0}
   enemyAttack: {fileID: 0}
   sp: {fileID: 1443000909205592009}
   anim: {fileID: 0}
   enemyCorpse: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
-  enemyCorpseData: {fileID: 11400000, guid: 160f2d3033bb9524fa884c730fd94f73, type: 2}
+  enemyCorpseData: {fileID: 0}
+  uiCanvas: {fileID: 0}
   Sale_Effect: {fileID: 8897711660315164129, guid: 688a73bcb2a05e64fb2f70898fc84aa7, type: 3}
   enemySelf: {fileID: 1679795579066543005}
   enemyColl: {fileID: 2811245209276603835}
   enemyDeathEffect: {fileID: 5642766282230003982, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
   Damage_text: {fileID: 467691442841209291, guid: e4e0e37a16a362a4aabe4d4e6b8d17a0, type: 3}
+  enemyHpBar: {fileID: 0}
+  nightVision: {fileID: 0}
   enemyTargetDir: {x: 0, y: 0, z: 0}
   isDie: 0
   rigid: {fileID: 0}
@@ -324,10 +330,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fec6f5dfa15e20241a44e25710aae47a, type: 2}
   - {fileID: 11400000, guid: b95e7bd4f3c03a54cb45a92794b6b71b, type: 2}
   - {fileID: 11400000, guid: b53eb795f40c47e47846fd33d8cd1ca5, type: 2}
-  holdGaugeUI: {fileID: 8396918062796339477}
-  holdGauge: {fileID: 2789683325106456561}
   infoPanel: {fileID: 7455102981149623917}
-  Sale_Effect: {fileID: 8897711660315164129, guid: 688a73bcb2a05e64fb2f70898fc84aa7, type: 3}
   name_text: {fileID: 6576374219403417003}
   coin_text: {fileID: 7366227326358963913}
   surpriseCanvas: {fileID: 5667883182425587285, guid: 404c598cb9d69f94a89fd96a0228ff4e, type: 3}
@@ -335,6 +338,7 @@ MonoBehaviour:
   startScale: 0.1
   endScale: 10
   scaleUpTime: 0.05
+  waitTime: 2
 --- !u!1001 &3256090886224865948
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -431,6 +435,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5410492010999524437, guid: 7c6a1e0c8bdc5844a8016a6cb8d6ee69, type: 3}
+      propertyPath: m_text
+      value: "[<b>Z</b>] \uC90D\uAE30\\n[<b>X</b>] \uC989\uC2DC \uD310\uB9E4: 000<sprite=9>"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -441,17 +449,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2752006523754912326, guid: 7c6a1e0c8bdc5844a8016a6cb8d6ee69, type: 3}
   m_PrefabInstance: {fileID: 3256090886224865948}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2789683325106456561 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 835707301751745901, guid: 7c6a1e0c8bdc5844a8016a6cb8d6ee69, type: 3}
-  m_PrefabInstance: {fileID: 3256090886224865948}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8396918062796339477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6576374219403417003 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8533209596280586039, guid: 7c6a1e0c8bdc5844a8016a6cb8d6ee69, type: 3}
@@ -477,10 +474,5 @@ MonoBehaviour:
 --- !u!1 &7455102981149623917 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5357645014982782193, guid: 7c6a1e0c8bdc5844a8016a6cb8d6ee69, type: 3}
-  m_PrefabInstance: {fileID: 3256090886224865948}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8396918062796339477 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6460463236110652297, guid: 7c6a1e0c8bdc5844a8016a6cb8d6ee69, type: 3}
   m_PrefabInstance: {fileID: 3256090886224865948}
   m_PrefabAsset: {fileID: 0}
