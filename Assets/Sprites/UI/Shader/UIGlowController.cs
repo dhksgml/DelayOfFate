@@ -6,7 +6,7 @@ public class UIGlowController : MonoBehaviour
     [SerializeField] private Image targetImage;
     private Material mat;
 
-    void Start()
+    private void Awake()
     {
         mat = targetImage.material;
     }
