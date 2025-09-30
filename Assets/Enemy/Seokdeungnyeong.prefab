@@ -441,6 +441,8 @@ MonoBehaviour:
   enemyHitTime: 0
   enemyWeakness: 0
   enemyType: 0
+  cloakingSpeed: 1
+  cloakingDamage: 1
   enemy_Weak: 0
   enemyCurrentMove: 0
   enemyMovePoint: []
@@ -465,6 +467,7 @@ MonoBehaviour:
   Damage_text: {fileID: 467691442841209291, guid: e4e0e37a16a362a4aabe4d4e6b8d17a0, type: 3}
   enemyHpBar: {fileID: 3321065432477947544}
   nightVision: {fileID: 7705205611624026829}
+  enemyDropItem: {fileID: 8248972107541150135, guid: ceccc15fe70af8746bc05742c8fdee65, type: 3}
   enemyTargetDir: {x: 0, y: 0, z: 0}
   isDie: 0
   rigid: {fileID: 0}
