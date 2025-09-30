@@ -104,6 +104,7 @@ public abstract class Enemy     : MonoBehaviour
     public GameObject           Damage_text; // 피해량 텍스트
     public Enemy_HpBar          enemyHpBar; // 적 체력바
     public GameObject           nightVision; // 적 은신시 눈
+    public GameObject           enemyDropItem; // 사망 시 드랍하는 아이템
 
     [HideInInspector] public Vector3       enemyTargetDir; //적의 타겟 방향
 
@@ -363,6 +364,9 @@ public abstract class Enemy     : MonoBehaviour
         }
         if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_ghost_death"));
         //Destroy(transform.parent.gameObject);
+        // 아이템 드랍
+        EnemyHealingItemDrop();
+            
         EnemyCorpseSummon();
     }
 
@@ -391,7 +395,23 @@ public abstract class Enemy     : MonoBehaviour
         GameManager.Instance.Add_Soul(enemyPrice);
         // 시체의 부모 통째로 제거
         Destroy(transform.parent.gameObject);
+    
     }
+
+    // 사망 시 회복 아이템 드랍
+    void EnemyHealingItemDrop()
+    {
+        // 확률
+        int random = Random.Range(0, 100);
+        
+        // 20%의 확률로 드랍
+        if (random < 20)
+        {
+            // 드랍
+            Instantiate(enemyDropItem, transform.position, Quaternion.identity);
+        }
+    }
+
     private void SpawnEffectParts(int totalValue, string type)
     {
         int remainingValue = totalValue;
