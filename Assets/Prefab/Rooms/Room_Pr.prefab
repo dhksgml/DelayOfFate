@@ -138,9 +138,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 1930194308981125956, guid: be3f713959292a749bc0db533d714c03, type: 3}
-  - {fileID: 4938018955128738630, guid: ff1860d460efcb44aab43ca99ce98552, type: 3}
+  - {fileID: 4938018955128738630, guid: 71c5cfac5c671834997489a6d39aa4c6, type: 3}
   - {fileID: 85314243712649985, guid: bb2f424bdfe2bea40bb9a84119b74bca, type: 3}
-  - {fileID: 3039830139207019956, guid: 9fe4e69a5ff9a7047b72360722901466, type: 3}
+  - {fileID: 3039830139207019956, guid: ea16b6224cdc9e340af80044391a7792, type: 3}
   - {fileID: 5341648827927804214, guid: 5f574d2733588d14cb13d1408db7bb3b, type: 3}
   - {fileID: 2403785873192651292, guid: afd07d35aee54174a9fe36a7fa167301, type: 3}
   - {fileID: 5355029163930696407, guid: c3f348c4c1564b64f9eceda40584a169, type: 3}
@@ -186,6 +186,9 @@ MonoBehaviour:
   resurrection_pos: {x: 0, y: 0}
   sale: 0
   sale_pos: {x: 0, y: 0}
+  resurrection_positions: []
+  sale_positions: []
+  escape_positions: []
 --- !u!114 &1179224993230781712
 MonoBehaviour:
   m_ObjectHideFlags: 0

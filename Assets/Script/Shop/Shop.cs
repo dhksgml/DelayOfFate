@@ -53,10 +53,11 @@ public class Shop : MonoBehaviour
     private string[] noWeaponLines = { "어이, \n무기는 가져가야지!" };
     private string[] enoughWeaponLines = { "무기는 2개면\n충분하지." };
     private PassiveItemManager passiveItemManager;
+    private Stage_Manager stage_Manager;
     void Awake()
     {
         passiveItemManager = FindObjectOfType<PassiveItemManager>();
-
+        stage_Manager = FindObjectOfType<Stage_Manager>();
         allSoulIds.Clear();
 
         // Build base list: groups 1..7, numbers 1..2
@@ -155,6 +156,16 @@ public class Shop : MonoBehaviour
     private void ExecuteOption(int index)
     {
         Debug.Log("선택된 아이템: " + index);
+        if (index >= 0 && index <= 5)
+        {
+            BuyWeapon(index);
+        }
+        else if (index >= 6 && index <= 9)
+        {
+            BuySoul(index);
+        }
+        if (index == 12) { stage_Manager.Shop_end(); }
+
         // index 기준으로 상점 로직 실행 (예: 구매, 설명창 열기 등)
     }
     void InitializeShop()
