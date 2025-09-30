@@ -116,7 +116,7 @@ public class PlayerController : MonoBehaviour
         Recovery,
         Resting,
         GettingUp,
-        Die
+        Dead
     }
 
     private void Start()
@@ -418,7 +418,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInputAndState()
     {
-        if (isDie) return;
+        if (isDie || currentState == PlayerState.Dead) return;
         if (isRecovering || currentState == PlayerState.Recovery) return;
 
         PlayerInput();
@@ -453,7 +453,6 @@ public class PlayerController : MonoBehaviour
             else flashLightObject.SetActive(isHavingFlashLight);
             SetflashLightPosition();
         }
-        ;
     }
 
     private void UpdateFlashLight()
@@ -643,6 +642,8 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
+        if (isDie) return;
+
         Vector3 moveDir = new Vector3(x, y, 0).normalized;
         if (moveDir != Vector3.zero && CanMove(moveDir))
         {
@@ -718,6 +719,10 @@ public class PlayerController : MonoBehaviour
                 if (SoundManager.Instance != null) SoundManager.Instance.StopSFX(Resources.Load<AudioClip>("SFX/sfx_run_move"));
                 animator.SetBool("isRun", false);
                 animator.SetBool("isWalk", false);
+                break;
+            case PlayerState.Dead:
+                if (SoundManager.Instance != null) SoundManager.Instance.StopSFX(Resources.Load<AudioClip>("SFX/sfx_slow_move"));
+                if (SoundManager.Instance != null) SoundManager.Instance.StopSFX(Resources.Load<AudioClip>("SFX/sfx_run_move"));
                 break;
         }
     }
@@ -837,6 +842,8 @@ public class PlayerController : MonoBehaviour
     #endregion
     public void DamagedHP(float value)
     {
+        StartCoroutine(mainCamera.GetComponent<CameraShake>().Shake());
+
         float totalDamage = value;
         if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_4_1"))
         {
@@ -865,7 +872,6 @@ public class PlayerController : MonoBehaviour
 
         if (currentHp <= 0 && !isDie)
         {
-            isDie = !isDie;
             currentHp = 0;
             Die();
         }
@@ -873,6 +879,8 @@ public class PlayerController : MonoBehaviour
 
     public void DamagedMP(float value)
     {
+        StartCoroutine(mainCamera.GetComponent<CameraShake>().Shake());
+
         //ü�� ���� �� �߰�������
         float hpRatio = currentHp / maxHp;
         float damageMultiplier = Mathf.Lerp(1, 2, 1 - hpRatio);
@@ -888,6 +896,10 @@ public class PlayerController : MonoBehaviour
     }
     public void Die()
     {
+        isMoveAble = false;
+        isMoving = false;
+        isDie = true;
+        currentState = PlayerState.Dead;
         collider.enabled = false;
         if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_player_die"));
         StartCoroutine(DieAnimation());
@@ -896,6 +908,8 @@ public class PlayerController : MonoBehaviour
     public IEnumerator DieAnimation()
     {
         animator.SetTrigger("isDie");
+        var cameraShake = mainCamera.GetComponent<CameraShake>();
+        StartCoroutine(cameraShake.Shake());
         yield return new WaitUntil(() => 
             animator.GetCurrentAnimatorStateInfo(0).IsName("Player_Rest_in") &&
             animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
@@ -939,13 +953,15 @@ public class PlayerController : MonoBehaviour
 
         if (placeManager.resurrection) // 부활
         {
+            SetPosition(placeManager.resurrection_pos);// ��Ȱ ��ҷ� ���� �̵� �ϱ�
+            placeManager.Resurrection();
             yield return StartCoroutine(ReviveAnimation());
             Revive();
             placeManager.Resurrection();
         }
         else
         {
-            yield return new WaitForSeconds(1f);
+            
             Debug.Log("I am die..");
             //placeManager.Go_to_escape(); //로비로
             SceneManager.LoadScene("Gameover_Scene");
@@ -954,14 +970,15 @@ public class PlayerController : MonoBehaviour
 
     public void Revive()
     {
-        //��ü ���� �ڵ� �ʿ�
-        SetPosition(placeManager.resurrection_pos);// ��Ȱ ��ҷ� ���� �̵� �ϱ�
-        placeManager.Resurrection();
         currentHp = maxHp;
         currentMp = maxMp;
         isFreeze = false;
         collider.enabled = true;
         isDie = false;
+        isMoving = true;
+        isMoveAble = true;
+        currentState = PlayerState.Idle;
+
     }
 
     public void SetPosition(Vector3 targetPosition)
