@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -30,6 +31,8 @@ public class Tal_hon_gwi : Enemy
     [SerializeField] float startScale = 0.1f;
     [SerializeField] float endScale = 10f; 
     [SerializeField] float scaleUpTime = 2f;
+    [SerializeField] float waitTime = 2f;
+    bool isFind = false;
 
     const float maxHoldTime = 1f;
 
@@ -162,13 +165,10 @@ public class Tal_hon_gwi : Enemy
         // ����� ����Ʈ 
         Instantiate(enemyDeathEffect, transform.position, Quaternion.identity);
 
-        Color color = sp.color;
+        UnityEngine.Color color = sp.color;
 
         //���� ���� ������ ���� ������ ������.
-        Destroy(enemyTrace);
-        Destroy(enemyAttack);
-        Destroy(enemyColl);
-        Destroy(rigid);
+
 
         // �̵��ӵ� 0���� �ؼ� �������� ���ϰ�
         enemyMoveSpeed = 0;
@@ -191,6 +191,7 @@ public class Tal_hon_gwi : Enemy
     // ������ �� �ؽ�Ʈ UI ������Ʈ
     public void UpdateHoldGauge(float progress)
     {
+        if (isFind) { return; }
         if (name_text != null) name_text.text = string.Format("[{0}]", item.itemName);
 
         // ������ ��ġ ǥ��
@@ -206,6 +207,12 @@ public class Tal_hon_gwi : Enemy
 
     IEnumerator ScaleImage()
     {
+        isFind = true;
+
+        Destroy(enemyTrace);
+        Destroy(enemyAttack);
+        Destroy(enemyColl);
+        Destroy(rigid);
 
         // �������� �ν��Ͻ�ȭ
         GameObject canvasInstance = Instantiate(surpriseCanvas);
@@ -233,7 +240,20 @@ public class Tal_hon_gwi : Enemy
 
         yield return new WaitForSeconds(scaleUpTime);
 
-        Debug.Log(2);
+        float elapsed2 = 0f;
+        UnityEngine.Color color = surpriseImage.color;
+
+        while (elapsed2 < waitTime)
+        {
+            elapsed2 += Time.deltaTime;
+            float t2 = elapsed2 / waitTime;
+
+            // 알파값 1 → 0 으로 보간
+            color.a = Mathf.Lerp(1f, 0f, t2);
+            surpriseImage.color = color;
+
+            yield return null;
+        }
         
         Destroy(canvasInstance);
 
