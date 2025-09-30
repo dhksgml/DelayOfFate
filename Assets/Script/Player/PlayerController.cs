@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
@@ -13,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public float speedMultiplier = 1f;
     public float rayCastDistance = 2f;
 
+    [SerializeField] private CapsuleCollider2D collider;
     [SerializeField] private float hpRecoveryDuration = 10f;
 
     const float runThreshold = 10f; //�޸��⿡ �ʿ��� �ּ� sp
@@ -37,6 +39,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float minMoveSpeed = 0.4f;  //���� �߰�
 
     public bool isRecovering = false;
+    private bool isDie = false;
 
     public bool isPickUpableItem = false;   //������ �ֿ� �� �ִ��� ����
     public bool isHavingFlashLight = false; //������ ȹ�� ����
@@ -112,7 +115,8 @@ public class PlayerController : MonoBehaviour
         Run,
         Recovery,
         Resting,
-        GettingUp
+        GettingUp,
+        Die
     }
 
     private void Start()
@@ -414,6 +418,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInputAndState()
     {
+        if (isDie) return;
         if (isRecovering || currentState == PlayerState.Recovery) return;
 
         PlayerInput();
@@ -501,6 +506,8 @@ public class PlayerController : MonoBehaviour
 
     void PlayerInput()
     {
+        if (isDie) return;
+
         if (!isMoveAble || isUseItem)
         {
             HandleBlockedInput();
@@ -856,8 +863,10 @@ public class PlayerController : MonoBehaviour
         // 피격시 빛을 줄이는 함수 비활성화
         //DecreaseFlashlight(2);
 
-        if (currentHp <= 0)
+        if (currentHp <= 0 && !isDie)
         {
+            isDie = !isDie;
+            currentHp = 0;
             Die();
         }
     }
@@ -870,19 +879,38 @@ public class PlayerController : MonoBehaviour
 
         currentMp -= value * damageMultiplier;
 
-        if (currentMp <= 0)
+        if (currentMp <= 0 && !isDie)
         {
+            isDie = !isDie;
             currentMp = 0;
             Die();
         }
     }
     public void Die()
     {
-        //�׾��� �� �ൿ
-        Debug.Log("Player Die..");
+        collider.enabled = false;
         if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_player_die"));
+        StartCoroutine(DieAnimation());
+    }
+
+    public IEnumerator DieAnimation()
+    {
+        animator.SetTrigger("isDie");
+        yield return new WaitUntil(() => 
+            animator.GetCurrentAnimatorStateInfo(0).IsName("Player_Rest_in") &&
+            animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
         StartCoroutine(ReviveRoutine(Vector3.zero));
     }
+
+    public IEnumerator ReviveAnimation()
+    {
+        animator.SetTrigger("isRevive");
+        yield return new WaitUntil(() =>
+            animator.GetCurrentAnimatorStateInfo(0).IsName("Player_Rest_out") &&
+            animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        Debug.Log("i am revive");
+    }
+
     void Effect_cr(string ty, Vector3 basePos, float offset)
     {
 
@@ -901,7 +929,7 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator ReviveRoutine(Vector3 revivePosition)
     {
-        Instantiate(corpse, gameObject.transform.position, Quaternion.identity);
+        //Instantiate(corpse, gameObject.transform.position, Quaternion.identity);
 
         //�����ϻ� Ȱ��ȭ ��
         if (GameManager.Instance != null && !GameManager.Instance.playerData.isDropWhenRevive)
@@ -911,12 +939,16 @@ public class PlayerController : MonoBehaviour
 
         if (placeManager.resurrection) // 부활
         {
+            yield return StartCoroutine(ReviveAnimation());
             Revive();
             placeManager.Resurrection();
         }
         else
         {
-            placeManager.Go_to_escape(); //로비로
+            yield return new WaitForSeconds(1f);
+            Debug.Log("I am die..");
+            //placeManager.Go_to_escape(); //로비로
+            SceneManager.LoadScene("Gameover_Scene");
         }
     }
 
@@ -924,9 +956,12 @@ public class PlayerController : MonoBehaviour
     {
         //��ü ���� �ڵ� �ʿ�
         SetPosition(placeManager.resurrection_pos);// ��Ȱ ��ҷ� ���� �̵� �ϱ�
+        placeManager.Resurrection();
         currentHp = maxHp;
         currentMp = maxMp;
         isFreeze = false;
+        collider.enabled = true;
+        isDie = false;
     }
 
     public void SetPosition(Vector3 targetPosition)

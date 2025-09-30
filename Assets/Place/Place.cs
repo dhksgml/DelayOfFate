@@ -105,6 +105,7 @@ public class Place : MonoBehaviour
 		spriteRenderer.sprite = sprite_ch_spr[0];
 		SoundManager.Instance?.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_resurrection_register"));
 		placeManager.resurrection = true;
+		placeManager.resurrection_pos = transform.position;
 	}
 
 	private void EscapeScene()
