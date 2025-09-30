@@ -889,6 +889,7 @@ public class PlayerController : MonoBehaviour
 
         if (currentMp <= 0 && !isDie)
         {
+            isDie = !isDie;
             currentMp = 0;
             Die();
         }

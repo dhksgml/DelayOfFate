@@ -295,7 +295,7 @@ public class Player_Item_Use : MonoBehaviour
     private void SellCurrentSlotItem()
     {
         if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_drop"));
-        //Sale("one",0);
+        Sale("one", quickSlots[selectedSlotIndex]);
         UpdateQuickSlotUI();
         GameEvents.CallDropItem();
     }

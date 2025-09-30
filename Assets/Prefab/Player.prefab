@@ -790,6 +790,7 @@ MonoBehaviour:
   currentMoveSpeed: 0
   speedMultiplier: 1
   rayCastDistance: 2
+  collider: {fileID: 0}
   hpRecoveryDuration: 20
   attackDamage: 0
   attackCoolTime: 0
@@ -800,6 +801,7 @@ MonoBehaviour:
   currentHp: 0
   currentMp: 0
   isFreeze: 0
+  freezeTime: 0
   minMoveSpeed: 0.4
   isRecovering: 0
   isPickUpableItem: 0
@@ -911,7 +913,7 @@ MonoBehaviour:
   - {x: -0.05387208, y: -0.22353303, z: 0}
   m_ShapePathHash: -1562121249
   m_Mesh: {fileID: 0}
-  m_InstanceId: 125308
+  m_InstanceId: 59950
   m_LocalBounds:
     m_Center: {x: 0.0002822429, y: -0.064456046, z: 0}
     m_Extent: {x: 0.114839226, y: 0.39820114, z: 0}
@@ -989,6 +991,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9536ab1437867c74f83939404b0d24ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item_p: 
 --- !u!1 &5451118422819145829
 GameObject:
   m_ObjectHideFlags: 0
@@ -1828,7 +1831,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.7
+  m_Radius: 1
 --- !u!114 &5597955952224721020
 MonoBehaviour:
   m_ObjectHideFlags: 0

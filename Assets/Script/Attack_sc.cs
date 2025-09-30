@@ -23,6 +23,8 @@ public class Attack_sc : MonoBehaviour
     private Animator animator;
 
     private Player_Item_Use player_Item_Use;
+    private Player_Item_p player_Item_P;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -30,6 +32,7 @@ public class Attack_sc : MonoBehaviour
     private void Start()
     {
         player_Item_Use = FindObjectOfType<Player_Item_Use>();
+        player_Item_P = FindObjectOfType<Player_Item_p>();
         // Sword �����̸� ���� ȸ��
         if (attackType == AttackType.Sword && effectRenderer != null)
         {
@@ -91,14 +94,18 @@ public class Attack_sc : MonoBehaviour
 
     private float GetDamageByType(AttackType type)
     {
+        int itemadd = 0;
+        
         switch (type)
         {
-            case AttackType.Sword: return Mathf.FloorToInt(Random.Range(10f, 14f+1));
-            case AttackType.Bat: return Mathf.FloorToInt(Random.Range(20f, 30f+1));
-            case AttackType.Paper: return Mathf.FloorToInt(Random.Range(10f, 12f+1));
-            case AttackType.Bottle: return Mathf.FloorToInt(444);
+            case AttackType.Sword: { if (player_Item_P.item_p[8]) { itemadd += 2; } itemadd += Mathf.FloorToInt(Random.Range(10f, 14f + 1)); break; }
+            case AttackType.Bat:{ if (player_Item_P.item_p[15]) { itemadd += 3; } itemadd += Mathf.FloorToInt(Random.Range(20f, 30f + 1)); break; }
+            case AttackType.Paper:{ if (player_Item_P.item_p[9]) { itemadd += 5; } itemadd += Mathf.FloorToInt(Random.Range(10f, 12f + 1)); break; }
+            case AttackType.Bottle:{ return Mathf.FloorToInt(444);}
             default: return 0f;
         }
+        float finalDamage = itemadd;
+        return finalDamage;
     }
 
     public void CheckWeakness()
