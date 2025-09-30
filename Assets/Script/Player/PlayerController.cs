@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
@@ -944,8 +945,10 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            yield return new WaitForSeconds(1f);
             Debug.Log("I am die..");
             //placeManager.Go_to_escape(); //로비로
+            SceneManager.LoadScene("Gameover_Scene");
         }
     }
 
