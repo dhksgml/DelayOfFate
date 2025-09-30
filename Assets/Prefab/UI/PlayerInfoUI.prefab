@@ -1577,7 +1577,6 @@ MonoBehaviour:
   timeText: {fileID: 8314106459287313551}
   angleUnit: 0
   angleStartTime: 0
-  time_ui: 1
 --- !u!1 &3434991645807470858
 GameObject:
   m_ObjectHideFlags: 0
@@ -2273,7 +2272,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '[X]'
+  m_text: '[S]'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 97ab37a4de3e47a449ededabd0045bb5, type: 2}
   m_sharedMaterial: {fileID: -1625775781952263435, guid: 97ab37a4de3e47a449ededabd0045bb5, type: 2}
@@ -3774,9 +3773,6 @@ MonoBehaviour:
   soul_text: {fileID: 6297057879104718279}
   add_coin_text: {fileID: 986806598159917297}
   add_soul_text: {fileID: 7493214036599282627}
-  hp_ui: 1
-  coin_ui: 1
-  soul_ui: 1
   showDuration: 1
   fadeDuration: 1
   UIArrow: {fileID: 5118511674228985132}
