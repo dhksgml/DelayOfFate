@@ -206,6 +206,25 @@ CapsuleCollider2D:
   m_CorrespondingSourceObject: {fileID: 6110751715657075606, guid: 68ca3f8e0ec26cd43a7e08cc91bf580a, type: 3}
   m_PrefabInstance: {fileID: 431154209}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &333691775 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2517339996126726920, guid: 68ca3f8e0ec26cd43a7e08cc91bf580a, type: 3}
+  m_PrefabInstance: {fileID: 431154209}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &333691780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 333691775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3224578b5815253498a39a5a22e866ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0.5
+  magnitude: 0.05
 --- !u!1 &389137426
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,10 +391,10 @@ PrefabInstance:
     - target: {fileID: 4440181562815899954, guid: 68ca3f8e0ec26cd43a7e08cc91bf580a, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 926101637}
+      objectReference: {fileID: 872501408}
     - target: {fileID: 4440181562815899954, guid: 68ca3f8e0ec26cd43a7e08cc91bf580a, type: 3}
       propertyPath: m_InstanceId
-      value: -15682
+      value: -39282
       objectReference: {fileID: 0}
     - target: {fileID: 5234203975012938649, guid: 68ca3f8e0ec26cd43a7e08cc91bf580a, type: 3}
       propertyPath: m_PointLightInnerAngle
@@ -445,7 +464,10 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 5989744913153884718, guid: 68ca3f8e0ec26cd43a7e08cc91bf580a, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2517339996126726920, guid: 68ca3f8e0ec26cd43a7e08cc91bf580a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 333691780}
   m_SourcePrefab: {fileID: 100100000, guid: 68ca3f8e0ec26cd43a7e08cc91bf580a, type: 3}
 --- !u!1001 &785303489
 PrefabInstance:
@@ -504,7 +526,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb50618e06c54d7429064ec931f330a0, type: 3}
---- !u!43 &926101637
+--- !u!43 &872501408
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
