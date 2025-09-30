@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour
     public GameObject flashLightObject;
     public GameObject lightCircleObject;
     public float flashLightDistance = 3f;
+    public float refillFlashlightCooltime = 0.5f; //호롱 회복 속도
 
     private Light2D flashLight;
     //private float flashlightRadius;
@@ -245,7 +246,7 @@ public class PlayerController : MonoBehaviour
         HandleInputAndState();
         HandleFlashlight();
 
-        HandleMouseClick(); // Ŭ�� �� ���� ����
+        //HandleMouseClick(); // Ŭ�� �� ���� ����
         PlayerAnimation();
 
         
@@ -292,7 +293,7 @@ public class PlayerController : MonoBehaviour
     {
         currentRadius += amount;
         currentRadius = Mathf.Min(currentRadius, startRadius);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(refillFlashlightCooltime);
         refillCoroutine = null;
     }
 
@@ -351,6 +352,9 @@ public class PlayerController : MonoBehaviour
         isMoveAble = true;
         isPicking = false;
     }
+
+    #region 마우스 방향 애니메이션
+    /*
     void HandleMouseClick()
     {
         if (isRecovering) return;
@@ -374,6 +378,8 @@ public class PlayerController : MonoBehaviour
             clickLookTimer = clickLookDuration; // Ÿ�̸� �ʱ�ȭ
         }
     }
+    */
+    #endregion
 
     //���� ������ ����ϴ��� ����
     public void SetUseItem(bool isUseItem)
