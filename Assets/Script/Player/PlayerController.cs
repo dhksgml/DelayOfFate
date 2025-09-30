@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CapsuleCollider2D collider;
     [SerializeField] private float hpRecoveryDuration = 10f;
 
-    const float runThreshold = 10f; //�޸��⿡ �ʿ��� �ּ� sp
+    const float runThreshold = 10f; //????? ????? ??? sp
 
     public float attackDamage = 1;
     public float attackCoolTime;
@@ -26,23 +26,23 @@ public class PlayerController : MonoBehaviour
     public float extraHp;
     public float currentExtraHp;
 
-    public float maxHp = 100; //�ִ� ü��
-    public float maxMp = 100; //�ִ� ���ŷ�
+    public float maxHp = 100; //??? u??
+    public float maxMp = 100; //??? ?????
 
-    public float currentHp; //���� ü��
-    public float currentMp; //���� ���ŷ�
+    public float currentHp; //???? u??
+    public float currentMp; //???? ?????
 
     public bool isFreeze;
     [HideInInspector] public float freezeTime;
-    //�Է��� Ű�� ������� Ȯ��
+    //????? ??? ??????? ???
     int inputKey = 0;
-    [SerializeField] private float minMoveSpeed = 0.4f;  //���� �߰�
+    [SerializeField] private float minMoveSpeed = 0.4f;  //???? ???
 
     public bool isRecovering = false;
     private bool isDie = false;
 
-    public bool isPickUpableItem = false;   //������ �ֿ� �� �ִ��� ����
-    public bool isHavingFlashLight = false; //������ ȹ�� ����
+    public bool isPickUpableItem = false;   //?????? ??? ?? ????? ????
+    public bool isHavingFlashLight = false; //?????? ??? ????
 
     [Header("Flashlight")]
     public int flashLightLevel = 1;
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
     private Coroutine refillCoroutine;
 
     [Header("ItemCooltime")]
-    public float Player_Usage_cu_cool_down = 0;//�÷��̾� ������ ���� ��ٿ�
+    public float Player_Usage_cu_cool_down = 0;//?÷???? ?????? ???? ????
     private Coroutine currentItemUseCoroutine = null;
     private bool isUseItem = false;
 
@@ -89,22 +89,22 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveInput;
     private Vector2 clickLookDirection = Vector2.down;
     private float clickLookTimer = 0f;
-    private float clickLookDuration = 0.3f; // Ŭ�� �� 0.2�ʰ� �ش� �������� ����
+    private float clickLookDuration = 0.3f; // ??? ?? 0.2??? ??? ???????? ????
     private Camera mainCamera;
 
-    public GameObject Effect_pr;//����Ʈ ������Ʈ
-    private float effectTimer = 0f; //����Ʈ ��Ÿ��
+    public GameObject Effect_pr;//????? ???????
+    private float effectTimer = 0f; //????? ?????
 
     Player_Item_Use player_Item_Use;
-    public GameObject corpse; // �÷��̾� ��ü
+    public GameObject corpse; // ?÷???? ??u
 
-    private bool isActing = false; //�ݱ�, ������ �ִϸ��̼� ���� �� ����
-    private bool isPicking = false; //�ݱ�, ������ � �� ������ �� 
+    private bool isActing = false; //???, ?????? ??????? ???? ?? ????
+    private bool isPicking = false; //???, ?????? ?? ?? ?????? ?? 
     public bool IsPicking { get => isPicking; set => isPicking = value; }
 
     private Coroutine recoveryCoroutine;
 
-    private NearestItemFinder nearestItemFinder; //����� ������ Ž��
+    private NearestItemFinder nearestItemFinder; //????? ?????? ???
     public NearestItemFinder NearestItemFinder => nearestItemFinder;
 
     [SerializeField] private GameObject damageFX;
@@ -132,6 +132,7 @@ public class PlayerController : MonoBehaviour
         lightCircleObject.SetActive(true);
         flashLightObject.SetActive(true);
         Init();
+        lastMoveDirection = Vector2.down;
         if (flashLightObject)
         {
             flashLight = flashLightObject.GetComponent<Light2D>();
@@ -219,7 +220,7 @@ public class PlayerController : MonoBehaviour
         }
         UpdateItemCooldown();
 
-        if (currentState == PlayerState.Resting) //����Ʈ ����
+        if (currentState == PlayerState.Resting) //????? ????
         {
             if (currentHp + currentExtraHp < maxHp + extraHp)
             {
@@ -227,18 +228,18 @@ public class PlayerController : MonoBehaviour
                 if (effectTimer <= 0f)
                 {
                     Effect_cr("hp", transform.position, -1f);
-                    effectTimer = 0.25f; // ���� �ߵ����� �ð� ����
+                    effectTimer = 0.25f; // ???? ??????? ?ð? ????
                 }
             }
         }
 
         if ((currentState == PlayerState.Recovery || currentState == PlayerState.Resting) && Input.anyKeyDown)
         {
-            // ȸ�� �� �Է��� ������ ȸ�� ���
+            // ??? ?? ????? ?????? ??? ???
 
-            Debug.Log("ȸ�� �ߴܵ�");
+            Debug.Log("??? ????");
             if (recoveryCoroutine != null)
-                StopCoroutine(HandleGetUp()); // recoveryCoroutine ���� �ʿ�
+                StopCoroutine(HandleGetUp()); // recoveryCoroutine ???? ???
 
             recoveryCoroutine = StartCoroutine(HandleGetUp());
             return;
@@ -246,7 +247,7 @@ public class PlayerController : MonoBehaviour
         HandleInputAndState();
         HandleFlashlight();
 
-        //HandleMouseClick(); // Ŭ�� �� ���� ����
+        //HandleMouseClick(); // ??? ?? ???? ????
         PlayerAnimation();
 
         
@@ -318,7 +319,7 @@ public class PlayerController : MonoBehaviour
         );
 
         isRecovering = false;
-        EndRecovery(); // ���� ����
+        EndRecovery(); // ???? ????
     }
 
     public void OnPickUpStart(bool isPickup)
@@ -329,7 +330,7 @@ public class PlayerController : MonoBehaviour
         isPicking = isPickup;
         isMoveAble = false;
 
-        //�ִϸ��̼� ����
+        //??????? ????
         animator.SetTrigger("Pickup");
     }
 
@@ -375,13 +376,13 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("MouseDirX", direction.x);
             animator.SetFloat("MouseDirY", direction.y);
 
-            clickLookTimer = clickLookDuration; // Ÿ�̸� �ʱ�ȭ
+            clickLookTimer = clickLookDuration; // ???? ????
         }
     }
     */
     #endregion
 
-    //���� ������ ����ϴ��� ����
+    //???? ?????? ???????? ????
     public void SetUseItem(bool isUseItem)
     {
         if (isUseItem)
@@ -415,7 +416,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator EndItemUseAfterDelay(float delay)
     {
-        Debug.Log("������ ����߽��ϴ�.");
+        Debug.Log("?????? ?????????.");
         SetUseItem(true);
         yield return new WaitForSeconds(delay);
         SetUseItem(false);
@@ -520,8 +521,6 @@ public class PlayerController : MonoBehaviour
         }
 
         HandleMovementInput();
-
-        //if (Input.GetKeyDown(KeyCode.C)) DoRecovery();
     }
     void HandleBlockedInput()
     {
@@ -585,7 +584,7 @@ public class PlayerController : MonoBehaviour
         else
             targetPosition = transform.position + dir * flashLightDistance;
 
-        // ��/�Ʒ� ������ ���� ��� �̵�
+        // ??/??? ?????? ???? ??? ???
         bool isVertical = Mathf.Abs(dir.y) > Mathf.Abs(dir.x);
 
         if (isVertical)
@@ -616,13 +615,13 @@ public class PlayerController : MonoBehaviour
     {
         if (flashLightObject == null) return;
 
-        // ���콺 ��ġ �� ���� ��ǥ
+        // ???콺 ??? ?? ???? ???
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPos.z = 0f;
 
         Vector3 dir = (mouseWorldPos - transform.position).normalized;
 
-        // Raycast ���
+        // Raycast ???
         RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, flashLightDistance, LayerMask.GetMask("Wall"));
 
         Vector3 targetPosition;
@@ -631,18 +630,18 @@ public class PlayerController : MonoBehaviour
 
         if (hit.collider != null)
         {
-            // ���� ��Ҵٸ�, �浹 ��������
+            // ???? ?????, ?浹 ????????
             targetPosition = (Vector3)hit.point - dir * offsetFromWall;
         }
         else
         {
-            // ���� �� ������, �÷��̾� ���� �ִ� �Ÿ�������
+            // ???? ?? ??????, ?÷???? ???? ??? ?????????
             float distance = Vector3.Distance(transform.position, mouseWorldPos);
             float clampedDistance = Mathf.Min(distance, flashLightDistance);
             targetPosition = transform.position + dir * clampedDistance;
         }
 
-        targetPosition.z = 0f; // Z ����
+        targetPosition.z = 0f; // Z ????
         flashLightObject.transform.position = targetPosition;
     }
 
@@ -653,7 +652,7 @@ public class PlayerController : MonoBehaviour
         Vector3 moveDir = new Vector3(x, y, 0).normalized;
         if (moveDir != Vector3.zero && CanMove(moveDir))
         {
-            //UpdateMoveSpeedByWeight(); // �߰�
+            //UpdateMoveSpeedByWeight(); // ???
             transform.position += moveDir * currentMoveSpeed * speedMultiplier * Time.fixedDeltaTime;
 
             if (nearestItemFinder != null && GameManager.Instance != null && GameManager.Instance.playerData.isFindNearestItem)
@@ -667,7 +666,7 @@ public class PlayerController : MonoBehaviour
             float currentWeight = player_Item_Use.GetTotalItemWeight();
             float penalty = currentWeight * 0.02f;
 
-            if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_1_1"))//õ����� ������
+            if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_1_1"))//o????? ??????
             {
                 penalty = 0f;
             }
@@ -678,12 +677,8 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 direction;
 
-        // if(Moving)�տ� �� �κ� �߰�
-        if (clickLookTimer > 0f)
-        {
-            direction = clickLookDirection;
-        }
-        else if (isMoving)
+        // if(Moving)??? ?? ?κ? ???
+        if (isMoving)
         {
             direction = new Vector2(x, y);
             lastMoveDirection = direction;
@@ -758,10 +753,10 @@ public class PlayerController : MonoBehaviour
     // 처녀귀신 전버전
     //void FreezingCancle()
     //{
-    //    //a �Ǵ� D ��ư�� ���� 
+    //    //a ??? D ????? ???? 
     //    if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
     //    {
-    //        //���� �ö�
+    //        //???? ?o?
     //        inputKey++;
     //    }
 
@@ -828,7 +823,7 @@ public class PlayerController : MonoBehaviour
     #region MP
     public void SpendMp(float value)
     {
-        //ü�� ���� �� �߰�������
+        //u?? ???? ?? ?????????
         float hpRatio = currentHp / maxHp;
         float damageMultiplier = Mathf.Lerp(1, 2, 1 - hpRatio);
         currentMp -= value * damageMultiplier;
@@ -856,7 +851,7 @@ public class PlayerController : MonoBehaviour
             totalDamage *= GameManager.Instance.playerData.damageTakenMultiplier;
         }
 
-        Effect_cr("e_at", transform.position, 0);//����Ʈ
+        Effect_cr("e_at", transform.position, 0);//?????
 
         if (currentExtraHp > 0)
         {
@@ -887,7 +882,7 @@ public class PlayerController : MonoBehaviour
     {
         StartCoroutine(mainCamera.GetComponent<CameraShake>().Shake());
 
-        //ü�� ���� �� �߰�������
+        //u?? ???? ?? ?????????
         float hpRatio = currentHp / maxHp;
         float damageMultiplier = Mathf.Lerp(1, 2, 1 - hpRatio);
 
@@ -937,13 +932,13 @@ public class PlayerController : MonoBehaviour
         float offsetX = Random.Range(-offset, offset);
         float offsetY = Random.Range(-offset, offset);
 
-        // ���� ��ġ
+        // ???? ???
         Vector3 spawnPos = basePos + new Vector3(offsetX, offsetY, 0f);
 
-        // ����Ʈ ����
+        // ????? ????
         GameObject effectObj = Instantiate(Effect_pr, spawnPos, Quaternion.identity);
 
-        // Effect_sc�� ty �� ����
+        // Effect_sc?? ty ?? ????
         Effect_sc effectScript = effectObj.GetComponent<Effect_sc>();
         effectScript.ty = ty;
     }
@@ -951,7 +946,7 @@ public class PlayerController : MonoBehaviour
     {
         //Instantiate(corpse, gameObject.transform.position, Quaternion.identity);
 
-        //�����ϻ� Ȱ��ȭ ��
+        //??????? ???? ??
         if (GameManager.Instance != null && !GameManager.Instance.playerData.isDropWhenRevive)
             player_Item_Use.Drop_All_Item();
 
@@ -959,7 +954,7 @@ public class PlayerController : MonoBehaviour
 
         if (placeManager.resurrection) // 부활
         {
-            SetPosition(placeManager.resurrection_pos);// ��Ȱ ��ҷ� ���� �̵� �ϱ�
+            SetPosition(placeManager.resurrection_pos);// ??? ???? ???? ??? ???
             placeManager.Resurrection();
             yield return StartCoroutine(ReviveAnimation());
             Revive();
