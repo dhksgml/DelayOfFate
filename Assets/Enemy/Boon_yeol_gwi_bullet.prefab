@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  damage: 10
+  damage: 7
   isHide: 0
 --- !u!50 &6311825492854218187
 Rigidbody2D:
