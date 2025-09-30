@@ -35,9 +35,19 @@ public class Player_Item_p : MonoBehaviour
 	{
 		foreach (Item item in player_Item_Use.quickSlots)
 		{
-			if (item != null && item.id == 1)
+			if (item != null && item.id == 8)
 			{
-				print("Å×½ºÆ®");
+				item_p[8] = true;
+				break;
+			}
+			if (item != null && item.id == 9)
+			{
+				item_p[9] = true;
+				break;
+			}
+			if (item != null && item.id == 15)
+			{
+				item_p[15] = true;
 				break;
 			}
 		}
