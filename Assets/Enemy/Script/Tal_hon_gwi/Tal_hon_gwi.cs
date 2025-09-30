@@ -11,6 +11,7 @@ public class Tal_hon_gwi : Enemy
     [Header("Żȥ��")]
     [SerializeField] Player_Item_Use player_item_use;
     [SerializeField] Sprite[] randomImages;
+    [SerializeField] ItemData[] items;
     [SerializeField] Sprite[] talhongwiOriginSprite;
     [HideInInspector] public bool isSeek = false;
     [SerializeField] bool isDestroy = false;
@@ -61,6 +62,9 @@ public class Tal_hon_gwi : Enemy
         // �̹����� �������� ������ ��
         int random = Random.Range(0, randomImages.Length);
         sp.sprite = randomImages[random];
+
+        random = Random.Range(0, randomImages.Length);
+        name_text.text = items[random].itemName;
 
         if (itemDataTemplate != null)
         {
@@ -192,7 +196,6 @@ public class Tal_hon_gwi : Enemy
     public void UpdateHoldGauge(float progress)
     {
         if (isFind) { return; }
-        if (name_text != null) name_text.text = string.Format("[{0}]", item.itemName);
 
         // ������ ��ġ ǥ��
         if (coin_text != null)
@@ -200,9 +203,10 @@ public class Tal_hon_gwi : Enemy
             if (coin_text != null)
             {
                 int total_coin = item.Coin;
-                coin_text.text = string.Format("[<b>E</b>] 줍기\n[<b>F</b>] 즉시 판매: {0}<sprite=9>", total_coin);
+                coin_text.text = string.Format("[<b>Z</b>] 줍기\n[<b>X</b>] 즉시 판매: {0}<sprite=9>", total_coin);
             }
         }
+
     }
 
     IEnumerator ScaleImage()
