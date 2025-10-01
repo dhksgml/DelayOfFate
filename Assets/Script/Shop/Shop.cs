@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using System.Collections;
@@ -52,10 +52,13 @@ public class Shop : MonoBehaviour
     private string[] jokeLines = {"이 곰방대는 안파네", "뭐라도 하나\n사지 그러나", "(한숨)", "자네도 삿갓을\n좋아하나?", "천천히 둘러보게나", "몸은 괜찮나?", "안전이 최고지", "흠...", "또 악귀들이\n기승인가?", "좋아하는 색이 있나?" };//농담
     private string[] noWeaponLines = { "어이, \n무기는 가져가야지!" };
     private string[] enoughWeaponLines = { "무기는 2개면\n충분하지." };
+    private string itemId = "Soul_Add_8_1";
+    private PassiveItemUI passiveItemUI;
     private PassiveItemManager passiveItemManager;
     private Stage_Manager stage_Manager;
     void Awake()
     {
+        passiveItemUI = FindObjectOfType<PassiveItemUI>();
         passiveItemManager = FindObjectOfType<PassiveItemManager>();
         stage_Manager = FindObjectOfType<Stage_Manager>();
         allSoulIds.Clear();
@@ -137,7 +140,25 @@ public class Shop : MonoBehaviour
             if (currentIndex > rowEnd) currentIndex = rowStart; // 오른쪽 끝 → 왼쪽 끝
             UpdateSelectorPosition();
         }
-
+         
+        if (currentIndex >= 0) { itemId = "Soul_Add_8_1"; }
+        else if (currentIndex == 1) { itemId = "Soul_Add_8_2"; }
+        else if (currentIndex == 2) { itemId = "Soul_Add_8_3"; }
+        else if (currentIndex == 3) { itemId = "Soul_Add_8_4"; }
+        else if (currentIndex == 4) { itemId = "Soul_Add_8_5"; }
+        else if (currentIndex >= 5 && currentIndex <= 8)
+        {
+        }
+        else if (currentIndex == 9) { itemId = "Soul_Add_9_1"; }
+        else if (currentIndex == 10) { itemId = "Soul_Add_10_3"; }
+        else if (currentIndex == 11) { itemId = "Soul_Add_10_4"; }
+        else if (currentIndex == 12) { itemId = "Soul_Add_10_5"; }
+        else if (currentIndex == 13) { itemId = "Soul_Add_10_6"; }
+        else if (currentIndex == 14) { itemId = "Soul_Add_10_7"; }
+        else { itemId = ""; }
+        var item = PassiveItemManager.Instance.passiveItems.Find(i => i.id == itemId);
+        //passiveItemUI.Show(item.itemName, item.description, item.rating);
+        //print(item.description);
         // 선택 실행
         if (Input.GetKeyDown(KeyCode.Z))
         {
@@ -155,16 +176,24 @@ public class Shop : MonoBehaviour
 
     private void ExecuteOption(int index)
     {
+        var itemId = "Soul_Add_4_3";
+        var item = PassiveItemManager.Instance.passiveItems.Find(i => i.id == itemId);
         Debug.Log("선택된 아이템: " + index);
-        if (index >= 0 && index <= 5)
+        if (index >= 0 && index <= 4)
         {
             BuyWeapon(index);
         }
-        else if (index >= 6 && index <= 9)
+        else if (index >= 5 && index <= 8)
         {
-            BuySoul(index);
+            BuySoul(index-5);
         }
+        if (index == 9) { /*호롱강화?*/ }
+        if (index == 10) { /*장비장착으로*/ }
+        if (index == 11) { Reroll(); }
         if (index == 12) { stage_Manager.Shop_end(); }
+        if (index == 13) { Soul_c_Gold(); }
+        if (index == 14) { Gold_c_Soul(); }
+        passiveItemUI.Show(item.itemName, item.description, item.rating);
 
         // index 기준으로 상점 로직 실행 (예: 구매, 설명창 열기 등)
     }
@@ -471,7 +500,7 @@ public class Shop : MonoBehaviour
         }
     }
 
-    public void Goul_c_Soul() // 100 전 → 50 혼
+    public void Gold_c_Soul() // 100 전 → 50 혼
     {
         if (Gold >= 100f)
         {

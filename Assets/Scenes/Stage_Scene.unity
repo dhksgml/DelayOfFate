@@ -1376,10 +1376,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1221797771}
     m_Modifications:
+    - target: {fileID: 49968171367649440, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -880
+      objectReference: {fileID: 0}
+    - target: {fileID: 49968171367649440, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -32
+      objectReference: {fileID: 0}
     - target: {fileID: 253339077024170301, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1221797775}
+    - target: {fileID: 1957943156714987775, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 384
+      objectReference: {fileID: 0}
     - target: {fileID: 4195322940929626411, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
