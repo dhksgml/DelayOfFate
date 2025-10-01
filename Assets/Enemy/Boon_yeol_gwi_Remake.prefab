@@ -46,14 +46,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyDamage: 0
-  enemyAttackSpeed: 3
-  enemyAttackRange: 7
+  enemyAttackSpeed: 2
+  enemyAttackRange: 11
   enemyAttackType: 0
   enemyAttackCollider: {fileID: 3545451179838907952}
   enemy: {fileID: 1552598637089040879}
   time: 0
   boonyeolgwi: {fileID: 1552598637089040879}
-  attackRange: 0
   bullet: {fileID: 7133274805120073796, guid: 67361b3c67e7e3549be7e53a46d12e75, type: 3}
 --- !u!58 &3545451179838907952
 CircleCollider2D:
@@ -89,7 +88,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 7
+  m_Radius: 11
 --- !u!1 &1728893717100117531
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,7 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5889d7e357a083479285bea5bce4ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: 548841fee21b51746a15782e37975b4e, type: 2}
+  enemyData: {fileID: 11400000, guid: 54212c5ce3cd17b489dba41131581c93, type: 2}
   enemyName: 
   enemyHp: 0
   enemyMaxHp: 0
@@ -382,6 +381,7 @@ MonoBehaviour:
   Damage_text: {fileID: 467691442841209291, guid: e4e0e37a16a362a4aabe4d4e6b8d17a0, type: 3}
   enemyHpBar: {fileID: 3266583967636660550}
   nightVision: {fileID: 8449322871788310401}
+  enemyDropItem: {fileID: 8248972107541150135, guid: ceccc15fe70af8746bc05742c8fdee65, type: 3}
   enemyTargetDir: {x: 0, y: 0, z: 0}
   isDie: 0
   rigid: {fileID: 0}

@@ -294,12 +294,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b1cc8580662afd488c1ee27f4b52528, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: 0727af581051e044f9e436206d3eb96d, type: 2}
+  enemyData: {fileID: 11400000, guid: e81e0ff7ad7ccc04fab6042283da05ba, type: 2}
   enemyName: 
   enemyHp: 0
   enemyMaxHp: 0
-  enemyMoveSpeed: 1
-  enemyRunSpeed: 2
+  enemyMoveSpeed: 0.5
+  enemyRunSpeed: 1
   enemyPriceMin: 0
   enemyPriceMax: 0
   enemyPrice: 0
@@ -336,6 +336,7 @@ MonoBehaviour:
   Damage_text: {fileID: 467691442841209291, guid: e4e0e37a16a362a4aabe4d4e6b8d17a0, type: 3}
   enemyHpBar: {fileID: 8485664155607366052}
   nightVision: {fileID: 7319318841287807650}
+  enemyDropItem: {fileID: 8248972107541150135, guid: ceccc15fe70af8746bc05742c8fdee65, type: 3}
   enemyTargetDir: {x: 0, y: 0, z: 0}
   isDie: 0
   rigid: {fileID: 0}

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Torch : MonoBehaviour
 {
+    [SerializeField] private float refillFlashlightAmount = 0.5f;
     void Start()
     {
         int randomNum = Random.Range(0, 4);
@@ -18,7 +19,7 @@ public class Torch : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            collision.GetComponent<PlayerController>()?.RefillFlashlight(1);
+            collision.GetComponent<PlayerController>()?.RefillFlashlight(refillFlashlightAmount);
         }
     }
 }
