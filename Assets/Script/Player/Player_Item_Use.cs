@@ -102,7 +102,7 @@ public class Player_Item_Use : MonoBehaviour
 
     void HandleSlotSelection()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.D))
         {
             selectedWeaponIndex++;
             selectedWeaponIndex = selectedWeaponIndex % 2;
