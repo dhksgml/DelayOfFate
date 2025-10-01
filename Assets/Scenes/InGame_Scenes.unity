@@ -726,7 +726,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1264464626}
   m_CullTransparentMesh: 1
---- !u!43 &1569211667
+--- !u!43 &1317206504
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1376,10 +1376,6 @@ PrefabInstance:
     - target: {fileID: 467880456937811478, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
       propertyPath: m_Name
       value: Room_Pr
-      objectReference: {fileID: 0}
-    - target: {fileID: 467880456937811478, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1179224993230781712, guid: fd7c288cc3317aa4694432d64cc5c456, type: 3}
       propertyPath: time

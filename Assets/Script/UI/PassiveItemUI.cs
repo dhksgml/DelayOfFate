@@ -12,22 +12,22 @@ public class PassiveItemUI : MonoBehaviour
 		switch (emdrmq)
         {
 			case 1:
-				EMDRMQ = "ÇÏ±Ş";
+				EMDRMQ = "í•˜ê¸‰";
 				break;
 			case 2:
-				EMDRMQ = "Áß±Ş";
+				EMDRMQ = "ì¤‘ê¸‰";
 				break;
 			case 3:
-				EMDRMQ = "»ó±Ş";
+				EMDRMQ = "ìƒê¸‰";
 				break;
 			case 4:
-				EMDRMQ = "Æ¯±Ş";
+				EMDRMQ = "íŠ¹ê¸‰";
 				break;
 			case 5:
-				EMDRMQ = "¹«±â";
+				EMDRMQ = "ë¬´ê¸°";
 				break;
 			case 6:
-				EMDRMQ = "°­È­";
+				EMDRMQ = "ê°•í™”";
 				break;
 			default:
 				EMDRMQ = " ";
@@ -45,27 +45,27 @@ public class PassiveItemUI : MonoBehaviour
 		gameObject.SetActive(false);
 	}
 
-	public void SetPosition(Vector3 worldPos)
+	/*public void SetPosition(Vector3 worldPos)
 	{
-		// È­¸é Å©±â (UI Canvas°¡ Screen Space Overlay ±âÁØ)
+		// í™”ë©´ í¬ê¸° (UI Canvasê°€ Screen Space Overlay ê¸°ì¤€)
 		float screenWidth = 1920f;
 		float screenHeight = 1080f;
 
-		// ¼³¸íÃ¢ Å©±â
+		// ì„¤ëª…ì°½ í¬ê¸°
 		float popupWidth = 630f;
 		float popupHeight = 450f;
 
-		// ¹öÆ° ±âÁØ ¿ŞÂÊ¿¡ ºÙÀÌ·Á´Â x À§Ä¡ ½Ãµµ
+		// ë²„íŠ¼ ê¸°ì¤€ ì™¼ìª½ì— ë¶™ì´ë ¤ëŠ” x ìœ„ì¹˜ ì‹œë„
 		float leftX = worldPos.x - 380f;
 		float rightX = worldPos.x + 380f;
 
-		// ÃÖ¼Ò/ÃÖ´ë À§Ä¡ °è»ê (¿ŞÂÊ À§°¡ ±âÁØÀÏ °æ¿ì)
+		// ìµœì†Œ/ìµœëŒ€ ìœ„ì¹˜ ê³„ì‚° (ì™¼ìª½ ìœ„ê°€ ê¸°ì¤€ì¼ ê²½ìš°)
 		float minX = popupWidth / 2f;
 		float maxX = screenWidth - popupWidth / 2f;
 		float minY = popupHeight / 2f;
 		float maxY = screenHeight - popupHeight / 2f;
 
-		// x À§Ä¡¸¦ ¿ŞÂÊ ¿ì¼±À¸·Î ÀâµÇ, ¿ŞÂÊ °ø°£ ºÎÁ· ½Ã ¿À¸¥ÂÊÀ¸·Î ¹Ù²Ş
+		// x ìœ„ì¹˜ë¥¼ ì™¼ìª½ ìš°ì„ ìœ¼ë¡œ ì¡ë˜, ì™¼ìª½ ê³µê°„ ë¶€ì¡± ì‹œ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ë°”ê¿ˆ
 		if (leftX < minX)
 		{
 			worldPos.x = rightX;
@@ -75,9 +75,9 @@ public class PassiveItemUI : MonoBehaviour
 			worldPos.x = leftX;
 		}
 
-		// y À§Ä¡´Â ±×´ë·Î Å¬·¥ÇÁ
+		// y ìœ„ì¹˜ëŠ” ê·¸ëŒ€ë¡œ í´ë¨í”„
 		worldPos.y = Mathf.Clamp(worldPos.y, minY, maxY);
 
 		transform.position = worldPos;
-	}
+	}*/
 }

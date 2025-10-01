@@ -146,8 +146,8 @@ public class PassiveItemManager : MonoBehaviour
             case "8_5": return "족자";
             case "9_1": return "호롱";
             case "9_2": return "호롱";
-            case "10_1": return "체력";
-            case "10_2": return "기력";
+            case "10_1": return "";
+            case "10_2": return "이전";
             case "10_3": return "일차";
             case "10_4": return "재입고";
             case "10_5": return "전투로";
@@ -190,14 +190,13 @@ public class PassiveItemManager : MonoBehaviour
             case "8_5": return "화면의 모든 악귀에게\n최대체력 5할의 피해를 입힘\n약점의 경우 즉사시킴\n정신력 8~12 소모";
             case "9_1": return "빛이 더 강해짐";
             case "9_2": return "달려도 빛이 꺼지지 않음";
-            case "10_1": return "체력을 전부 잃으면 사망함";
-            case "10_2": return "큰 행동을 할때 기력을 소모함";
-            case "10_3": return "5일차 까지 약 값을 지불하고\n살아남아야 함";
+            //case "10_1": return "체력을 전부 잃으면 사망함";
+            //case "10_2": return "장비를 장착함";
+            case "10_3": return "장비를 장착함";
             case "10_4": return "혼령강화의 목록을\n새로운 품목으로 교체함";
             case "10_5": return "전투로부터 돈을 벌러 감";
             case "10_6": return "100 <sprite=8>을 50 <sprite=9>으로 교환함";
             case "10_7": return "100 <sprite=9>을 50 <sprite=8>으로 교환함";
-            case "10_8": return "혼령강화와 현재 물건칸을 교체해서 봄";
             // ...
             default: return "설명이 없습니다.";
         }

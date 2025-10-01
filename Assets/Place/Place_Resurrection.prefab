@@ -465,7 +465,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1650432292450227036, guid: 41285955be8ebaa428508bbede5ebffa, type: 3}
       propertyPath: m_text
-      value: "[<b>E</b>] \uBD80\uD65C\uB4F1\uB85D "
+      value: "[<b>C</b>] \uBD80\uD65C\uB4F1\uB85D "
       objectReference: {fileID: 0}
     - target: {fileID: 1650432292450227036, guid: 41285955be8ebaa428508bbede5ebffa, type: 3}
       propertyPath: m_fontSize
