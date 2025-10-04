@@ -1388,6 +1388,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1221797775}
+    - target: {fileID: 1263080637061173440, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
+      propertyPath: m_text
+      value: "[A]\t   [D]"
+      objectReference: {fileID: 0}
     - target: {fileID: 1957943156714987775, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 384

@@ -53,6 +53,7 @@ public class Shop : MonoBehaviour
     private string[] noWeaponLines = { "어이, \n무기는 가져가야지!" };
     private string[] enoughWeaponLines = { "무기는 2개면\n충분하지." };
     private string itemId = "Soul_Add_8_1";
+    private string[] soul_num = new string[4];//영혼 설명용 임시 지역 변수
     private PassiveItemUI passiveItemUI;
     private PassiveItemManager passiveItemManager;
     private Stage_Manager stage_Manager;
@@ -141,14 +142,15 @@ public class Shop : MonoBehaviour
             UpdateSelectorPosition();
         }
          
-        if (currentIndex >= 0) { itemId = "Soul_Add_8_1"; }
+        if (currentIndex == 0) { itemId = "Soul_Add_8_1"; }
         else if (currentIndex == 1) { itemId = "Soul_Add_8_2"; }
         else if (currentIndex == 2) { itemId = "Soul_Add_8_3"; }
         else if (currentIndex == 3) { itemId = "Soul_Add_8_4"; }
         else if (currentIndex == 4) { itemId = "Soul_Add_8_5"; }
-        else if (currentIndex >= 5 && currentIndex <= 8)
-        {
-        }
+        else if (currentIndex == 5) { itemId = soul_num[0];}
+        else if (currentIndex == 6) { itemId = soul_num[1]; }
+        else if (currentIndex == 7) { itemId = soul_num[2]; }
+        else if (currentIndex == 8) { itemId = soul_num[3]; }
         else if (currentIndex == 9) { itemId = "Soul_Add_9_1"; }
         else if (currentIndex == 10) { itemId = "Soul_Add_10_3"; }
         else if (currentIndex == 11) { itemId = "Soul_Add_10_4"; }
@@ -157,8 +159,9 @@ public class Shop : MonoBehaviour
         else if (currentIndex == 14) { itemId = "Soul_Add_10_7"; }
         else { itemId = ""; }
         var item = PassiveItemManager.Instance.passiveItems.Find(i => i.id == itemId);
-        //passiveItemUI.Show(item.itemName, item.description, item.rating);
-        //print(item.description);
+        passiveItemUI.Show(item.itemName, item.description, item.rating);
+        print(currentIndex);
+        print(itemId);
         // 선택 실행
         if (Input.GetKeyDown(KeyCode.Z))
         {
@@ -463,7 +466,7 @@ public class Shop : MonoBehaviour
 
             // 아이콘 갱신
             SetSoulIcon(i, id);
-
+            
             // 슬롯에 있는 ShopSlot 컴포넌트에 itemId 전달
             Soul_in_text slot = soulIcons[i].GetComponentInParent<Soul_in_text>();
             if (slot != null)
@@ -479,7 +482,7 @@ public class Shop : MonoBehaviour
         string[] parts = id.Split('_');
         int group = int.Parse(parts[2]); // 1~7
         int number = int.Parse(parts[3]); // 1~3
-
+        soul_num[slotIndex] = $"Soul_Add_{group}_{number}";
         Sprite icon = passiveItemManager.GetIcon(group, number);
         if (soulIcons[slotIndex] != null)
             soulIcons[slotIndex].sprite = icon;
