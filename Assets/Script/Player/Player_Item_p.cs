@@ -9,7 +9,7 @@ public class Player_Item_p : MonoBehaviour
 
 	private float angleStartTime;
 
-	// ÆĞ½Ãºê ¾ÆÀÌÅÛ »óÅÂ
+	// íŒ¨ì‹œë¸Œ ì•„ì´í…œ ìƒíƒœ
 	public bool[] item_p;
 	private float[] itemStartTime;
 
@@ -30,11 +30,16 @@ public class Player_Item_p : MonoBehaviour
 		UpdateItemEffects();
 	}
 
-	// Äü½½·Ô¿¡ Æ¯Á¤ ¾ÆÀÌÅÛ(id=1)ÀÌ ÀÖ´ÂÁö °Ë»ç
+	// í€µìŠ¬ë¡¯ì— íŠ¹ì • ì•„ì´í…œ(id=1)ì´ ìˆëŠ”ì§€ ê²€ì‚¬
 	private void CheckQuickSlots()
 	{
 		foreach (Item item in player_Item_Use.quickSlots)
 		{
+			if (item != null && item.id == 2)
+			{
+				item_p[2] = true;
+				break;
+			}
 			if (item != null && item.id == 8)
 			{
 				item_p[8] = true;
@@ -53,45 +58,45 @@ public class Player_Item_p : MonoBehaviour
 		}
 	}
 
-	// ½Ã°£¿¡ µû¶ó ¾ÆÀÌÅÛ È¿°ú Á¾·á
+	// ì‹œê°„ì— ë”°ë¼ ì•„ì´í…œ íš¨ê³¼ ì¢…ë£Œ
 	private void UpdateItemEffects()
 	{
 		if (item_p[7] && Time.time - itemStartTime[7] >= 80f) {item_p[7] = false; }
-		if (item_p[10] && Time.time - itemStartTime[10] >= 80f) {item_p[10] = false; } // 80ÃÊ Áö¼Ó
-		if (item_p[13] && Time.time - itemStartTime[13] >= 40f) {item_p[13] = false; } // 40ÃÊ Áö¼Ó
+		if (item_p[10] && Time.time - itemStartTime[10] >= 80f) {item_p[10] = false; } // 80ì´ˆ ì§€ì†
+		if (item_p[13] && Time.time - itemStartTime[13] >= 40f) {item_p[13] = false; } // 40ì´ˆ ì§€ì†
 		if (item_p[18] && Time.time - itemStartTime[18] >= 80f) {item_p[18] = false; }
 		if (item_p[19] && Time.time - itemStartTime[19] >= 80f) {item_p[19] = false; }
 	}
 
 
-	// ¾ÆÀÌÅÛ ÆÇ¸Å ½Ã Ã³¸®
+	// ì•„ì´í…œ íŒë§¤ ì‹œ ì²˜ë¦¬
 	public void Sell(int item_id)
 	{
 		switch (item_id)
 		{
-			case 1: // ºñ³à
+			case 1: // ë¹„ë…€
 				player_Item_Use.qlsu = true;
 				break;
-			case 4: // ÃàÀ½±â
+			case 4: // ì¶•ìŒê¸°
 				playerController.DamagedMP(10);
 				break;
-			case 7: // »çÁø
+			case 7: // ì‚¬ì§„
 				item_p[7] = true;
 				itemStartTime[7] = Time.time;
 				break;
-			case 10: // ÆØÀÌ
+			case 10: // íŒ½ì´
 				item_p[10] = true;
 				itemStartTime[10] = Time.time;
 				break;
-			case 13: // ÁöÆÎÀÌ
+			case 13: // ì§€íŒ¡ì´
 				item_p[13] = true;
 				itemStartTime[13] = Time.time;
 				break;
-			case 18: // ÁÖÆÇ
+			case 18: // ì£¼íŒ
 				item_p[18] = true;
 				itemStartTime[18] = Time.time;
 				break;
-			case 19: // Ã¥
+			case 19: // ì±…
 				item_p[19] = true;
 				itemStartTime[19] = Time.time;
 				break;

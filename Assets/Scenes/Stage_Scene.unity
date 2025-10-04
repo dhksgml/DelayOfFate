@@ -1380,6 +1380,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1221797775}
+    - target: {fileID: 3816049996115379883, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4195322940929626411, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1463,6 +1467,22 @@ PrefabInstance:
     - target: {fileID: 4727333508205875627, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
       propertyPath: m_Name
       value: Shop
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712020133138221854, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712020133138221854, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712020133138221854, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 720
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712020133138221854, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 384
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
