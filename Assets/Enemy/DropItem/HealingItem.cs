@@ -14,16 +14,10 @@ public class HealingItem : MonoBehaviour
             {
                 PlayerController player = collision.gameObject.GetComponent<PlayerController>();
 
-                // »∏∫π
-                player.currentHp += healing;
+                // ÌöåÎ≥µ
+                player.Hp_add(healing);
 
-                // √÷¥Î √§∑¬ ≥—æÓ∞°∏È πÊ¡ˆ
-                if (player.currentHp >= player.maxHp)
-                {
-                    player.currentHp = player.maxHp;
-                }
-
-                // ªË¡¶
+                // ÏÇ≠Ï†ú
                 Destroy(gameObject);
             }
         }

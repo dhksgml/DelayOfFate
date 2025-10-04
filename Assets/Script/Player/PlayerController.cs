@@ -84,6 +84,7 @@ public class PlayerController : MonoBehaviour
     SpriteRenderer spriteRenderer;
     Animator animator;
     PlaceManager placeManager;
+    private Player_Item_p player_Item_P;
     Vector3 moveVelocity;
 
     private Vector2 moveInput;
@@ -127,6 +128,7 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         player_Item_Use = GetComponent<Player_Item_Use>();
         nearestItemFinder = GetComponent<NearestItemFinder>();
+        player_Item_P = FindObjectOfType<Player_Item_p>();
         mainCamera = Camera.main;
 
         lightCircleObject.SetActive(true);
@@ -416,7 +418,6 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator EndItemUseAfterDelay(float delay)
     {
-        Debug.Log("?????? ?????????.");
         SetUseItem(true);
         yield return new WaitForSeconds(delay);
         SetUseItem(false);
@@ -767,6 +768,28 @@ public class PlayerController : MonoBehaviour
     //        inputKey = 0;
     //    }
     //}
+
+    public void Hp_add(float healing)
+    {
+        currentHp += healing * Hp_add_magnification();
+
+        // 최대 채력 넘어가면 방지
+        if (currentHp >= maxHp)
+        {
+            currentHp = maxHp;
+        }
+    }
+    public float Hp_add_magnification()
+    {
+        print(player_Item_P.item_p[2]);
+        float bonus = 0f;
+
+        if (player_Item_P.item_p[2])
+            bonus += 0.2f; // 20%
+
+        return 1.0f + bonus; // 기본 100% + 보너스
+    }
+
     private IEnumerator RecoverOverTime()
     {
         isRecovering = true;
@@ -790,7 +813,8 @@ public class PlayerController : MonoBehaviour
         );
 
         float totalMaxHp = maxHp + extraHp;
-        float hpPerSecond = totalMaxHp / hpRecoveryDuration;
+        float baseHpPerSecond = totalMaxHp / hpRecoveryDuration;
+        float hpPerSecond = baseHpPerSecond ;
         //float mpPerSecond = maxMp / mpRecoveryDuration;
 
         while ((currentHp + currentExtraHp < totalMaxHp) && isRecovering)
@@ -800,7 +824,7 @@ public class PlayerController : MonoBehaviour
             float totalHp = currentHp + currentExtraHp;
             totalHp += hpPerSecond * delta;
             totalHp = Mathf.Min(totalHp, totalMaxHp);
-
+            if (!player_Item_P.item_p[2]) { }
 
             if (totalHp <= maxHp)
             {
