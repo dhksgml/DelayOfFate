@@ -1484,6 +1484,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 384
       objectReference: {fileID: 0}
+    - target: {fileID: 8446459859636173165, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1221797775}
+    - target: {fileID: 8446459859636173165, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Test_room_go
+      objectReference: {fileID: 0}
+    - target: {fileID: 8446459859636173165, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Stage_Manager, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

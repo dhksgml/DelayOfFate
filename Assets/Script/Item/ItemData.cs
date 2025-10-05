@@ -3,32 +3,32 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewItem", menuName = "Item/ItemData")]
 public class ItemData : ScriptableObject
 {
-    public int id; // °íÀ¯ ID
+    public int id; // ê³ ìœ  ID
     public ItemType itemType;
 
-    [Header("ÀÌ¸§, È¿°ú, ½ºÇÁ¶óÀÌÆ®")]
+    [Header("ì´ë¦„, íš¨ê³¼, ìŠ¤í”„ë¼ì´íŠ¸")]
     public string itemName;
     public string item_Passive;
     public Sprite InGameSprite;
 
-    [Header("¾ÆÀÌÅÛ »ç¿ë SP")]
+    [Header("ì•„ì´í…œ ì‚¬ìš© SP")]
     public float spendSPAmount;
 
     [Space(10)]
-    public int Coin;  // ÄÚÀÎ
+    public int Coin;  // ì½”ì¸
 
-    [Header("Áßº¹Çü ¾ÆÀÌÅÛÀÎ°¡")]
+    [Header("ì¤‘ë³µí˜• ì•„ì´í…œì¸ê°€")]
     public bool Count_Check;
     public int Count = 1;
 
-    [Header("»ç¿ë °¡´ÉÇÑ ¾ÆÀÌÅÛÀÎ°¡")]
+    [Header("ì‚¬ìš© ê°€ëŠ¥í•œ ì•„ì´í…œì¸ê°€")]
     public bool isUsable;
     public float Usage_cool_down;
     public bool Charging;
 
-    [Header("·£´ı °ª ¼³Á¤")]
-    public int CoinDeviation; // ¿ÀÂ÷ °ª (¡¾)
+    [Header("ëœë¤ ê°’ ì„¤ì •")]
+    public int CoinDeviation; // ì˜¤ì°¨ ê°’ (Â±)
 
-    [HideInInspector]
-    public bool Drop_item; // ¶³¾îÆ®¸° ÀûÀÌ ÀÖ´Â ¾ÆÀÌÅÛÀÎ°¡
+    //[HideInInspector]
+    public bool Drop_item; // ë–¨ì–´íŠ¸ë¦° ì ì´ ìˆëŠ” ì•„ì´í…œì¸ê°€
 }

@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class ItemUsageManager : MonoBehaviour
 {
-    public GameObject at_Prefab; // °ø°İ ÇÁ¸®ÆÕ
-    public Transform spawnPoint; // ÇÃ·¹ÀÌ¾î »ı¼º À§Ä¡
-    public GameObject Paper; // ºÎÀû Åõ»çÃ¼ ÇÁ¸®ÆÕ
+    public GameObject at_Prefab; // ê³µê²© í”„ë¦¬íŒ¹
+    public Transform spawnPoint; // í”Œë ˆì´ì–´ ìƒì„± ìœ„ì¹˜
+    public GameObject Paper; // ë¶€ì  íˆ¬ì‚¬ì²´ í”„ë¦¬íŒ¹
     PlayerController playerController;
     private void Start()
     {
@@ -13,30 +13,30 @@ public class ItemUsageManager : MonoBehaviour
 
     public void UseItem(string itemName)
     {
-        //Sword   // È¯µµ
-        //Bat    // ¹æ¸ÁÀÌ
-        //Paper   // ºÎÀû
-        //Scroll  // Á·ÀÚ
-       // Bottle   // È£¸®º´
+        //Sword   // í™˜ë„
+        //Bat    // ë°©ë§ì´
+        //Paper   // ë¶€ì 
+        //Scroll  // ì¡±ì
+       // Bottle   // í˜¸ë¦¬ë³‘
         switch (itemName)
         {
-            case "È¯µµ":
+            case "í™˜ë„":
                 SpawnAttackEffect(Attack_sc.AttackType.Sword);
                 break;
-            case "¹æ¸ÁÀÌ":
+            case "ë°©ë§ì´":
                 SpawnAttackEffect(Attack_sc.AttackType.Bat);
                 break;
-            case "ºÎÀû":
+            case "ë¶€ì ":
                 SpawnAttackEffect(Attack_sc.AttackType.Paper);
                 break;
-            case "Á·ÀÚ":
+            case "ì¡±ì":
                 SpawnAttackEffect(Attack_sc.AttackType.Scroll);
                 break;
-            case "È£¸®º´":
+            case "í˜¸ë¦¬ë³‘":
                 SpawnAttackEffect(Attack_sc.AttackType.Bottle);
                 break;
             default:
-                Debug.Log("¾ÆÀÌÅÛ »ç¿ë ºÒ°¡´É!");
+                Debug.Log("ì•„ì´í…œ ì‚¬ìš© ë¶ˆê°€ëŠ¥!");
                 break;
         }
     }
@@ -44,10 +44,10 @@ public class ItemUsageManager : MonoBehaviour
     {
         GameEvents.CallUseItem(type);
 
-        // ÇÃ·¹ÀÌ¾î°¡ ¹Ù¶óº¸´Â ¹æÇâ »ç¿ë
+        // í”Œë ˆì´ì–´ê°€ ë°”ë¼ë³´ëŠ” ë°©í–¥ ì‚¬ìš©
         Vector2 direction = playerController.lastMoveDirection;
         if (direction == Vector2.zero)
-            direction = Vector2.right; // ±âº»°ª: ¿À¸¥ÂÊ
+            direction = Vector2.right; // ê¸°ë³¸ê°’: ì˜¤ë¥¸ìª½
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         if (angle < 0) angle += 360f;
@@ -81,7 +81,7 @@ public class ItemUsageManager : MonoBehaviour
 
         if (type == Attack_sc.AttackType.Paper)
         {
-            // ÇÃ·¹ÀÌ¾î ¹æÇâ ±â¹İ Åõ»çÃ¼
+            // í”Œë ˆì´ì–´ ë°©í–¥ ê¸°ë°˜ íˆ¬ì‚¬ì²´
             Vector3 paperDirection = direction.normalized;
             float offsetDistance = 0.5f;
             Vector3 spawnPos = spawnPoint.position + paperDirection * offsetDistance;
