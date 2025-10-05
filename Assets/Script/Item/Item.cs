@@ -10,34 +10,34 @@ public enum ItemType
 
 public class Item
 {
-    public int id; // °íÀ¯ ID
+    public int id; // ê³ ìœ  ID
     public ItemType itemType;
 
-    [Header("ÀÌ¸§, ÀÎ°ÔÀÓ, ¾ÆÀÌÄÜ")]
+    [Header("ì´ë¦„, ì¸ê²Œì„, ì•„ì´ì½˜")]
     public string itemName;
     public string item_Passive;
     public Sprite InGameSprite;
 
-    [Header("¾ÆÀÌÅÛ »ç¿ë SP")]
+    [Header("ì•„ì´í…œ ì‚¬ìš© SP")]
     public float spendSPAmount;
 
     [Space(10)]
-    public int Coin;  // ÄÚÀÎ
+    public int Coin;  // ì½”ì¸
 
-    [Header("Áßº¹Çü ¾ÆÀÌÅÛÀÎ°¡")]
+    [Header("ì¤‘ë³µí˜• ì•„ì´í…œì¸ê°€")]
     public bool Count_Check;
     public int Count = 1;
 
-    [Header("»ç¿ë °¡´ÉÇÑ ¾ÆÀÌÅÛÀÎ°¡")]
+    [Header("ì‚¬ìš© ê°€ëŠ¥í•œ ì•„ì´í…œì¸ê°€")]
     public bool isUsable;
     public float Usage_cool_down;
     public bool Charging;
 
-    [Header("·£´ı °ª ¼³Á¤")]
-    public int CoinDeviation; // ¿ÀÂ÷ °ª (¡¾)
+    [Header("ëœë¤ ê°’ ì„¤ì •")]
+    public int CoinDeviation; // ì˜¤ì°¨ ê°’ (Â±)
 
     [HideInInspector]
-    public bool Drop_item; // ¶³¾îÆ®¸° ÀûÀÌ ÀÖ´Â ¾ÆÀÌÅÛÀÎ°¡
+    public bool Drop_item; // ë–¨ì–´íŠ¸ë¦° ì ì´ ìˆëŠ” ì•„ì´í…œì¸ê°€
 
     public Item()
     {
@@ -94,9 +94,9 @@ public class Item
         data.Drop_item = this.Drop_item;
         if (data == null) return null;
         return data;
-    } // ¸Å¼­µå¸¦ È£ÃâÇÏ¸é ¾ÆÀÌÅÛ µ¥ÀÌÅÍ¸¸ »Ì¾Æ°¨
+    } // ë§¤ì„œë“œë¥¼ í˜¸ì¶œí•˜ë©´ ì•„ì´í…œ ë°ì´í„°ë§Œ ë½‘ì•„ê°
 
-    // ·£´ı °ª ¼¼ÆÃÀº ¿ÜºÎ¿¡¼­ ÇÒ ¼ö ÀÖµµ·Ï ³²°ÜµÓ´Ï´Ù.
+    // ëœë¤ ê°’ ì„¸íŒ…ì€ ì™¸ë¶€ì—ì„œ í•  ìˆ˜ ìˆë„ë¡ ë‚¨ê²¨ë‘¡ë‹ˆë‹¤.
     public Item Clone()
     {
         return new Item
@@ -114,10 +114,22 @@ public class Item
 
     public void SetRandomValues()
     {
-        // coin ¿ÀÂ÷ Àû¿ë
-        int minCoin = Mathf.Max(1, Coin - CoinDeviation);
-        int maxCoin = Coin + CoinDeviation + 1; // +1Àº Random.Range(int, int)ÀÇ Æ¯¼º (ÃÖ´ñ°ª ¹ÌÆ÷ÇÔ)
+        Debug.Log(id);
+        if (id == 3)
+        {
+            float rand = Random.Range(0f, 100f);
 
-        Coin = Random.Range(minCoin, maxCoin);
+            if (rand < 10f) Coin = 10;
+            else if (rand < 45f) Coin = 50;   // 10 + 35
+            else if (rand < 80f) Coin = 100;  // 45 + 35
+            else if (rand < 98f) Coin = 200;  // 80 + 18
+            else Coin = 500;                   // 98 + 2
+        }
+        else
+        {
+            int minCoin = Mathf.Max(1, Coin - CoinDeviation);
+            int maxCoin = Coin + CoinDeviation + 1;
+            Coin = Random.Range(minCoin, maxCoin);
+        }
     }
 }
