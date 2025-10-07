@@ -160,8 +160,6 @@ public class Shop : MonoBehaviour
         else { itemId = ""; }
         var item = PassiveItemManager.Instance.passiveItems.Find(i => i.id == itemId);
         passiveItemUI.Show(item.itemName, item.description, item.rating);
-        print(currentIndex);
-        print(itemId);
         // 선택 실행
         if (Input.GetKeyDown(KeyCode.Z))
         {
