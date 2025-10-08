@@ -13,40 +13,34 @@ public class Duoksini_Attack : EnemyAttack
     [HideInInspector] public bool isAttack = false;
     [HideInInspector] public bool isTrsPass = false;
 
-    // Àå½ÂÀÌ °ø°İ ¹üÀ§¸¦ º¸¿©ÁÖ°í ¸î ÃÊ µÚ¿¡ °ø°İÇÒÁö Á¤ÇÔ
-    [Tooltip("°ø°İ ¹üÀ§°¡ º¸ÀÎ ÈÄ °ø°İ±îÁö °É¸®´Â ½Ã°£")]
+    // ì¥ìŠ¹ì´ ê³µê²© ë²”ìœ„ë¥¼ ë³´ì—¬ì£¼ê³  ëª‡ ì´ˆ ë’¤ì— ê³µê²©í• ì§€ ì •í•¨
+    [Tooltip("ê³µê²© ë²”ìœ„ê°€ ë³´ì¸ í›„ ê³µê²©ê¹Œì§€ ê±¸ë¦¬ëŠ” ì‹œê°„")]
     [SerializeField] float duoksiniAttackDelay;
     float duoksiniAttackTime;
 
     [SerializeField] GameObject attackEffect;
 
-    void Awake()
-    {
-        //ÇÃ·¹ÀÌ¾î¸¦ Ã£¾Æ¼­ ÀúÀåÇØÁØ ÈÄ
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-    }
-
     bool isAttackReady = false;
     private void Update()
     {
-        // °ø°İ Áß¿£ ½Ã°£ÀÌ ¾È¿À¸§
+        // ê³µê²© ì¤‘ì—” ì‹œê°„ì´ ì•ˆì˜¤ë¦„
         if (!isAttack) time += Time.deltaTime;
         if (isAttackReady) duoksiniAttackTime += Time.deltaTime;
 
-        // °ø°İ ÁØºñ°¡ ´Ù µÇ¾úÀ½¸é °ø°İ
+        // ê³µê²© ì¤€ë¹„ê°€ ë‹¤ ë˜ì—ˆìŒë©´ ê³µê²©
         if (time >= enemyAttackSpeed && duoksini.isAttackReady && isTrsPass)
         {
-            // ¿¡´Ï¸ŞÀÌ¼Ç
+            // ì—ë‹ˆë©”ì´ì…˜
             duoksini.anim.SetBool("isAttackReady", true);
             duoksini.anim.SetBool("isMove", false);
 
-            Debug.Log("¹üÀ§ Ç¥½Ã");
+            Debug.Log("ë²”ìœ„ í‘œì‹œ");
             isAttack = true;
 
-            // À§Ä¡¸¦ °ø°İ ¹üÀ§ ÂÊÀ¸·Î ¿Ç°ÜÁÜ
+            // ìœ„ì¹˜ë¥¼ ê³µê²© ë²”ìœ„ ìª½ìœ¼ë¡œ ì˜³ê²¨ì¤Œ
             transform.position = duoksini.attackTargetTrs;
 
-            // »ç°Å¸® Ç¥½Ã
+            // ì‚¬ê±°ë¦¬ í‘œì‹œ
             attackRange.SetActive(true);
 
             isTrsPass = false;
@@ -55,25 +49,25 @@ public class Duoksini_Attack : EnemyAttack
 
         if (duoksiniAttackTime >= duoksiniAttackDelay)
         {
-            // ¿¡´Ï¸ŞÀÌ¼Ç
+            // ì—ë‹ˆë©”ì´ì…˜
             duoksini.anim.SetBool("isAttack", true);
             duoksini.anim.SetBool("isAttackReady", false);
 
 
-            // ÀÌÆåÆ® »ı¼º
+            // ì´í™íŠ¸ ìƒì„±
             GameObject effect = Instantiate(attackEffect, transform.position, Quaternion.identity);
 
-            Debug.Log("°ø°İ");
-            // ÆÄ±«
+            Debug.Log("ê³µê²©");
+            // íŒŒê´´
             DestroyItem();
 
-            // »ç°Å¸® ºñÈ°¼ºÈ­
+            // ì‚¬ê±°ë¦¬ ë¹„í™œì„±í™”
             attackRange.SetActive(false);
 
-            // Äİ¶óÀÌ´õ¸¦ È°¼ºÈ­ ÇØÁÜ
+            // ì½œë¼ì´ë”ë¥¼ í™œì„±í™” í•´ì¤Œ
             enemyAttackCollider.enabled = true;
 
-            // ÃÊ±âÈ­
+            // ì´ˆê¸°í™”
             duoksiniAttackTime = 0;
             isAttack = false;
             duoksini.isAttackReady = false;
@@ -81,26 +75,33 @@ public class Duoksini_Attack : EnemyAttack
             time = 0;
 
 
-            // Äİ¶óÀÌ´õ ºñÈ°¼ºÈ­
+            // ì½œë¼ì´ë” ë¹„í™œì„±í™”
             Invoke("Dealy", 0.1f);
 
-            // ÀÌÆåÆ® »èÁ¦
+            // ì´í™íŠ¸ ì‚­ì œ
             Destroy(effect, 0.2f);
 
-            // ¿¡´Ï¸ŞÀÌ¼Ç
+            // ì—ë‹ˆë©”ì´ì…˜
             Invoke("DelayAnim", 1f);
         }
     }
 
 
-    // ÇÃ·¹ÀÌ¾î °ø°İ
+    // í”Œë ˆì´ì–´ ê³µê²©
     void OnTriggerEnter2D(Collider2D collision)
     {
-        // ÇÃ·¹ÀÌ¾î °ø°İ
+        if (collision == null) return;
+
+        // í”Œë ˆì´ì–´ ê³µê²©
         if (collision.gameObject.CompareTag("Player") && !isAttack)
         {
-            // °ø°İ
-            player.DamagedHP(enemyDamage * enemy.cloakingDamage);
+            // ì¶©ëŒí•œ ì˜¤ë¸Œì íŠ¸ì—ì„œ ì§ì ‘ ê°€ì ¸ì˜¤ê¸° (ê°€ì¥ ì•ˆì „)
+            PlayerController hitPlayer = collision.gameObject.GetComponent<PlayerController>();
+
+            if (hitPlayer != null)
+            {
+                hitPlayer.DamagedHP(enemyDamage * enemy.cloakingDamage);
+            }
         }
     }
 
@@ -118,12 +119,12 @@ public class Duoksini_Attack : EnemyAttack
 
             if (itemObject != null)
             {
-                Debug.Log("ÆÄ±«: " + itemObject.name);
+                Debug.Log("íŒŒê´´: " + itemObject.name);
                 Destroy(itemObject.gameObject);
             }
             else
             {
-                Debug.Log("ItemObject ÄÄÆ÷³ÍÆ® ¾øÀ½: " + collider.name);
+                Debug.Log("ItemObject ì»´í¬ë„ŒíŠ¸ ì—†ìŒ: " + collider.name);
             }
         }
     }

@@ -6,26 +6,26 @@ using TMPro;
 
 public class ShopQuickSlot : MonoBehaviour
 {
-    public Item[] quickSlots = new Item[4]; // 4°³ÀÇ Äü½½·Ô
-    public ItemData[] SlotsData; // ½½·ÔÀÌ °¡Áö°í ÀÖ´Â ¾ÆÀÌÅÛ µ¥ÀÌÅÍ
+    public Item[] quickSlots = new Item[4]; // 4ê°œì˜ í€µìŠ¬ë¡¯
+    public ItemData[] SlotsData; // ìŠ¬ë¡¯ì´ ê°€ì§€ê³  ìˆëŠ” ì•„ì´í…œ ë°ì´í„°
     //public Item[] weaponSlots = new Item[2];
     public ItemData[] weaponSlotsData;
     public int selectedWeaponIndex = 0;
-    public int selectedSlotIndex = 0; // ÇöÀç ¼±ÅÃµÈ ½½·Ô
+    public int selectedSlotIndex = 0; // í˜„ì¬ ì„ íƒëœ ìŠ¬ë¡¯
 
     public Image[] weaponSlotImage;
 
-    public TMP_Text[] weapon_Count;     // ¹«±â °³¼ö (¾ø¾Ö¾ß ÇÏ³ª °í¹ÎÁß)
-    public TMP_Text weapon_name;     // ¹«±â ÀÌ¸§ 
-    public Image[] slotImages;          // °¢ ½½·ÔÀÇ ¾ÆÀÌÅÛ ¾ÆÀÌÄÜ
-    public Image[] slotBackgrounds;     // °¢ ½½·ÔÀÇ ¹è°æ ÀÌ¹ÌÁö (È°¼ºÈ­ Ç¥½Ã)
-    public Sprite default_Item_Sprite;  // ±âº» ¾ÆÀÌÅÛ ¾ÆÀÌÄÜ
-    public Sprite defaultSlotSprite;    // ±âº» ½½·Ô ¹è°æ
-    public Sprite selectedSlotSprite;   // ¼±ÅÃµÈ ½½·Ô ¹è°æ
-    public TMP_Text Item_Name;          // ¼±ÅÃÇÑ ¾ÆÀÌÅÛÀÇ ÀÌ¸§
-    public TMP_Text Item_Coin;          // ¼±ÅÃÇÑ ¾ÆÀÌÅÛÀÇ °¡Ä¡
+    public TMP_Text[] weapon_Count;     // ë¬´ê¸° ê°œìˆ˜ (ì—†ì• ì•¼ í•˜ë‚˜ ê³ ë¯¼ì¤‘)
+    public TMP_Text weapon_name;     // ë¬´ê¸° ì´ë¦„ 
+    public Image[] slotImages;          // ê° ìŠ¬ë¡¯ì˜ ì•„ì´í…œ ì•„ì´ì½˜
+    public Image[] slotBackgrounds;     // ê° ìŠ¬ë¡¯ì˜ ë°°ê²½ ì´ë¯¸ì§€ (í™œì„±í™” í‘œì‹œ)
+    public Sprite default_Item_Sprite;  // ê¸°ë³¸ ì•„ì´í…œ ì•„ì´ì½˜
+    public Sprite defaultSlotSprite;    // ê¸°ë³¸ ìŠ¬ë¡¯ ë°°ê²½
+    public Sprite selectedSlotSprite;   // ì„ íƒëœ ìŠ¬ë¡¯ ë°°ê²½
+    public TMP_Text Item_Name;          // ì„ íƒí•œ ì•„ì´í…œì˜ ì´ë¦„
+    public TMP_Text Item_Coin;          // ì„ íƒí•œ ì•„ì´í…œì˜ ê°€ì¹˜
 
-    public TMP_Text timeText;           // UI ÅØ½ºÆ® ¿ÀºêÁ§Æ®
+    public TMP_Text timeText;           // UI í…ìŠ¤íŠ¸ ì˜¤ë¸Œì íŠ¸
 
     private void Start()
     {
@@ -38,7 +38,7 @@ public class ShopQuickSlot : MonoBehaviour
     {
         HandleSlotSelection();
         Update_UI();
-        if (Input.GetKeyDown(KeyCode.X)) // ¹ö¸®±â
+        if (Input.GetKeyDown(KeyCode.X)) // íŒë§¤
         {
 
             if (quickSlots[selectedSlotIndex] != null)
@@ -57,47 +57,47 @@ public class ShopQuickSlot : MonoBehaviour
     }
     void HandleSlotSelection()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.D))
         {
             selectedWeaponIndex++;
             selectedWeaponIndex = selectedWeaponIndex % 2;
         }
-        // ½½·Ô ¼±ÅÃ (1~4 Å°)
+        // ìŠ¬ë¡¯ ì„ íƒ (1~4 í‚¤)
         if (Input.GetKeyDown(KeyCode.Alpha1)) selectedSlotIndex = 0;
         if (Input.GetKeyDown(KeyCode.Alpha2)) selectedSlotIndex = 1;
         if (Input.GetKeyDown(KeyCode.Alpha3)) selectedSlotIndex = 2;
         if (Input.GetKeyDown(KeyCode.Alpha4)) selectedSlotIndex = 3;
 
-        // ¸¶¿ì½º ÈÙ·Î ½½·Ô º¯°æ
+        // ë§ˆìš°ìŠ¤ íœ ë¡œ ìŠ¬ë¡¯ ë³€ê²½
         float scroll = Input.GetAxis("Mouse ScrollWheel");
-        if (scroll > 0f) selectedSlotIndex = (selectedSlotIndex + 1) % 4;  // 0~3 ¹üÀ§·Î µ¹¾Æ°¡µµ·Ï
-        if (scroll < 0f) selectedSlotIndex = (selectedSlotIndex + 3) % 4;  // ¿ª¹æÇâ ½ºÅ©·Ñ (0~3 ¹üÀ§·Î µ¹¾Æ°¡µµ·Ï)
+        if (scroll > 0f) selectedSlotIndex = (selectedSlotIndex + 1) % 4;  // 0~3 ë²”ìœ„ë¡œ ëŒì•„ê°€ë„ë¡
+        if (scroll < 0f) selectedSlotIndex = (selectedSlotIndex + 3) % 4;  // ì—­ë°©í–¥ ìŠ¤í¬ë¡¤ (0~3 ë²”ìœ„ë¡œ ëŒì•„ê°€ë„ë¡)
 
-        // selectedSlotIndex°¡ 0~3 ¹üÀ§ ³»·Î À¯ÁöµÇµµ·Ï º¸Àå
+        // selectedSlotIndexê°€ 0~3 ë²”ìœ„ ë‚´ë¡œ ìœ ì§€ë˜ë„ë¡ ë³´ì¥
         selectedSlotIndex = Mathf.Clamp(selectedSlotIndex, 0, 3);
 
         //UpdateUI(quickSlots, selectedSlotIndex);
     }
     public void Update_UI()
     {
-        timeText.text = GameManager.Instance.Day + " / 5 ÀÏ";
+        timeText.text = GameManager.Instance.Day + " / 5 ì¼";
         for (int i = 0; i < 4; i++)
         {
             ItemData item = SlotsData[i];
             if (item != null && !string.IsNullOrEmpty(item.itemName))
             {
-                // ¾ÆÀÌÅÛ ¾ÆÀÌÄÜ ¼³Á¤
+                // ì•„ì´í…œ ì•„ì´ì½˜ ì„¤ì •
                 slotImages[i].sprite = item.InGameSprite;
                 slotImages[i].color = new Color(1f, 1f, 1f, 1f);
             }
             else
             {
-                // ºó ½½·Ô Ã³¸®
+                // ë¹ˆ ìŠ¬ë¡¯ ì²˜ë¦¬
                 slotImages[i].sprite = default_Item_Sprite;
                 slotImages[i].color = new Color(1f, 1f, 1f, 0.3f);
             }
 
-            // ¼±ÅÃµÈ ½½·Ô ¹è°æ Ç¥½Ã
+            // ì„ íƒëœ ìŠ¬ë¡¯ ë°°ê²½ í‘œì‹œ
             slotBackgrounds[i].sprite = (i == selectedSlotIndex)
                 ? selectedSlotSprite
                 : defaultSlotSprite;
@@ -105,11 +105,11 @@ public class ShopQuickSlot : MonoBehaviour
         int currentIndex = selectedWeaponIndex;
         int otherIndex = (currentIndex + 1) % 2;
 
-        // ÇöÀç ¹«±â / ¹İ´ë ¹«±â
+        // í˜„ì¬ ë¬´ê¸° / ë°˜ëŒ€ ë¬´ê¸°
         ItemData currentItem = weaponSlotsData[currentIndex];
         ItemData otherItem = weaponSlotsData[otherIndex];
 
-        // ¸ŞÀÎ ½½·Ô (¼±ÅÃµÈ ¹«±â)
+        // ë©”ì¸ ìŠ¬ë¡¯ (ì„ íƒëœ ë¬´ê¸°)
         if (currentItem != null && !string.IsNullOrEmpty(currentItem.itemName))
         {
             weaponSlotImage[0].sprite = currentItem.InGameSprite;
@@ -136,7 +136,7 @@ public class ShopQuickSlot : MonoBehaviour
             weapon_name.gameObject.SetActive(false);
         }
 
-        // º¸Á¶ ½½·Ô (¹İ´ë ¹«±â)
+        // ë³´ì¡° ìŠ¬ë¡¯ (ë°˜ëŒ€ ë¬´ê¸°)
         if (otherItem != null && !string.IsNullOrEmpty(otherItem.itemName))
         {
             weaponSlotImage[1].sprite = otherItem.InGameSprite;
@@ -159,13 +159,13 @@ public class ShopQuickSlot : MonoBehaviour
             weapon_Count[1].gameObject.SetActive(false);
         }
 
-        // ¼±ÅÃµÈ ½½·ÔÀÇ ¾ÆÀÌÅÛ Á¤º¸¸¸ UI¿¡ Ç¥½Ã
+        // ì„ íƒëœ ìŠ¬ë¡¯ì˜ ì•„ì´í…œ ì •ë³´ë§Œ UIì— í‘œì‹œ
         ItemData selectedItem = SlotsData[selectedSlotIndex];
         if (selectedItem != null && !string.IsNullOrEmpty(selectedItem.itemName))
         {
             int total_coin = selectedItem.Coin * selectedItem.Count;
             Item_Name.text = string.Format("[{0}]", selectedItem.itemName);
-            Item_Coin.text = total_coin.ToString() + " °ª";
+            Item_Coin.text = total_coin.ToString() + " ê°’";
 
         }
         else

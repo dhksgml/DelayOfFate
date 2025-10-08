@@ -114,7 +114,6 @@ public class Item
 
     public void SetRandomValues()
     {
-        Debug.Log(id);
         if (id == 3)
         {
             float rand = Random.Range(0f, 100f);
