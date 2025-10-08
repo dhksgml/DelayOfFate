@@ -159,6 +159,25 @@ public class PlayerController : MonoBehaviour
         GameEvents.OnTimeAngleUnit18 -= HadleTimeAngleUnit18;
     }
 
+    private float CalculateSpeedMultiplier()
+    {
+        float speedBonus = 0f;
+
+        if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
+        {
+            speedBonus += 0.2f;
+        }
+
+        if (player_Item_P != null && player_Item_P.item_p_count != null)//패시브 코드 쪽이랑 호환이 안돼서 1프레임만 이속증가하고 복귀됨
+        {
+            if (player_Item_P.item_p[13]) { speedBonus += 0.3f;}
+            speedBonus -= 0.1f * player_Item_P.item_p_count[14]; // 14번: -10% × 개수
+            speedBonus += 0.1f * player_Item_P.item_p_count[17]; // 17번: +10% × 개수
+        }
+
+        return 1.0f + speedBonus;
+    }
+
     public void Init()
     {
         if (GameManager.Instance != null)
@@ -168,28 +187,22 @@ public class PlayerController : MonoBehaviour
                 PlayerData playerData = GameManager.Instance.playerData;
                 extraHp = playerData.extraHp;
                 currentExtraHp = extraHp;
-
                 currentHp = playerData.maxHp;
-
                 currentMp = playerData.maxMp;
-
                 flashLightLevel = playerData.flashLightLevel;
                 UpdateFlashLight();
 
-
-                if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
-                {
-                    PassiveItemManager.Instance.DoPassive_5_2();
-                    speedMultiplier = GameManager.Instance.playerData.speedMultiplier;
-                }
+                // 이속 배율 계산
+                speedMultiplier = CalculateSpeedMultiplier();
+                GameManager.Instance.playerData.speedMultiplier = speedMultiplier;
             }
         }
         else
         {
             currentHp = maxHp;
             currentExtraHp = extraHp;
-
             currentMp = maxMp;
+            speedMultiplier = 1.0f;
         }
     }
 
@@ -654,6 +667,9 @@ public class PlayerController : MonoBehaviour
         if (moveDir != Vector3.zero && CanMove(moveDir))
         {
             //UpdateMoveSpeedByWeight(); // ???
+            // 이속 배율 계산
+            speedMultiplier = CalculateSpeedMultiplier();
+            print(speedMultiplier);
             transform.position += moveDir * currentMoveSpeed * speedMultiplier * Time.fixedDeltaTime;
 
             if (nearestItemFinder != null && GameManager.Instance != null && GameManager.Instance.playerData.isFindNearestItem)
@@ -781,11 +797,22 @@ public class PlayerController : MonoBehaviour
     }
     public float Hp_add_magnification()
     {
-        print(player_Item_P.item_p[2]);
         float bonus = 0f;
 
-        if (player_Item_P.item_p[2])
-            bonus += 0.2f; // 20%
+        if (player_Item_P != null && player_Item_P.item_p_count != null)
+        {
+            // 2번 아이템: 2할 증가 (중첩 가능)
+            if (player_Item_P.item_p[2])
+            {
+                bonus += 0.2f * player_Item_P.item_p_count[2];
+            }
+
+            // 12번 아이템: 2할 감소 (중첩 가능)
+            if (player_Item_P.item_p[12])
+            {
+                bonus -= 0.2f * player_Item_P.item_p_count[12];
+            }
+        }
 
         return 1.0f + bonus; // 기본 100% + 보너스
     }
@@ -868,14 +895,32 @@ public class PlayerController : MonoBehaviour
     public void DamagedHP(float value)
     {
         StartCoroutine(mainCamera.GetComponent<CameraShake>().Shake());
-
         float totalDamage = value;
+
+        // 11번 아이템 체크 및 피해 감소
+        if (player_Item_P != null && player_Item_P.item_p[11])
+        {
+            totalDamage *= 0.5f; // 피해량 절반
+
+            // 인벤토리에서 11번 아이템 찾아서 제거 (낮은 인덱스부터)
+            for (int i = 0; i < player_Item_Use.quickSlots.Length; i++)
+            {
+                Item item = player_Item_Use.quickSlots[i];
+                if (item != null && item.id == 11)
+                {
+                    player_Item_Use.quickSlots[i] = null;
+                    // 여기에 아이템 제거 코드 추가 예정
+                    break; // 하나만 제거하고 중단
+                }
+            }
+        }
+
         if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_4_1"))
         {
             totalDamage *= GameManager.Instance.playerData.damageTakenMultiplier;
         }
 
-        Effect_cr("e_at", transform.position, 0);//?????
+        Effect_cr("e_at", transform.position, 0);
 
         if (currentExtraHp > 0)
         {
@@ -887,13 +932,12 @@ public class PlayerController : MonoBehaviour
         if (totalDamage > 0)
         {
             currentHp = Mathf.Max(currentHp - totalDamage, 0);
-            if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_player_hit"));
+            if (SoundManager.Instance != null)
+                SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_player_hit"));
         }
 
-        if(damageFX) 
+        if (damageFX)
             Instantiate(damageFX, transform.position, Quaternion.identity);
-        // 피격시 빛을 줄이는 함수 비활성화
-        //DecreaseFlashlight(2);
 
         if (currentHp <= 0 && !isDie)
         {
@@ -976,9 +1020,9 @@ public class PlayerController : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
 
-        if (placeManager.resurrection) // 부활
+        if (placeManager != null && placeManager.resurrection) // 부활
         {
-            SetPosition(placeManager.resurrection_pos);// ??? ???? ???? ??? ???
+            SetPosition(placeManager.resurrection_pos);
             placeManager.Resurrection();
             yield return StartCoroutine(ReviveAnimation());
             Revive();

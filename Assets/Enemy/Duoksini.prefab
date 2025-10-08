@@ -86,7 +86,7 @@ MonoBehaviour:
   enemyAttackRange: 0
   enemyAttackType: 0
   enemyAttackCollider: {fileID: 1428472204618679934}
-  enemy: {fileID: 0}
+  enemy: {fileID: 8163399923841713372}
   time: 0
   itemLayer:
     serializedVersion: 2
