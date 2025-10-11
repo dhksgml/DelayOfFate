@@ -7,9 +7,9 @@ public class WomanGhostRemake : Enemy
 
     Vector3 invisibleTrans;
     [SerializeField] bool isStop;
-    [SerializeField] bool isPlayerSee;
+    //[SerializeField] bool isPlayerSee;
 
-    bool isAction = false;
+    //bool isAction = false;
     public bool isAttack;
     bool isWomanTrace = false;
     bool isCloaking = false;
@@ -33,10 +33,10 @@ public class WomanGhostRemake : Enemy
 
     void Start()
     {
-        // ÃÊ±âÈ­
+        // ì´ˆê¸°í™”
         EnemyInt();
 
-        // ÀÌµ¿ ¹æÇâ ¼³Á¤
+        // ì´ë™ ë°©í–¥ ì„¤ì •
         ChooseNewDirection();
         StartCoroutine(ChangeDirectionRoutine());
     }
@@ -46,7 +46,7 @@ public class WomanGhostRemake : Enemy
 
         if (isTrace) { isWomanTrace = true; }
 
-        // »ç¸ÁÃ³¸®
+        // ì‚¬ë§ì²˜ë¦¬
         if (enemyHp <= 0 && !isDie)
         {
             isDie = true;
@@ -70,10 +70,10 @@ public class WomanGhostRemake : Enemy
 
             if (collision.gameObject.CompareTag("Attack") && !isEnemyHit && attack != null)
             {
-                // ÇÃ·¹ÀÌ¾î °ø°İ½Ã Ã¼Å©
+                // í”Œë ˆì´ì–´ ê³µê²©ì‹œ ì²´í¬
                 if (!attack.CheckWeaknessPassive() && attack.attackType.ToString() == enemyWeakness.ToString())
                 {
-                    // ¾àÁ¡°ø°İ
+                    // ì•½ì ê³µê²©
                     Enemy_Weakness_Hit(attack.damage, attack.attackType.ToString(), enemyHp);
                     enemyHp = 0f;
                 }
@@ -85,7 +85,7 @@ public class WomanGhostRemake : Enemy
                 EnemyHit(attack.damage);
             }
 
-            // ºû¿¡ Ãæµ¹½Ã Àº½Å Ç®¸²
+            // ë¹›ì— ì¶©ëŒì‹œ ì€ì‹  í’€ë¦¼
             if (collision.gameObject.CompareTag("Light"))
             {
                 EnemyLightHit();
@@ -99,10 +99,10 @@ public class WomanGhostRemake : Enemy
         {
             if (collision.gameObject.CompareTag("Sight"))
             {
-                isPlayerSee = false;
+                //isPlayerSee = false;
             }
 
-            // ºû¿¡¼­ ¹ş¾î³¯½Ã Àº½Å
+            // ë¹›ì—ì„œ ë²—ì–´ë‚ ì‹œ ì€ì‹ 
             if (collision.gameObject.CompareTag("Light"))
             {
                 EnemyCloaking();
@@ -112,11 +112,11 @@ public class WomanGhostRemake : Enemy
 
     public override void EnemyMove()
     {
-        // Ãß°İ ¸ñÇ¥
+        // ì¶”ê²© ëª©í‘œ
         enemyTargetDir = (player.transform.position - transform.position).normalized;
 
 
-        // ÃßÀû½Ã
+        // ì¶”ì ì‹œ
         if (!iscloaking)
         {
             EnemyTraceTurn2();
@@ -127,7 +127,7 @@ public class WomanGhostRemake : Enemy
 
         }
 
-        // Åë»ó
+        // í†µìƒ
         else if (!isTrace && !isDie && !isEnemyHit && !isStop && !isWomanTrace)
         {
             EnemyNormalTurn2();
@@ -140,18 +140,18 @@ public class WomanGhostRemake : Enemy
 
     public void WomanGhostAttack()
     {
-        // Ã¼·Â ºñÀ²
+        // ì²´ë ¥ ë¹„ìœ¨
         float hpRatio = enemyHp / enemyMaxHp;
 
-        // hpRatio°¡ 1ÀÏ ¶§ maxStunTime, hpRatio°¡ 0ÀÏ ¶§ minStunTime
+        // hpRatioê°€ 1ì¼ ë•Œ maxStunTime, hpRatioê°€ 0ì¼ ë•Œ minStunTime
         float stunTime = Mathf.Lerp(minStunTime, maxStunTime, hpRatio);
 
-        // Æ®¸®°Å È°¼ºÈ­ ¹× °ª Àü´Ş
+        // íŠ¸ë¦¬ê±° í™œì„±í™” ë° ê°’ ì „ë‹¬
         player.isFreeze = true;
         player.freezeTime = stunTime;
         isAttack = true;
 
-        // µ¥¹ÌÁö
+        // ë°ë¯¸ì§€
         player.DamagedHP(attackDamage * cloakingDamage);
     }
 
@@ -159,26 +159,26 @@ public class WomanGhostRemake : Enemy
     {
         Color color = sp.color;
 
-        //¸ÕÀú ÃßÀû ¹üÀ§¿Í °ø°İ ¹üÀ§¸¦ Áö¿öÁÜ.
+        //ë¨¼ì € ì¶”ì  ë²”ìœ„ì™€ ê³µê²© ë²”ìœ„ë¥¼ ì§€ì›Œì¤Œ.
         Destroy(enemyTrace);
         Destroy(enemyAttack);
         Destroy(enemyColl);
         Destroy(rigid);
 
-        // ÀÌµ¿¼Óµµ 0À¸·Î ÇØ¼­ ¿òÁ÷ÀÌÁö ¸øÇÏ°Ô
+        // ì´ë™ì†ë„ 0ìœ¼ë¡œ í•´ì„œ ì›€ì§ì´ì§€ ëª»í•˜ê²Œ
         enemyMoveSpeed = 0;
 
 
-        //Åõ¸íµµ °ªÀ» 1.0¿¡¼­ 0.01¾¿ •ûÁÖ¸é¼­ ÃµÃµÈ÷ Åõ¸íÇÏ°Ô ÇØÁÜ
+        //íˆ¬ëª…ë„ ê°’ì„ 1.0ì—ì„œ 0.01ì”© ëº´ì£¼ë©´ì„œ ì²œì²œíˆ íˆ¬ëª…í•˜ê²Œ í•´ì¤Œ
         for (float i = 1.0f; i >= 0.0f; i -= 0.02f)
         {
             color.a = i;
             sp.color = color;
-            //µô·¹ÀÌ¸¦ À§ÇØ ÄÚ·çÆ¾À» »ç¿ëÇØÁÜ
+            //ë”œë ˆì´ë¥¼ ìœ„í•´ ì½”ë£¨í‹´ì„ ì‚¬ìš©í•´ì¤Œ
             yield return new WaitForSeconds(0.01f);
         }
 
-        // ¼Ò¸ê
+        // ì†Œë©¸
         Destroy(transform.parent.gameObject);
     }
 }

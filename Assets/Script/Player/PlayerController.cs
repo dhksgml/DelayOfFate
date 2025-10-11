@@ -216,7 +216,7 @@ public class PlayerController : MonoBehaviour
             if (isOn)
             {
                 SpendBattery();
-                flashLight.pointLightOuterRadius = currentRadius;
+                //flashLight.pointLightOuterRadius = currentRadius;
                 flashLightObject.GetComponent<CircleCollider2D>().radius = currentRadius / 2;
             }
             
@@ -283,20 +283,36 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void SpendBattery()
+private void SpendBattery()
+{
+    if(currentRadius > minRadius)
     {
-        if(currentRadius > minRadius)
-        {
-            currentRadius -= decreaseRate * Time.deltaTime;
-            currentRadius = Mathf.Max(currentRadius, minRadius);
-        }
-        else
-        {
-            isOn = false;
-            flashLight.enabled = false;
-            GameEvents.CallClickLenton(isOn);
-        }
+        currentRadius -= decreaseRate * Time.deltaTime;
+        currentRadius = Mathf.Max(currentRadius, minRadius);
     }
+    else
+    {
+        isOn = false;
+        flashLight.enabled = false;
+        GameEvents.CallClickLenton(isOn);
+    }
+    
+    float batteryPercent = currentRadius / startRadius; // 0~1
+    float actualRadius;
+    
+    if (batteryPercent <= 0)
+    {
+        actualRadius = 0; // 배터리 0%면 완전히 꺼짐
+    }
+    else
+    {
+        // 기본 50 + 배터리 비율에 따른 보너스 50
+        actualRadius = startRadius * 0.5f + (startRadius * 0.5f * batteryPercent);
+    }
+    
+    flashLight.pointLightOuterRadius = actualRadius;
+    flashLightObject.GetComponent<CircleCollider2D>().radius = actualRadius / 2;
+}
 
     public void RefillFlashlight(float amount)
     {
