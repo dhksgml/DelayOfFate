@@ -79,7 +79,6 @@ public class Player_Item_Use : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Z) && !playercontroller.isRecovering) // 줍기
         {
             Collider2D nearestItemCollider = Physics2D.OverlapCircle(transform.position, 1f, itemLayer);
-            print(nearestItemCollider);
             if (nearestItemCollider != null)
             {
                 ItemObject itemObject = nearestItemCollider.GetComponent<ItemObject>();
@@ -102,7 +101,7 @@ public class Player_Item_Use : MonoBehaviour
 
     void HandleSlotSelection()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.D))
         {
             selectedWeaponIndex++;
             selectedWeaponIndex = selectedWeaponIndex % 2;
@@ -221,19 +220,16 @@ public class Player_Item_Use : MonoBehaviour
     public void PickUpItem()//줍기
     {
         Collider2D[] itemColliders = Physics2D.OverlapCircleAll(transform.position, 1f, itemLayer);
-        print("줍기 발동");
         foreach (Collider2D collider in itemColliders)
         {
             ItemObject itemObject = collider.GetComponent<ItemObject>();
             if (itemObject != null)
             {
-                print(itemObject);
                 Item droppedItem = itemObject.itemData;
                 Item slotItem = quickSlots[selectedSlotIndex];
                 // 슬롯이 비어있는 경우
                 if (slotItem == null || string.IsNullOrEmpty(slotItem.itemName))
                 {
-                    print(slotItem);
                     TutorialEvents.OnItemPickedUp?.Invoke(droppedItem);
                     quickSlots[selectedSlotIndex] = droppedItem;
                     if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_pickup"));

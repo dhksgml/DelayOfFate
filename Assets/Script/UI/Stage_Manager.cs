@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class Stage_Manager : MonoBehaviour
 {
-    public GameObject ShopPrefab; // ¸ğµç »óÁ¡ ¿ä¼Ò
-    public GameObject QuestPrefab; //¹Ì¼Ç Ä«µå 3°³
-    public void Quest_ok() // ¹Ì¼ÇÀ» °í¸¥ ÈÄ »óÁ¡ ÆäÀÌÁö·Î ÀüÈ¯
+    public GameObject ShopPrefab; // ëª¨ë“  ìƒì  ìš”ì†Œ
+    public GameObject QuestPrefab; //ë¯¸ì…˜ ì¹´ë“œ 3ê°œ
+    public void Quest_ok() // ë¯¸ì…˜ì„ ê³ ë¥¸ í›„ ìƒì  í˜ì´ì§€ë¡œ ì „í™˜
     {
         ShopPrefab.SetActive(true);
         QuestPrefab.SetActive(false);
     }
-    public void Shop_end() // »óÁ¡ ÀüºÎ °í¸¥ ÈÄ ÀüÅõ¾ÀÀ¸·Î ³Ñ¾î°¡±â
+    public void Shop_end() // ìƒì  ì „ë¶€ ê³ ë¥¸ í›„ ì „íˆ¬ì”¬ìœ¼ë¡œ ë„˜ì–´ê°€ê¸°
     {
         if(GameManager.Instance != null)
         {
@@ -27,16 +27,22 @@ public class Stage_Manager : MonoBehaviour
 
             if(weaponCount == 0)
             {
-                Debug.Log("³Í ¸ø Áö³ª°£´Ù");
+                Debug.Log("ë„Œ ëª» ì§€ë‚˜ê°„ë‹¤");
                 Shop shop = FindObjectOfType<Shop>();
                 if (shop != null)
-                    shop.speech_bubble_on("¹«±â");
+                    shop.speech_bubble_on("ë¬´ê¸°");
                 return;
             }
         }
             
         ShopQuickSlot shopQuickSlot = FindObjectOfType<ShopQuickSlot>();
-        GameManager.Instance.SlotsData = shopQuickSlot.SlotsData; // ÀÓ½Ã µ¥ÀÌÅÍ¿¡ ÀÖ´ø°É °ÔÀÓ¸Å´ÏÀú·Î ¿Å±â±â
+        GameManager.Instance.SlotsData = shopQuickSlot.SlotsData; // ì„ì‹œ ë°ì´í„°ì— ìˆë˜ê±¸ ê²Œì„ë§¤ë‹ˆì €ë¡œ ì˜®ê¸°ê¸°
         GameManager.Instance.LoadScene("InGame_Scenes");
+    }
+    public void Test_room_go()//ë©”ì¸ì”¬(í…ŒìŠ¤íŠ¸ ì”¬ ìœ¼ë¡œ ì´ë™)
+    {
+        ShopQuickSlot shopQuickSlot = FindObjectOfType<ShopQuickSlot>();
+        GameManager.Instance.SlotsData = shopQuickSlot.SlotsData; // ì„ì‹œ ë°ì´í„°ì— ìˆë˜ê±¸ ê²Œì„ë§¤ë‹ˆì €ë¡œ ì˜®ê¸°ê¸°
+        GameManager.Instance.LoadScene("MainScene");
     }
 }

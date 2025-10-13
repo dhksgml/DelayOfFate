@@ -1,9 +1,9 @@
 using UnityEngine;
-using UnityEngine.EventSystems; // Æ÷ÀÎÅÍ ÀÌº¥Æ®¸¦ »ç¿ëÇÏ·Á¸é ÇÊ¿ä
+using UnityEngine.EventSystems; // í¬ì¸í„° ì´ë²¤íŠ¸ë¥¼ ì‚¬ìš©í•˜ë ¤ë©´ í•„ìš”
 
 public class Soul_in_text : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-	public string itemId; // ¿¹: "Soul_Add_2_3"
+	public string itemId; // ì˜ˆ: "Soul_Add_2_3"
 	private PassiveItemUI passiveItemUI;
 	public bool show = true;
 
@@ -22,7 +22,7 @@ public class Soul_in_text : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 				if (passiveItemUI != null)
 				{
 					passiveItemUI.Show(item.itemName, item.description, item.rating);
-					passiveItemUI.SetPosition(Input.mousePosition);
+					//passiveItemUI.SetPosition(Input.mousePosition);
 				}
 			}
 		}

@@ -8,25 +8,25 @@ public class QuickSlotUI : MonoBehaviour
 {
     public Image[] weaponSlotImage;
     //public Image[] weaponSlotBackgrounds;
-    public Image[] slotImages;          // °¢ ½½·ÔÀÇ ¾ÆÀÌÅÛ ¾ÆÀÌÄÜ
-    public Image[] slotBackgrounds;     // °¢ ½½·ÔÀÇ ¹è°æ ÀÌ¹ÌÁö (È°¼ºÈ­ Ç¥½Ã)
-    public TMP_Text[] weapon_Count;     // ¹«±â °³¼ö (¾ø¾Ö¾ß ÇÏ³ª °í¹ÎÁß)
-    public TMP_Text weapon_name;     // ¹«±â ÀÌ¸§ 
-    public Sprite default_Item_Sprite;  // ±âº» ¾ÆÀÌÅÛ ¾ÆÀÌÄÜ
-    public Sprite defaultSlotSprite;    // ±âº» ½½·Ô ¹è°æ
-    public Sprite selectedSlotSprite;   // ¼±ÅÃµÈ ½½·Ô ¹è°æ
-    public TMP_Text Item_Name;          // ¼±ÅÃÇÑ ¾ÆÀÌÅÛÀÇ ÀÌ¸§
-    public TMP_Text Item_Coin;          // ¼±ÅÃÇÑ ¾ÆÀÌÅÛÀÇ °¡Ä¡
-    public TMP_Text Discard_text;       // ¾ÆÀÌÅÛÀ» µé°í ÀÖ´Ù¸é ¹ö¸®±â ÅØ½ºÆ® Ç¥±â
-    //public TMP_Text Use_text;           // »ç¿ë °¡´ÉÇÑ ¾ÆÀÌÅÛÀÌ¶ó¸é Ç¥±âµÉ ÅØ½ºÆ®
-    public TMP_Text Item_Passive_text;       // ¾ÆÀÌÅÛÀ» µé°í ÀÖ´Ù¸é ¹ö¸®±â ÅØ½ºÆ® Ç¥±â
-    //public TMP_Text Item_Weight;        // ¼±ÅÃÇÑ ¾ÆÀÌÅÛÀÇ ¹«°Ô
+    public Image[] slotImages;          // ê° ìŠ¬ë¡¯ì˜ ì•„ì´í…œ ì•„ì´ì½˜
+    public Image[] slotBackgrounds;     // ê° ìŠ¬ë¡¯ì˜ ë°°ê²½ ì´ë¯¸ì§€ (í™œì„±í™” í‘œì‹œ)
+    public TMP_Text[] weapon_Count;     // ë¬´ê¸° ê°œìˆ˜ (ì—†ì• ì•¼ í•˜ë‚˜ ê³ ë¯¼ì¤‘)
+    public TMP_Text weapon_name;     // ë¬´ê¸° ì´ë¦„ 
+    public Sprite default_Item_Sprite;  // ê¸°ë³¸ ì•„ì´í…œ ì•„ì´ì½˜
+    public Sprite defaultSlotSprite;    // ê¸°ë³¸ ìŠ¬ë¡¯ ë°°ê²½
+    public Sprite selectedSlotSprite;   // ì„ íƒëœ ìŠ¬ë¡¯ ë°°ê²½
+    public TMP_Text Item_Name;          // ì„ íƒí•œ ì•„ì´í…œì˜ ì´ë¦„
+    public TMP_Text Item_Coin;          // ì„ íƒí•œ ì•„ì´í…œì˜ ê°€ì¹˜
+    public TMP_Text Discard_text;       // ì•„ì´í…œì„ ë“¤ê³  ìˆë‹¤ë©´ ë²„ë¦¬ê¸° í…ìŠ¤íŠ¸ í‘œê¸°
+    //public TMP_Text Use_text;           // ì‚¬ìš© ê°€ëŠ¥í•œ ì•„ì´í…œì´ë¼ë©´ í‘œê¸°ë  í…ìŠ¤íŠ¸
+    public TMP_Text Item_Passive_text;       // ì•„ì´í…œì„ ë“¤ê³  ìˆë‹¤ë©´ ë²„ë¦¬ê¸° í…ìŠ¤íŠ¸ í‘œê¸°
+    //public TMP_Text Item_Weight;        // ì„ íƒí•œ ì•„ì´í…œì˜ ë¬´ê²Œ
 
     public Player_Item_Use playerItemUse;
     private PlayerController playerController;
     private Player_Item_p player_Item_P;
 
-    public TMP_Text timeText; // UI ÅØ½ºÆ® ¿ÀºêÁ§Æ®
+    public TMP_Text timeText; // UI í…ìŠ¤íŠ¸ ì˜¤ë¸Œì íŠ¸
     public int angleUnit = 0;
     public float angleStartTime;
 
@@ -48,8 +48,8 @@ public class QuickSlotUI : MonoBehaviour
     void Update()
     {
         float elapsed = Time.time - angleStartTime;
-        //float time = Time.time; // °æ°ú ½Ã°£ (ÃÊ)
-        angleUnit = Mathf.FloorToInt(elapsed / 20f); // 20ÃÊ¸¶´Ù 1°¢
+        //float time = Time.time; // ê²½ê³¼ ì‹œê°„ (ì´ˆ)
+        angleUnit = Mathf.FloorToInt(elapsed / 20f); // 20ì´ˆë§ˆë‹¤ 1ê°
 
         if(angleUnit >= 18 && !isAngleUnit18)
         {
@@ -69,7 +69,7 @@ public class QuickSlotUI : MonoBehaviour
         }
         else
         {
-            // ºó ½½·Ô Ã³¸®
+            // ë¹ˆ ìŠ¬ë¡¯ ì²˜ë¦¬
             slotImages[index].sprite = default_Item_Sprite;
             slotImages[index].color = new Color(1f, 1f, 1f, 0.3f);
         }
@@ -78,19 +78,22 @@ public class QuickSlotUI : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Stage_Scene")
         {
-            timeText.text = GameManager.Instance.Day + " ÀÏ";
+            timeText.text = GameManager.Instance.Day + " ì¼";
         }
         else
         {
             if (playerController.currentState == PlayerController.PlayerState.Idle)
             {
-                if (!player_Item_P.item_p[10]) //¾ÆÀÌÅÛ È¿°ú ¹ßµ¿½Ã ¾Èº¸ÀÓ
+                if (player_Item_P != null)
                 {
-                    timeText.text = angleUnit + " °¢";
-                }
-                else
-                {
-                    timeText.text = " ";
+                    if (!player_Item_P.item_p[10]) //ì•„ì´í…œ íš¨ê³¼ ë°œë™ì‹œ ì•ˆë³´ì„
+                    {
+                        timeText.text = angleUnit + " ê°";
+                    }
+                    else
+                    {
+                        timeText.text = " ";
+                    }
                 }
             }
         }
@@ -103,18 +106,18 @@ public class QuickSlotUI : MonoBehaviour
             Item item = playerItemUse.quickSlots[i];
             if (item != null && !string.IsNullOrEmpty(item.itemName))
             {
-                // ¾ÆÀÌÅÛ ¾ÆÀÌÄÜ ¼³Á¤
+                // ì•„ì´í…œ ì•„ì´ì½˜ ì„¤ì •
                 slotImages[i].sprite = item.InGameSprite;
                 slotImages[i].color = new Color(1f, 1f, 1f, 1f);
             }
             else
             {
-                // ºó ½½·Ô Ã³¸®
+                // ë¹ˆ ìŠ¬ë¡¯ ì²˜ë¦¬
                 slotImages[i].sprite = default_Item_Sprite;
                 slotImages[i].color = new Color(1f, 1f, 1f, 0.3f);
             }
 
-            // ¼±ÅÃµÈ ½½·Ô ¹è°æ Ç¥½Ã
+            // ì„ íƒëœ ìŠ¬ë¡¯ ë°°ê²½ í‘œì‹œ
             slotBackgrounds[i].sprite = (i == playerItemUse.selectedSlotIndex)
                 ? selectedSlotSprite
                 : defaultSlotSprite;
@@ -122,11 +125,11 @@ public class QuickSlotUI : MonoBehaviour
         int currentIndex = playerItemUse.selectedWeaponIndex;
         int otherIndex = (currentIndex + 1) % 2;
 
-        // ÇöÀç ¹«±â / ¹İ´ë ¹«±â
+        // í˜„ì¬ ë¬´ê¸° / ë°˜ëŒ€ ë¬´ê¸°
         Item currentItem = playerItemUse.weaponSlots[currentIndex];
         Item otherItem = playerItemUse.weaponSlots[otherIndex];
 
-        // ¸ŞÀÎ ½½·Ô (¼±ÅÃµÈ ¹«±â)
+        // ë©”ì¸ ìŠ¬ë¡¯ (ì„ íƒëœ ë¬´ê¸°)
         if (currentItem != null && !string.IsNullOrEmpty(currentItem.itemName))
         {
             weaponSlotImage[0].sprite = currentItem.InGameSprite;
@@ -153,7 +156,7 @@ public class QuickSlotUI : MonoBehaviour
             weapon_name.gameObject.SetActive(false);
         }
 
-        // º¸Á¶ ½½·Ô (¹İ´ë ¹«±â)
+        // ë³´ì¡° ìŠ¬ë¡¯ (ë°˜ëŒ€ ë¬´ê¸°)
         if (otherItem != null && !string.IsNullOrEmpty(otherItem.itemName))
         {
             weaponSlotImage[1].sprite = otherItem.InGameSprite;
@@ -176,18 +179,18 @@ public class QuickSlotUI : MonoBehaviour
             weapon_Count[1].gameObject.SetActive(false);
         }
 
-        // ¼±ÅÃµÈ ½½·ÔÀÇ ¾ÆÀÌÅÛ Á¤º¸¸¸ UI¿¡ Ç¥½Ã
+        // ì„ íƒëœ ìŠ¬ë¡¯ì˜ ì•„ì´í…œ ì •ë³´ë§Œ UIì— í‘œì‹œ
         Item selectedItem = playerItemUse.quickSlots[playerItemUse.selectedSlotIndex];
         if (selectedItem != null && !string.IsNullOrEmpty(selectedItem.itemName))
         {
             int total_coin = selectedItem.Coin;
             //int total_Weight = selectedItem.Weight * selectedItem.Count;
             Item_Name.text = string.Format("[{0}]", selectedItem.itemName);
-            Item_Coin.text = total_coin.ToString() + " °ª";
-            //Item_Weight.text = total_Weight.ToString() + " ±Ù";
-            //if (selectedItem.isUsable) { Use_text.text = "[<space=15><voffset=14><sprite=1><voffset=0><space=-25>] »ç¿ë</voffset>"; } else { Use_text.text = null; } //»ç¿ë °¡´ÉÇÑ °æ¿ì¸¸ Ç¥±â
+            Item_Coin.text = total_coin.ToString() + " ê°’";
+            //Item_Weight.text = total_Weight.ToString() + " ê·¼";
+            //if (selectedItem.isUsable) { Use_text.text = "[<space=15><voffset=14><sprite=1><voffset=0><space=-25>] ì‚¬ìš©</voffset>"; } else { Use_text.text = null; } //ì‚¬ìš© ê°€ëŠ¥í•œ ê²½ìš°ë§Œ í‘œê¸°
             Item_Passive_text.text = selectedItem.item_Passive;
-            Discard_text.text = "[<b>X</b>] Áï½ÃÆÇ¸Å";
+            Discard_text.text = "[<b>X</b>] ì¦‰ì‹œíŒë§¤";
         }
         else
         {
@@ -218,8 +221,8 @@ public class QuickSlotUI : MonoBehaviour
             int total_coin = selectedItem.Coin * selectedItem.Count;
             //int total_Weight = selectedItem.Weight * selectedItem.Count;
             Item_Name.text = $"[{selectedItem.itemName}]";
-            Item_Coin.text = $"{total_coin} °ª";
-            //Item_Weight.text = $"{total_Weight} ±Ù";
+            Item_Coin.text = $"{total_coin} ê°’";
+            //Item_Weight.text = $"{total_Weight} ê·¼";
         }
         else
         {

@@ -419,7 +419,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: d999122ecc70f9544aaa26aafb5f994b, type: 3}
-  m_Type: 3
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
@@ -541,7 +541,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1650432292450227036, guid: 41285955be8ebaa428508bbede5ebffa, type: 3}
       propertyPath: m_text
-      value: "[<b>E</b>] \uBAA8\uB450 \uD310\uB9E4"
+      value: "[<b>C</b>] \uBAA8\uB450 \uD310\uB9E4"
       objectReference: {fileID: 0}
     - target: {fileID: 1650432292450227036, guid: 41285955be8ebaa428508bbede5ebffa, type: 3}
       propertyPath: m_fontSize

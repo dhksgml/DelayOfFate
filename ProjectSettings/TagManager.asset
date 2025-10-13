@@ -54,6 +54,9 @@ TagManager:
   - name: Wall
     uniqueID: 1938351053
     locked: 0
+  - name: fire
+    uniqueID: 1826319775
+    locked: 0
   - name: Item
     uniqueID: 3436824427
     locked: 0

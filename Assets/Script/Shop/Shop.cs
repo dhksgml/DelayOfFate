@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using System.Collections;
@@ -52,10 +52,14 @@ public class Shop : MonoBehaviour
     private string[] jokeLines = {"이 곰방대는 안파네", "뭐라도 하나\n사지 그러나", "(한숨)", "자네도 삿갓을\n좋아하나?", "천천히 둘러보게나", "몸은 괜찮나?", "안전이 최고지", "흠...", "또 악귀들이\n기승인가?", "좋아하는 색이 있나?" };//농담
     private string[] noWeaponLines = { "어이, \n무기는 가져가야지!" };
     private string[] enoughWeaponLines = { "무기는 2개면\n충분하지." };
+    private string itemId = "Soul_Add_8_1";
+    private string[] soul_num = new string[4];//영혼 설명용 임시 지역 변수
+    private PassiveItemUI passiveItemUI;
     private PassiveItemManager passiveItemManager;
     private Stage_Manager stage_Manager;
     void Awake()
     {
+        passiveItemUI = FindObjectOfType<PassiveItemUI>();
         passiveItemManager = FindObjectOfType<PassiveItemManager>();
         stage_Manager = FindObjectOfType<Stage_Manager>();
         allSoulIds.Clear();
@@ -103,39 +107,92 @@ public class Shop : MonoBehaviour
     }
     void Shop_Key_col()
     {
+        int previousIndex = currentIndex; // 이전 인덱스 저장
+
         // 위로 이동
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             currentIndex -= rowSize;
-            if (currentIndex < 0) currentIndex += rowSize * rowCount; // 맨 위 → 맨 아래
-            UpdateSelectorPosition();
+            if (currentIndex < 0) currentIndex += rowSize * rowCount;
         }
-
         // 아래로 이동
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             currentIndex += rowSize;
-            if (currentIndex >= rowSize * rowCount) currentIndex -= rowSize * rowCount; // 맨 아래 → 맨 위
-            UpdateSelectorPosition();
+            if (currentIndex >= rowSize * rowCount) currentIndex -= rowSize * rowCount;
         }
-
         // 왼쪽 이동
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            int rowStart = (currentIndex / rowSize) * rowSize; // 현재 줄 시작 인덱스
+            int rowStart = (currentIndex / rowSize) * rowSize;
             currentIndex--;
-            if (currentIndex < rowStart) currentIndex = rowStart + rowSize - 1; // 왼쪽 끝 → 오른쪽 끝
-            UpdateSelectorPosition();
+            if (currentIndex < rowStart) currentIndex = rowStart + rowSize - 1;
         }
-
         // 오른쪽 이동
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             int rowStart = (currentIndex / rowSize) * rowSize;
             int rowEnd = rowStart + rowSize - 1;
             currentIndex++;
-            if (currentIndex > rowEnd) currentIndex = rowStart; // 오른쪽 끝 → 왼쪽 끝
-            UpdateSelectorPosition();
+            if (currentIndex > rowEnd) currentIndex = rowStart;
+        }
+
+        // ===== 이동 불가능한 곳 체크 =====
+        // 9번은 개발중이라 스킵
+        if (currentIndex == 9)
+        {
+            // 위에서 왔으면 11로, 아래서 왔으면 9로
+            if (previousIndex > currentIndex) // 아래에서 위로
+                currentIndex = 8;
+            else // 위에서 아래로
+                currentIndex = 11;
+        }
+        if (currentIndex == 10)
+        {
+            // 위에서 왔으면 11로, 아래서 왔으면 9로
+            if (previousIndex > currentIndex) // 아래에서 위로
+                currentIndex = 9;
+            else // 위에서 아래로
+                currentIndex = 11;
+        }
+        // 13, 14번은 1일차에는 접근 불가
+        if (GameManager.Instance.Day == 1)
+        {
+            if (currentIndex == 13 || currentIndex == 14)
+            {
+                // 위에서 왔으면 12로, 아래/오른쪽에서 왔으면 되돌리기
+                if (previousIndex < currentIndex) // 위에서 아래로 or 왼쪽에서 오른쪽으로
+                    currentIndex = 12;
+                else // 아래에서 위로 or 오른쪽에서 왼쪽으로
+                    currentIndex = previousIndex; // 원래 위치로 복귀
+            }
+        }
+
+        // UI 업데이트 (이동이 확정된 후)
+        UpdateSelectorPosition();
+
+        // itemId 설정
+        if (currentIndex == 0) { itemId = "Soul_Add_8_1"; }
+        else if (currentIndex == 1) { itemId = "Soul_Add_8_2"; }
+        else if (currentIndex == 2) { itemId = "Soul_Add_8_3"; }
+        else if (currentIndex == 3) { itemId = "Soul_Add_8_4"; }
+        else if (currentIndex == 4) { itemId = "Soul_Add_8_5"; }
+        else if (currentIndex == 5) { itemId = soul_num[0]; }
+        else if (currentIndex == 6) { itemId = soul_num[1]; }
+        else if (currentIndex == 7) { itemId = soul_num[2]; }
+        else if (currentIndex == 8) { itemId = soul_num[3]; }
+        else if (currentIndex == 9) { itemId = "Soul_Add_9_1"; }
+        else if (currentIndex == 10) { itemId = ""; } // 개발중
+        else if (currentIndex == 11) { itemId = "Soul_Add_10_4"; }
+        else if (currentIndex == 12) { itemId = "Soul_Add_10_5"; }
+        else if (currentIndex == 13) { itemId = "Soul_Add_10_6"; }
+        else if (currentIndex == 14) { itemId = "Soul_Add_10_7"; }
+        else { itemId = ""; }
+
+        var item = PassiveItemManager.Instance.passiveItems.Find(i => i.id == itemId);
+        if (item != null)
+        {
+            passiveItemUI.Show(item.itemName, item.description, item.rating);
         }
 
         // 선택 실행
@@ -155,16 +212,24 @@ public class Shop : MonoBehaviour
 
     private void ExecuteOption(int index)
     {
+        var itemId = "Soul_Add_4_3";
+        var item = PassiveItemManager.Instance.passiveItems.Find(i => i.id == itemId);
         Debug.Log("선택된 아이템: " + index);
-        if (index >= 0 && index <= 5)
+        if (index >= 0 && index <= 4)
         {
             BuyWeapon(index);
         }
-        else if (index >= 6 && index <= 9)
+        else if (index >= 5 && index <= 8)
         {
-            BuySoul(index);
+            BuySoul(index-5);
         }
+        if (index == 9) { /*호롱강화?*/ }
+        if (index == 10) { /*장비장착으로*/ }
+        if (index == 11) { Reroll(); }
         if (index == 12) { stage_Manager.Shop_end(); }
+        if (index == 13) { Soul_c_Gold(); }
+        if (index == 14) { Gold_c_Soul(); }
+        passiveItemUI.Show(item.itemName, item.description, item.rating);
 
         // index 기준으로 상점 로직 실행 (예: 구매, 설명창 열기 등)
     }
@@ -434,7 +499,7 @@ public class Shop : MonoBehaviour
 
             // 아이콘 갱신
             SetSoulIcon(i, id);
-
+            
             // 슬롯에 있는 ShopSlot 컴포넌트에 itemId 전달
             Soul_in_text slot = soulIcons[i].GetComponentInParent<Soul_in_text>();
             if (slot != null)
@@ -450,7 +515,7 @@ public class Shop : MonoBehaviour
         string[] parts = id.Split('_');
         int group = int.Parse(parts[2]); // 1~7
         int number = int.Parse(parts[3]); // 1~3
-
+        soul_num[slotIndex] = $"Soul_Add_{group}_{number}";
         Sprite icon = passiveItemManager.GetIcon(group, number);
         if (soulIcons[slotIndex] != null)
             soulIcons[slotIndex].sprite = icon;
@@ -471,7 +536,7 @@ public class Shop : MonoBehaviour
         }
     }
 
-    public void Goul_c_Soul() // 100 전 → 50 혼
+    public void Gold_c_Soul() // 100 전 → 50 혼
     {
         if (Gold >= 100f)
         {

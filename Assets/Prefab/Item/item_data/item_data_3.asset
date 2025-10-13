@@ -25,4 +25,4 @@ MonoBehaviour:
   Usage_cool_down: 0
   Charging: 0
   CoinDeviation: 0
-  Drop_item: 1
+  Drop_item: 0

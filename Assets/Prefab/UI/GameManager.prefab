@@ -85,6 +85,7 @@ MonoBehaviour:
   WeaponData:
   - {fileID: 0}
   - {fileID: 0}
+  weaponUnlockArray: 0000000000
 --- !u!114 &2930368111101819406
 MonoBehaviour:
   m_ObjectHideFlags: 0

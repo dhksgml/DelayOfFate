@@ -113,12 +113,12 @@ TextureImporter:
       name: "\uB450\uC5B5\uC2DC\uB2C8 \uACF5\uACA9_0"
       rect:
         serializedVersion: 2
-        x: 28
-        y: 26
-        width: 360
-        height: 382
-      alignment: 5
-      pivot: {x: 1, y: 0.5}
+        x: 0
+        y: 0
+        width: 600
+        height: 600
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -134,12 +134,12 @@ TextureImporter:
       name: "\uB450\uC5B5\uC2DC\uB2C8 \uACF5\uACA9_1"
       rect:
         serializedVersion: 2
-        x: 626
-        y: 14
-        width: 360
-        height: 382
-      alignment: 5
-      pivot: {x: 1, y: 0.5}
+        x: 600
+        y: 0
+        width: 600
+        height: 600
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -155,12 +155,12 @@ TextureImporter:
       name: "\uB450\uC5B5\uC2DC\uB2C8 \uACF5\uACA9_2"
       rect:
         serializedVersion: 2
-        x: 1302
-        y: 18
-        width: 288
-        height: 382
-      alignment: 5
-      pivot: {x: 1, y: 0.5}
+        x: 1200
+        y: 0
+        width: 600
+        height: 600
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
