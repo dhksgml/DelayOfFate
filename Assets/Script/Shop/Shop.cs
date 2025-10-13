@@ -107,59 +107,94 @@ public class Shop : MonoBehaviour
     }
     void Shop_Key_col()
     {
+        int previousIndex = currentIndex; // 이전 인덱스 저장
+
         // 위로 이동
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             currentIndex -= rowSize;
-            if (currentIndex < 0) currentIndex += rowSize * rowCount; // 맨 위 → 맨 아래
-            UpdateSelectorPosition();
+            if (currentIndex < 0) currentIndex += rowSize * rowCount;
         }
-
         // 아래로 이동
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             currentIndex += rowSize;
-            if (currentIndex >= rowSize * rowCount) currentIndex -= rowSize * rowCount; // 맨 아래 → 맨 위
-            UpdateSelectorPosition();
+            if (currentIndex >= rowSize * rowCount) currentIndex -= rowSize * rowCount;
         }
-
         // 왼쪽 이동
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            int rowStart = (currentIndex / rowSize) * rowSize; // 현재 줄 시작 인덱스
+            int rowStart = (currentIndex / rowSize) * rowSize;
             currentIndex--;
-            if (currentIndex < rowStart) currentIndex = rowStart + rowSize - 1; // 왼쪽 끝 → 오른쪽 끝
-            UpdateSelectorPosition();
+            if (currentIndex < rowStart) currentIndex = rowStart + rowSize - 1;
         }
-
         // 오른쪽 이동
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             int rowStart = (currentIndex / rowSize) * rowSize;
             int rowEnd = rowStart + rowSize - 1;
             currentIndex++;
-            if (currentIndex > rowEnd) currentIndex = rowStart; // 오른쪽 끝 → 왼쪽 끝
-            UpdateSelectorPosition();
+            if (currentIndex > rowEnd) currentIndex = rowStart;
         }
-         
+
+        // ===== 이동 불가능한 곳 체크 =====
+        // 9번은 개발중이라 스킵
+        if (currentIndex == 9)
+        {
+            // 위에서 왔으면 11로, 아래서 왔으면 9로
+            if (previousIndex > currentIndex) // 아래에서 위로
+                currentIndex = 8;
+            else // 위에서 아래로
+                currentIndex = 11;
+        }
+        if (currentIndex == 10)
+        {
+            // 위에서 왔으면 11로, 아래서 왔으면 9로
+            if (previousIndex > currentIndex) // 아래에서 위로
+                currentIndex = 9;
+            else // 위에서 아래로
+                currentIndex = 11;
+        }
+        // 13, 14번은 1일차에는 접근 불가
+        if (GameManager.Instance.Day == 1)
+        {
+            if (currentIndex == 13 || currentIndex == 14)
+            {
+                // 위에서 왔으면 12로, 아래/오른쪽에서 왔으면 되돌리기
+                if (previousIndex < currentIndex) // 위에서 아래로 or 왼쪽에서 오른쪽으로
+                    currentIndex = 12;
+                else // 아래에서 위로 or 오른쪽에서 왼쪽으로
+                    currentIndex = previousIndex; // 원래 위치로 복귀
+            }
+        }
+
+        // UI 업데이트 (이동이 확정된 후)
+        UpdateSelectorPosition();
+
+        // itemId 설정
         if (currentIndex == 0) { itemId = "Soul_Add_8_1"; }
         else if (currentIndex == 1) { itemId = "Soul_Add_8_2"; }
         else if (currentIndex == 2) { itemId = "Soul_Add_8_3"; }
         else if (currentIndex == 3) { itemId = "Soul_Add_8_4"; }
         else if (currentIndex == 4) { itemId = "Soul_Add_8_5"; }
-        else if (currentIndex == 5) { itemId = soul_num[0];}
+        else if (currentIndex == 5) { itemId = soul_num[0]; }
         else if (currentIndex == 6) { itemId = soul_num[1]; }
         else if (currentIndex == 7) { itemId = soul_num[2]; }
         else if (currentIndex == 8) { itemId = soul_num[3]; }
         else if (currentIndex == 9) { itemId = "Soul_Add_9_1"; }
-        else if (currentIndex == 10) { itemId = "Soul_Add_10_3"; }
+        else if (currentIndex == 10) { itemId = ""; } // 개발중
         else if (currentIndex == 11) { itemId = "Soul_Add_10_4"; }
         else if (currentIndex == 12) { itemId = "Soul_Add_10_5"; }
         else if (currentIndex == 13) { itemId = "Soul_Add_10_6"; }
         else if (currentIndex == 14) { itemId = "Soul_Add_10_7"; }
         else { itemId = ""; }
+
         var item = PassiveItemManager.Instance.passiveItems.Find(i => i.id == itemId);
-        passiveItemUI.Show(item.itemName, item.description, item.rating);
+        if (item != null)
+        {
+            passiveItemUI.Show(item.itemName, item.description, item.rating);
+        }
+
         // 선택 실행
         if (Input.GetKeyDown(KeyCode.Z))
         {
