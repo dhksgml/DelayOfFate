@@ -181,28 +181,6 @@ public class Player_Item_Use : MonoBehaviour
 
             if (selectedItem != null && selectedItem.isUsable)
             {
-                // 중복 아이템일 경우
-                if (selectedItem.Count_Check)
-                {
-                    if (selectedItem.Count > 0)
-                    {
-                        if (selectedItem.id != 996)
-                        {
-                            selectedItem.Count--;
-
-                            // 곗수가 0이 되면 슬롯 비우기
-                            if (selectedItem.Count <= 0)
-                            {
-                                weaponSlots[selectedWeaponIndex] = null;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Debug.Log("아이템 곗수가 부족합니다.");
-                        return;
-                    }
-                }
 
                 // 아이템 사용 처리
                 TryUseItem(selectedItem);

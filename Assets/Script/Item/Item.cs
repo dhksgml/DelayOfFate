@@ -24,10 +24,6 @@ public class Item
     [Space(10)]
     public int Coin;  // 코인
 
-    [Header("중복형 아이템인가")]
-    public bool Count_Check;
-    public int Count = 1;
-
     [Header("사용 가능한 아이템인가")]
     public bool isUsable;
     public float Usage_cool_down;
@@ -56,9 +52,6 @@ public class Item
 
         this.Coin = itemData.Coin;
 
-        this.Count_Check = itemData.Count_Check;
-        this.Count = itemData.Count;
-
         this.isUsable = itemData.isUsable;
         this.Usage_cool_down = itemData.Usage_cool_down;
         this.Charging = itemData.Charging;
@@ -82,9 +75,6 @@ public class Item
 
         data.Coin = this.Coin;
 
-        data.Count_Check = this.Count_Check;
-        data.Count = this.Count;
-
         data.isUsable = this.isUsable;
         data.Usage_cool_down = this.Usage_cool_down;
         data.Charging = this.Charging;
@@ -104,8 +94,6 @@ public class Item
             itemName = this.itemName,
             item_Passive = this.item_Passive,
             InGameSprite = this.InGameSprite,
-            Count_Check = this.Count_Check,
-            Count = this.Count,
             Coin = this.Coin,
             CoinDeviation = this.CoinDeviation,
             Drop_item = this.Drop_item

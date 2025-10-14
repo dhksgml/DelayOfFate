@@ -212,8 +212,8 @@ public class Shop : MonoBehaviour
 
     private void ExecuteOption(int index)
     {
-        var itemId = "Soul_Add_4_3";
-        var item = PassiveItemManager.Instance.passiveItems.Find(i => i.id == itemId);
+        //var itemId = "Soul_Add_4_3";
+        //var item = PassiveItemManager.Instance.passiveItems.Find(i => i.id == itemId);
         Debug.Log("선택된 아이템: " + index);
         if (index >= 0 && index <= 4)
         {
@@ -229,7 +229,7 @@ public class Shop : MonoBehaviour
         if (index == 12) { stage_Manager.Shop_end(); }
         if (index == 13) { Soul_c_Gold(); }
         if (index == 14) { Gold_c_Soul(); }
-        passiveItemUI.Show(item.itemName, item.description, item.rating);
+        //passiveItemUI.Show(item.itemName, item.description, item.rating);
 
         // index 기준으로 상점 로직 실행 (예: 구매, 설명창 열기 등)
     }
@@ -240,14 +240,7 @@ public class Shop : MonoBehaviour
         {
             int weaponPrice = 30 + (GameManager.Instance.Day * 30);
             weaponPrices.Add(weaponPrice);
-            if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_3_2")) //다다익선 보유시
-            {
-                weaponSlots_text(i, 0, "Gold");
-            }
-            else
-            {
-                weaponSlots_text(i, weaponPrice, "Gold");
-            }
+            weaponSlots_text(i, weaponPrice, "Gold");
         }
 
         weaponSlots_text(9, lantern_1, "Soul"); // 초롱가격
@@ -275,7 +268,7 @@ public class Shop : MonoBehaviour
 
         int price = weaponPrices[index];
 
-        if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_3_2"))
+        if (PassiveItemManager.Instance != null)
             price = 0;
 
         if (Gold < price) 
@@ -308,14 +301,7 @@ public class Shop : MonoBehaviour
                 shop.speech_bubble_on("무기충분");
             return;
         }
-
-        // 다다익선 효과가 없을 때만 소울 차감
-        bool hasSoulAddEffect = PassiveItemManager.Instance != null &&
-                                PassiveItemManager.Instance.HasEffect("Soul_Add_3_2");
-        if (!hasSoulAddEffect)
-        {
-            GameManager.Instance.Sub_Gold(price);
-        }
+        GameManager.Instance.Sub_Gold(price);
 
         weaponSlots[index].text = "구매 완료";
         GameEvents.CallBuyWeapon();
@@ -337,14 +323,7 @@ public class Shop : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
-            if (PassiveItemManager.Instance.HasEffect("Soul_Add_3_2")) //다다익선 보유시
-            {
-                weaponSlots_text(i, 0, "Gold");
-            }
-            else
-            {
-                weaponSlots_text(i, 30 + (GameManager.Instance.Day * 30), "Gold");
-            }
+            weaponSlots_text(i, 30 + (GameManager.Instance.Day * 30), "Gold");
         }
     }
     public void OnItemHover(int i, ItemData item)
