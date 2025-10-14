@@ -23,7 +23,7 @@ public class Paper : MonoBehaviour
 	{
 		moveSpeed += Random.Range(-1.5f, +1.5f);
 		moveDuration += Random.Range(-0.15f, +0.16f);
-		vanishDelay = Random.Range(55, 61);
+		vanishDelay = Random.Range(3, 5);
 		rb = GetComponent<Rigidbody2D>();
 		moveTimer = moveDuration;
 	}
@@ -63,7 +63,7 @@ public class Paper : MonoBehaviour
 		else
 		{
 			rb.velocity = Vector2.zero;
-			FindClosestEnemy(); // À¯µµ °¡´ÉÇÑ ÀûÀÌ ÀÖ´ÂÁö Å½Áö
+			FindClosestEnemy(); // ìœ ë„ ê°€ëŠ¥í•œ ì ì´ ìˆëŠ”ì§€ íƒì§€
 		}
 	}
 

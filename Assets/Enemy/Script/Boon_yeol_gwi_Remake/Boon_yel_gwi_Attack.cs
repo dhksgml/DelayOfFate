@@ -11,13 +11,13 @@ public class Boon_yel_gwi_Attack : EnemyAttack
 
     void Awake()
     {
-        //ÇÃ·¹ÀÌ¾î¸¦ Ã£¾Æ¼­ ÀúÀåÇØÁØ ÈÄ
+        //í”Œë ˆì´ì–´ë¥¼ ì°¾ì•„ì„œ ì €ì¥í•´ì¤€ í›„
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
     void Update()
     {
-        //°Å¸®¸¦ °è»êÇÏ°í
+        //ê±°ë¦¬ë¥¼ ê³„ì‚°í•˜ê³ 
         float distance = Vector3.Distance(transform.position, player.transform.position);
 
         transform.position = enemy.transform.position;
@@ -34,10 +34,10 @@ public class Boon_yel_gwi_Attack : EnemyAttack
             if (time >= enemyAttackSpeed)
             {
                 Debug.Log(2);
-                // Åõ»çÃ¼ ¹ß»ç
+                // íˆ¬ì‚¬ì²´ ë°œì‚¬
                 GameObject bullet = Instantiate(this.bullet, transform.position, Quaternion.identity);
 
-                Boon_yeol_gwi_bullet component = bullet.GetComponent<Boon_yeol_gwi_bullet>();
+                Boon_yeol_gwi_bullet component = bullet.GetComponentInChildren<Boon_yeol_gwi_bullet>();
                 if (boonyeolgwi.iscloaking == true) { component.isHide = true; }
                 time = 0;
 

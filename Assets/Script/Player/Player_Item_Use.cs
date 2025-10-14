@@ -25,6 +25,10 @@ public class Player_Item_Use : MonoBehaviour
     Player_Item_p player_Item_P;
     public bool isUseAble { private get; set; } = true;
 
+    // 호리병 전용 쿨타임 추가
+    public float bottleCooldown = 0f;
+    private const float bottleCooldownDuration = 20f;
+
     [SerializeField] private AnimatorOverrideController swordAOC;
     [SerializeField] private AnimatorOverrideController batAOC;
     [SerializeField] private AnimatorOverrideController amuletAOC;
@@ -90,6 +94,12 @@ public class Player_Item_Use : MonoBehaviour
                     currentSellingItem = itemObject; // 새 변수, 현재 판매 중인 아이템 저장
                 }
             }
+        }
+        // 호리병 쿨타임 감소
+        if (bottleCooldown > 0f)
+        {
+            bottleCooldown -= Time.deltaTime;
+            bottleCooldown = Mathf.Max(bottleCooldown, 0f);
         }
     }
 
@@ -169,50 +179,52 @@ public class Player_Item_Use : MonoBehaviour
 
     void UseItem()
     {
-        if (playercontroller.Player_Usage_cu_cool_down > 0f)
-        {
-            Debug.Log("아이템 사용 쿨타임 중입니다.");
-            return;
-        }
-
         if (selectedWeaponIndex >= 0 && selectedWeaponIndex < weaponSlots.Length)
         {
             Item selectedItem = weaponSlots[selectedWeaponIndex];
 
             if (selectedItem != null && selectedItem.isUsable)
             {
-                // 중복 아이템일 경우
-                if (selectedItem.Count_Check)
-                {
-                    if (selectedItem.Count > 0)
-                    {
-                        if (selectedItem.id != 996)
-                        {
-                            selectedItem.Count--;
+                // 호리병인지 확인 (id로 구분)
+                bool isBottle = selectedItem.id == 996; // 호리병 id (실제 id로 변경 필요)
 
-                            // 곗수가 0이 되면 슬롯 비우기
-                            if (selectedItem.Count <= 0)
-                            {
-                                weaponSlots[selectedWeaponIndex] = null;
-                            }
-                        }
-                    }
-                    else
+                // 호리병인 경우
+                if (isBottle)
+                {
+                    // 호리병 전용 쿨타임 체크
+                    if (bottleCooldown > 0f)
                     {
-                        Debug.Log("아이템 곗수가 부족합니다.");
+                        Debug.Log($"호리병 쿨타임 중: {bottleCooldown:F1}초 남음");
                         return;
                     }
+
+                    // 호리병 사용
+                    TryUseItem(selectedItem);
+                    bottleCooldown = bottleCooldownDuration; // 20초 쿨타임 설정
+
+                    // UI 갱신
+                    UpdateQuickSlotUI();
                 }
+                // 다른 무기들 (칼, 부적, 방망이 등)
+                else
+                {
+                    // 일반 쿨타임 체크
+                    if (playercontroller.Player_Usage_cu_cool_down > 0f)
+                    {
+                        Debug.Log("아이템 사용 쿨타임 중입니다.");
+                        return;
+                    }
 
-                // 아이템 사용 처리
-                TryUseItem(selectedItem);
+                    // 아이템 사용
+                    TryUseItem(selectedItem);
 
-                // 쿨다운 적용
-                playercontroller.Player_Usage_cu_cool_down = selectedItem.Usage_cool_down;
-                playercontroller.SetUseItemCooltime(selectedItem.Usage_cool_down);
+                    // 일반 쿨다운 적용
+                    playercontroller.Player_Usage_cu_cool_down = selectedItem.Usage_cool_down;
+                    playercontroller.SetUseItemCooltime(selectedItem.Usage_cool_down);
 
-                // UI 갱신
-                UpdateQuickSlotUI();
+                    // UI 갱신
+                    UpdateQuickSlotUI();
+                }
             }
         }
     }

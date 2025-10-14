@@ -17,10 +17,6 @@ public class ItemData : ScriptableObject
     [Space(10)]
     public int Coin;  // 코인
 
-    [Header("중복형 아이템인가")]
-    public bool Count_Check;
-    public int Count = 1;
-
     [Header("사용 가능한 아이템인가")]
     public bool isUsable;
     public float Usage_cool_down;
