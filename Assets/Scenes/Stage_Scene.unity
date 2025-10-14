@@ -163,6 +163,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 007dd6dd154865143a054f861438331f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  quickSlots:
+  - id: 0
+    itemType: 0
+    itemName: 
+    item_Passive: 
+    InGameSprite: {fileID: 0}
+    spendSPAmount: 0
+    Coin: 0
+    isUsable: 0
+    Usage_cool_down: 0
+    Charging: 0
+    CoinDeviation: 0
+    Drop_item: 0
+  - id: 0
+    itemType: 0
+    itemName: 
+    item_Passive: 
+    InGameSprite: {fileID: 0}
+    spendSPAmount: 0
+    Coin: 0
+    isUsable: 0
+    Usage_cool_down: 0
+    Charging: 0
+    CoinDeviation: 0
+    Drop_item: 0
+  - id: 0
+    itemType: 0
+    itemName: 
+    item_Passive: 
+    InGameSprite: {fileID: 0}
+    spendSPAmount: 0
+    Coin: 0
+    isUsable: 0
+    Usage_cool_down: 0
+    Charging: 0
+    CoinDeviation: 0
+    Drop_item: 0
+  - id: 0
+    itemType: 0
+    itemName: 
+    item_Passive: 
+    InGameSprite: {fileID: 0}
+    spendSPAmount: 0
+    Coin: 0
+    isUsable: 0
+    Usage_cool_down: 0
+    Charging: 0
+    CoinDeviation: 0
+    Drop_item: 0
   SlotsData:
   - {fileID: 0}
   - {fileID: 0}
@@ -1588,6 +1637,10 @@ PrefabInstance:
     - target: {fileID: 3235057639090834684, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3745676335826987218, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3816049996115379883, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
       propertyPath: m_IsActive
