@@ -466,12 +466,12 @@ private void SpendBattery()
             if (isRun)
             {
                 currentState = PlayerState.Run;
-                currentMoveSpeed = runSpeed;
+                currentMoveSpeed = runSpeed * speedMultiplier;
             }
             else
             {
                 currentState = PlayerState.Walk;
-                currentMoveSpeed = moveSpeed;
+                currentMoveSpeed = moveSpeed * speedMultiplier;
             }
         }
         else
@@ -687,7 +687,7 @@ private void SpendBattery()
             // 이속 배율 계산
             speedMultiplier = CalculateSpeedMultiplier();
             print(speedMultiplier);
-            transform.position += moveDir * currentMoveSpeed * speedMultiplier * Time.fixedDeltaTime;
+            transform.position += moveDir * currentMoveSpeed * Time.fixedDeltaTime;
 
             if (nearestItemFinder != null && GameManager.Instance != null && GameManager.Instance.playerData.isFindNearestItem)
                 nearestItemFinder.FindNearestItem();
