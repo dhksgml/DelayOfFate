@@ -187,7 +187,8 @@ public class PlayerController : MonoBehaviour
                 PlayerData playerData = GameManager.Instance.playerData;
                 extraHp = playerData.extraHp;
                 currentExtraHp = extraHp;
-                currentHp = playerData.maxHp;
+                maxHp = playerData.maxHp;
+                currentHp = playerData.currentHp;
                 currentMp = playerData.maxMp;
                 flashLightLevel = playerData.flashLightLevel;
                 UpdateFlashLight();

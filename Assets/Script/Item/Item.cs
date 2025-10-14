@@ -8,6 +8,7 @@ public enum ItemType
     weapon
 }
 
+[System.Serializable]
 public class Item
 {
     public int id; // 고유 ID
