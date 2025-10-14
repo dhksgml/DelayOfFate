@@ -53,6 +53,8 @@ public class Player_Item_Use : MonoBehaviour
     }
     void Update()
     {
+        if (playercontroller.currentState == PlayerController.PlayerState.Dead)
+            return;
         //print(quickSlots[selectedSlotIndex]);
         HandleSlotSelection(); // 슬롯 변경 처리
         if (Input.GetKeyDown(KeyCode.A) && isUseAble)
