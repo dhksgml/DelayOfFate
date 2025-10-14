@@ -21,6 +21,7 @@ public class Attack_sc : MonoBehaviour
 
     public float damage;
     private Animator animator;
+    private Collider2D collider2D;
 
     private Player_Item_Use player_Item_Use;
     private Player_Item_p player_Item_P;
@@ -28,6 +29,7 @@ public class Attack_sc : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        collider2D = GetComponent<Collider2D>();
     }
 
     private void Start()
@@ -40,6 +42,10 @@ public class Attack_sc : MonoBehaviour
         {
             float randomRotation = Random.Range(0f, 360f);
             effectRenderer.transform.rotation = Quaternion.Euler(0f, 0f, randomRotation);
+        }
+        if (attackType == AttackType.Bottle)
+        {
+            collider2D.offset += new Vector2(0.5f, 0f);
         }
 
         Invoke(nameof(StartFadeOut), 0.1f);
@@ -130,7 +136,7 @@ public class Attack_sc : MonoBehaviour
 
         if (type == AttackType.Bottle)
         {
-            return Mathf.FloorToInt(444); // 고정 피해
+            return Mathf.FloorToInt(100); // 고정 피해
         }
 
         // 기본 피해량 계산
@@ -143,7 +149,7 @@ public class Attack_sc : MonoBehaviour
                 {
                     if (player_Item_P != null && player_Item_P.item_p[8] && player_Item_P.item_p_count != null)
                     {
-                        itemBonus += 2 * player_Item_P.item_p_count[8]; // +2 × 개수
+                        itemBonus += 3 * player_Item_P.item_p_count[8]; // +2 × 개수
                     }
                     baseDamage = Mathf.FloorToInt(Random.Range(10f, 14f + 1));
                     break;
@@ -152,7 +158,7 @@ public class Attack_sc : MonoBehaviour
                 {
                     if (player_Item_P != null && player_Item_P.item_p[15] && player_Item_P.item_p_count != null)
                     {
-                        itemBonus += 3 * player_Item_P.item_p_count[15]; // +3 × 개수
+                        itemBonus += 4 * player_Item_P.item_p_count[15]; // +3 × 개수
                     }
                     baseDamage = Mathf.FloorToInt(Random.Range(20f, 30f + 1));
                     break;
@@ -161,9 +167,9 @@ public class Attack_sc : MonoBehaviour
                 {
                     if (player_Item_P != null && player_Item_P.item_p[9] && player_Item_P.item_p_count != null)
                     {
-                        itemBonus += 5 * player_Item_P.item_p_count[9]; // +5 × 개수
+                        itemBonus += 2 * player_Item_P.item_p_count[9]; // +5 × 개수
                     }
-                    baseDamage = Mathf.FloorToInt(Random.Range(10f, 12f + 1));
+                    baseDamage = Mathf.FloorToInt(Random.Range(6f, 8f + 1));
                     break;
                 }
             default:
@@ -210,26 +216,6 @@ public class Attack_sc : MonoBehaviour
                     if (attackType == AttackType.Scroll)
                     {
                         damage = enemy.enemyMaxHp / 2;
-                    }
-                    // Bottle은 고정 피해 (이미 계산됨)
-                    else if (attackType == AttackType.Bottle)
-                    {
-                        if (enemy.enemyHeight == 21)
-                        {
-                            damage = 0;
-                        }
-                        else
-                        {
-                            if (attackType.ToString() != enemy.enemyWeakness.ToString())
-                            {
-                                player_Item_Use.weaponSlots[player_Item_Use.selectedWeaponIndex].Count--;
-
-                                if (player_Item_Use.weaponSlots[player_Item_Use.selectedWeaponIndex].Count <= 0)
-                                {
-                                    player_Item_Use.weaponSlots[player_Item_Use.selectedWeaponIndex] = null;
-                                }
-                            }
-                        }
                     }
                 }
             }

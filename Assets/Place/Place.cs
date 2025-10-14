@@ -71,12 +71,9 @@ public class Place : MonoBehaviour
 	{
 		if (other.CompareTag("Player"))
 		{
-            if (registered > 0) //횟수 제한이 있어야함
-			{
-				if (key_UI_iamge != null) key_UI_iamge.gameObject.SetActive(false);
-				other.GetComponent<PlayerController>().isPickUpableItem = false;
-				ui_on = false;
-			}
+			if (key_UI_iamge != null) key_UI_iamge.gameObject.SetActive(false);
+			other.GetComponent<PlayerController>().isPickUpableItem = false;
+			ui_on = false;
 		}
 	}
 

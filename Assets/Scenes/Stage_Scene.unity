@@ -176,9 +176,6 @@ MonoBehaviour:
   weaponSlotImage:
   - {fileID: 1846495795}
   - {fileID: 784264247}
-  weapon_Count:
-  - {fileID: 663937565}
-  - {fileID: 1985199542}
   weapon_name: {fileID: 1248057094}
   slotImages:
   - {fileID: 1766035209}
@@ -494,17 +491,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
---- !u!114 &663937565 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6259767435803544841, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
-  m_PrefabInstance: {fileID: 1994387569}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &784264247 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8345239865240161882, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
@@ -1567,17 +1553,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1985199542 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4551814690948668075, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
-  m_PrefabInstance: {fileID: 1994387569}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1994387569
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1602,9 +1577,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1221797775}
+    - target: {fileID: 300922345346826823, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 822036869696261194, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
       propertyPath: m_text
-      value: "[<b>X</b>] \uC989\uC2DC\uD310\uB9E4"
+      value: "\uD310\uB9E4\uBD88\uAC00"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3235057639090834684, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3816049996115379883, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
       propertyPath: m_IsActive

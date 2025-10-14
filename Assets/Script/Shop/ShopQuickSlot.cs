@@ -15,7 +15,7 @@ public class ShopQuickSlot : MonoBehaviour
 
     public Image[] weaponSlotImage;
 
-    public TMP_Text[] weapon_Count;     // 무기 개수 (없애야 하나 고민중)
+    //public TMP_Text[] weapon_Count;     // 무기 개수 (없애야 하나 고민중)
     public TMP_Text weapon_name;     // 무기 이름 
     public Image[] slotImages;          // 각 슬롯의 아이템 아이콘
     public Image[] slotBackgrounds;     // 각 슬롯의 배경 이미지 (활성화 표시)
@@ -38,7 +38,7 @@ public class ShopQuickSlot : MonoBehaviour
     {
         HandleSlotSelection();
         Update_UI();
-        if (Input.GetKeyDown(KeyCode.X)) // 판매
+        /*if (Input.GetKeyDown(KeyCode.X)) // 판매
         {
 
             if (quickSlots[selectedSlotIndex] != null)
@@ -53,7 +53,7 @@ public class ShopQuickSlot : MonoBehaviour
                 GameEvents.CallDropItem();
             }
 
-        }
+        }*/
     }
     void HandleSlotSelection()
     {
@@ -115,15 +115,8 @@ public class ShopQuickSlot : MonoBehaviour
             weaponSlotImage[0].sprite = currentItem.InGameSprite;
             weaponSlotImage[0].color = Color.white;
 
-            if (currentItem.Count_Check)
-            {
-                weapon_Count[0].text = currentItem.Count.ToString();
-                weapon_Count[0].gameObject.SetActive(true);
-            }
-            else
-            {
-                weapon_Count[0].gameObject.SetActive(false);
-            }
+            //weapon_Count[0].gameObject.SetActive(false);
+
 
             weapon_name.gameObject.SetActive(true);
             weapon_name.text = "[" + currentItem.itemName + "]";
@@ -132,7 +125,7 @@ public class ShopQuickSlot : MonoBehaviour
         {
             weaponSlotImage[0].sprite = default_Item_Sprite;
             weaponSlotImage[0].color = new Color(1f, 1f, 1f, 0.3f);
-            weapon_Count[0].gameObject.SetActive(false);
+            //weapon_Count[0].gameObject.SetActive(false);
             weapon_name.gameObject.SetActive(false);
         }
 
@@ -141,29 +134,20 @@ public class ShopQuickSlot : MonoBehaviour
         {
             weaponSlotImage[1].sprite = otherItem.InGameSprite;
             weaponSlotImage[1].color = Color.white;
-
-            if (otherItem.Count_Check)
-            {
-                weapon_Count[1].text = otherItem.Count.ToString();
-                weapon_Count[1].gameObject.SetActive(true);
-            }
-            else
-            {
-                weapon_Count[1].gameObject.SetActive(false);
-            }
+            //weapon_Count[1].gameObject.SetActive(true);
         }
         else
         {
             weaponSlotImage[1].sprite = default_Item_Sprite;
             weaponSlotImage[1].color = new Color(1f, 1f, 1f, 0.3f);
-            weapon_Count[1].gameObject.SetActive(false);
+            //weapon_Count[1].gameObject.SetActive(false);
         }
 
         // 선택된 슬롯의 아이템 정보만 UI에 표시
         ItemData selectedItem = SlotsData[selectedSlotIndex];
         if (selectedItem != null && !string.IsNullOrEmpty(selectedItem.itemName))
         {
-            int total_coin = selectedItem.Coin * selectedItem.Count;
+            int total_coin = selectedItem.Coin;
             Item_Name.text = string.Format("[{0}]", selectedItem.itemName);
             Item_Coin.text = total_coin.ToString() + " 값";
 
