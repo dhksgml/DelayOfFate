@@ -224,6 +224,6 @@ public class Attack_sc : MonoBehaviour
 
     protected virtual void TriggerWeaknessEffect()
     {
-        // 확장용
+        if (AttackType.Bottle == attackType) { player_Item_Use.bottleCooldown = 0; }
     }
 }
