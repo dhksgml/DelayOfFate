@@ -536,6 +536,9 @@ private void SpendBattery()
         if (isFreeze) { freezeTime -= Time.deltaTime; }
         if (freezeTime <= 0) { isFreeze = false; }
 
+        speedMultiplier = CalculateSpeedMultiplier();
+        currentMoveSpeed *= speedMultiplier;
+
         if (isMoveAble && !isFreeze) Move();
 
         //LookMousePlayer();
@@ -683,10 +686,7 @@ private void SpendBattery()
         Vector3 moveDir = new Vector3(x, y, 0).normalized;
         if (moveDir != Vector3.zero && CanMove(moveDir))
         {
-            //UpdateMoveSpeedByWeight(); // ???
-            // 이속 배율 계산
-            speedMultiplier = CalculateSpeedMultiplier();
-            print(speedMultiplier);
+
             transform.position += moveDir * currentMoveSpeed * Time.fixedDeltaTime;
 
             if (nearestItemFinder != null && GameManager.Instance != null && GameManager.Instance.playerData.isFindNearestItem)
@@ -1113,4 +1113,13 @@ private void SpendBattery()
             }
         }
     }
+
+    #region 아이템 패시브 관련
+
+    public void AddMoveSpeedMultiplier(float amount)
+    {
+        speedMultiplier += amount;
+    }
+
+    #endregion
 }
