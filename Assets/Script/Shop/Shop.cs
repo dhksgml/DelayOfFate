@@ -238,7 +238,8 @@ public class Shop : MonoBehaviour
         weaponPrices.Clear();
         for (int i = 0; i < 5; i++)
         {
-            int weaponPrice = 30 + (GameManager.Instance.Day * 30);
+            //int weaponPrice = 30 + (GameManager.Instance.Day * 30); //무기 금액
+            int weaponPrice = 0;
             weaponPrices.Add(weaponPrice);
             weaponSlots_text(i, weaponPrice, "Gold");
         }
@@ -323,7 +324,7 @@ public class Shop : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
-            weaponSlots_text(i, 30 + (GameManager.Instance.Day * 30), "Gold");
+            //weaponSlots_text(i, 30 + (GameManager.Instance.Day * 30), "Gold"); 무기가격
         }
     }
     public void OnItemHover(int i, ItemData item)
