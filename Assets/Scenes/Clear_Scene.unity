@@ -179,8 +179,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB300\uC804\uCF58\uD150\uCE20\uD398\uC5B4 \uAE30\uC900\uC73C\uB860 \uC5EC\uAE30\uAE4C\uC9C0
-    \uC785\uB2C8\uB2E4\n\uD50C\uB808\uC774 \uD574\uC8FC\uC154\uC11C \uAC10\uC0AC\uD569\uB2C8\uB2E4!"
+  m_text: "\uC778\uB514\uC720 \uAE30\uC900\uC73C\uB860 \uC5EC\uAE30\uAE4C\uC9C0 \uC785\uB2C8\uB2E4\n\uD50C\uB808\uC774
+    \uD574\uC8FC\uC154\uC11C \uAC10\uC0AC\uD569\uB2C8\uB2E4!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 97ab37a4de3e47a449ededabd0045bb5, type: 2}
   m_sharedMaterial: {fileID: -1625775781952263435, guid: 97ab37a4de3e47a449ededabd0045bb5, type: 2}

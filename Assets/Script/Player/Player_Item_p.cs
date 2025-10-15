@@ -103,9 +103,12 @@ public class Player_Item_p : MonoBehaviour
 	// 시간에 따라 아이템 효과 종료
 	private void UpdateItemEffects()
 	{
+		if (item_p[13] == true)
+			Debug.Log($"지팡이 활성중... 경과 시간: {Time.time - itemStartTime[13]}");
+
 		if (item_p[7] && Time.time - itemStartTime[7] >= 80f) {item_p[7] = false; }
 		if (item_p[10] && Time.time - itemStartTime[10] >= 80f) {item_p[10] = false; }
-		if (item_p[13] && Time.time - itemStartTime[13] >= 20f) {item_p[13] = false; } // 20초 지속
+		if (item_p[13] && Time.time - itemStartTime[13] >= 20f) { Debug.Log("판매효과 끝"); item_p[13] = false; } // 20초 지속
 		if (item_p[18] && Time.time - itemStartTime[18] >= 80f) {item_p[18] = false; }
 		if (item_p[19] && Time.time - itemStartTime[19] >= 80f) {item_p[19] = false; }
 	}
@@ -133,6 +136,7 @@ public class Player_Item_p : MonoBehaviour
 			case 13: // 지팡이
 				item_p[13] = true;
 				itemStartTime[13] = Time.time;
+				Debug.Log($"지팡이 판매됨 — 시작 시간: {itemStartTime[13]}");
 				break;
 			case 18: // 주판
 				item_p[18] = true;
