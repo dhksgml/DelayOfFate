@@ -7,9 +7,10 @@ public class Result_UI : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI[] texts;
     [SerializeField] Button nextButton;
+    [SerializeField] GameObject next_text;
     [SerializeField] float fadeTime;
 
-    [SerializeField] RectTransform stampImage; // µµ¿Â ¿ÃπÃ¡ˆ
+    [SerializeField] RectTransform stampImage; // ÎèÑÏû• Ïù¥ÎØ∏ÏßÄ
     [SerializeField] bool isFail;
 
     void Awake()
@@ -28,7 +29,7 @@ public class Result_UI : MonoBehaviour
             //while (!Input.GetMouseButtonDown(0) && !Input.GetKeyDown(KeyCode.Space))
                 //yield return null;
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.C))
                 skip = true;
 
             Color color = texts[i].color;
@@ -45,7 +46,7 @@ public class Result_UI : MonoBehaviour
             
             while (time < fadeTime)
             {
-                if (!skip && Input.GetKeyDown(KeyCode.Space))
+                if (!skip && (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.C)))
                 {
                     skip = true;
                     color.a = 1f;
@@ -65,12 +66,12 @@ public class Result_UI : MonoBehaviour
 
         if (isFail)
         {
-            Debug.Log("≥≥∫Œ Ω«∆–");
+            Debug.Log("ÎÇ©Î∂Ä Ïã§Ìå®");
             yield break;
         }
         else
         {
-            // µµ¿Â æ÷¥œ∏ﬁ¿Ãº« ∏’¿˙ Ω««‡
+            // ÎèÑÏû• Ïï†ÎãàÎ©îÏù¥ÏÖò Î®ºÏ†Ä Ïã§Ìñâ
             StartCoroutine(PlayStampAnimation());
 
             float buttonTime = 0f;
@@ -88,7 +89,7 @@ public class Result_UI : MonoBehaviour
 
             while (buttonTime < fadeTime)
             {
-                if (!skip && Input.GetKeyDown(KeyCode.Space))
+                if (!skip && (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.C)))
                 {
                     buttonColor.a = 1f;
                     //buttonTextColor.a = 1f;
@@ -113,10 +114,11 @@ public class Result_UI : MonoBehaviour
 
     IEnumerator PlayStampAnimation()
     {
-        // µµ¿Â ¿ÃπÃ¡ˆ »∞º∫»≠
+        // ÎèÑÏû• Ïù¥ÎØ∏ÏßÄ ÌôúÏÑ±Ìôî
         stampImage.gameObject.SetActive(true);
+        next_text.SetActive(true);
         if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_stamp"));
-        // √ ±‚ º≥¡§: 2πË ≈©±‚ + ∑£¥˝ »∏¿¸
+        // Ï¥àÍ∏∞ ÏÑ§Ï†ï: 2Î∞∞ ÌÅ¨Í∏∞ + ÎûúÎç§ ÌöåÏ†Ñ
         stampImage.localScale = Vector3.one * 2f;
         float randomZ = Random.Range(-30f, 30f);
         stampImage.localEulerAngles = new Vector3(0f, 0f, randomZ);
@@ -132,7 +134,7 @@ public class Result_UI : MonoBehaviour
             yield return null;
         }
 
-        // √÷¡æ ≈©±‚ ∞Ì¡§
+        // ÏµúÏ¢Ö ÌÅ¨Í∏∞ Í≥†Ï†ï
         stampImage.localScale = Vector3.one;
     }
 }
