@@ -56,11 +56,11 @@ public class MainMenuUIController : MonoBehaviour
 			case 0: // Start
 				GameManager.Instance.LoadScene("Stage_Scene");
 				break;
-			case 1: // Tutorial
+			/*case 1: // Tutorial
 				GameManager.Instance.isTutorial = true;
 				GameManager.Instance.LoadScene("Tutorial_ShopScenes");
-				break;
-			case 2: // Exit
+				break;*/
+			case 1: // Exit
 				GameManager.Instance.QuitGame();
 				break;
 		}
