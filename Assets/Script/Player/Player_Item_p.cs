@@ -37,8 +37,16 @@ public class Player_Item_p : MonoBehaviour
 		// 먼저 모든 카운트 초기화
 		for (int i = 0; i < item_p_count.Length; i++)
 		{
-			item_p_count[i] = 0;
-			item_p[i] = false;
+			item_p_count[2] = 0;item_p[2] = false;
+			item_p_count[6] = 0; item_p[6] = false;
+			item_p_count[8] = 0; item_p[8] = false;
+			item_p_count[9] = 0; item_p[9] = false;
+			item_p_count[11] = 0; item_p[11] = false;
+			item_p_count[12] = 0; item_p[12] = false;
+			item_p_count[14] = 0; item_p[14] = false;
+			item_p_count[15] = 0; item_p[15] = false;
+			item_p_count[16] = 0; item_p[16] = false;
+			item_p_count[17] = 0; item_p[17] = false;
 		}
 
 		// 인벤토리 4칸 모두 체크
@@ -128,6 +136,7 @@ public class Player_Item_p : MonoBehaviour
 			case 7: // 사진
 				item_p[7] = true;
 				itemStartTime[7] = Time.time;
+				Debug.Log($"사진 판매됨 — 시작 시간: {itemStartTime[7]}");
 				break;
 			case 10: // 팽이
 				item_p[10] = true;
