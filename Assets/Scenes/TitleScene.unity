@@ -857,7 +857,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &790705476
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1218,7 +1218,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuItems:
   - {fileID: 2108774966}
-  - {fileID: 790705476}
   - {fileID: 777020570}
   currentIndex: 0
   selector: {fileID: 234486797}

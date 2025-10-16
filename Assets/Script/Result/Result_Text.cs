@@ -59,5 +59,10 @@ public class Result_Text : MonoBehaviour
         costText.text = "약 값 : -" + cost;
         finalGoldText.text = "총 자산 : " + finalGold;
         dayText.text = day + " 일차";
+
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.C))
+        {
+            Next_button();
+        }
     }
 }
