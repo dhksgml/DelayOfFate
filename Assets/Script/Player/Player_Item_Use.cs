@@ -391,11 +391,9 @@ public class Player_Item_Use : MonoBehaviour
                 quickSlots[selectedSlotIndex] = null;
             }
             
-            
             if (qlsu == false) { SpawnEffectParts(itemValue, "Coin"); GameManager.Instance.Add_Gold(itemValue); }
-            else { SpawnEffectParts(itemValue, "Soul"); GameManager.Instance.Add_Soul(itemValue); }
+            else { SpawnEffectParts(itemValue, "Soul"); GameManager.Instance.Add_Soul(itemValue); qlsu = true; }
             
-
             SoundManager.Instance?.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
         }
         else if (ty == "all")

@@ -4,10 +4,10 @@ using UnityEngine.UI;
 
 public class MainMenuUIController : MonoBehaviour
 {
-	[SerializeField] private List<Transform> menuItems; // °¢ ¹öÆ°ÀÇ Transform
+	[SerializeField] private List<Transform> menuItems; // ê° ë²„íŠ¼ì˜ Transform
 	[SerializeField] private int currentIndex = 0;
 
-	[SerializeField] private Transform selector; // ¼±ÅÃ Ç¥½Ã¿ë ¿ÀºêÁ§Æ®
+	[SerializeField] private Transform selector; // ì„ íƒ í‘œì‹œìš© ì˜¤ë¸Œì íŠ¸
 
 	private void Start()
 	{
@@ -16,7 +16,7 @@ public class MainMenuUIController : MonoBehaviour
 
 	private void Update()
 	{
-		// À§·Î ÀÌµ¿
+		// ìœ„ë¡œ ì´ë™
 		if (Input.GetKeyDown(KeyCode.UpArrow))
 		{
 			currentIndex--;
@@ -24,7 +24,7 @@ public class MainMenuUIController : MonoBehaviour
 			UpdateSelectorPosition();
 		}
 
-		// ¾Æ·¡·Î ÀÌµ¿
+		// ì•„ë˜ë¡œ ì´ë™
 		if (Input.GetKeyDown(KeyCode.DownArrow))
 		{
 			currentIndex++;
@@ -32,8 +32,8 @@ public class MainMenuUIController : MonoBehaviour
 			UpdateSelectorPosition();
 		}
 
-		// ¼±ÅÃ ½ÇÇà
-		if (Input.GetKeyDown(KeyCode.Z))
+		// ì„ íƒ ì‹¤í–‰
+		if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.C))
 		{
 			ExecuteOption(currentIndex);
 		}
@@ -43,7 +43,7 @@ public class MainMenuUIController : MonoBehaviour
 	{
 		if (selector != null && menuItems.Count > 0)
 		{
-			// ¼±ÅÃµÈ ¸Ş´ºÀÇ À§ÂÊÀ¸·Î ÀÌµ¿
+			// ì„ íƒëœ ë©”ë‰´ì˜ ìœ„ìª½ìœ¼ë¡œ ì´ë™
 			Vector3 targetPos = menuItems[currentIndex].position;
 			selector.position = targetPos;
 		}
@@ -56,11 +56,11 @@ public class MainMenuUIController : MonoBehaviour
 			case 0: // Start
 				GameManager.Instance.LoadScene("Stage_Scene");
 				break;
-			case 1: // Tutorial
+			/*case 1: // Tutorial
 				GameManager.Instance.isTutorial = true;
 				GameManager.Instance.LoadScene("Tutorial_ShopScenes");
-				break;
-			case 2: // Exit
+				break;*/
+			case 1: // Exit
 				GameManager.Instance.QuitGame();
 				break;
 		}
