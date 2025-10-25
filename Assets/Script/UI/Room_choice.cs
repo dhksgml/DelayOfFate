@@ -1,145 +1,434 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
 
-public class Room_choice : MonoBehaviour
+public class Mission_System : MonoBehaviour
 {
-    public TMP_Text Request_Name_Text; //¹Ì¼Ç¸í
-    //¹Ì¼Ç Á¾·ù : °ñµå È¹µæ, Æ¯Á¤ ¾Ç±Í Ã³Ä¡, ¾Ç±Í ¸î¸¶¸® Á¦°Å, À¯ÇØÇ° ¼ö°Å, Æ¯Á¤ ¹°°Ç ¼ö°Å, ¹°°Ç ¸î°³ ¼ö°Å, ºÀÀÎ À¯Áöº¸¼ö
-    public TMP_Text Request_Content_Text; //¹Ì¼Ç ³»¿ë
-    public TMP_Text Level_Content_Text; //»ó¼¼ ³»¿ë
-    public Sprite[] Soul_Image; //º¸»ó ¿µÈ¥ ÀÌ¹ÌÁö ?°³
-    public Sprite[] Weapon_Image; //¹«±â ÀÌ¹ÌÁö 5°³
-    public Image[] Ch_Weapon_Image; //¾àÁ¡¿¡ ´ëÀÀ µÇ´Â ¹«±â (ÃÖ´ë 3)
-    private enum Mission_Type // ¹Ì¼Ç Á¾·ù
+    [Header("UI References")]
+    public TMP_Text missionNameText;
+    public TMP_Text missionDescText;
+    public TMP_Text missionGradeText;
+    public TMP_Text missionTargetText;
+    public TMP_Text rewardText;
+
+    [Header("UI References")]
+    public Image rewardIconImages; // ë³´ìƒ ì•„ì´ì½˜ì„ í‘œì‹œí•  Image ì»´í¬ë„ŒíŠ¸ë“¤
+
+    private Sprite[][] allPassiveIcons;
+
+    private PassiveItemManager passiveItemManager;
+    [Header("Passive Item Sprites")]
+    public Sprite[] Passive_Item_Icon_1;
+    public Sprite[] Passive_Item_Icon_2;
+    public Sprite[] Passive_Item_Icon_3;
+    public Sprite[] Passive_Item_Icon_4;
+    public Sprite[] Passive_Item_Icon_5;
+    public Sprite[] Passive_Item_Icon_6;
+    public Sprite[] Passive_Item_Icon_7;
+
+    // ë¯¸ì…˜ ë“±ê¸‰
+    public enum MissionGrade
     {
-        Add_Coin,
-        Target_Kill,
-        Many_Kill,
-        Harmful_Collect,
-        Soul_Collect,
-        Many_Collect,
-        Seal_Maintenance
+        Low,    // í•˜ê¸‰
+        Mid,    // ì¤‘ê¸‰
+        High    // ìƒê¸‰
     }
-    private Mission_Type mission_type;
-    Mission_Type[] candidateMissions = new Mission_Type[]
+
+    // ë¯¸ì…˜ íƒ€ì…
+    public enum MissionType
     {
-        Mission_Type.Add_Coin,
-        Mission_Type.Target_Kill,
-        Mission_Type.Many_Kill,
-        Mission_Type.Harmful_Collect,
-        Mission_Type.Soul_Collect,
-        Mission_Type.Many_Collect,
-        Mission_Type.Seal_Maintenance
-    };
-    private int Room_Quantity; //¹æ°ì¼ö
-    private int Difficulty; //Àû ³­ÀÌµµ
-    private string Quest = "¹Ì¼Ç ³»¿ë";
-    private int Quest_number;
-    private int Reward; // º¸»ó
-    private enum Recommended_Weapon // ÃßÃµ ¹«±â
-    {
-        Sword,
-        Bat,
-        Paper,
-        Scroll,
-        Bottle
+        KillEnemies,        // ì•…ê·€ Në§ˆë¦¬ ì²˜ì¹˜
+        InteractPlaces,     // ì¥ì†Œ ìƒí˜¸ì‘ìš© NíšŒ
+        RecoverItems,       // ìƒì–´ë²„ë¦° Nê°œ ë¬¼ê±´ íšŒìˆ˜
+        LightAllAreas,      // ëª¨ë“  ì§€ì—­ ë°íˆê¸°
+        SellItems,          // ë¬¼ê±´ ì¦‰ì‹œ NíšŒ íŒë§¤
+        KillWithWeapon,     // ?ë¬´ê¸°ë¡œ ì•…ê·€ Në§ˆë¦¬ ì²˜ì¹˜
+        TimeLimit,          // Nì‹œê°„ ì•ˆì— íƒˆì¶œ
+        OneWeaponOnly       // ë¬´ê¸° 1ê°œë§Œ ì‚¬ìš©í•˜ê¸°
     }
-    private Recommended_Weapon recommended_weapon;
-    private int Random_Weapon;
+
+    // ë³´ìƒ íƒ€ì…
+    public enum RewardType
+    {
+        Soul,           // í˜¼
+        Money,          // ëƒ¥
+        PassiveLow,     // í˜¼ë ¹ê°•í™” í•˜ê¸‰
+        PassiveMid,     // í˜¼ë ¹ê°•í™” ì¤‘ê¸‰
+        PassiveHigh,    // í˜¼ë ¹ê°•í™” ìƒê¸‰
+        PassiveMax      // í˜¼ë ¹ê°•í™” ìµœìƒê¸‰
+    }
+
+    // í˜„ì¬ ë¯¸ì…˜ ì •ë³´
+    [System.Serializable]
+    public class MissionData
+    {
+        public MissionGrade grade;
+        public MissionType type;
+        public int targetCount;
+        public string weaponType; // KillWithWeapon íƒ€ì…ì¼ ë•Œë§Œ ì‚¬ìš©
+        public RewardType rewardType;
+        public int rewardValue;
+    }
+
+    private MissionData currentMission;
+
     void Start()
     {
-        Random_Request();
-    }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R)) { Random_Request(); }
-    }
-    void Random_Request()
-    {
-        mission_type = candidateMissions[UnityEngine.Random.Range(0, candidateMissions.Length)];
-        Room_Quantity = Random.Range(9, 26);
-        Difficulty = Random.Range(0, 3);
-        Reward = Random.Range(0, 25);
-        Random_Weapon = Random.Range(0, 5);
-        switch (mission_type)
+        passiveItemManager = FindObjectOfType<PassiveItemManager>();
+
+        // Sprite ë°°ì—´ë“¤ì„ 2ì°¨ì› ë°°ì—´ë¡œ ë¬¶ê¸°
+        allPassiveIcons = new Sprite[][]
         {
-            case Mission_Type.Add_Coin:
-                Request_Name_Text.text = "¼öÀÍ ´Ş¼º";
-                Request_Content_Text.text = "¼ö´Ü°ú ¹æ¹ıÀ» °¡¸®Áö ¾Ê°í µ·À» È®º¸ÇÏ¼¼¿ä";
-                Quest_number = Random.Range(2, 8);
-                Quest_number *= 100; // 100´ÜÀ§ ·£´ı
-                Quest = $"{Quest_number} Àü È¹µæ";
+        Passive_Item_Icon_1,
+        Passive_Item_Icon_2,
+        Passive_Item_Icon_3,
+        Passive_Item_Icon_4,
+        Passive_Item_Icon_5,
+        Passive_Item_Icon_6,
+        Passive_Item_Icon_7
+        };
+
+        GenerateRandomMission();
+    }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            GenerateRandomMission();
+        }
+    }
+
+    // ëœë¤ ë¯¸ì…˜ ìƒì„±
+    public void GenerateRandomMission()
+    {
+        currentMission = new MissionData();
+
+        // ëœë¤ ë“±ê¸‰ ê²°ì •
+        currentMission.grade = (MissionGrade)Random.Range(0, 3);
+
+        // ë“±ê¸‰ì— ë”°ë¼ ê°€ëŠ¥í•œ ë¯¸ì…˜ íƒ€ì… í•„í„°ë§
+        List<MissionType> availableMissions = new List<MissionType>
+        {
+            MissionType.KillEnemies,
+            MissionType.InteractPlaces,
+            MissionType.RecoverItems,
+            MissionType.SellItems,
+            MissionType.KillWithWeapon,
+            MissionType.TimeLimit
+        };
+
+        // ì¤‘ê¸‰, ìƒê¸‰ë§Œ ê°€ëŠ¥í•œ ë¯¸ì…˜ ì¶”ê°€
+        if (currentMission.grade != MissionGrade.Low)
+        {
+            availableMissions.Add(MissionType.LightAllAreas);
+            availableMissions.Add(MissionType.OneWeaponOnly);
+        }
+
+        // ëœë¤ ë¯¸ì…˜ íƒ€ì… ì„ íƒ
+        currentMission.type = availableMissions[Random.Range(0, availableMissions.Count)];
+
+        // ë¯¸ì…˜ ëª©í‘œ ìˆ˜ì¹˜ ì„¤ì •
+        SetMissionTarget();
+
+        // ë³´ìƒ ê²°ì •
+        SetMissionReward();
+
+        // UI ì—…ë°ì´íŠ¸
+        UpdateMissionUI();
+    }
+
+    // ë¯¸ì…˜ ëª©í‘œ ìˆ˜ì¹˜ ì„¤ì •
+    void SetMissionTarget()
+    {
+        switch (currentMission.type)
+        {
+            case MissionType.KillEnemies:
+                currentMission.targetCount = currentMission.grade == MissionGrade.Low ? 10 :
+                                            currentMission.grade == MissionGrade.Mid ? 15 : 20;
                 break;
 
-            case Mission_Type.Target_Kill:
-                Request_Name_Text.text = "ÁöÁ¤ Åä¹ú";
-                Request_Content_Text.text = "ÁöÁ¤µÈ Å¸°Ù ¾Ç±Í¸¦ Ã£¾Æ Á¦°ÅÇÏ¼¼¿ä.";
-                Quest = $"¾Ç±Í XXX Ã³Ä¡";
+            case MissionType.InteractPlaces:
+                currentMission.targetCount = currentMission.grade == MissionGrade.Low ? 2 :
+                                            currentMission.grade == MissionGrade.Mid ? 3 : 4;
                 break;
 
-            case Mission_Type.Many_Kill:
-                Request_Name_Text.text = "±¸¿ª Á¤È­";
-                Request_Content_Text.text = "Á¤ÇØÁø ¼ö ÀÌ»óÀÇ ¾Ç±Í¸¦ Ã³Ä¡ÇÏ½Ê½Ã¿À.";
-                Quest_number = Random.Range(3, 7);
-                Quest = $"¾Ç±Í {Quest_number} Ã³Ä¡";
+            case MissionType.RecoverItems:
+                currentMission.targetCount = currentMission.grade == MissionGrade.Low ? 1 :
+                                            currentMission.grade == MissionGrade.Mid ? 2 : 3;
                 break;
 
-            case Mission_Type.Harmful_Collect:
-                Request_Name_Text.text = "À¯Ç° ¼ö°Å";
-                Request_Content_Text.text = "À¯Ç° ¹°Ç°À» ¼ö°ÅÇÏ¼¼¿ä.";
-                Quest = $"À¯Ç° ¼ö»öÈÄ ¼ö°Å";
+            case MissionType.LightAllAreas:
+                currentMission.targetCount = 1;
                 break;
 
-            case Mission_Type.Soul_Collect:
-                Request_Name_Text.text = "¿µÈ¥ ¼ö°Å";
-                Request_Content_Text.text = "¾Ç±Í¸¦ Ã³Ä¡ÇÏ°í ¿µÈ¥À» ¼ö°ÅÇÏ¼¼¿ä";
-                Quest_number = Random.Range(2, 5);
-                Quest = $"¿µÈ¥ {Quest_number} ¼ö°Å";
+            case MissionType.SellItems:
+                currentMission.targetCount = currentMission.grade == MissionGrade.Low ? 4 :
+                                            currentMission.grade == MissionGrade.Mid ? 7 : 10;
                 break;
 
-            case Mission_Type.Many_Collect:
-                Request_Name_Text.text = "ÁÖ¹° ´ë·® ¼ö°Å";
-                Request_Content_Text.text = "Á¤ÇØÁø ¼ö ÀÌ»óÀÇ ¹°°ÇÀ» ¸ğ¾Æ¾ß ÇÕ´Ï´Ù.";
-                Quest_number = Random.Range(4, 10);
-                Quest = $"¿µÈ¥ {Quest_number} ¼ö°Å";
+            case MissionType.KillWithWeapon:
+                currentMission.targetCount = currentMission.grade == MissionGrade.Low ? 5 :
+                                            currentMission.grade == MissionGrade.Mid ? 8 : 10;
+                // ëœë¤ ë¬´ê¸° íƒ€ì… ì„ íƒ
+                string[] weapons = { "í™˜ë„", "ë°©ë§ì´", "ë¶€ì ", "ì¡±ì", "í˜¸ë¦¬ë³‘" };
+                currentMission.weaponType = weapons[Random.Range(0, weapons.Length)];
                 break;
 
-            case Mission_Type.Seal_Maintenance:
-                Request_Name_Text.text = "ºÀÀÎ º¸¼ö";
-                Request_Content_Text.text = "¸¶·ÂÀÌ ¾àÇØÁø ºÀÀÎÀ» º¹±¸ÇÏ¼¼¿ä.";
-                Quest_number = Random.Range(2, 5);
-                Quest = $"ºÀÀÎ {Quest_number} °³ ¼ö¸®";
+            case MissionType.TimeLimit:
+                currentMission.targetCount = currentMission.grade == MissionGrade.Low ? 16 :
+                                            currentMission.grade == MissionGrade.Mid ? 14 : 12;
                 break;
 
-            default:
-                Request_Name_Text.text = "¾Ë ¼ö ¾ø´Â ¹Ì¼Ç";
+            case MissionType.OneWeaponOnly:
+                currentMission.targetCount = 1;
                 break;
         }
-        string[] sizeStages = { "ÃÖ¼Ò", "¼Ò", "Áß", "´ë", "ÃÖ´ë" };
-        string[] diffStages = { "ÃÖÇÏ", "ÇÏ", "Áß", "»ó", "ÃÖ»ó" };
-        string[] colors = { "#00FF00", "#7FFF00", "#FFA500", "#FF4500", "#FF0000" };
+    }
 
-        // ¹æ Å©±â µî±Ş °è»ê
-        int sizeIndex;
-        if (Room_Quantity <= 10) sizeIndex = 0;
-        else if (Room_Quantity <= 13) sizeIndex = 1;
-        else if (Room_Quantity <= 16) sizeIndex = 2;
-        else if (Room_Quantity <= 20) sizeIndex = 3;
-        else sizeIndex = 4;
+    // ë³´ìƒ ê²°ì • (í™•ë¥  ê¸°ë°˜)
+    void SetMissionReward()
+    {
+        float roll = Random.Range(0f, 100f);
 
-        // ³­ÀÌµµ µî±Ş °è»ê (1~5·Î °¡Á¤)
-        int diffIndex = Mathf.Clamp(Difficulty - 1, 0, 4);
+        switch (currentMission.grade)
+        {
+            case MissionGrade.Low:
+                if (roll < 15f) // 15%
+                {
+                    currentMission.rewardType = RewardType.Soul;
+                    currentMission.rewardValue = 350;
+                }
+                else if (roll < 30f) // 15%
+                {
+                    currentMission.rewardType = RewardType.Money;
+                    currentMission.rewardValue = 150;
+                }
+                else if (roll < 80f) // 50%
+                {
+                    currentMission.rewardType = RewardType.PassiveLow;
+                }
+                else // 20%
+                {
+                    currentMission.rewardType = RewardType.PassiveMid;
+                }
+                break;
 
-        // »ö»ó Àû¿ëÇÑ ÅØ½ºÆ® ±¸¼º
-        string roomText = $"<color={colors[sizeIndex]}>{sizeStages[sizeIndex]}</color>";
-        string diffText = $"<color={colors[diffIndex]}>{diffStages[diffIndex]}</color>";
-        Level_Content_Text.text =
-        $"[{roomText}] / [{diffText}]\n" +
-        $"[¸ñÇ¥]\n{Quest}\n\n" +
-        $"[º¸»ó]\n{Reward} ¹øÂ° ¿µÈ¥";
-        Ch_Weapon_Image[0].sprite = Weapon_Image[Random_Weapon];
-        Ch_Weapon_Image[1].sprite = Weapon_Image[Random_Weapon];
-        Ch_Weapon_Image[2].sprite = Weapon_Image[Random_Weapon];
+            case MissionGrade.Mid:
+                if (roll < 15f)
+                {
+                    currentMission.rewardType = RewardType.Soul;
+                    currentMission.rewardValue = 500;
+                }
+                else if (roll < 30f)
+                {
+                    currentMission.rewardType = RewardType.Money;
+                    currentMission.rewardValue = 215;
+                }
+                else if (roll < 80f)
+                {
+                    currentMission.rewardType = RewardType.PassiveMid;
+                }
+                else
+                {
+                    currentMission.rewardType = RewardType.PassiveHigh;
+                }
+                break;
+
+            case MissionGrade.High:
+                if (roll < 15f)
+                {
+                    currentMission.rewardType = RewardType.Soul;
+                    currentMission.rewardValue = 850;
+                }
+                else if (roll < 30f)
+                {
+                    currentMission.rewardType = RewardType.Money;
+                    currentMission.rewardValue = 300;
+                }
+                else if (roll < 80f)
+                {
+                    currentMission.rewardType = RewardType.PassiveHigh;
+                }
+                else
+                {
+                    currentMission.rewardType = RewardType.PassiveMax;
+                }
+                break;
+        }
+    }
+    void UpdateRewardIcon()
+    {
+        // ë³´ìƒì— ë”°ë¼ ì ì ˆí•œ Sprite ë°°ì—´ ì„ íƒ
+        Sprite[] selectedIcons = null;
+
+        switch (currentMission.rewardType)
+        {
+            case RewardType.PassiveLow:
+                selectedIcons = Passive_Item_Icon_1; // í•˜ê¸‰
+                break;
+            case RewardType.PassiveMid:
+                selectedIcons = Passive_Item_Icon_2; // ì¤‘ê¸‰
+                break;
+            case RewardType.PassiveHigh:
+                selectedIcons = Passive_Item_Icon_3; // ìƒê¸‰
+                break;
+            case RewardType.PassiveMax:
+                selectedIcons = Passive_Item_Icon_4; // ìµœìƒê¸‰
+                break;
+        }
+
+        // ì„ íƒëœ ë°°ì—´ì—ì„œ ëœë¤ Sprite ê°€ì ¸ì˜¤ê¸°
+        if (selectedIcons != null && selectedIcons.Length > 0)
+        {
+            Sprite randomIcon = selectedIcons[Random.Range(0, selectedIcons.Length)];
+            rewardIconImages.sprite = randomIcon;
+            rewardIconImages.gameObject.SetActive(true);
+        }
+    }
+    // UI ì—…ë°ì´íŠ¸
+    void UpdateMissionUI()
+    {
+        // ë“±ê¸‰ í‘œì‹œ
+        string gradeColor = currentMission.grade == MissionGrade.Low ? "#00FF00" :
+                           currentMission.grade == MissionGrade.Mid ? "#FFA500" : "#FF0000";
+        string gradeText = currentMission.grade == MissionGrade.Low ? "í•˜ê¸‰" :
+                          currentMission.grade == MissionGrade.Mid ? "ì¤‘ê¸‰" : "ìƒê¸‰";
+
+        missionGradeText.text = $"<color={gradeColor}>[{gradeText}]</color>";
+
+        // ë¯¸ì…˜ëª…ê³¼ ì„¤ëª…
+        string missionName = "";
+        string missionDesc = "";
+        string targetText = "";
+
+        switch (currentMission.type)
+        {
+            case MissionType.KillEnemies:
+                missionName = "ì•…ê·€ í† ë²Œ";
+                missionDesc = "ì •í•´ì§„ ìˆ˜ì˜ ì•…ê·€ë¥¼ ì²˜ì¹˜í•˜ì„¸ìš”.";
+                targetText = $"ì•…ê·€ {currentMission.targetCount}ë§ˆë¦¬ ì²˜ì¹˜";
+                break;
+
+            case MissionType.InteractPlaces:
+                missionName = "ì¥ì†Œ ì¡°ì‚¬";
+                missionDesc = "íŠ¹ì • ì¥ì†Œë“¤ê³¼ ìƒí˜¸ì‘ìš©í•˜ì„¸ìš”.";
+                targetText = $"ì¥ì†Œ {currentMission.targetCount}íšŒ ìƒí˜¸ì‘ìš©";
+                break;
+
+            case MissionType.RecoverItems:
+                missionName = "ìœ ì‹¤ë¬¼ íšŒìˆ˜";
+                missionDesc = "ìƒì–´ë²„ë¦° ë¬¼ê±´ë“¤ì„ íšŒìˆ˜í•˜ì„¸ìš”.";
+                targetText = $"ë¬¼ê±´ {currentMission.targetCount}ê°œ íšŒìˆ˜";
+                break;
+
+            case MissionType.LightAllAreas:
+                missionName = "êµ¬ì—­ ì¡°ëª…";
+                missionDesc = "ëª¨ë“  ì§€ì—­ì„ ë°íˆì„¸ìš”.";
+                targetText = "ëª¨ë“  ì§€ì—­ ë°íˆê¸°";
+                break;
+
+            case MissionType.SellItems:
+                missionName = "ê¸´ê¸‰ ì²˜ë¶„";
+                missionDesc = "í˜„ì¥ì—ì„œ ë¬¼ê±´ì„ ì¦‰ì‹œ íŒë§¤í•˜ì„¸ìš”.";
+                targetText = $"ë¬¼ê±´ {currentMission.targetCount}íšŒ íŒë§¤";
+                break;
+
+            case MissionType.KillWithWeapon:
+                missionName = "ë¬´ê¸° ìˆ™ë ¨";
+                missionDesc = $"{currentMission.weaponType}(ìœ¼)ë¡œ ì•…ê·€ë¥¼ ì²˜ì¹˜í•˜ì„¸ìš”.";
+                targetText = $"{currentMission.weaponType}ë¡œ ì•…ê·€ {currentMission.targetCount}ë§ˆë¦¬ ì²˜ì¹˜";
+                break;
+
+            case MissionType.TimeLimit:
+                missionName = "ì‹ ì† ì‘ì „";
+                missionDesc = "ì œí•œ ì‹œê°„ ë‚´ì— íƒˆì¶œí•˜ì„¸ìš”.";
+                targetText = $"{currentMission.targetCount}ê° ì•ˆì— íƒˆì¶œ";
+                break;
+
+            case MissionType.OneWeaponOnly:
+                missionName = "ì œí•œ ë¬´ì¥";
+                missionDesc = "ë¬´ê¸° 1ê°œë§Œ ì‚¬ìš©í•˜ì—¬ ì„ë¬´ë¥¼ ì™„ìˆ˜í•˜ì„¸ìš”.";
+                targetText = "ë¬´ê¸° 1ê°œë§Œ ì‚¬ìš©";
+                break;
+        }
+
+        missionNameText.text = "["+missionName+"]";
+        missionDescText.text = missionDesc;
+        missionTargetText.text = $"[ëª©í‘œ]\n{targetText}";
+
+        // ë³´ìƒ í‘œì‹œ
+        string rewardStr = "";
+        switch (currentMission.rewardType)
+        {
+            case RewardType.Soul:
+                rewardStr = $"í˜¼ {currentMission.rewardValue}";
+                break;
+            case RewardType.Money:
+                rewardStr = $"ëƒ¥ {currentMission.rewardValue}";
+                break;
+            case RewardType.PassiveLow:
+                rewardStr = "í˜¼ë ¹ê°•í™” <color=#00FF00>[í•˜ê¸‰]</color>";
+                break;
+            case RewardType.PassiveMid:
+                rewardStr = "í˜¼ë ¹ê°•í™” <color=#FFA500>[ì¤‘ê¸‰]</color>";
+                break;
+            case RewardType.PassiveHigh:
+                rewardStr = "í˜¼ë ¹ê°•í™” <color=#FF4500>[ìƒê¸‰]</color>";
+                break;
+            case RewardType.PassiveMax:
+                rewardStr = "í˜¼ë ¹ê°•í™” <color=#FF0000>[ìµœìƒê¸‰]</color>";
+                break;
+        }
+
+        rewardText.text = $"[ë³´ìƒ]\n{rewardStr}";
+        // ë³´ìƒ ì•„ì´ì½˜ ì—…ë°ì´íŠ¸ ì¶”ê°€
+        UpdateRewardIcon();
+
+    }
+
+
+    // ì™¸ë¶€ì—ì„œ í˜„ì¬ ë¯¸ì…˜ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
+    public MissionData GetCurrentMission()
+    {
+        return currentMission;
+    }
+
+    // ë¯¸ì…˜ ì™„ë£Œ ì²´í¬ (ê²Œì„ ì¤‘ í˜¸ì¶œ)
+    public bool CheckMissionComplete(MissionType type, int currentProgress, string weaponUsed = "")
+    {
+        if (currentMission.type != type) return false;
+
+        // KillWithWeaponì€ ë¬´ê¸° íƒ€ì…ë„ ì²´í¬
+        if (type == MissionType.KillWithWeapon && weaponUsed != currentMission.weaponType)
+            return false;
+
+        return currentProgress >= currentMission.targetCount;
+    }
+
+    // ë¯¸ì…˜ ì™„ë£Œ ì‹œ ë³´ìƒ ì§€ê¸‰ (ìƒì ì—ì„œ í˜¸ì¶œ)
+    public void GiveMissionReward()
+    {
+        switch (currentMission.rewardType)
+        {
+            case RewardType.Soul:
+                GameManager.Instance?.Add_Soul(currentMission.rewardValue);
+                Debug.Log($"í˜¼ {currentMission.rewardValue}ê°œ íšë“!");
+                break;
+
+            case RewardType.Money:
+                GameManager.Instance?.Add_Gold(currentMission.rewardValue);
+                Debug.Log($"ëƒ¥ {currentMission.rewardValue}ì „ íšë“!");
+                break;
+
+            case RewardType.PassiveLow:
+            case RewardType.PassiveMid:
+            case RewardType.PassiveHigh:
+            case RewardType.PassiveMax:
+                // PassiveItemManagerë¥¼ í†µí•´ ëœë¤ í˜¼ë ¹ê°•í™” ì§€ê¸‰
+                Debug.Log($"{currentMission.rewardType} í˜¼ë ¹ê°•í™” íšë“!");
+                // TODO: ì‹¤ì œ í˜¼ë ¹ê°•í™” ì§€ê¸‰ ë¡œì§ êµ¬í˜„
+                break;
+        }
     }
 }
