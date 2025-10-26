@@ -86,6 +86,7 @@ public class PlayerController : MonoBehaviour
     PlaceManager placeManager;
     private Player_Item_p player_Item_P;
     Vector3 moveVelocity;
+    private QuickSlotUI quickSlotUI;
 
     private Vector2 moveInput;
     private Vector2 clickLookDirection = Vector2.down;
@@ -129,6 +130,7 @@ public class PlayerController : MonoBehaviour
         player_Item_Use = GetComponent<Player_Item_Use>();
         nearestItemFinder = GetComponent<NearestItemFinder>();
         player_Item_P = FindObjectOfType<Player_Item_p>();
+        quickSlotUI = FindObjectOfType<QuickSlotUI>();
         mainCamera = Camera.main;
 
         lightCircleObject.SetActive(true);
@@ -161,21 +163,47 @@ public class PlayerController : MonoBehaviour
 
     private float CalculateSpeedMultiplier()
     {
-        float speedBonus = 0f;
+        //float speedBonus = 0f;
 
-        if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
-        {
-            speedBonus += 0.2f;
-        }
+        //if(PassiveItemManager.Instance != null)
+        //{
+        //    speedBonus += PassiveItemManager.Instance.GetTotalBonusSpeed();
+        //}
+        ////if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
+        ////{
+        ////    speedBonus += 0.2f;
+        ////}
+
+        //if (player_Item_P != null && player_Item_P.item_p_count != null)//패시브 코드 쪽이랑 호환이 안돼서 1프레임만 이속증가하고 복귀됨
+        //{
+        //    if (player_Item_P.item_p[13]) { speedBonus += 0.3f;}
+        //    speedBonus -= 0.1f * player_Item_P.item_p_count[14]; // 14번: -10% × 개수
+        //    speedBonus += 0.1f * player_Item_P.item_p_count[17]; // 17번: +10% × 개수
+        //}
+
+        //return 1.0f + speedBonus;
+
+        float baseSpeed = GameManager.Instance.playerData.speedMultiplier;
+        float bonus = 0f;
+
+        if (PassiveItemManager.Instance.HasEffect("Soul_Add_3_2"))
+            bonus += Mathf.Clamp(Mathf.FloorToInt(GameManager.Instance.Gold / 200), 0, 3) * 0.1f;
+
+        if (PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
+            bonus += 0.1f * player_Item_Use.CheckEmptySlotsCount();
+
+        if (PassiveItemManager.Instance.HasEffect("Soul_Add_7_2") && quickSlotUI.angleUnit >= 18)
+            bonus += 0.5f;
 
         if (player_Item_P != null && player_Item_P.item_p_count != null)//패시브 코드 쪽이랑 호환이 안돼서 1프레임만 이속증가하고 복귀됨
         {
-            if (player_Item_P.item_p[13]) { speedBonus += 0.3f;}
-            speedBonus -= 0.1f * player_Item_P.item_p_count[14]; // 14번: -10% × 개수
-            speedBonus += 0.1f * player_Item_P.item_p_count[17]; // 17번: +10% × 개수
+            if (player_Item_P.item_p[13]) { bonus += 0.3f; }
+            bonus -= 0.1f * player_Item_P.item_p_count[14]; // 14번: -10% × 개수
+            bonus += 0.1f * player_Item_P.item_p_count[17]; // 17번: +10% × 개수
         }
 
-        return 1.0f + speedBonus;
+        // 다른 패시브들 계산
+        return baseSpeed * (1f + bonus);
     }
 
     public void Init()
@@ -194,8 +222,9 @@ public class PlayerController : MonoBehaviour
                 UpdateFlashLight();
 
                 // 이속 배율 계산
-                speedMultiplier = CalculateSpeedMultiplier();
-                GameManager.Instance.playerData.speedMultiplier = speedMultiplier;
+                //speedMultiplier = CalculateSpeedMultiplier();
+                UpdateSpeed();
+                //GameManager.Instance.playerData.speedMultiplier = speedMultiplier;
             }
         }
         else
@@ -536,8 +565,9 @@ private void SpendBattery()
         if (isFreeze) { freezeTime -= Time.deltaTime; }
         if (freezeTime <= 0) { isFreeze = false; }
 
+        float baseSpeed = isRun ? runSpeed : moveSpeed;
         speedMultiplier = CalculateSpeedMultiplier();
-        currentMoveSpeed *= speedMultiplier;
+        currentMoveSpeed = baseSpeed * speedMultiplier;
 
         if (isMoveAble && !isFreeze) Move();
 
@@ -1082,36 +1112,39 @@ private void SpendBattery()
 
     private void HandleDropItem()
     {
-        if (PassiveItemManager.Instance != null)
-        {
-            if (PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
-            {
-                speedMultiplier = GameManager.Instance.playerData.speedMultiplier;
-            }
+        UpdateSpeed();
+        //if (PassiveItemManager.Instance != null)
+        //{
+        //    if (PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
+        //    {
+        //        speedMultiplier = GameManager.Instance.playerData.speedMultiplier;
+        //    }
 
-        }
+        //}
     }
 
     private void HandlePickupItem()
     {
-        if (PassiveItemManager.Instance != null)
-        {
-            if (PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
-            {
-                speedMultiplier = GameManager.Instance.playerData.speedMultiplier;
-            }
-        }
+        UpdateSpeed();
+        //if (PassiveItemManager.Instance != null)
+        //{
+        //    if (PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
+        //    {
+        //        speedMultiplier = GameManager.Instance.playerData.speedMultiplier;
+        //    }
+        //}
     }
 
     private void HadleTimeAngleUnit18()
     {
-        if (PassiveItemManager.Instance != null)
-        {
-            if (PassiveItemManager.Instance.HasEffect("Soul_Add_7_2"))
-            {
-                speedMultiplier = GameManager.Instance.playerData.speedMultiplier;
-            }
-        }
+        UpdateSpeed();
+        //if (PassiveItemManager.Instance != null)
+        //{
+        //    if (PassiveItemManager.Instance.HasEffect("Soul_Add_7_2"))
+        //    {
+        //        speedMultiplier = GameManager.Instance.playerData.speedMultiplier;
+        //    }
+        //}
     }
 
     #region 아이템 패시브 관련
@@ -1122,4 +1155,9 @@ private void SpendBattery()
     }
 
     #endregion
+
+    private void UpdateSpeed()
+    {
+        speedMultiplier = CalculateSpeedMultiplier();
+    }
 }
