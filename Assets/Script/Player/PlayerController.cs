@@ -19,7 +19,8 @@ public class PlayerController : MonoBehaviour
 
     const float runThreshold = 10f; //????? ????? ??? sp
 
-    public float attackDamage = 1;
+    public float currentAttackDamage = 1f;
+    public float attackDamageMultiplier = 1f;
     public float attackCoolTime;
 
     //public float originalMaxHp = 100;
@@ -161,27 +162,22 @@ public class PlayerController : MonoBehaviour
         GameEvents.OnTimeAngleUnit18 -= HadleTimeAngleUnit18;
     }
 
+    private float CalculateDamageMulitplier()
+    {
+        float baseDamage = GameManager.Instance.playerData.damageMultiplier;
+        float bonus = 0f;
+
+        if (PassiveItemManager.Instance.HasEffect("Soul_Add_1_1"))
+        {
+            int heldItemCount = player_Item_Use.quickSlots.Length - player_Item_Use.CheckEmptySlotsCount();
+            bonus += 0.1f * heldItemCount;
+        }
+        // 다른 패시브들 계산
+        return baseDamage * (1f + bonus);
+    }
+
     private float CalculateSpeedMultiplier()
     {
-        //float speedBonus = 0f;
-
-        //if(PassiveItemManager.Instance != null)
-        //{
-        //    speedBonus += PassiveItemManager.Instance.GetTotalBonusSpeed();
-        //}
-        ////if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
-        ////{
-        ////    speedBonus += 0.2f;
-        ////}
-
-        //if (player_Item_P != null && player_Item_P.item_p_count != null)//패시브 코드 쪽이랑 호환이 안돼서 1프레임만 이속증가하고 복귀됨
-        //{
-        //    if (player_Item_P.item_p[13]) { speedBonus += 0.3f;}
-        //    speedBonus -= 0.1f * player_Item_P.item_p_count[14]; // 14번: -10% × 개수
-        //    speedBonus += 0.1f * player_Item_P.item_p_count[17]; // 17번: +10% × 개수
-        //}
-
-        //return 1.0f + speedBonus;
 
         float baseSpeed = GameManager.Instance.playerData.speedMultiplier;
         float bonus = 0f;
@@ -195,7 +191,7 @@ public class PlayerController : MonoBehaviour
         if (PassiveItemManager.Instance.HasEffect("Soul_Add_7_2") && quickSlotUI.angleUnit >= 18)
             bonus += 0.5f;
 
-        if (player_Item_P != null && player_Item_P.item_p_count != null)//패시브 코드 쪽이랑 호환이 안돼서 1프레임만 이속증가하고 복귀됨
+        if (player_Item_P != null && player_Item_P.item_p_count != null)
         {
             if (player_Item_P.item_p[13]) { bonus += 0.3f; }
             bonus -= 0.1f * player_Item_P.item_p_count[14]; // 14번: -10% × 개수
@@ -222,9 +218,8 @@ public class PlayerController : MonoBehaviour
                 UpdateFlashLight();
 
                 // 이속 배율 계산
-                //speedMultiplier = CalculateSpeedMultiplier();
                 UpdateSpeed();
-                //GameManager.Instance.playerData.speedMultiplier = speedMultiplier;
+                UpdateDamage();
             }
         }
         else
@@ -566,8 +561,12 @@ private void SpendBattery()
         if (freezeTime <= 0) { isFreeze = false; }
 
         float baseSpeed = isRun ? runSpeed : moveSpeed;
-        speedMultiplier = CalculateSpeedMultiplier();
+        UpdateSpeed();
         currentMoveSpeed = baseSpeed * speedMultiplier;
+
+        float baseDamage = 1f;
+        UpdateDamage();
+        currentAttackDamage = baseDamage * attackDamageMultiplier;
 
         if (isMoveAble && !isFreeze) Move();
 
@@ -1113,38 +1112,16 @@ private void SpendBattery()
     private void HandleDropItem()
     {
         UpdateSpeed();
-        //if (PassiveItemManager.Instance != null)
-        //{
-        //    if (PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
-        //    {
-        //        speedMultiplier = GameManager.Instance.playerData.speedMultiplier;
-        //    }
-
-        //}
     }
 
     private void HandlePickupItem()
     {
         UpdateSpeed();
-        //if (PassiveItemManager.Instance != null)
-        //{
-        //    if (PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
-        //    {
-        //        speedMultiplier = GameManager.Instance.playerData.speedMultiplier;
-        //    }
-        //}
     }
 
     private void HadleTimeAngleUnit18()
     {
         UpdateSpeed();
-        //if (PassiveItemManager.Instance != null)
-        //{
-        //    if (PassiveItemManager.Instance.HasEffect("Soul_Add_7_2"))
-        //    {
-        //        speedMultiplier = GameManager.Instance.playerData.speedMultiplier;
-        //    }
-        //}
     }
 
     #region 아이템 패시브 관련
@@ -1159,5 +1136,10 @@ private void SpendBattery()
     private void UpdateSpeed()
     {
         speedMultiplier = CalculateSpeedMultiplier();
+    }
+
+    private void UpdateDamage()
+    {
+        attackDamageMultiplier = CalculateDamageMulitplier();
     }
 }
