@@ -446,7 +446,7 @@ public class Player_Item_Use : MonoBehaviour
         int emptyCount = 0;
         foreach(var quickSlot in quickSlots)
         {
-            if(quickSlot == null)
+            if(quickSlot == null || quickSlot.id == 0)
                 emptyCount++;
         }
         return emptyCount;
