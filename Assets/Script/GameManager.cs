@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public ItemData[] WeaponData;
     public bool[] weaponUnlockArray = new bool[5];
     private bool initialized; // �÷��̾� ���� �޾ƿ��� ��
+
     private void Awake()
     {
         Cost_list = new float[] { 500, 1000, 1500, 2000, 2500 }; //약값

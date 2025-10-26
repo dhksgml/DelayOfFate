@@ -112,6 +112,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private GameObject damageFX;
 
+    public bool isKill2Heal;
+
     public enum PlayerState
     {
         Idle,
@@ -150,16 +152,18 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
+        GameEvents.OnEnemyDie += HandleEnemyDie;
         GameEvents.OnPickupItem += HandlePickupItem;
         GameEvents.OnDropItem += HandleDropItem;
-        GameEvents.OnTimeAngleUnit18 += HadleTimeAngleUnit18;
+        GameEvents.OnTimeAngleUnit18 += HandleTimeAngleUnit18;
     }
 
     private void OnDisable()
     {
+        GameEvents.OnEnemyDie -= HandleEnemyDie;
         GameEvents.OnPickupItem -= HandlePickupItem;
         GameEvents.OnDropItem -= HandleDropItem;
-        GameEvents.OnTimeAngleUnit18 -= HadleTimeAngleUnit18;
+        GameEvents.OnTimeAngleUnit18 -= HandleTimeAngleUnit18;
     }
 
     private float CalculateDamageMulitplier()
@@ -171,6 +175,12 @@ public class PlayerController : MonoBehaviour
         {
             int heldItemCount = player_Item_Use.quickSlots.Length - player_Item_Use.CheckEmptySlotsCount();
             bonus += 0.1f * heldItemCount;
+        }
+
+        if (PassiveItemManager.Instance.HasEffect("Soul_Add_6_1"))
+        {
+            if (GameManager.Instance.Day >= 4)
+                bonus += 0.3f;
         }
         // 다른 패시브들 계산
         return baseDamage * (1f + bonus);
@@ -188,6 +198,12 @@ public class PlayerController : MonoBehaviour
         if (PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
             bonus += 0.1f * player_Item_Use.CheckEmptySlotsCount();
 
+        if(PassiveItemManager.Instance.HasEffect("Soul_Add_6_1"))
+        {
+            if (GameManager.Instance.Day >= 4)
+                bonus += 0.3f;
+        }
+            
         if (PassiveItemManager.Instance.HasEffect("Soul_Add_7_2") && quickSlotUI.angleUnit >= 18)
             bonus += 0.5f;
 
@@ -220,6 +236,9 @@ public class PlayerController : MonoBehaviour
                 // 이속 배율 계산
                 UpdateSpeed();
                 UpdateDamage();
+
+                if (PassiveItemManager.Instance.HasEffect("Soul_Add_6_2"))
+                    isKill2Heal = true;
             }
         }
         else
@@ -1119,9 +1138,19 @@ private void SpendBattery()
         UpdateSpeed();
     }
 
-    private void HadleTimeAngleUnit18()
+    private void HandleTimeAngleUnit18()
     {
         UpdateSpeed();
+    }
+
+    private void HandleEnemyDie()
+    {
+        if(PassiveItemManager.Instance.HasEffect("Soul_Add_6_2"))
+        {
+            //힐
+            currentHp = Mathf.Clamp(currentHp + 5, 0, maxHp);
+            currentMp = Mathf.Clamp(currentMp + 3, 0, maxMp);
+        }
     }
 
     #region 아이템 패시브 관련

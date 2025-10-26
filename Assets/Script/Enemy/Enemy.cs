@@ -8,10 +8,10 @@ using UnityEngine.EventSystems;
 using static Enemy_data;
 using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
-//½ºÇÁ¶óÀÌÆ® µé¾î¿À¸é È¸ÀüÀÌ³ª ¿¡´Ï¸ŞÀÌ¼Ç Ã³¸®µµ ÇØÁà¾ß ÇÔ
+//ìŠ¤í”„ë¼ì´íŠ¸ ë“¤ì–´ì˜¤ë©´ íšŒì „ì´ë‚˜ ì—ë‹ˆë©”ì´ì…˜ ì²˜ë¦¬ë„ í•´ì¤˜ì•¼ í•¨
 
-//ÀûÀÌ ¾àÁ¡ ÀÓ½Ã·Î 5°³·Î ÁöÁ¤ÇÏ¿´´Ù.
-//°Ë, ¹æ¸ÁÀÌ, ºÎÀû, ½ºÅ©·Ñ, È£¸®º´
+//ì ì´ ì•½ì  ì„ì‹œë¡œ 5ê°œë¡œ ì§€ì •í•˜ì˜€ë‹¤.
+//ê²€, ë°©ë§ì´, ë¶€ì , ìŠ¤í¬ë¡¤, í˜¸ë¦¬ë³‘
 public enum EnemyWeakness 
 {
     Sword,
@@ -22,7 +22,7 @@ public enum EnemyWeakness
     None
 }
 
-// ÀûÀÇ µî±Ş ³ë¸», Áß°£º¸½º, º¸½º·Î ±¸¼º
+// ì ì˜ ë“±ê¸‰ ë…¸ë§, ì¤‘ê°„ë³´ìŠ¤, ë³´ìŠ¤ë¡œ êµ¬ì„±
 public enum EnemyMobType
 {
     Normal,
@@ -32,61 +32,61 @@ public enum EnemyMobType
 
 public abstract class Enemy     : MonoBehaviour
 {
-    [Header("Àû µ¥ÀÌÅÍ")]
+    [Header("ì  ë°ì´í„°")]
     public Enemy_data enemyData;
 
-    //Àû ½ºÅ©¸³Æ®¿¡ Äİ¶óÀÌ´õ µÎ Á¾·ù ³Ö¾îÁà¾ß ÇÒ °Í °°À½, ÇÇ°İ°ú Ãæµ¹À» À§ÇÔ
+    //ì  ìŠ¤í¬ë¦½íŠ¸ì— ì½œë¼ì´ë” ë‘ ì¢…ë¥˜ ë„£ì–´ì¤˜ì•¼ í•  ê²ƒ ê°™ìŒ, í”¼ê²©ê³¼ ì¶©ëŒì„ ìœ„í•¨
     [Header("Enemy Stat")]
-    public string        enemyName; //ÀûÀÇ ÀÌ¸§
-    public float         enemyHp;  //ÀûÀÇ Ã¼·Â
-    public float         enemyMaxHp;  //ÀûÀÇ Ã¼·Â
-    public float         enemyMoveSpeed; //ÀûÀÇ ÀÌµ¿¼Óµµ
-    public float         enemyRunSpeed; //µµ¸ÁÄ¡´Â ÀûÀÇ ÀÌµ¿¼Óµµ
+    public string        enemyName; //ì ì˜ ì´ë¦„
+    public float         enemyHp;  //ì ì˜ ì²´ë ¥
+    public float         enemyMaxHp;  //ì ì˜ ì²´ë ¥
+    public float         enemyMoveSpeed; //ì ì˜ ì´ë™ì†ë„
+    public float         enemyRunSpeed; //ë„ë§ì¹˜ëŠ” ì ì˜ ì´ë™ì†ë„
     
     [Space(20f)]
-    //ÀûÀÇ °¡°İ ÃÖ¼ÒÄ¡¿Í ÃÖ´ëÄ¡
+    //ì ì˜ ê°€ê²© ìµœì†Œì¹˜ì™€ ìµœëŒ€ì¹˜
     public int           enemyPriceMin;
     public int           enemyPriceMax;
-    public int           enemyPrice; //ÀûÀÇ °¡°İ
+    public int           enemyPrice; //ì ì˜ ê°€ê²©
 
     [Space(20f)]
-    //ÀûÀÇ ¹«°Ô ÃÖ¼ÒÄ¡¿Í ÃÖ´ëÄ¡
+    //ì ì˜ ë¬´ê²Œ ìµœì†Œì¹˜ì™€ ìµœëŒ€ì¹˜
     public int           enemyHeightMin;
     public int           enemyHeightMax;
     public int           enemyHeight;
 
     [Space(20f)]
-    // º¸½ºÀÎÁö È®ÀÎÇÏ±â À§ÇÔ
+    // ë³´ìŠ¤ì¸ì§€ í™•ì¸í•˜ê¸° ìœ„í•¨
     public EnemyMobType enemyMobType;
 
     [Space(20f)]
     [Range(0f, 10f)]
-    public float         enemyHitTime; //ÀûÀÌ ÇÇ°İ´çÇßÀ»¶§ ¹«Àû ½Ã°£
+    public float         enemyHitTime; //ì ì´ í”¼ê²©ë‹¹í–ˆì„ë•Œ ë¬´ì  ì‹œê°„
     [Space(20f)]
-    public EnemyWeakness enemyWeakness; //ÀûÀÇ ¾àÁ¡
+    public EnemyWeakness enemyWeakness; //ì ì˜ ì•½ì 
     [Space(20f)]
-    public Classification enemyType; //ÀûÀÇ Å¸ÀÔ
+    public Classification enemyType; //ì ì˜ íƒ€ì…
     [Space(20f)]
-    public float          cloakingSpeed = 1; // Àº½Å ½Ã ÀÌµ¿¼Óµµ ¹èÀ²
-    public float          cloakingDamage = 1; // Àº½Å ½Ã °ø°İ·Â ¹èÀ²
-    // ÀÌ°É ¸ğµç ¸óšÀÅÍ °ø°İ·Â¿¡ ±×³É °öÇØÁÖ¸é µÊ
+    public float          cloakingSpeed = 1; // ì€ì‹  ì‹œ ì´ë™ì†ë„ ë°°ìœ¨
+    public float          cloakingDamage = 1; // ì€ì‹  ì‹œ ê³µê²©ë ¥ ë°°ìœ¨
+    // ì´ê±¸ ëª¨ë“  ëª¬ìŠ½í„° ê³µê²©ë ¥ì— ê·¸ëƒ¥ ê³±í•´ì£¼ë©´ ë¨
     [Space(40f)]
 
     public bool enemy_Weak = false;
 
     [Header("Enemy Move Point")]
-    public int           enemyCurrentMove; //ÀûÀÌ ÇöÀç ÀÌµ¿ÇÑ È½¼ö
-    public Transform[]   enemyMovePoint; //ÀûÀÌ ÁöÁ¤µÈ Àå¼Ò¸¦ ¹èÈ¸ÇÏ°Ô ¸¸µé¾îÁÜ
+    public int           enemyCurrentMove; //ì ì´ í˜„ì¬ ì´ë™í•œ íšŸìˆ˜
+    public Transform[]   enemyMovePoint; //ì ì´ ì§€ì •ëœ ì¥ì†Œë¥¼ ë°°íšŒí•˜ê²Œ ë§Œë“¤ì–´ì¤Œ
 
     [Header("Trigger")]
-    public bool          isTrace; //ÇÃ·¹ÀÌ¸¦ ÃßÀû ÁßÀÎÁö È®ÀÎÇÏ´Â bool
-    public bool          isEnemyRun; //ÀûÀÇ ÆĞÅÏÁß µµ¸Á°¡´Â ÆĞÅÏ
-    public bool          isEnemyAttack; //ÀûÀÌ °ø°İÀ» ÇÏ³Ä È®ÀÎÇÏ´Â bool
-    public bool          isEnemyHit; //ÇÇ°İÇß³ª È®ÀÎÇÏ´Â bool
-    public bool          isEnemyChase; //º¸ÀÌÁö ¾Ê¾Æµµ ÀûÀÌ ¦i¾Æ°¡´ÂÁö È®ÀÎÇÏ´Â bool
-    public bool          isArrive; //¿şÀÌÆ÷ÀÎÆ®¸¦ Áö´Ñ ÀûÀÌ ÇÑ ¹ÙÄû¸¦ ´Ù µ¹¾ÒÀ»¶§ È®ÀÎÇÏ´Â bool
-    public bool          iscloaking; // Àº½ÅÁß
-    //±âº»ÀûÀ¸·Î ÀûÀÌ Á×¾úÀ»‹š¿Í ÀûÀÌ ÇÇ°İ´çÇßÀ»¶§ ¿òÁ÷ÀÌÁö ¾Ê°Ô ¼³Á¤ÇØ³ù½À´Ï´Ù.
+    public bool          isTrace; //í”Œë ˆì´ë¥¼ ì¶”ì  ì¤‘ì¸ì§€ í™•ì¸í•˜ëŠ” bool
+    public bool          isEnemyRun; //ì ì˜ íŒ¨í„´ì¤‘ ë„ë§ê°€ëŠ” íŒ¨í„´
+    public bool          isEnemyAttack; //ì ì´ ê³µê²©ì„ í•˜ëƒ í™•ì¸í•˜ëŠ” bool
+    public bool          isEnemyHit; //í”¼ê²©í–ˆë‚˜ í™•ì¸í•˜ëŠ” bool
+    public bool          isEnemyChase; //ë³´ì´ì§€ ì•Šì•„ë„ ì ì´ ì«’ì•„ê°€ëŠ”ì§€ í™•ì¸í•˜ëŠ” bool
+    public bool          isArrive; //ì›¨ì´í¬ì¸íŠ¸ë¥¼ ì§€ë‹Œ ì ì´ í•œ ë°”í€´ë¥¼ ë‹¤ ëŒì•˜ì„ë•Œ í™•ì¸í•˜ëŠ” bool
+    public bool          iscloaking; // ì€ì‹ ì¤‘
+    //ê¸°ë³¸ì ìœ¼ë¡œ ì ì´ ì£½ì—ˆì„ë–„ì™€ ì ì´ í”¼ê²©ë‹¹í–ˆì„ë•Œ ì›€ì§ì´ì§€ ì•Šê²Œ ì„¤ì •í•´ë†¨ìŠµë‹ˆë‹¤.
 
     [Header("Reference")]
     
@@ -94,72 +94,72 @@ public abstract class Enemy     : MonoBehaviour
     public EnemyAttack          enemyAttack;    
     public SpriteRenderer       sp;
     public Animator             anim;
-    public GameObject           enemyCorpse; //Àû ½ÃÃ¼
+    public GameObject           enemyCorpse; //ì  ì‹œì²´
     public ItemData             enemyCorpseData;
     public Transform            uiCanvas;
-    public GameObject           Sale_Effect; // È¥ ÀÌÆåÆ®
+    public GameObject           Sale_Effect; // í˜¼ ì´í™íŠ¸
     public GameObject           enemySelf;
     public Collider2D           enemyColl;
-    public GameObject           enemyDeathEffect; // »ç¸Á ÀÌÆåÆ®
-    public GameObject           Damage_text; // ÇÇÇØ·® ÅØ½ºÆ®
-    public Enemy_HpBar          enemyHpBar; // Àû Ã¼·Â¹Ù
-    public GameObject           nightVision; // Àû Àº½Å½Ã ´«
-    public GameObject           enemyDropItem; // »ç¸Á ½Ã µå¶øÇÏ´Â ¾ÆÀÌÅÛ
+    public GameObject           enemyDeathEffect; // ì‚¬ë§ ì´í™íŠ¸
+    public GameObject           Damage_text; // í”¼í•´ëŸ‰ í…ìŠ¤íŠ¸
+    public Enemy_HpBar          enemyHpBar; // ì  ì²´ë ¥ë°”
+    public GameObject           nightVision; // ì  ì€ì‹ ì‹œ ëˆˆ
+    public GameObject           enemyDropItem; // ì‚¬ë§ ì‹œ ë“œëí•˜ëŠ” ì•„ì´í…œ
 
-    [HideInInspector] public Vector3       enemyTargetDir; //ÀûÀÇ Å¸°Ù ¹æÇâ
+    [HideInInspector] public Vector3       enemyTargetDir; //ì ì˜ íƒ€ê²Ÿ ë°©í–¥
 
     [HideInInspector] public bool                 isDie = false;
     [HideInInspector] public Rigidbody2D          rigid;
-    [HideInInspector] public Vector3              enemyMoveDir; //ÀûÀÇ ¿ø·¡ ÀÌµ¿ ¹æÇâ
+    [HideInInspector] public Vector3              enemyMoveDir; //ì ì˜ ì›ë˜ ì´ë™ ë°©í–¥
     public Vector3              moveDirection;
 
-    //½ÃÀÛ½Ã ÃÊ±âÈ­ ÇØÁÖ´Â ÇÔ¼ö
+    //ì‹œì‘ì‹œ ì´ˆê¸°í™” í•´ì£¼ëŠ” í•¨ìˆ˜
     public void EnemyInt()
     {
         sp = GetComponentInChildren<SpriteRenderer>();
 
         enemyName = enemyData.Name;
         enemyHeight = enemyData.Weight;
-        //ÀÌ°Å ¼öÁ¤ÇØÁÖ¾úÀ½ enemyDataºÎºĞ
+        //ì´ê±° ìˆ˜ì •í•´ì£¼ì—ˆìŒ enemyDataë¶€ë¶„
         enemyWeakness = enemyData.weakness;
         enemyType = enemyData.classification;
 
-        // ³ë¸»
+        // ë…¸ë§
         if (enemyMobType == EnemyMobType.Normal)
         {
-            //Ã¼·Âµµ ·£´ı °ª¿¡¼­ - ·£´ı°ª + ·£´ı°ª¿¡¼­ ³ª¿Â °ªÀ¸·Î ÇÒ´çÇØÁÜ
+            //ì²´ë ¥ë„ ëœë¤ ê°’ì—ì„œ - ëœë¤ê°’ + ëœë¤ê°’ì—ì„œ ë‚˜ì˜¨ ê°’ìœ¼ë¡œ í• ë‹¹í•´ì¤Œ
             enemyHp = Random.Range(enemyData.Hp - enemyData.HpDeviation,
                                    enemyData.Hp + enemyData.HpDeviation + 1);
             enemyMaxHp = enemyHp;
-            //ÀÏ´Ü ·£´ı °ª ¼³Á¤¿¡¼­ ±âº» ÄÚÀÎ°ª - ·£´ı°ª ~~ ÄÚÀÎ°ª + ·£´ı°ªÀÌ·¸°Ô ÇØÁÖ¾úÀ½
+            //ì¼ë‹¨ ëœë¤ ê°’ ì„¤ì •ì—ì„œ ê¸°ë³¸ ì½”ì¸ê°’ - ëœë¤ê°’ ~~ ì½”ì¸ê°’ + ëœë¤ê°’ì´ë ‡ê²Œ í•´ì£¼ì—ˆìŒ
             enemyPrice = Random.Range(enemyData.Coin - enemyData.CoinDeviation,
                                       enemyData.Coin + enemyData.CoinDeviation + 1);
         }
-        // Áß°£ º¸½º
+        // ì¤‘ê°„ ë³´ìŠ¤
         else if (enemyMobType == EnemyMobType.MiddleBoss)
         {
-            Debug.Log("Áß°£º¸½º ½ºÆù : " + gameObject);
+            Debug.Log("ì¤‘ê°„ë³´ìŠ¤ ìŠ¤í° : " + gameObject);
 
-            // Áß°£ º¸½º´Â 2¹è
-            //Ã¼·Âµµ ·£´ı °ª¿¡¼­ - ·£´ı°ª + ·£´ı°ª¿¡¼­ ³ª¿Â °ªÀ¸·Î ÇÒ´çÇØÁÜ
+            // ì¤‘ê°„ ë³´ìŠ¤ëŠ” 2ë°°
+            //ì²´ë ¥ë„ ëœë¤ ê°’ì—ì„œ - ëœë¤ê°’ + ëœë¤ê°’ì—ì„œ ë‚˜ì˜¨ ê°’ìœ¼ë¡œ í• ë‹¹í•´ì¤Œ
             enemyHp = Random.Range((enemyData.Hp - enemyData.HpDeviation) * 2,
                                    (enemyData.Hp + enemyData.HpDeviation * 2) + 1);
             enemyMaxHp = enemyHp;
-            //ÀÏ´Ü ·£´ı °ª ¼³Á¤¿¡¼­ ±âº» ÄÚÀÎ°ª - ·£´ı°ª ~~ ÄÚÀÎ°ª + ·£´ı°ªÀÌ·¸°Ô ÇØÁÖ¾úÀ½
+            //ì¼ë‹¨ ëœë¤ ê°’ ì„¤ì •ì—ì„œ ê¸°ë³¸ ì½”ì¸ê°’ - ëœë¤ê°’ ~~ ì½”ì¸ê°’ + ëœë¤ê°’ì´ë ‡ê²Œ í•´ì£¼ì—ˆìŒ
             enemyPrice = Random.Range(enemyData.Coin - enemyData.CoinDeviation * 2,
                                       (enemyData.Coin + enemyData.CoinDeviation * 2 ) + 1);
 
-            // Å©±â´Â µÎ¹è·Î
+            // í¬ê¸°ëŠ” ë‘ë°°ë¡œ
             transform.localScale = new Vector3(2, 2, 2);
         }
 
-        // º¸½º
+        // ë³´ìŠ¤
         else if (enemyMobType == EnemyMobType.Boss)
         {
 
         }
         uiCanvas = GameObject.Find("Player_Canvas")?.transform;
-        // ½ÃÀÛ½Ã Àº½Å
+        // ì‹œì‘ì‹œ ì€ì‹ 
         EnemyCloaking();
 
     }
@@ -167,19 +167,19 @@ public abstract class Enemy     : MonoBehaviour
     public void HpBarUpdate()
     {
         if (enemyHp <= 0) { enemyHp = 0; }
-        if (enemyHp == enemyMaxHp) { return; } // ÃÖ´ëÃ¤·ÂÀÌ¸é º¸¿©ÁÖÁö¾ÊÀ½
+        if (enemyHp == enemyMaxHp) { return; } // ìµœëŒ€ì±„ë ¥ì´ë©´ ë³´ì—¬ì£¼ì§€ì•ŠìŒ
         else if (!iscloaking) { enemyHpBar.hpObj.SetActive(true); }
         enemyHpBar.hpBar.value = enemyHp / enemyMaxHp;
         enemyHpBar.hpBarText.text = $"{enemyHp} / {enemyMaxHp}";
     }
 
-    //ÀÌÁ¨ ¾È¾¸
+    //ì´ì   ì•ˆì”€
     public void EnemyPrice()
     {
-        //ÀûÀÇ °¡°İÀ» Á¤ÇØÁÜ. intÇüÀÌ±â¿¡ ÃÖ´ë°ª¿¡ +1À» ´õÇØÁÖ¾úÀ½
+        //ì ì˜ ê°€ê²©ì„ ì •í•´ì¤Œ. intí˜•ì´ê¸°ì— ìµœëŒ€ê°’ì— +1ì„ ë”í•´ì£¼ì—ˆìŒ
         enemyPrice = Random.Range(enemyPriceMin, enemyPriceMax + 1);
     }
-    //ÀÌÁ¨ ¾È¾¸
+    //ì´ì   ì•ˆì”€
     public void EnemyHeight()
     {
         enemyHeight = Random.Range(enemyHeightMin, enemyHeightMax + 1);
@@ -187,50 +187,50 @@ public abstract class Enemy     : MonoBehaviour
 
     public abstract void EnemyMove();
 
-    #region ¸ñÇ¥ ÀÌµ¿
-    //ÀûÀÇ ÀÌµ¿À» ÇÏ´Â ¸Ş¼­µå
+    #region ëª©í‘œ ì´ë™
+    //ì ì˜ ì´ë™ì„ í•˜ëŠ” ë©”ì„œë“œ
     public void EnemyMoveTarget()
     {
         if (enemyMovePoint.Length > 0)
         {
             enemyMoveDir = (enemyMovePoint[enemyCurrentMove].position - transform.position).normalized;
 
-            //¸¸¾à Àû°ú ÇöÀç ÀÌµ¿ Æ÷ÀÎÆ®ÀÇ °Å¸®°¡ 0.02f * enemyMoveSpeedº¸´Ù ÀÛÀ¸¸é
+            //ë§Œì•½ ì ê³¼ í˜„ì¬ ì´ë™ í¬ì¸íŠ¸ì˜ ê±°ë¦¬ê°€ 0.02f * enemyMoveSpeedë³´ë‹¤ ì‘ìœ¼ë©´
             if (Vector3.Distance(transform.position, enemyMovePoint[enemyCurrentMove].position) < 0.02f * enemyMoveSpeed)
             {
-                //ÀÌµ¿ Æ÷ÀÎÆ® º¯°æ
+                //ì´ë™ í¬ì¸íŠ¸ ë³€ê²½
                 EnemyNextMove();
             }
         }
     }
 
-    //ÀûÀÇ ´ÙÀ½ ÀÌµ¿ ¹æÇâÀ» Á¤ÇØÁÖ´Â ¸Ş¼­µå
+    //ì ì˜ ë‹¤ìŒ ì´ë™ ë°©í–¥ì„ ì •í•´ì£¼ëŠ” ë©”ì„œë“œ
     public void EnemyNextMove()
     {
-        //ÀûÀÇ ÀÌµ¿ È½¼ö°¡ ÀûÀÇ ÀÌµ¿ Æ÷ÀÎÆ® ±æÀÌº¸´Ù ÀÛÀ¸¸é
+        //ì ì˜ ì´ë™ íšŸìˆ˜ê°€ ì ì˜ ì´ë™ í¬ì¸íŠ¸ ê¸¸ì´ë³´ë‹¤ ì‘ìœ¼ë©´
         if (enemyCurrentMove < enemyMovePoint.Length - 1 )
         {
-            //ÀÌµ¿ È½¼ö¸¦ ++ ÇØÁØ ÈÄ
+            //ì´ë™ íšŸìˆ˜ë¥¼ ++ í•´ì¤€ í›„
             enemyCurrentMove++;
             isArrive = false;
         }
-        //¸¸¾à ¸¶Áö¸· ÀÌµ¿Æ÷ÀÎÆ®¸é
+        //ë§Œì•½ ë§ˆì§€ë§‰ ì´ë™í¬ì¸íŠ¸ë©´
         else
         {
-            //ÇöÀç ÀÌµ¿ È½¼ö¸¦ 0À¸·Î ÇØÁØ ÈÄ
+            //í˜„ì¬ ì´ë™ íšŸìˆ˜ë¥¼ 0ìœ¼ë¡œ í•´ì¤€ í›„
             enemyCurrentMove = 0;
             isArrive = true;
         }
-        //ÀÌµ¿ Æ÷ÀÎÆ®ÀÇ À§Ä¡¿Í ÀÚ±â ÀÚ½ÅÀÇ °Å¸®¸¦ »©ÁØ ÈÄ Á¤±ÔÈ­¸¦ ÇÏ°í Vector3 º¯¼ö¿¡ ÀúÀåÇØÁØ´Ù.
+        //ì´ë™ í¬ì¸íŠ¸ì˜ ìœ„ì¹˜ì™€ ìê¸° ìì‹ ì˜ ê±°ë¦¬ë¥¼ ë¹¼ì¤€ í›„ ì •ê·œí™”ë¥¼ í•˜ê³  Vector3 ë³€ìˆ˜ì— ì €ì¥í•´ì¤€ë‹¤.
         enemyMoveDir = (enemyMovePoint[enemyCurrentMove].position - transform.position).normalized;
     }
     #endregion
 
-    #region ¹«ÀÛÀ§ ÀÌµ¿
-    //360µµ±âÁØÀ¸·Î ÀÌµ¿
+    #region ë¬´ì‘ìœ„ ì´ë™
+    //360ë„ê¸°ì¤€ìœ¼ë¡œ ì´ë™
     public void ChooseNewDirection()
     {
-        // 0~360µµ Áß ·£´ıÇÑ °¢µµ·Î ÀÌµ¿ ¹æÇâ ¼³Á¤
+        // 0~360ë„ ì¤‘ ëœë¤í•œ ê°ë„ë¡œ ì´ë™ ë°©í–¥ ì„¤ì •
         float angle = Random.Range(0f, 360f);
         float radian = angle * Mathf.Deg2Rad;
         moveDirection = new Vector2(Mathf.Cos(radian), Mathf.Sin(radian)).normalized;
@@ -240,22 +240,22 @@ public abstract class Enemy     : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(2f, 5f)); // ÁÖ±âÀûÀ¸·Î ¹æÇâ ÀüÈ¯ ·£´ıÀ¸·Î ÇØÁÖ¾úÀ½
+            yield return new WaitForSeconds(Random.Range(2f, 5f)); // ì£¼ê¸°ì ìœ¼ë¡œ ë°©í–¥ ì „í™˜ ëœë¤ìœ¼ë¡œ í•´ì£¼ì—ˆìŒ
             ChooseNewDirection();
         }
     }
     #endregion
 
-    #region ÇÇ°İ
-    //ÀûÀÌ ÇÃ·¹ÀÌ¾î¿¡°Ô ÇÇ°İ´çÇßÀ»‹š. 
+    #region í”¼ê²©
+    //ì ì´ í”Œë ˆì´ì–´ì—ê²Œ í”¼ê²©ë‹¹í–ˆì„ë–„. 
     public void EnemyHit(float Damage)
     {
         isEnemyHit = true;
         Damage = (int)Mathf.Floor(Damage);
-        //ÇÇ°İ½Ã ¸ø¿òÁ÷ÀÌ°Ô ¸ğµÎ µ¿°áÇØÁÜ
+        //í”¼ê²©ì‹œ ëª»ì›€ì§ì´ê²Œ ëª¨ë‘ ë™ê²°í•´ì¤Œ
         rigid.constraints = RigidbodyConstraints2D.FreezeAll;
 
-        //½ºÇÁ¶óÀÌÆ® Ãß°¡½Ã »ç¿ë 0603
+        //ìŠ¤í”„ë¼ì´íŠ¸ ì¶”ê°€ì‹œ ì‚¬ìš© 0603
         //Color color = sp.color;
         //color.a = 0.5f;
         //sp.color = color;
@@ -264,7 +264,7 @@ public abstract class Enemy     : MonoBehaviour
     }
     public void Enemy_Weakness_Hit(float Damage, string ty, float hp)
     {
-        Damage_text_cr("¸ê±Í", true);
+        Damage_text_cr("ë©¸ê·€", true);
         enemy_Weak = true;
     }
     void Damage_text_cr(string Damage, bool weak)
@@ -283,103 +283,104 @@ public abstract class Enemy     : MonoBehaviour
             }
         }
     }
-    //ÀûÀÌ ÇÇ°İ´çÇÑÈÄ »öÀÌ µ¹¾Æ¿Ã¶§
+    //ì ì´ í”¼ê²©ë‹¹í•œí›„ ìƒ‰ì´ ëŒì•„ì˜¬ë•Œ
     public void EnemyHitRegen()
     {
-        //½ºÇÁ¶óÀÌÆ® Ãß°¡½Ã »ç¿ë 0603
+        //ìŠ¤í”„ë¼ì´íŠ¸ ì¶”ê°€ì‹œ ì‚¬ìš© 0603
         //Color color = sp.color;
         //color.a = 1f;
         //sp.color = color;
 
         isEnemyHit = false;
-        //µ¿°áÇØµĞ°É ´Ù½Ã Ç®¾îÁÜ
+        //ë™ê²°í•´ë‘”ê±¸ ë‹¤ì‹œ í’€ì–´ì¤Œ
         rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     public void EnemyLightHit()
     {
-        // Å¬·ÎÅ· ÁßÀÌ ¾Æ´Ô
+        // í´ë¡œí‚¹ ì¤‘ì´ ì•„ë‹˜
         iscloaking = false;
 
-        // ÀÌµ¿¼Óµµ, °ø°İ·Â ¿ø·¡´ë·Î
+        // ì´ë™ì†ë„, ê³µê²©ë ¥ ì›ë˜ëŒ€ë¡œ
         cloakingSpeed = 1;
         cloakingDamage = 1;
 
-        // ÀÌµ¿¼Óµµ ¹İ¿µ
+        // ì´ë™ì†ë„ ë°˜ì˜
         enemyMoveSpeed = enemyMoveSpeed * cloakingSpeed;
         enemyRunSpeed = enemyRunSpeed * cloakingSpeed;
 
-        // ´« ºñÈ°¼ºÈ­
+        // ëˆˆ ë¹„í™œì„±í™”
         nightVision.SetActive(false);
     }
 
     public void EnemyCloaking()
     {
-        // Å¬·ÎÅ· Áß
+        // í´ë¡œí‚¹ ì¤‘
         iscloaking = true;
 
-        // Ã¼·Â¹Ù¸¦ ºñÈ°¼ºÈ­ ÇØÁÜ
+        // ì²´ë ¥ë°”ë¥¼ ë¹„í™œì„±í™” í•´ì¤Œ
         enemyHpBar.hpObj.SetActive(false);
 
-        // ÀÌµ¿¼Óµµ, °ø°İ·Â 2¹è
+        // ì´ë™ì†ë„, ê³µê²©ë ¥ 2ë°°
         cloakingSpeed = 1.2f;
         cloakingDamage = 1.5f;
 
-        // ÀÌµ¿¼Óµµ ¹İ¿µ
+        // ì´ë™ì†ë„ ë°˜ì˜
         enemyMoveSpeed = enemyMoveSpeed * cloakingSpeed;
         enemyRunSpeed = enemyRunSpeed * cloakingSpeed;
 
-        // ´«À» Ç¥½ÃÇØÁÜ
+        // ëˆˆì„ í‘œì‹œí•´ì¤Œ
         nightVision.SetActive(true);
     }
 
     #endregion
 
-    #region »ç¸ÁÃ³¸®
-    //ÀûÀÌ Á×À»‹š ½ÇÇàµÊ
+    #region ì‚¬ë§ì²˜ë¦¬
+    //ì ì´ ì£½ì„ë–„ ì‹¤í–‰ë¨
     public IEnumerator EnemyDie()
     {
-        // »ç¸Á½Ã ÀÌÆåÆ® 
+        GameEvents.CallEnemyDie();
+        // ì‚¬ë§ì‹œ ì´í™íŠ¸ 
         Instantiate(enemyDeathEffect, transform.position, Quaternion.identity);
 
         Color color = sp.color;
 
-        //¸ÕÀú ÃßÀû ¹üÀ§¿Í °ø°İ ¹üÀ§¸¦ Áö¿öÁÜ.
+        //ë¨¼ì € ì¶”ì  ë²”ìœ„ì™€ ê³µê²© ë²”ìœ„ë¥¼ ì§€ì›Œì¤Œ.
         Destroy(enemyTrace);
         Destroy(enemyAttack);
         Destroy(enemyColl);
         Destroy(rigid);
 
-        // ÀÌµ¿¼Óµµ 0À¸·Î ÇØ¼­ ¿òÁ÷ÀÌÁö ¸øÇÏ°Ô
+        // ì´ë™ì†ë„ 0ìœ¼ë¡œ í•´ì„œ ì›€ì§ì´ì§€ ëª»í•˜ê²Œ
         enemyMoveSpeed = 0;
 
 
-        //Åõ¸íµµ °ªÀ» 1.0¿¡¼­ 0.01¾¿ •ûÁÖ¸é¼­ ÃµÃµÈ÷ Åõ¸íÇÏ°Ô ÇØÁÜ
+        //íˆ¬ëª…ë„ ê°’ì„ 1.0ì—ì„œ 0.01ì”© ëº´ì£¼ë©´ì„œ ì²œì²œíˆ íˆ¬ëª…í•˜ê²Œ í•´ì¤Œ
         for (float i = 1.0f; i >= 0.0f; i -= 0.02f )
         {
             color.a = i;
             sp.color = color;
-            //µô·¹ÀÌ¸¦ À§ÇØ ÄÚ·çÆ¾À» »ç¿ëÇØÁÜ
+            //ë”œë ˆì´ë¥¼ ìœ„í•´ ì½”ë£¨í‹´ì„ ì‚¬ìš©í•´ì¤Œ
             yield return new WaitForSeconds(0.01f);
         }
         if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_ghost_death"));
         //Destroy(transform.parent.gameObject);
-        // ¾ÆÀÌÅÛ µå¶ø
+        // ì•„ì´í…œ ë“œë
         EnemyHealingItemDrop();
             
         EnemyCorpseSummon();
     }
 
-    //ÀûÀÌ Á×À»‹š ½ÃÃ¼¸¦ ¼ÒÈ¯ÇÏ´Â ¸Ş¼­µå
+    //ì ì´ ì£½ì„ë–„ ì‹œì²´ë¥¼ ì†Œí™˜í•˜ëŠ” ë©”ì„œë“œ
     void EnemyCorpseSummon()
     {
         /*GameObject corpse = Instantiate(this.enemyCorpse, transform.position, transform.rotation);
         ItemObject corpseItemData = corpse.GetComponent<ItemObject>();
 
-        // 2. ±×¸®°í Á÷Á¢ itemData »ı¼º
+        // 2. ê·¸ë¦¬ê³  ì§ì ‘ itemData ìƒì„±
         corpseItemData.itemData = new Item(enemyCorpseData);
 
-        // 3. ÀÌ¸§ ¹× °ª ¼öµ¿ ¼³Á¤
+        // 3. ì´ë¦„ ë° ê°’ ìˆ˜ë™ ì„¤ì •
         if (corpseItemData.itemData == null)
         {
             Debug.Log("xx");
@@ -387,27 +388,27 @@ public abstract class Enemy     : MonoBehaviour
 
         if (corpseItemData.itemData != null)
         {
-            corpseItemData.itemData.itemName = $"{enemyName}ÀÇ ¿µÈ¥";
+            corpseItemData.itemData.itemName = $"{enemyName}ì˜ ì˜í˜¼";
             corpseItemData.itemData.Coin = enemyPrice;
             corpseItemData.itemData.Weight = enemyHeight;
         }*/
         SpawnEffectParts(enemyPrice, "Soul");
         GameManager.Instance.Add_Soul(enemyPrice);
-        // ½ÃÃ¼ÀÇ ºÎ¸ğ ÅëÂ°·Î Á¦°Å
+        // ì‹œì²´ì˜ ë¶€ëª¨ í†µì§¸ë¡œ ì œê±°
         Destroy(transform.parent.gameObject);
     
     }
 
-    // »ç¸Á ½Ã È¸º¹ ¾ÆÀÌÅÛ µå¶ø
+    // ì‚¬ë§ ì‹œ íšŒë³µ ì•„ì´í…œ ë“œë
     void EnemyHealingItemDrop()
     {
-        // È®·ü
+        // í™•ë¥ 
         int random = Random.Range(0, 100);
         
-        // 20%ÀÇ È®·ü·Î µå¶ø
+        // 20%ì˜ í™•ë¥ ë¡œ ë“œë
         if (random < 20)
         {
-            // µå¶ø
+            // ë“œë
             Instantiate(enemyDropItem, transform.position, Quaternion.identity);
         }
     }
@@ -432,34 +433,34 @@ public abstract class Enemy     : MonoBehaviour
     }
     #endregion
 
-    #region È¸Àü Ã³¸®
+    #region íšŒì „ ì²˜ë¦¬
 
-    //ÀûÀÇ ½ºÇÁ¶óÀÌÆ® È¸ÀüÀ» À§ÇÔ
+    //ì ì˜ ìŠ¤í”„ë¼ì´íŠ¸ íšŒì „ì„ ìœ„í•¨
     public void EnemyNormalTurn()
     {
-        //ÀûÀÌ µ¹¾Æ´Ù´Ò¶§
+        //ì ì´ ëŒì•„ë‹¤ë‹ë•Œ
         if (moveDirection.x < 0) { sp.flipX = true; }
         else if (moveDirection.x > 0) { sp.flipX = false; }
 
     }
 
-    //½ºÇÁ¶óÀÌÆ® ¶§¹®¿¡ µÎ°³ ¸¸µé¾îÁÜ
+    //ìŠ¤í”„ë¼ì´íŠ¸ ë•Œë¬¸ì— ë‘ê°œ ë§Œë“¤ì–´ì¤Œ
     public void EnemyNormalTurn2()
     {
-        //ÀûÀÌ µ¹¾Æ´Ù´Ò¶§
+        //ì ì´ ëŒì•„ë‹¤ë‹ë•Œ
         if (moveDirection.x < 0) { sp.flipX = false; }
         else if (moveDirection.x > 0) { sp.flipX = true; }
 
     }
 
-    //ÀûÀÌ ¦iÀ»¶§
+    //ì ì´ ì«’ì„ë•Œ
     public void EnemyTraceTurn()
     {
         if (enemyTargetDir.x < 0) { sp.flipX = true; }
         else if (enemyTargetDir.x > 0) { sp.flipX = false; }
     }
 
-    //ÀûÀÌ ÈÉÄ¡°í µµ¸Á°¥¶§
+    //ì ì´ í›”ì¹˜ê³  ë„ë§ê°ˆë•Œ
     public void EnemyTraceTurn2()
     {
         if (enemyTargetDir.x < 0) { sp.flipX = false; }
@@ -467,15 +468,15 @@ public abstract class Enemy     : MonoBehaviour
     }
     #endregion
 
-    #region º® Ãæµ¹ Ã³¸®
+    #region ë²½ ì¶©ëŒ ì²˜ë¦¬
 
-    //  º®À» ¸ø³Ñ°Ô ÇØÁÖ´Â ¸Ş¼­µå
+    //  ë²½ì„ ëª»ë„˜ê²Œ í•´ì£¼ëŠ” ë©”ì„œë“œ
     public void WallNotCross()
     {
         enemyColl.isTrigger = false;
     }
 
-    // ´Ù½Ã ¿ø·¡´ë·Î ÇØÁÖ´Â ¸Ş¼­µå
+    // ë‹¤ì‹œ ì›ë˜ëŒ€ë¡œ í•´ì£¼ëŠ” ë©”ì„œë“œ
     public void WallCollOrigin()
     {
         enemyColl.isTrigger = true;
@@ -490,15 +491,15 @@ public abstract class Enemy     : MonoBehaviour
 
 
 
-    //¼öÁ¤¿ë
+    //ìˆ˜ì •ìš©
     //void EnemyCorpseSummon()
     //{
-    //    //»ı¼ºÇÑ Àû ½ÃÃ¼ °ÔÀÓ¿ÀºêÁ§Æ®¸¦ °¡Á®¿Í ÀúÀåÇØÁÜ
+    //    //ìƒì„±í•œ ì  ì‹œì²´ ê²Œì„ì˜¤ë¸Œì íŠ¸ë¥¼ ê°€ì ¸ì™€ ì €ì¥í•´ì¤Œ
     //    GameObject corpse = Instantiate(this.enemyCorpse, transform.position, transform.rotation);
-    //    //±× ÈÄ EnemyCorpse ÄÄÆ÷³ÍÆ®¸¦ °¡Á®¿ÍÁÜ
+    //    //ê·¸ í›„ EnemyCorpse ì»´í¬ë„ŒíŠ¸ë¥¼ ê°€ì ¸ì™€ì¤Œ
     //    Item enemyCorpse = corpse.GetComponent<Item>();//itemData
-    //    //ÀÌ¸§ Á¤º¸¿Í °¡°İÀ» Àü´ŞÇØÁÜ
-    //    enemyCorpse.itemName = $"{enemyName}ÀÇ ¿µÈ¥";
+    //    //ì´ë¦„ ì •ë³´ì™€ ê°€ê²©ì„ ì „ë‹¬í•´ì¤Œ
+    //    enemyCorpse.itemName = $"{enemyName}ì˜ ì˜í˜¼";
     //    enemyCorpse.Coin = enemyPrice;
     //    enemyCorpse.Weight = enemyHeight;
     //}

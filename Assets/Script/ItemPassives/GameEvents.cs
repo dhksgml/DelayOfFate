@@ -26,4 +26,7 @@ public static class GameEvents
 
     public static event Action<bool> OnClickLenton;
     public static void CallClickLenton(bool isOn) => OnClickLenton?.Invoke(isOn);
+
+    public static event Action OnEnemyDie;
+    public static void CallEnemyDie() => OnEnemyDie?.Invoke();
 }
