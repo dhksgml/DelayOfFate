@@ -17,9 +17,10 @@ public class PassiveItemManager : MonoBehaviour
     private List<IPassiveEffect> activeEffects = new();
     private int passive_6_1_count = 0;
     //private float lastBonusSpeed_5_2 = 0f;
-    private float lastBonusDamage = 0f;
+    //private float lastBonusDamage = 0f;
 
     private Dictionary<string, float> passiveSpeedBonuses = new Dictionary<string, float>();
+    private Dictionary<string, float> passiveDamageBonuses = new Dictionary<string, float>();
 
     void Awake()
     {
@@ -162,6 +163,7 @@ public class PassiveItemManager : MonoBehaviour
         }
     }
 
+    #region Bonus Speed
     public float GetTotalBonusSpeed()
     {
         float totalBonus = 0f;
@@ -191,6 +193,31 @@ public class PassiveItemManager : MonoBehaviour
         if (passiveSpeedBonuses.ContainsKey(passiveId))
             passiveSpeedBonuses.Remove(passiveId);
     }
+    #endregion
+
+    #region Bonus Damage
+    public float GetTotalBonusDamage()
+    {
+        float total = 0f;
+        foreach (var kvp in passiveDamageBonuses)
+        {
+            if (HasEffect(kvp.Key))
+                total += kvp.Value;
+        }
+        return total;
+    }
+
+    public void SetPassiveDamageBonus(string passiveId, float value)
+    {
+        passiveDamageBonuses[passiveId] = value;
+    }
+
+    public void RemovePassiveDamageBonus(string passiveId)
+    {
+        passiveDamageBonuses.Remove(passiveId);
+    }
+
+    #endregion
 
     string GetPassiveDescription(int group, int number)
     {
@@ -456,19 +483,19 @@ public class PassiveItemManager : MonoBehaviour
     //천하장사
     public void DoPassive_1_1()
     {
-        var player_item_use = FindObjectOfType<Player_Item_Use>();
-        if (player_item_use)
-        {
-            // 기존 보너스 제거
-            GameManager.Instance.playerData.damageMultiplier -= lastBonusDamage;
+        //var player_item_use = FindObjectOfType<Player_Item_Use>();
+        //if (player_item_use)
+        //{
+        //    // 기존 보너스 제거
+        //    GameManager.Instance.playerData.damageMultiplier -= lastBonusDamage;
 
-            // 새 보너스 계산
-            int emptyItemSlotCount = player_item_use.CheckEmptySlotsCount();
-            lastBonusDamage = 0.1f * emptyItemSlotCount;
+        //    // 새 보너스 계산
+        //    int emptyItemSlotCount = player_item_use.CheckEmptySlotsCount();
+        //    lastBonusDamage = 0.1f * emptyItemSlotCount;
 
-            // 새 보너스 적용
-            GameManager.Instance.playerData.damageMultiplier += lastBonusDamage;
-        }
+        //    // 새 보너스 적용
+        //    GameManager.Instance.playerData.damageMultiplier += lastBonusDamage;
+        //}
     }
 
     //정정당당
