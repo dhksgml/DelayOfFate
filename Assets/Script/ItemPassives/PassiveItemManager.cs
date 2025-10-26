@@ -16,7 +16,11 @@ public class PassiveItemManager : MonoBehaviour
 
     private List<IPassiveEffect> activeEffects = new();
     private int passive_6_1_count = 0;
-    private float lastBonusSpeed_5_2 = 0f;
+    //private float lastBonusSpeed_5_2 = 0f;
+    //private float lastBonusDamage = 0f;
+
+    private Dictionary<string, float> passiveSpeedBonuses = new Dictionary<string, float>();
+    private Dictionary<string, float> passiveDamageBonuses = new Dictionary<string, float>();
 
     void Awake()
     {
@@ -133,7 +137,7 @@ public class PassiveItemManager : MonoBehaviour
             case "4_3": return "외유내강";
             case "5_1": return "가담항설";
             case "5_2": return "취사선택";
-            //case "6_1": return "등용문";
+            case "6_1": return "등용문";
             case "6_2": return "승승장구";
             case "6_3": return "선견지명";
             case "7_1": return "구사일생";
@@ -158,6 +162,63 @@ public class PassiveItemManager : MonoBehaviour
             default: return " ";
         }
     }
+
+    #region Bonus Speed
+    public float GetTotalBonusSpeed()
+    {
+        float totalBonus = 0f;
+        foreach (var kvp in passiveSpeedBonuses)
+        {
+            string passiveId = kvp.Key;
+            float bonus = kvp.Value;
+
+            // 플레이어가 해당 패시브를 가지고 있을 때만 더하기
+            if (HasEffect(passiveId))
+            {
+                totalBonus += bonus;
+            }
+        }
+
+
+        return totalBonus;
+    }
+
+    public void SetPassiveSpeedBonus(string passiveId, float value)
+    {
+        passiveSpeedBonuses[passiveId] = value;
+    }
+
+    public void RemovePassiveSpeedBonus(string passiveId)
+    {
+        if (passiveSpeedBonuses.ContainsKey(passiveId))
+            passiveSpeedBonuses.Remove(passiveId);
+    }
+    #endregion
+
+    #region Bonus Damage
+    public float GetTotalBonusDamage()
+    {
+        float total = 0f;
+        foreach (var kvp in passiveDamageBonuses)
+        {
+            if (HasEffect(kvp.Key))
+                total += kvp.Value;
+        }
+        return total;
+    }
+
+    public void SetPassiveDamageBonus(string passiveId, float value)
+    {
+        passiveDamageBonuses[passiveId] = value;
+    }
+
+    public void RemovePassiveDamageBonus(string passiveId)
+    {
+        passiveDamageBonuses.Remove(passiveId);
+    }
+
+    #endregion
+
     string GetPassiveDescription(int group, int number)
     {
         //16글자 마다 줄 바꿈이 됨
@@ -165,19 +226,19 @@ public class PassiveItemManager : MonoBehaviour
         {
             //<sprite=8> 
             //<sprite=9> 
-            case "1_1": return "개발중";//"소지한 물건당 피해 1할 증가";//변경 예정
+            case "1_1": return "소지한 물건당 피해 1할 증가";
             case "1_2": return "악귀에게 주는 피해가 10할 증가\n악귀의 약점을 공격 할 수 없음";
             case "2_1": return "개발중";//"방망이의 공격 범위가 10할 증가\n방망이의 피해량이 5할 증가";//변경 예정
             case "2_2": return "개발중";//"부적의 추격 범위가 20할 증가\n부적의 피해량이 5할 증가";//변경 예정
             case "2_3": return "개발중";//"환도의 공격속도 5할 증가\n환도의 피해가 5할 증가";//변경 예정
             case "3_1": return "약값 지불 후 보유한 <sprite=8>의\n3할 만큼 획득";
-            case "3_2": return "개발중";//"보유한 200 <sprite=9> 당 이동속도 1할 증가\n(최대 4할)";//변경 예정
+            case "3_2": return "보유한 200 <sprite=9> 당 이동속도 1할 증가\n(최대 3할)";
             case "4_1": return "악귀로 받는 체력피해가\n5할 감소";
             case "4_2": return "체력이 75 증가\n정신이 25 감소";
             case "4_3": return "정신이 75 증가\n체력이 25 감소";
             case "5_1": return "가장 가까운 물건의\n위치를 파악함";
             case "5_2": return "비어 있는 손 만큼\n이동속도 1할 증가";
-            case "6_1": return "개발중";//"4일차 이후라면 이동속도, 피해량 3할 상승";//변경 예정
+            case "6_1": return "4일차 이후라면 이동속도, 피해량 3할 상승";
             case "6_2": return "개발중";//"악귀 처치시 체력 5회복, 정신 3회복";//변경 예정
             case "6_3": return "하루가 지날때 들고 있던 물건의\n가치가 10할 증가";
             case "7_1": return "개발중";//"체력이 3할 이하시 이동속도 3할 증가";//변경 예정
@@ -419,6 +480,24 @@ public class PassiveItemManager : MonoBehaviour
         effect.RemoveEffect();
     }
 
+    //천하장사
+    public void DoPassive_1_1()
+    {
+        //var player_item_use = FindObjectOfType<Player_Item_Use>();
+        //if (player_item_use)
+        //{
+        //    // 기존 보너스 제거
+        //    GameManager.Instance.playerData.damageMultiplier -= lastBonusDamage;
+
+        //    // 새 보너스 계산
+        //    int emptyItemSlotCount = player_item_use.CheckEmptySlotsCount();
+        //    lastBonusDamage = 0.1f * emptyItemSlotCount;
+
+        //    // 새 보너스 적용
+        //    GameManager.Instance.playerData.damageMultiplier += lastBonusDamage;
+        //}
+    }
+
     //정정당당
     public void DoPassive_1_2()
     {
@@ -453,6 +532,15 @@ public class PassiveItemManager : MonoBehaviour
     public void DoPassive_3_1()
     {
         GameManager.Instance.Soul *= 1.3f;
+    }
+
+    //다다익선
+    public void DoPassive_3_2()
+    {
+        float newSpeedMultiplier = Mathf.Clamp(Mathf.FloorToInt(GameManager.Instance.Gold / 200), 0, 3) * 0.1f;
+        //Debug.Log("newSpeed: " + newSpeedMultiplier);
+        SetPassiveSpeedBonus("Soul_Add_3_2", newSpeedMultiplier);
+        //GameManager.Instance.playerData.speedMultiplier += newSpeedMultiplier;
     }
 
     //금강불괴
@@ -503,31 +591,35 @@ public class PassiveItemManager : MonoBehaviour
         var player_item_use = FindObjectOfType<Player_Item_Use>();
         if (player_item_use)
         {
-            // 기존 보너스 제거
-            GameManager.Instance.playerData.speedMultiplier -= lastBonusSpeed_5_2;
+            //// 기존 보너스 제거
+            //GameManager.Instance.playerData.speedMultiplier -= lastBonusSpeed_5_2;
 
-            // 새 보너스 계산
+            //// 새 보너스 계산
+            //int emptyItemSlotCount = player_item_use.CheckEmptySlotsCount();
+            //lastBonusSpeed_5_2 = 0.1f * emptyItemSlotCount;
+
+            //// 새 보너스 적용
+            //GameManager.Instance.playerData.speedMultiplier += lastBonusSpeed_5_2;
+
             int emptyItemSlotCount = player_item_use.CheckEmptySlotsCount();
-            lastBonusSpeed_5_2 = 0.1f * emptyItemSlotCount;
-
-            // 새 보너스 적용
-            GameManager.Instance.playerData.speedMultiplier += lastBonusSpeed_5_2;
+            float newBonus = 0.1f * emptyItemSlotCount;
+            SetPassiveSpeedBonus("Soul_Add_5_2", newBonus);
         }
 
     }
     public void RemovePassive_5_2()
     {
-        GameManager.Instance.playerData.speedMultiplier -= lastBonusSpeed_5_2;
-        lastBonusSpeed_5_2 = 0f;
+        //GameManager.Instance.playerData.speedMultiplier -= lastBonusSpeed_5_2;
+        //lastBonusSpeed_5_2 = 0f;
     }
     //등용문
     public void DoPassive_6_1()
     {
-        if (passive_6_1_count < 3)
-        {
-            passive_6_1_count += 1;
-            TryApplyEffect(new IncreaseMoveSpeedEffect(GameManager.Instance.playerData, 0.1f * passive_6_1_count));
-        }
+        //if (GameManager.Instance.Day >= 4)
+        //{
+        //    //passive_6_1_count += 1;
+        //    //TryApplyEffect(new IncreaseMoveSpeedEffect(GameManager.Instance.playerData, 0.1f * passive_6_1_count));
+        //}
     }
 
     public void RemovePassive_6_1()
@@ -622,6 +714,10 @@ public class PassiveItemManager : MonoBehaviour
 
     public void HandlePickupItem()
     {
+        if (HasEffect("Soul_Add_1_1"))
+        {
+            DoPassive_1_1();
+        }
         if(HasEffect("Soul_Add_5_2"))
         {
             DoPassive_5_2();
@@ -630,6 +726,10 @@ public class PassiveItemManager : MonoBehaviour
 
     public void HandleDropItem()
     {
+        if (HasEffect("Soul_Add_1_1"))
+        {
+            DoPassive_1_1();
+        }
         if (HasEffect("Soul_Add_5_2"))
         {
             DoPassive_5_2();

@@ -73,7 +73,7 @@ public class Shop : MonoBehaviour
             for (int n = 1; n <= 2; n++)
             {
                 // Skip 6_1 only (temporary)
-                if (g == 6 && n == 1) continue;
+                //if (g == 6 && n == 1) continue;
 
                 allSoulIds.Add($"Soul_Add_{g}_{n}");
             }

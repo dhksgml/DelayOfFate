@@ -19,7 +19,8 @@ public class PlayerController : MonoBehaviour
 
     const float runThreshold = 10f; //????? ????? ??? sp
 
-    public float attackDamage = 1;
+    public float currentAttackDamage = 1f;
+    public float attackDamageMultiplier = 1f;
     public float attackCoolTime;
 
     //public float originalMaxHp = 100;
@@ -86,6 +87,7 @@ public class PlayerController : MonoBehaviour
     PlaceManager placeManager;
     private Player_Item_p player_Item_P;
     Vector3 moveVelocity;
+    private QuickSlotUI quickSlotUI;
 
     private Vector2 moveInput;
     private Vector2 clickLookDirection = Vector2.down;
@@ -110,6 +112,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private GameObject damageFX;
 
+    public bool isKill2Heal;
+
     public enum PlayerState
     {
         Idle,
@@ -129,6 +133,7 @@ public class PlayerController : MonoBehaviour
         player_Item_Use = GetComponent<Player_Item_Use>();
         nearestItemFinder = GetComponent<NearestItemFinder>();
         player_Item_P = FindObjectOfType<Player_Item_p>();
+        quickSlotUI = FindObjectOfType<QuickSlotUI>();
         mainCamera = Camera.main;
 
         lightCircleObject.SetActive(true);
@@ -147,35 +152,70 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
+        GameEvents.OnEnemyDie += HandleEnemyDie;
         GameEvents.OnPickupItem += HandlePickupItem;
         GameEvents.OnDropItem += HandleDropItem;
-        GameEvents.OnTimeAngleUnit18 += HadleTimeAngleUnit18;
+        GameEvents.OnTimeAngleUnit18 += HandleTimeAngleUnit18;
     }
 
     private void OnDisable()
     {
+        GameEvents.OnEnemyDie -= HandleEnemyDie;
         GameEvents.OnPickupItem -= HandlePickupItem;
         GameEvents.OnDropItem -= HandleDropItem;
-        GameEvents.OnTimeAngleUnit18 -= HadleTimeAngleUnit18;
+        GameEvents.OnTimeAngleUnit18 -= HandleTimeAngleUnit18;
+    }
+
+    private float CalculateDamageMulitplier()
+    {
+        float baseDamage = GameManager.Instance.playerData.damageMultiplier;
+        float bonus = 0f;
+
+        if (PassiveItemManager.Instance.HasEffect("Soul_Add_1_1"))
+        {
+            int heldItemCount = player_Item_Use.quickSlots.Length - player_Item_Use.CheckEmptySlotsCount();
+            bonus += 0.1f * heldItemCount;
+        }
+
+        if (PassiveItemManager.Instance.HasEffect("Soul_Add_6_1"))
+        {
+            if (GameManager.Instance.Day >= 4)
+                bonus += 0.3f;
+        }
+        // 다른 패시브들 계산
+        return baseDamage * (1f + bonus);
     }
 
     private float CalculateSpeedMultiplier()
     {
-        float speedBonus = 0f;
 
-        if (PassiveItemManager.Instance != null && PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
+        float baseSpeed = GameManager.Instance.playerData.speedMultiplier;
+        float bonus = 0f;
+
+        if (PassiveItemManager.Instance.HasEffect("Soul_Add_3_2"))
+            bonus += Mathf.Clamp(Mathf.FloorToInt(GameManager.Instance.Gold / 200), 0, 3) * 0.1f;
+
+        if (PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
+            bonus += 0.1f * player_Item_Use.CheckEmptySlotsCount();
+
+        if(PassiveItemManager.Instance.HasEffect("Soul_Add_6_1"))
         {
-            speedBonus += 0.2f;
+            if (GameManager.Instance.Day >= 4)
+                bonus += 0.3f;
+        }
+            
+        if (PassiveItemManager.Instance.HasEffect("Soul_Add_7_2") && quickSlotUI.angleUnit >= 18)
+            bonus += 0.5f;
+
+        if (player_Item_P != null && player_Item_P.item_p_count != null)
+        {
+            if (player_Item_P.item_p[13]) { bonus += 0.3f; }
+            bonus -= 0.1f * player_Item_P.item_p_count[14]; // 14번: -10% × 개수
+            bonus += 0.1f * player_Item_P.item_p_count[17]; // 17번: +10% × 개수
         }
 
-        if (player_Item_P != null && player_Item_P.item_p_count != null)//패시브 코드 쪽이랑 호환이 안돼서 1프레임만 이속증가하고 복귀됨
-        {
-            if (player_Item_P.item_p[13]) { speedBonus += 0.3f;}
-            speedBonus -= 0.1f * player_Item_P.item_p_count[14]; // 14번: -10% × 개수
-            speedBonus += 0.1f * player_Item_P.item_p_count[17]; // 17번: +10% × 개수
-        }
-
-        return 1.0f + speedBonus;
+        // 다른 패시브들 계산
+        return baseSpeed * (1f + bonus);
     }
 
     public void Init()
@@ -194,8 +234,11 @@ public class PlayerController : MonoBehaviour
                 UpdateFlashLight();
 
                 // 이속 배율 계산
-                speedMultiplier = CalculateSpeedMultiplier();
-                GameManager.Instance.playerData.speedMultiplier = speedMultiplier;
+                UpdateSpeed();
+                UpdateDamage();
+
+                if (PassiveItemManager.Instance.HasEffect("Soul_Add_6_2"))
+                    isKill2Heal = true;
             }
         }
         else
@@ -536,8 +579,13 @@ private void SpendBattery()
         if (isFreeze) { freezeTime -= Time.deltaTime; }
         if (freezeTime <= 0) { isFreeze = false; }
 
-        speedMultiplier = CalculateSpeedMultiplier();
-        currentMoveSpeed *= speedMultiplier;
+        float baseSpeed = isRun ? runSpeed : moveSpeed;
+        UpdateSpeed();
+        currentMoveSpeed = baseSpeed * speedMultiplier;
+
+        float baseDamage = 1f;
+        UpdateDamage();
+        currentAttackDamage = baseDamage * attackDamageMultiplier;
 
         if (isMoveAble && !isFreeze) Move();
 
@@ -1082,35 +1130,26 @@ private void SpendBattery()
 
     private void HandleDropItem()
     {
-        if (PassiveItemManager.Instance != null)
-        {
-            if (PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
-            {
-                speedMultiplier = GameManager.Instance.playerData.speedMultiplier;
-            }
-
-        }
+        UpdateSpeed();
     }
 
     private void HandlePickupItem()
     {
-        if (PassiveItemManager.Instance != null)
-        {
-            if (PassiveItemManager.Instance.HasEffect("Soul_Add_5_2"))
-            {
-                speedMultiplier = GameManager.Instance.playerData.speedMultiplier;
-            }
-        }
+        UpdateSpeed();
     }
 
-    private void HadleTimeAngleUnit18()
+    private void HandleTimeAngleUnit18()
     {
-        if (PassiveItemManager.Instance != null)
+        UpdateSpeed();
+    }
+
+    private void HandleEnemyDie()
+    {
+        if(PassiveItemManager.Instance.HasEffect("Soul_Add_6_2"))
         {
-            if (PassiveItemManager.Instance.HasEffect("Soul_Add_7_2"))
-            {
-                speedMultiplier = GameManager.Instance.playerData.speedMultiplier;
-            }
+            //힐
+            currentHp = Mathf.Clamp(currentHp + 5, 0, maxHp);
+            currentMp = Mathf.Clamp(currentMp + 3, 0, maxMp);
         }
     }
 
@@ -1122,4 +1161,14 @@ private void SpendBattery()
     }
 
     #endregion
+
+    private void UpdateSpeed()
+    {
+        speedMultiplier = CalculateSpeedMultiplier();
+    }
+
+    private void UpdateDamage()
+    {
+        attackDamageMultiplier = CalculateDamageMulitplier();
+    }
 }
