@@ -33,7 +33,6 @@ public class MissionManager : MonoBehaviour
     private int lightedAreaCount = 0;
     private int totalAreaCount = 0;
     private int sellCount = 0;
-    private int specificWeaponKillCount = 0;
     private float missionStartTime = 0f;
     private int weaponsUsedCount = 0;
     private string lastUsedWeapon = "";
@@ -175,7 +174,6 @@ public class MissionManager : MonoBehaviour
         lightedAreaCount = 0;
         totalAreaCount = 0;
         sellCount = 0;
-        specificWeaponKillCount = 0;
         weaponsUsedCount = 0;
         lastUsedWeapon = "";
     }
@@ -183,20 +181,11 @@ public class MissionManager : MonoBehaviour
     // === 게임 중 호출될 메서드들 ===
 
     // 악귀 처치 시 호출
-    public void OnEnemyKilled(string weaponUsed)
+    public void OnEnemyKilled()
     {
         if (!isMissionActive || isMissionCompleted) return;
 
         killCount++;
-
-        // 특정 무기로 처치 미션 체크
-        if (activeMission.type == Mission_System.MissionType.KillWithWeapon)
-        {
-            if (weaponUsed == activeMission.weaponType)
-            {
-                specificWeaponKillCount++;
-            }
-        }
 
         CheckMissionCompletion();
     }
@@ -210,7 +199,7 @@ public class MissionManager : MonoBehaviour
         CheckMissionCompletion();
     }
 
-    // 물건 회수 시 호출
+    // 물건 회수하고 탈출 시 호출
     public void OnItemRecovered()
     {
         if (!isMissionActive || isMissionCompleted) return;
@@ -220,7 +209,7 @@ public class MissionManager : MonoBehaviour
     }
 
     // 지역 밝힘 시 호출
-    public void OnAreaLighted()
+    public void OnAreaLighted()//어캐 하지 이거
     {
         if (!isMissionActive || isMissionCompleted) return;
 
@@ -234,7 +223,7 @@ public class MissionManager : MonoBehaviour
         totalAreaCount = count;
     }
 
-    // 물건 판매 시 호출
+    // 물건 즉시판매 시 호출
     public void OnItemSold()
     {
         if (!isMissionActive || isMissionCompleted) return;
@@ -311,10 +300,6 @@ public class MissionManager : MonoBehaviour
 
             case Mission_System.MissionType.SellItems:
                 isCompleted = sellCount >= activeMission.targetCount;
-                break;
-
-            case Mission_System.MissionType.KillWithWeapon:
-                isCompleted = specificWeaponKillCount >= activeMission.targetCount;
                 break;
 
             case Mission_System.MissionType.TimeLimit:
@@ -467,8 +452,6 @@ public class MissionManager : MonoBehaviour
                 return $"밝힘: {lightedAreaCount}/{totalAreaCount}";
             case Mission_System.MissionType.SellItems:
                 return $"판매: {sellCount}/{activeMission.targetCount}";
-            case Mission_System.MissionType.KillWithWeapon:
-                return $"{activeMission.weaponType} 처치: {specificWeaponKillCount}/{activeMission.targetCount}";
             case Mission_System.MissionType.TimeLimit:
                 float elapsed = (Time.time - missionStartTime) / 60f;
                 return $"경과 시간: {elapsed:F1}/{activeMission.targetCount}분";
@@ -520,10 +503,6 @@ public class MissionManager : MonoBehaviour
                 progressText = $"물건 ({sellCount}/{activeMission.targetCount})회 판매";
                 break;
 
-            case Mission_System.MissionType.KillWithWeapon:
-                progressText = $"{activeMission.weaponType}로 악귀 ({specificWeaponKillCount}/{activeMission.targetCount})마리 처치";
-                break;
-
             case Mission_System.MissionType.TimeLimit:
                 float elapsed = (Time.time - missionStartTime) / 60f;
                 float remaining = activeMission.targetCount - elapsed;
@@ -541,7 +520,7 @@ public class MissionManager : MonoBehaviour
         // 완료 상태 표시
         if (isMissionCompleted)
         {
-            missionText += "\n<color=#00FF00>(완료함!)</color>";
+            missionText += "\n<color=#00FF00>(완료!)</color>";
         }
 
         // 텍스트 업데이트

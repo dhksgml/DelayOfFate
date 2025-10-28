@@ -99,23 +99,33 @@ public class Place : MonoBehaviour
 	private void RegisterResurrection()
 	{
 		registered -= 1;
+		MissionManager.Instance.OnPlaceInteracted();
 		spriteRenderer.sprite = sprite_ch_spr[0];
 		SoundManager.Instance?.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_resurrection_register"));
 		placeManager.resurrection = true;
 		placeManager.resurrection_pos = transform.position;
 	}
 
-	private void EscapeScene()
-	{
-		registered -= 1;
-		placeManager.Go_to_escape();
-	}
-
 	private void TryEscape()
 	{
 		if (GameManager.Instance.Soul >= GameManager.Instance.N_Day_Cost) //약값을 낼 돈이 있어야 탈출 가능
 		{
-			EscapeScene();
+			registered -= 1;
+			MissionManager.Instance.OnPlaceInteracted();
+			Player_Item_Use player_Item_Use = FindObjectOfType<Player_Item_Use>();
+			if (player_Item_Use != null)
+			{
+				// 인벤토리의 모든 슬롯 체크
+				foreach (Item item in player_Item_Use.quickSlots)
+				{
+					// 아이템이 있으면 회수 카운트 증가
+					if (item != null && !string.IsNullOrEmpty(item.itemName))
+					{
+						MissionManager.Instance.OnItemRecovered();
+					}
+				}
+			}
+			placeManager.Go_to_escape();
 		}
 		else
 		{
@@ -134,6 +144,7 @@ public class Place : MonoBehaviour
 			if (warningText != null) warningCoroutine = StartCoroutine(ShowWarningText());
 			Player_Item_Use player_Item_Use = FindObjectOfType<Player_Item_Use>();
 			registered -= 1;
+			MissionManager.Instance.OnPlaceInteracted();
 			spriteRenderer.sprite = sprite_ch_spr[0];
 			player_Item_Use.Sale("all", player_Item_Use.quickSlots[0]);//[0]을 지정하지만 어차피 큰 의미는 없음
 		}
