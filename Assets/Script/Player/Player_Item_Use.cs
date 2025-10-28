@@ -392,9 +392,13 @@ public class Player_Item_Use : MonoBehaviour
             }
             
             if (qlsu == false) { SpawnEffectParts(itemValue, "Coin"); GameManager.Instance.Add_Gold(itemValue); }
-            else { SpawnEffectParts(itemValue, "Soul"); GameManager.Instance.Add_Soul(itemValue); qlsu = true; }
-            
+            else { SpawnEffectParts(itemValue, "Soul"); GameManager.Instance.Add_Soul(itemValue); }
+            qlsu = false;//계산 끝난뒤 정상화 시키기
+
+            MissionManager.Instance.OnItemSold();
+
             SoundManager.Instance?.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
+            
         }
         else if (ty == "all")
         {

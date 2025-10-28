@@ -4,6 +4,7 @@ public class Stage_Manager : MonoBehaviour
 {
     public GameObject ShopPrefab; // 모든 상점 요소
     public GameObject QuestPrefab; //미션 카드 3개
+    public GameObject weaponPrefab; //무기 장착 페이지
     public void Quest_ok() // 미션을 고른 후 상점 페이지로 전환
     {
         ShopPrefab.SetActive(true);
