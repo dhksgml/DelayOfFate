@@ -34,7 +34,6 @@ public class MissionManager : MonoBehaviour
     private int lightedAreaCount = 0;
     private int totalAreaCount = 0;
     private int sellCount = 0;
-    private int specificWeaponKillCount = 0;
     private float missionStartTime = 0f;
     private int weaponsUsedCount = 0;
     private string lastUsedWeapon = "";
@@ -174,7 +173,6 @@ public class MissionManager : MonoBehaviour
         lightedAreaCount = 0;
         totalAreaCount = 0;
         sellCount = 0;
-        specificWeaponKillCount = 0;
         weaponsUsedCount = 0;
         lastUsedWeapon = "";
     }
@@ -200,7 +198,7 @@ public class MissionManager : MonoBehaviour
         CheckMissionCompletion();
     }
 
-    // 물건 회수 시 호출
+    // 물건 회수하고 탈출 시 호출
     public void OnItemRecovered()
     {
         if (!isMissionActive || isMissionCompleted) return;
@@ -210,7 +208,7 @@ public class MissionManager : MonoBehaviour
     }
 
     // 지역 밝힘 시 호출
-    public void OnAreaLighted()
+    public void OnAreaLighted()//어캐 하지 이거
     {
         if (!isMissionActive || isMissionCompleted) return;
 
@@ -224,7 +222,7 @@ public class MissionManager : MonoBehaviour
         totalAreaCount = count;
     }
 
-    // 물건 판매 시 호출
+    // 물건 즉시판매 시 호출
     public void OnItemSold()
     {
         if (!isMissionActive || isMissionCompleted) return;
@@ -534,7 +532,7 @@ public class MissionManager : MonoBehaviour
         // 완료 상태 표시
         if (isMissionCompleted)
         {
-            missionText += "\n<color=#00FF00>(완료함!)</color>";
+            missionText += "\n<color=#00FF00>(완료!)</color>";
         }
 
         // 텍스트 업데이트
