@@ -356,8 +356,8 @@ public class Shop : MonoBehaviour
             }
             if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_2"));
             // 구매 효과 적용 신호 보내기
-            string itemId = soulNames[index]; // ← 이미 RerollSouls()에서 할당됨
-            PassiveItemManager.Instance.PurchaseItem(itemId);
+            string itemId = soulNames[index];
+            PassiveItemManager.Instance.ConfirmPassivePurchase(itemId); // 예약 제거 포함
             UpdateWeaponPrice();
         }
         else
@@ -429,8 +429,12 @@ public class Shop : MonoBehaviour
         List<string> availableSouls = new List<string>();
         foreach (var id in allSoulIds)
         {
-            if (!PassiveItemManager.Instance.IsPurchased(id)) // 구매 안 한 것만
+            // 구매 안 했고, 미션에서 예약도 안 된 것만
+            if (!PassiveItemManager.Instance.IsPurchased(id) &&
+                !PassiveItemManager.Instance.reservedPassiveIds.Contains(id))
+            {
                 availableSouls.Add(id);
+            }
         }
 
         // 2. 랜덤 섞기 & 4개 추출 (중복 제거)

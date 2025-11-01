@@ -22,6 +22,8 @@ public class PassiveItemManager : MonoBehaviour
     private Dictionary<string, float> passiveSpeedBonuses = new Dictionary<string, float>();
     private Dictionary<string, float> passiveDamageBonuses = new Dictionary<string, float>();
 
+    public List<string> reservedPassiveIds = new List<string>(); // 미션/상점에서 예약된 ID
+
     void Awake()
     {
         PlayerPrefs.DeleteAll();
@@ -121,7 +123,7 @@ public class PassiveItemManager : MonoBehaviour
             ApplyPassiveEffect(id);
     }
 
-    string GetPassiveName(int group, int number)
+    public string GetPassiveName(int group, int number)
     {
         switch ($"{group}_{number}")
         {
@@ -219,7 +221,7 @@ public class PassiveItemManager : MonoBehaviour
 
     #endregion
 
-    string GetPassiveDescription(int group, int number)
+    public string GetPassiveDescription(int group, int number)
     {
         //16글자 마다 줄 바꿈이 됨
         switch ($"{group}_{number}")
@@ -262,7 +264,7 @@ public class PassiveItemManager : MonoBehaviour
             default: return "설명이 없습니다.";
         }
     }
-    int GetPassiveEmdrmq(int group, int number) //아이템의 등급
+    public int GetPassiveEmdrmq(int group, int number) //아이템의 등급
     {
         switch ($"{group}_{number}")
         {
@@ -295,7 +297,7 @@ public class PassiveItemManager : MonoBehaviour
             default: return 0;
         }
     }
-    public void PurchaseItem(string itemId)
+    public void PurchaseItem(string itemId)//구매 후 데이터 저장
     {
         PassiveItemData item = passiveItems.Find(i => i.id == itemId);
         if (item != null && !item.isPurchased)
@@ -478,6 +480,100 @@ public class PassiveItemManager : MonoBehaviour
     {
         if (effect == null) return;
         effect.RemoveEffect();
+    }
+    public string GetRandomPassiveByGrade(int grade)
+    {
+        // 등급별 후보 리스트
+        List<string> candidates = new List<string>();
+        
+        foreach (var item in passiveItems)
+        {
+            // 조건: 구매 안 됨 + 예약 안 됨 + 등급 일치
+            if (!item.isPurchased &&
+                !reservedPassiveIds.Contains(item.id) &&
+                item.rating == grade)
+            {
+                candidates.Add(item.id);
+            }
+        }
+        print(candidates.Count);
+        // 후보가 없으면 null 반환
+        if (candidates.Count == 0)
+        {
+            Debug.LogWarning($"등급 {grade}의 구매 가능한 혼령강화가 없습니다!");
+            return null;
+        }
+
+        // 랜덤 선택
+        string selectedId = candidates[Random.Range(0, candidates.Count)];
+
+        // 예약 목록에 추가 (중복 방지)
+        reservedPassiveIds.Add(selectedId);
+
+        return selectedId;
+    }
+    // 미션 등급에 따른 확률적 혼령강화 추첨
+    public string GetRandomPassiveForMission(int missionGrade)
+    {
+        float roll = Random.Range(0f, 100f);
+        int targetRating = 1; // 기본값: 하급
+
+        switch (missionGrade)
+        {
+            case 0: // 하급 미션
+                if (roll < 50f) targetRating = 1;      // 50% 하급
+                else if (roll < 70f) targetRating = 2; // 20% 중급
+                else if (roll < 85f) targetRating = 3; // 15% 상급
+                else targetRating = 4;                 // 15% 최상급
+                break;
+
+            case 1: // 중급 미션
+                if (roll < 30f) targetRating = 1;      // 30% 하급
+                else if (roll < 70f) targetRating = 2; // 40% 중급
+                else if (roll < 90f) targetRating = 3; // 20% 상급
+                else targetRating = 4;                 // 10% 최상급
+                break;
+
+            case 2: // 상급 미션
+                if (roll < 10f) targetRating = 1;      // 10% 하급
+                else if (roll < 40f) targetRating = 2; // 30% 중급
+                else if (roll < 80f) targetRating = 3; // 40% 상급
+                else targetRating = 4;                 // 20% 최상급
+                break;
+        }
+
+        return GetRandomPassiveByGrade(targetRating);
+    }
+    // 혼령강화 구매 확정 (예약 목록에서 제거)
+    public void ConfirmPassivePurchase(string passiveId)
+    {
+        if (string.IsNullOrEmpty(passiveId)) return;
+
+        // 구매 처리
+        PurchaseItem(passiveId);
+
+        // 예약 목록에서 제거
+        if (reservedPassiveIds.Contains(passiveId))
+        {
+            reservedPassiveIds.Remove(passiveId);
+        }
+    }
+    //혼령강화 예약 취소 (미션 실패 시)
+    public void CancelPassiveReservation(string passiveId)
+    {
+        if (string.IsNullOrEmpty(passiveId)) return;
+
+        if (reservedPassiveIds.Contains(passiveId))
+        {
+            reservedPassiveIds.Remove(passiveId);
+            Debug.Log($"혼령강화 예약 취소: {passiveId}");
+        }
+    }
+
+    //모든 예약 초기화 (디버그용)
+    public void ClearAllReservations()
+    {
+        reservedPassiveIds.Clear();
     }
 
     //천하장사

@@ -22,6 +22,7 @@ public class MissionManager : MonoBehaviour
 
     // 현재 진행중인 미션
     private Mission_System.MissionData activeMission;
+    private string selectedPassiveId = ""; // 미션에서 선택한 혼령강화 ID
     private bool isMissionActive = false; // 미션 진행 중 (인게임에서)
     private bool isMissionSelected = false; // 미션 선택됨 (상점에서)
     private bool isMissionCompleted = false;
@@ -33,6 +34,7 @@ public class MissionManager : MonoBehaviour
     private int lightedAreaCount = 0;
     private int totalAreaCount = 0;
     private int sellCount = 0;
+    private int specificWeaponKillCount = 0;
     private float missionStartTime = 0f;
     private int weaponsUsedCount = 0;
     private string lastUsedWeapon = "";
@@ -53,8 +55,6 @@ public class MissionManager : MonoBehaviour
 
     void Start()
     {
-        //inGameMissionText = GameObject.Find("Mission_Text").GetComponent<TMP_Text>();
-        //missionUIPanel = GameObject.Find("Mission_Image_bk");
         // 미션 슬롯 초기화
         if (missionSlot1 != null) missionSlot1.GenerateRandomMission();
         if (missionSlot2 != null) missionSlot2.GenerateRandomMission();
@@ -69,16 +69,14 @@ public class MissionManager : MonoBehaviour
         if (IsInShopScene())
         {
             HandleMissionSelection();
-
-            //HideMissionUI(); // 상점에서는 미션 UI 숨김
+            HideMissionUI(); // 상점에서는 미션 UI 숨김
         }
         // 인게임 씬에서는 미션 UI 표시
         else if (IsInGameScene())
         {
-            inGameMissionText = GameObject.Find("Mission_Text").GetComponent<TMP_Text>();
-            missionUIPanel = GameObject.Find("Mission_Image_bk");
+            UpdateInGameMissionUI();
         }
-        UpdateInGameMissionUI();
+
         // 미션 진행 중 시간 체크
         if (isMissionActive && activeMission != null)
         {
@@ -117,7 +115,7 @@ public class MissionManager : MonoBehaviour
             UpdateSelectionUI();
         }
 
-        // Z, X, C,a,s,d 키로 미션
+        // Z, X, C 키로 각 미션 직접 선택
         if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.C)) && !isMissionActive)
         {
             SelectMission(currentSelectedIndex);
@@ -134,7 +132,6 @@ public class MissionManager : MonoBehaviour
         }
     }
 
-    // 미션 선택
     public void SelectMission(int slotIndex)
     {
         Mission_System selectedSlot = null;
@@ -150,20 +147,23 @@ public class MissionManager : MonoBehaviour
 
         // 미션 활성화
         activeMission = selectedSlot.GetCurrentMission();
-        isMissionActive = true;
+        isMissionSelected = true;
+        isMissionActive = false;
         isMissionCompleted = false;
 
-        // 진행도 초기화
-        ResetMissionProgress();
-
-        // 시간 제한 미션이면 시작 시간 기록
-        if (activeMission.type == Mission_System.MissionType.TimeLimit)
+        // 혼령강화 보상이면 예약
+        if (activeMission.rewardType == Mission_System.RewardType.PassiveLow ||
+            activeMission.rewardType == Mission_System.RewardType.PassiveMid ||
+            activeMission.rewardType == Mission_System.RewardType.PassiveHigh ||
+            activeMission.rewardType == Mission_System.RewardType.PassiveMax)
         {
-            missionStartTime = Time.time;
+            selectedPassiveId = activeMission.passiveRewardId; // Mission_System에서 설정한 ID
         }
+
         FindObjectOfType<Stage_Manager>().Quest_ok();
         Debug.Log($"미션 선택됨: {activeMission.type}, 목표: {activeMission.targetCount}");
     }
+
 
     // 미션 진행도 초기화
     void ResetMissionProgress()
@@ -174,6 +174,7 @@ public class MissionManager : MonoBehaviour
         lightedAreaCount = 0;
         totalAreaCount = 0;
         sellCount = 0;
+        specificWeaponKillCount = 0;
         weaponsUsedCount = 0;
         lastUsedWeapon = "";
     }
@@ -199,7 +200,7 @@ public class MissionManager : MonoBehaviour
         CheckMissionCompletion();
     }
 
-    // 물건 회수하고 탈출 시 호출
+    // 물건 회수 시 호출
     public void OnItemRecovered()
     {
         if (!isMissionActive || isMissionCompleted) return;
@@ -209,7 +210,7 @@ public class MissionManager : MonoBehaviour
     }
 
     // 지역 밝힘 시 호출
-    public void OnAreaLighted()//어캐 하지 이거
+    public void OnAreaLighted()
     {
         if (!isMissionActive || isMissionCompleted) return;
 
@@ -223,7 +224,7 @@ public class MissionManager : MonoBehaviour
         totalAreaCount = count;
     }
 
-    // 물건 즉시판매 시 호출
+    // 물건 판매 시 호출
     public void OnItemSold()
     {
         if (!isMissionActive || isMissionCompleted) return;
@@ -332,9 +333,16 @@ public class MissionManager : MonoBehaviour
         }
     }
 
-    // 미션 실패
+    // 미션 실패 시
     void FailMission()
     {
+        // 혼령강화 예약 취소
+        if (!string.IsNullOrEmpty(selectedPassiveId))
+        {
+            PassiveItemManager.Instance?.CancelPassiveReservation(selectedPassiveId);
+            selectedPassiveId = "";
+        }
+
         isMissionActive = false;
         isMissionSelected = false;
         isMissionCompleted = false;
@@ -403,8 +411,13 @@ public class MissionManager : MonoBehaviour
             case Mission_System.RewardType.PassiveMid:
             case Mission_System.RewardType.PassiveHigh:
             case Mission_System.RewardType.PassiveMax:
-                // TODO: PassiveItemManager를 통해 랜덤 혼령강화 지급
-                Debug.Log($"보상 지급: {activeMission.rewardType} 혼령강화");
+                // 혼령강화 구매 확정
+                if (!string.IsNullOrEmpty(selectedPassiveId))
+                {
+                    PassiveItemManager.Instance?.ConfirmPassivePurchase(selectedPassiveId);
+                    Debug.Log($"보상 지급: 혼령강화 {selectedPassiveId}");
+                    selectedPassiveId = "";
+                }
                 break;
         }
 
@@ -414,6 +427,7 @@ public class MissionManager : MonoBehaviour
         isMissionCompleted = false;
         activeMission = null;
     }
+
 
     // === 외부 접근용 메서드 ===
 
@@ -496,7 +510,7 @@ public class MissionManager : MonoBehaviour
                 break;
 
             case Mission_System.MissionType.LightAllAreas:
-                progressText = $"지역 모두 밝히기";
+                progressText = $"지역 ({lightedAreaCount}/{totalAreaCount})곳 밝히기";
                 break;
 
             case Mission_System.MissionType.SellItems:
@@ -520,7 +534,7 @@ public class MissionManager : MonoBehaviour
         // 완료 상태 표시
         if (isMissionCompleted)
         {
-            missionText += "\n<color=#00FF00>(완료!)</color>";
+            missionText += "\n<color=#00FF00>(완료함!)</color>";
         }
 
         // 텍스트 업데이트
