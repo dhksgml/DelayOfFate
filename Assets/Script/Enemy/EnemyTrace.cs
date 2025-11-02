@@ -6,41 +6,41 @@ using UnityEngine.Rendering.Universal;
 public class EnemyTrace : MonoBehaviour
 {
     [Header("Enemy Trace Range")]
-    public float     enemyTraceRange; //ÀûÀÇ Ãß°İ ¹üÀ§
+    public float     enemyTraceRange; //ì ì˜ ì¶”ê²© ë²”ìœ„
 
     [SerializeField]
-    Collider2D       enemyTraceCollider; //ÀûÀÇ Ãß°İ ¹üÀ§¸¦ ¼³Á¤ÇØÁÙ Äİ¶óÀÌ´õ
+    Collider2D       enemyTraceCollider; //ì ì˜ ì¶”ê²© ë²”ìœ„ë¥¼ ì„¤ì •í•´ì¤„ ì½œë¼ì´ë”
 
     [Header("Reference")]
-    public Vector3   targetPos; //ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡
+    public Vector3   targetPos; //í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜
     [SerializeField]
     Enemy            enemy;
 
     [System.Serializable]
     public class EnemyScript
     {
-        [Header("¶¥»ó¾î")]
+        [Header("ë•…ìƒì–´")]
         public LandShark landShark;
         public LandSharkAttack landSharkAttack;
 
-        [Header("¼Ò¸é±Í")]
+        [Header("ì†Œë©´ê·€")]
         public Somyeon_gwi somyeon_Gwi;
 
-        [Header("ºĞ¿­±Í")]
+        [Header("ë¶„ì—´ê·€")]
         public Boon_yeol_gwi boon_yeol_gwi;
 
-        [Header("¹«¸é±Í")]
+        [Header("ë¬´ë©´ê·€")]
         public Mumyeon_Gwi mumyeon_Gwi;
 
-        [Header("Á×À½Àå½Â")]
+        [Header("ì£½ìŒì¥ìŠ¹")]
         public Death_Jangseung death_Jangseung;
         public Death_Jangseung_Attack death_Jangseung_Attack;
 
-        [Header("µÎ¾ï½Ã´Ï")]
+        [Header("ë‘ì–µì‹œë‹ˆ")]
         public Duoksini duoksini;
         public Duoksini_Attack duoksini_Attack;
 
-        [Header("¾îµÏÁã")]
+        [Header("ì–´ë‘‘ì¥")]
         public Eo_dook_jwi eo_dook_jwi;
         public Vector3 playerTrs;
     }
@@ -49,7 +49,7 @@ public class EnemyTrace : MonoBehaviour
 
     void Awake()
     {
-        //Äİ¶óÀÌ´õ°¡ ¿øÇüÀÏ½Ã Å©±â Á¶Àı
+        //ì½œë¼ì´ë”ê°€ ì›í˜•ì¼ì‹œ í¬ê¸° ì¡°ì ˆ
         if (enemyTraceCollider is CircleCollider2D circleColl) circleColl.radius = enemyTraceRange;
     }
 
@@ -57,20 +57,20 @@ public class EnemyTrace : MonoBehaviour
 
     void Update()
     {
-        //¼öÁ¤ÇÏ¸é¼­. ÀÚ½ÄÀÌ ¾Æ´Ñ ´Ù¸¥°É·Î ºĞ¸®ÇØÁá±â¿¡ µû¶ó°¡°Ô ÇØÁÜ
+        //ìˆ˜ì •í•˜ë©´ì„œ. ìì‹ì´ ì•„ë‹Œ ë‹¤ë¥¸ê±¸ë¡œ ë¶„ë¦¬í•´ì¤¬ê¸°ì— ë”°ë¼ê°€ê²Œ í•´ì¤Œ
         transform.position = enemy.transform.position;
 
-        // Á×À½ Àå½Â Àü¿ë
+        // ì£½ìŒ ì¥ìŠ¹ ì „ìš©
         if (enemyScript.death_Jangseung_Attack != null && !enemyScript.death_Jangseung_Attack.isAttack)
         {
             jangseungtime += Time.deltaTime;
         }
-        // µÎ¾ï½Ã´Ï Àü¿ë
+        // ë‘ì–µì‹œë‹ˆ ì „ìš©
         else if (enemyScript.duoksini_Attack != null && !enemyScript.duoksini_Attack.isAttack)
         {
             duoksinitime += Time.deltaTime;
         }
-        // ºĞ¿­±Í
+        // ë¶„ì—´ê·€
         else if (enemyScript.boon_yeol_gwi != null)
         {
             boon_yeol_gwi_itemTime += Time.deltaTime;
@@ -81,10 +81,24 @@ public class EnemyTrace : MonoBehaviour
                 enemyScript.boon_yeol_gwi.isItemFind = false;
             }
         }
+        // ë•…ìƒì–´ 11.3
+        else if (enemyScript.landShark != null)
+        {
+            // ì ë³µì‹œ ê³µê²©ì†ë„ ë”í•´ì¤Œ
+            if (enemyScript.landShark.isIn)
+            {
+                laandSharkinAttackTime += Time.deltaTime;
+            }
+            // ëŒì¶œ ì‹œ ê³µê²©ì†ë„ ì´ˆê¸°í™”
+            else if (enemyScript.landShark.isOut)
+            {
+                laandSharkinAttackTime = 0f;
+            }
+        }
 
     }
 
-    //¶¥»ó¾î Àü¿ë
+    //ë•…ìƒì–´ ì „ìš©
     [HideInInspector]
     public float landSharkAttackTime;
 
@@ -92,40 +106,40 @@ public class EnemyTrace : MonoBehaviour
     {
         if(collision != null)
         {
-            //¶¥»ó¾î Àü¿ë
+            //ë•…ìƒì–´ ì „ìš©
             if (enemyScript.landShark != null)
             {
                 if (collision.gameObject.CompareTag("Player"))
                 {
-                    //Àáº¹À¸·Î º¯È¯
+                    //ì ë³µìœ¼ë¡œ ë³€í™˜
                     enemyScript.landShark.IsHide();
                 }
             }
 
 
-            //ºĞ¿­±Í Àü¿ë
+            //ë¶„ì—´ê·€ ì „ìš©
             if (enemyScript.boon_yeol_gwi != null)
             {
-                //itemÀ» °¡Á®¿ÍÁØ ÈÄ
+                //itemì„ ê°€ì ¸ì™€ì¤€ í›„
                 ItemObject item = collision.gameObject.GetComponent<ItemObject>();
 
-                //¾ÆÀÌÅÛÀ» Ã£°í °¡Ä¡¸¦ ¸Ô¾ú°í, Ãæµ¹ÇÑ ¿ÀºêÁ§Æ®°¡ ÀûÀÌ¸é
+                //ì•„ì´í…œì„ ì°¾ê³  ê°€ì¹˜ë¥¼ ë¨¹ì—ˆê³ , ì¶©ëŒí•œ ì˜¤ë¸Œì íŠ¸ê°€ ì ì´ë©´
                 if (enemyScript.boon_yeol_gwi.isItemFind && enemyScript.boon_yeol_gwi.isItemEat && collision.gameObject.CompareTag("Enemy"))
                 {
-                    //ÄÄÆ÷³ÍÆ®¸¦ °¡Á®¿Â ÈÄ
+                    //ì»´í¬ë„ŒíŠ¸ë¥¼ ê°€ì ¸ì˜¨ í›„
                     Boon_yeol_gwi entity = collision.GetComponent<Boon_yeol_gwi>();
 
-                    //°ªÀÌ ¸ÂÀ¸¸é
+                    //ê°’ì´ ë§ìœ¼ë©´
                     if (entity != null && enemyScript.boon_yeol_gwi.entityObj == entity)
                     {
-                        //true·Î ÇØÁØ ÈÄ
+                        //trueë¡œ í•´ì¤€ í›„
                         enemyScript.boon_yeol_gwi.isEntityFind = true;
-                        //À§Ä¡¸¦ º¸³»ÁÜ
+                        //ìœ„ì¹˜ë¥¼ ë³´ë‚´ì¤Œ
                         enemyScript.boon_yeol_gwi.targetTrs = entity.transform.position;
                     }
                 }
 
-                //Ã£Àº°Ô ¾ÆÀÌÅÛÀÌ¸é
+                //ì°¾ì€ê²Œ ì•„ì´í…œì´ë©´
                 if (collision.gameObject.CompareTag("Item") && item.itemData.Coin != 0)
                 {
                     enemyScript.boon_yeol_gwi.isItemFind = true;
@@ -137,17 +151,18 @@ public class EnemyTrace : MonoBehaviour
         }
     }
 
-    //¶¥»ó¾î Àü¿ë
+    //ë•…ìƒì–´ ì „ìš©
     float landSharkOutTime;
+    float laandSharkinAttackTime;
 
-    // ¹«¸é±Í Àü¿ë
+    // ë¬´ë©´ê·€ ì „ìš©
     float mumyeon_Gwi_Stay_Time;
 
-    // Á×À½ Àå½Â Àü¿ë
+    // ì£½ìŒ ì¥ìŠ¹ ì „ìš©
     Vector3 jangseungTargetTrs;
     float jangseungtime = 0f;
 
-    // µÎ¾ï½Ã´Ï Àü¿ë
+    // ë‘ì–µì‹œë‹ˆ ì „ìš©
     Vector3 duoksiniTargetTrs;
     float duoksinitime = 0f;
 
@@ -157,10 +172,10 @@ public class EnemyTrace : MonoBehaviour
     {
         if (collision != null)
         {
-            //ºĞ¿­±Í Àü¿ë
+            //ë¶„ì—´ê·€ ì „ìš©
             if (enemyScript.boon_yeol_gwi != null)
             {
-                //itemÀ» °¡Á®¿ÍÁØ ÈÄ
+                //itemì„ ê°€ì ¸ì™€ì¤€ í›„
                 ItemObject item = collision.gameObject.GetComponent<ItemObject>();
 
                 if (enemyScript.boon_yeol_gwi.isItemEat)
@@ -172,7 +187,7 @@ public class EnemyTrace : MonoBehaviour
                     }
                 }
 
-                //Ã£Àº°Ô ¾ÆÀÌÅÛÀÌ¸é
+                //ì°¾ì€ê²Œ ì•„ì´í…œì´ë©´
                 if (collision.gameObject.CompareTag("Item") && item.itemData.Coin != 0)
                 {
                     enemyScript.boon_yeol_gwi.isItemFind = true;
@@ -180,29 +195,29 @@ public class EnemyTrace : MonoBehaviour
                 }
             }
 
-            //ÇÃ·¹ÀÌ¾î°¡ ¹üÀ§ ¾È¿¡ µé¾î¿À¸é ¦i¾Æ°¡ÁÜ
+            //í”Œë ˆì´ì–´ê°€ ë²”ìœ„ ì•ˆì— ë“¤ì–´ì˜¤ë©´ ì«’ì•„ê°€ì¤Œ
             if (collision.gameObject.CompareTag("Player"))
             {
                 targetPos = collision.gameObject.transform.position;
                 enemy.isTrace = true;
             }
 
-            //¶¥»ó¾î Àü¿ë
+            //ë•…ìƒì–´ ì „ìš©
             if (enemyScript.landShark != null)
             {
                 if (collision.gameObject.CompareTag("Player"))
                 {
-                    //µ¹Ãâ »óÅÂÀÏ‹š
+                    //ëŒì¶œ ìƒíƒœì¼ë–„
                     if(enemyScript.landShark.isOut)
                     {
                         landSharkOutTime += Time.deltaTime;
 
-                        //5ÃÊ°¡ Áö³ª¸é
-                        if(landSharkOutTime >= 5f)
+                        // 2ì´ˆê°€ ì§€ë‚˜ë©´ 11.03 ìˆ˜ì •
+                        if(landSharkOutTime >= 2f)
                         {
-                            //Àáº¹À¸·Î º¯È¯
+                            //ì ë³µìœ¼ë¡œ ë³€í™˜
                             enemyScript.landShark.IsHide();
-                            //ÃÊ±âÈ­
+                            //ì´ˆê¸°í™”
                             landSharkOutTime = 0f;
                         }
                     }    
@@ -210,8 +225,9 @@ public class EnemyTrace : MonoBehaviour
 
                     PlayerController player = collision.GetComponent<PlayerController>();
 
-                    //¹üÀ§ ³»¿¡¼­ ¿òÁ÷ÀÓÀ» °¨Áö && °ø°İÁØºñ°¡ µÆÀ¸¸é
-                    if (player.isMoving && enemyScript.landShark.isAttackReady && enemyScript.landShark.isIn)
+                    //ë²”ìœ„ ë‚´ì—ì„œ ì›€ì§ì„ì„ ê°ì§€ && ê³µê²©ì¤€ë¹„ê°€ ëìœ¼ë©´ && ê³µê²©ì†ë„ 5ì´ˆ
+                    if (player.isMoving && enemyScript.landShark.isAttackReady && enemyScript.landShark.isIn 
+                        && laandSharkinAttackTime >= 5f)
                     {
                         landSharkAttackTime += Time.deltaTime;
 
@@ -224,21 +240,21 @@ public class EnemyTrace : MonoBehaviour
 
             }
 
-            // ¹«¸é±Í Àü¿ë
+            // ë¬´ë©´ê·€ ì „ìš©
             if (enemyScript.mumyeon_Gwi != null)
             {
                 if (collision.gameObject.CompareTag("Player"))
                 {
                     mumyeon_Gwi_Stay_Time += Time.deltaTime;
-                    // ¹«¸é±Í°¡ ÃßÀûÇÏ´Â ½Ã°£
+                    // ë¬´ë©´ê·€ê°€ ì¶”ì í•˜ëŠ” ì‹œê°„
                     if (mumyeon_Gwi_Stay_Time >= 5f)
                     {
-                        // ÃßÀûÀ» È°¼ºÈ­ ÇØÁÜ
+                        // ì¶”ì ì„ í™œì„±í™” í•´ì¤Œ
                         enemyScript.mumyeon_Gwi.isTrace = true;
                     }
                 }
             }
-            // Á×À½ Àå½Â Àü¿ë
+            // ì£½ìŒ ì¥ìŠ¹ ì „ìš©
             if (enemyScript.death_Jangseung != null)
             {
                 if (collision.gameObject.CompareTag("Player"))
@@ -256,17 +272,17 @@ public class EnemyTrace : MonoBehaviour
 
                 }
             }
-            // µÎ¾ï½Ã´Ï Àü¿ë
+            // ë‘ì–µì‹œë‹ˆ ì „ìš©
             if (enemyScript.duoksini != null)
             {
                 if (collision.gameObject.CompareTag("Player"))
                 {
-                    Debug.Log("À§Ä¡ ÃßÀûÁß");
+                    Debug.Log("ìœ„ì¹˜ ì¶”ì ì¤‘");
                     duoksiniTargetTrs = collision.transform.position;
 
                     if (duoksinitime >= enemyScript.duoksini.attackSeeTime && !enemyScript.duoksini.isAttackReady)
                     {
-                        Debug.Log("°ª Àü´Ş");
+                        Debug.Log("ê°’ ì „ë‹¬");
                         enemyScript.duoksini.attackTargetTrs = duoksiniTargetTrs;
 
                         enemyScript.duoksini.isAttackReady = true;
@@ -277,7 +293,7 @@ public class EnemyTrace : MonoBehaviour
 
                 }
             }
-            // ¾îµÏÁã Àü¿ë
+            // ì–´ë‘‘ì¥ ì „ìš©
             if (enemyScript.eo_dook_jwi != null)
             {
                 if (collision.gameObject.CompareTag("Player"))
@@ -287,19 +303,19 @@ public class EnemyTrace : MonoBehaviour
                 }
             }
 
-            // ¼Ò¸é±Í Àü¿ë
+            // ì†Œë©´ê·€ ì „ìš©
             if (enemyScript.somyeon_Gwi != null)
             {
                 if (collision.CompareTag("Player"))
                 {
                     Player_Item_Use itemUse = collision.GetComponent<Player_Item_Use>();
 
-                    Debug.Log("ÀÎ½Ä");
-                    // Player ÅÂ±×¸¦ °¡Áø ¿ÀºêÁ§Æ®°¡ ¾È¿¡ ÀÖ°í, EÅ°¸¦ ´­·¶À» ¶§
+                    Debug.Log("ì¸ì‹");
+                    // Player íƒœê·¸ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ê°€ ì•ˆì— ìˆê³ , Eí‚¤ë¥¼ ëˆŒë €ì„ ë•Œ
                     if (itemUse.isItemTouch && canIncrease)
                     {
                         if (enemyScript.somyeon_Gwi.rageCount == 3) { return; }
-                        Debug.Log("ºĞ³ë");
+                        Debug.Log("ë¶„ë…¸");
                         itemUse.isItemTouch = false;
                         enemyScript.somyeon_Gwi.rageCount++;
                         canIncrease = false;
@@ -317,22 +333,22 @@ public class EnemyTrace : MonoBehaviour
     {
         if (collision != null)
         {
-            //¹ş¾î³ª¸é false·Î º¯°æ
+            //ë²—ì–´ë‚˜ë©´ falseë¡œ ë³€ê²½
             if (collision.gameObject.CompareTag("Player"))
             {
                 enemy.isTrace = false;
 
-                //¶¥»ó¾î Àü¿ë
+                //ë•…ìƒì–´ ì „ìš©
                 if (enemyScript.landShark != null)
                 {
-                    //µ¹Ãâ·Î º¯È¯
+                    //ëŒì¶œë¡œ ë³€í™˜
                     enemyScript.landShark.isHideOut();
                 }
 
-                // ¹«¸é±Í Àü¿ë
+                // ë¬´ë©´ê·€ ì „ìš©
                 if (enemyScript.mumyeon_Gwi != null)
                 {
-                    // ¹ş¾î³ª¸é ½Ã°£ ÃÊ±âÈ­
+                    // ë²—ì–´ë‚˜ë©´ ì‹œê°„ ì´ˆê¸°í™”
                     mumyeon_Gwi_Stay_Time = 0f;
                 }
 
@@ -341,11 +357,11 @@ public class EnemyTrace : MonoBehaviour
         }
     }
     
-    // ÀÔ·Â°ª¿¡ µô·¹ÀÌ¸¦ ÁÜ
+    // ì…ë ¥ê°’ì— ë”œë ˆì´ë¥¼ ì¤Œ
     bool canIncrease = true;
     IEnumerator ResetIncrease()
     {
-        yield return new WaitForSeconds(0.2f); // 0.2ÃÊ ´ë±â
+        yield return new WaitForSeconds(0.2f); // 0.2ì´ˆ ëŒ€ê¸°
         canIncrease = true;
     }
 }
