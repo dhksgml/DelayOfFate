@@ -931,7 +931,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShopPrefab: {fileID: 183257260}
   QuestPrefab: {fileID: 2072755234}
-  weaponPrefab: {fileID: 0}
 --- !u!114 &1248057094 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8930466559979138845, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}

@@ -4,70 +4,70 @@ using UnityEngine;
 
 public class LandSharkAttack : EnemyAttack
 {
-    [Header("ë•…ìƒì–´")]
+    [Header("¶¥»ó¾î")]
     [SerializeField] LandShark landShark;
     [SerializeField] BoxCollider2D hideOutAttackColl;
-    bool isOutAttackReady; //ëŒì¶œì‹œ ê³µê²© í™•ì¸ìš©
+    bool isOutAttackReady; //µ¹Ãâ½Ã °ø°İ È®ÀÎ¿ë
     PlayerController player;
     public int landSharkJumpAttackDamage;
     public int currentDamage;
 
     void Awake()
     {
-        //í”Œë ˆì´ì–´ë¥¼ ì°¾ì•„ì„œ ì €ì¥í•´ì¤€ í›„
+        //ÇÃ·¹ÀÌ¾î¸¦ Ã£¾Æ¼­ ÀúÀåÇØÁØ ÈÄ
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         currentDamage = enemyDamage;
     }
 
 
-    void update()
+    void Update()
     {
         transform.position = enemy.transform.position;
-        //ê±°ë¦¬ë¥¼ ê³„ì‚°í•˜ê³ 
-        //float distance = vector3.distance(transform.position, player.transform.position);
+        //°Å¸®¸¦ °è»êÇÏ°í
+        float distance = Vector3.Distance(transform.position, player.transform.position);
 
-        ////ëŒì¶œ ìƒíƒœì´ê³ , ì ë³µ ìƒíƒœê°€ ì•„ë‹ˆë©°, ì¶”ì ì¤‘ì¼ì‹œ
-        //if (landshark.isout && !landshark.isin && landshark.istrace)
-        //{
-        //    transform.position = enemy.transform.position;
-        //    //ê³µê²© ì¤€ë¹„ê°€ ì•ˆë  ì‹œì—ë§Œ
-        //    if (!isoutattackready) time += time.deltatime;
+        //µ¹Ãâ »óÅÂÀÌ°í, Àáº¹ »óÅÂ°¡ ¾Æ´Ï¸ç, ÃßÀûÁßÀÏ½Ã
+        if (landShark.isOut && !landShark.isIn && landShark.isTrace)
+        {
+            transform.position = enemy.transform.position;
+            //°ø°İ ÁØºñ°¡ ¾ÈµÉ ½Ã¿¡¸¸
+            if (!isOutAttackReady) time += Time.deltaTime;
 
-        //    rotationcoll();
+            rotationColl();
 
-        //    //ê³µê²© ì‹œê°„ì´ ëê³ , ëª©í‘œì™€ì˜ ê±°ë¦¬ê°€ 1f ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ìœ¼ë©´ ê³µê²©
-        //    if (time >= enemyattackspeed && !isoutattackready
-        //        && distance <= 5f)
-        //    {
-        //        //ê³µê²© ì¤€ë¹„ í™œì„±í™”
-        //        isoutattackready = true;
-        //        //ì—ë‹ˆë©”ì´ì…˜ í™œì„±í™”
-        //        debug.log(4);
-        //        //ê³µê²© ì½œë¼ì´ë” í™œì„±í™” í•´ì¤Œ
-        //        hideoutattackcoll.enabled = true;
-        //        //ì‹œê°„ ì´ˆê¸°í™”
-        //        time = 0;
-        //        //0.5ì´ˆí›„ ê³µê²© ì½œë¼ì´ë” ë¹„í™œì„±í™”
-        //        invoke("attackdelay", 0.5f);
-        //    }
-        //}
+            //°ø°İ ½Ã°£ÀÌ µÆ°í, ¸ñÇ¥¿ÍÀÇ °Å¸®°¡ 1f º¸´Ù ÀÛ°Å³ª °°À¸¸é °ø°İ
+            if (time >= enemyAttackSpeed && !isOutAttackReady
+                && distance <= 5f)
+            {
+                //°ø°İ ÁØºñ È°¼ºÈ­
+                isOutAttackReady = true;
+                //¿¡´Ï¸ŞÀÌ¼Ç È°¼ºÈ­
+                Debug.Log(4);
+                //°ø°İ Äİ¶óÀÌ´õ È°¼ºÈ­ ÇØÁÜ
+                hideOutAttackColl.enabled = true;
+                //½Ã°£ ÃÊ±âÈ­
+                time = 0;
+                //0.5ÃÊÈÄ °ø°İ Äİ¶óÀÌ´õ ºñÈ°¼ºÈ­
+                Invoke("AttackDelay", 0.5f);
+            }
+        }
 
     }
 
-    //public void AttackDelay()
-    //{
-    //    Debug.Log(5);
-    //    hideOutAttackColl.enabled = false;
-    //    isOutAttackReady = false;
-    //    //ì—ë‹ˆë©”ì´ì…˜
-    //}
+    public void AttackDelay()
+    {
+        Debug.Log(5);
+        hideOutAttackColl.enabled = false;
+        isOutAttackReady = false;
+        //¿¡´Ï¸ŞÀÌ¼Ç
+    }
 
     public void JumpAttack()
     {
         enemyDamage = 0;
 
-        if (enemyAttackCollider is CircleCollider2D circleColl) { circleColl.radius = 1.0f; }
-        //ì½œë¼ì´ë” í™œì„±í™”ë¥¼ í•´ì¤Œ
+        if (enemyAttackCollider is CircleCollider2D circleColl) { circleColl.radius = 3.0f; }
+        //Äİ¶óÀÌ´õ È°¼ºÈ­¸¦ ÇØÁÜ
         enemyAttackCollider.enabled = true;
         landShark.isStop = true;
 
@@ -81,7 +81,7 @@ public class LandSharkAttack : EnemyAttack
             if (collision.gameObject.CompareTag("Player"))
             {
                 PlayerController player = collision.GetComponent<PlayerController>();
-                //ì¶©ëŒì‹œ ë°ë¯¸ì§€ë¥¼ ì¤Œ
+                //Ãæµ¹½Ã µ¥¹ÌÁö¸¦ ÁÜ
                 player.DamagedHP(enemyDamage);
             }
         }
