@@ -16,6 +16,7 @@ public class Mission_System : MonoBehaviour
     public Image rewardIconImages; // 보상 아이콘을 표시할 Image 컴포넌트들
 
     private PassiveItemManager passiveItemManager;
+    
 
     public Sprite soul_icon;
     public Sprite coin_icon;
@@ -70,7 +71,7 @@ public class Mission_System : MonoBehaviour
     void Start()
     {
         passiveItemManager = FindObjectOfType<PassiveItemManager>();
-
+        
         GenerateRandomMission();
     }
     void Update()
@@ -239,32 +240,58 @@ public class Mission_System : MonoBehaviour
     void UpdateRewardIcon()
     {
         string rewardStr = "";
+
         if (currentMission.rewardType == RewardType.Money)
         {
             rewardIconImages.sprite = coin_icon;
-            rewardStr = $"혼 {currentMission.rewardValue}";
+            rewardStr = $"{currentMission.rewardValue}<sprite=9>";
             rewardIconImages.gameObject.SetActive(true);
-            return;
         }
         else if (currentMission.rewardType == RewardType.Soul)
         {
             rewardIconImages.sprite = soul_icon;
-            rewardStr = $"냥 {currentMission.rewardValue}";
+            rewardStr = $"{currentMission.rewardValue}<sprite=8>";
             rewardIconImages.gameObject.SetActive(true);
-            return;
         }
         else
         {
+            // passiveRewardId null 체크
+            if (string.IsNullOrEmpty(currentMission.passiveRewardId))
+            {
+                Debug.LogError("passiveRewardId가 null입니다!");
+                rewardIconImages.gameObject.SetActive(false);
+                rewardStr = "보상 오류";
+                rewardText.text = $"[{rewardStr}]";
+                return;
+            }
+
             string[] parts = currentMission.passiveRewardId.Split('_');
             if (parts.Length < 4)
             {
                 Debug.LogError($"잘못된 passiveRewardId: {currentMission.passiveRewardId}");
+                rewardIconImages.gameObject.SetActive(false);
+                rewardStr = "보상 오류";
+                rewardText.text = $"[{rewardStr}]";
                 return;
             }
-            int group = int.Parse(parts[2]); // 1~7
-            int number = int.Parse(parts[3]); // 1~3
 
-            // PassiveItemManager에서 아이콘 가져오기
+            int group = int.Parse(parts[2]);
+            int number = int.Parse(parts[3]);
+
+            // passiveItemManager null 체크 추가
+            if (passiveItemManager == null)
+            {
+                passiveItemManager = FindObjectOfType<PassiveItemManager>();
+                if (passiveItemManager == null)
+                {
+                    Debug.LogError("PassiveItemManager를 찾을 수 없습니다!");
+                    rewardIconImages.gameObject.SetActive(false);
+                    rewardStr = "보상 오류";
+                    rewardText.text = $"[{rewardStr}]";
+                    return;
+                }
+            }
+
             Sprite icon = passiveItemManager.GetIcon(group, number);
 
             if (icon != null)
@@ -277,8 +304,10 @@ public class Mission_System : MonoBehaviour
                 Debug.LogWarning($"아이콘을 찾을 수 없음: group={group}, number={number}");
                 rewardIconImages.gameObject.SetActive(false);
             }
-            rewardStr = passiveItemManager.GetPassiveName(group, number); //패시브의 이름 가져오기
+
+            rewardStr = passiveItemManager.GetPassiveName(group, number);
         }
+
         rewardText.text = $"[{rewardStr}]";
     }
     // UI 업데이트
