@@ -42,7 +42,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _EnableExternalAlpha: 0
-    - _GlowStrength: 0
+    - _GlowStrength: 1
     - _GlowThickness: 10
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
