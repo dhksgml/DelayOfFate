@@ -58,8 +58,8 @@ public class MissionManager : MonoBehaviour
         if (missionSlot1 != null) missionSlot1.GenerateRandomMission();
         if (missionSlot2 != null) missionSlot2.GenerateRandomMission();
         if (missionSlot3 != null) missionSlot3.GenerateRandomMission();
-
         UpdateSelectionUI();
+        UpdateMissionInfo(); // 설명 업데이트
     }
 
     void Update()
@@ -106,18 +106,57 @@ public class MissionManager : MonoBehaviour
             currentSelectedIndex--;
             if (currentSelectedIndex < 0) currentSelectedIndex = 2;
             UpdateSelectionUI();
+            UpdateMissionInfo(); // 설명 업데이트
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             currentSelectedIndex++;
             if (currentSelectedIndex > 2) currentSelectedIndex = 0;
             UpdateSelectionUI();
+            UpdateMissionInfo(); // 설명 업데이트
         }
 
         // Z, X, C 키로 각 미션 직접 선택
         if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.C)) && !isMissionActive)
         {
             SelectMission(currentSelectedIndex);
+        }
+    }
+    void UpdateMissionInfo()
+    {
+        Mission_System selectedSlot = null;
+
+        switch (currentSelectedIndex)
+        {
+            case 0: selectedSlot = missionSlot1; break;
+            case 1: selectedSlot = missionSlot2; break;
+            case 2: selectedSlot = missionSlot3; break;
+        }
+
+        if (selectedSlot == null) return;
+
+        var missionData = selectedSlot.GetCurrentMission();
+        print(missionData.passiveRewardId);
+        if (missionData.passiveRewardId == "Soul_Add_10_1")
+        {
+
+        }
+        if (missionData.passiveRewardId == "Soul_Add_10_2")
+        {
+
+        }
+        // 혼령강화 보상이면 설명 업데이트
+        if (!string.IsNullOrEmpty(missionData.passiveRewardId))
+        {
+            var item = PassiveItemManager.Instance.passiveItems.Find(i => i.id == missionData.passiveRewardId);
+            if (item != null)
+            {
+                PassiveItemUI passiveUI = FindObjectOfType<PassiveItemUI>();
+                if (passiveUI != null)
+                {
+                    passiveUI.Show(item.itemName, item.description, item.rating);
+                }
+            }
         }
     }
 
