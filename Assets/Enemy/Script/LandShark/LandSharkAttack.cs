@@ -20,7 +20,7 @@ public class LandSharkAttack : EnemyAttack
     }
 
 
-    void update()
+    void Update()
     {
         transform.position = enemy.transform.position;
         //거리를 계산하고
@@ -62,13 +62,14 @@ public class LandSharkAttack : EnemyAttack
     //    //에니메이션
     //}
 
+
     public void JumpAttack()
     {
         enemyDamage = 0;
 
         if (enemyAttackCollider is CircleCollider2D circleColl) { circleColl.radius = 1.0f; }
         //콜라이더 활성화를 해줌
-        enemyAttackCollider.enabled = true;
+
         landShark.isStop = true;
 
         StartCoroutine(landShark.LandSharkJumpAttackMove());

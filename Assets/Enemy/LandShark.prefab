@@ -95,7 +95,7 @@ Animator:
   m_GameObject: {fileID: 1902187862267331529}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 876afc79227135541ba63a4bfffc23c5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -117,7 +117,6 @@ GameObject:
   - component: {fileID: 4851308850538048360}
   - component: {fileID: 3641203100698774316}
   - component: {fileID: 4991230593709573676}
-  - component: {fileID: 3554448191203665953}
   m_Layer: 31
   m_Name: EnemyAttackRange
   m_TagString: EnemyAttack
@@ -152,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3932738c9abf56a4c9105b88e05382d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyDamage: 5
+  enemyDamage: 0
   enemyAttackSpeed: 2
   enemyAttackRange: 3
   enemyAttackType: 0
@@ -160,7 +159,7 @@ MonoBehaviour:
   enemy: {fileID: 2294743210190872661}
   time: 0
   landShark: {fileID: 2294743210190872661}
-  hideOutAttackColl: {fileID: 3554448191203665953}
+  hideOutAttackColl: {fileID: 0}
   landSharkJumpAttackDamage: 40
   currentDamage: 0
 --- !u!58 &4991230593709573676
@@ -198,51 +197,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1
---- !u!61 &3554448191203665953
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6330718908070289086}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.5, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!1 &6855693868523006174
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,7 +373,7 @@ MonoBehaviour:
   enemyTrace: {fileID: 4231743506589331239}
   enemyAttack: {fileID: 3641203100698774316}
   sp: {fileID: 5755899185138553518}
-  anim: {fileID: 0}
+  anim: {fileID: 4049131434988687016}
   enemyCorpse: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
   enemyCorpseData: {fileID: 11400000, guid: 160f2d3033bb9524fa884c730fd94f73, type: 2}
   uiCanvas: {fileID: 0}
@@ -437,10 +391,10 @@ MonoBehaviour:
   enemyMoveDir: {x: 0, y: 0, z: 0}
   moveDirection: {x: 0, y: 0, z: 0}
   isOut: 0
-  isIn: 0
+  isIn: 1
   isAttackReady: 0
   isStop: 0
-  landSharkAttackSpeed: 15
+  landSharkAttackSpeed: 4
   landSharkAttack: {fileID: 3641203100698774316}
   hideSprite: {fileID: -147715988, guid: 2a0dcfd9adc02c6418dcfe73aba667ff, type: 3}
   OutSprite: {fileID: -1995046366, guid: 52dbd5d1ee255f44ea3550ffec8a0123, type: 3}
