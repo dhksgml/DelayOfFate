@@ -109,11 +109,7 @@ public class EnemyTrace : MonoBehaviour
             //땅상어 전용
             if (enemyScript.landShark != null)
             {
-                if (collision.gameObject.CompareTag("Player"))
-                {
-                    //잠복으로 변환
-                    enemyScript.landShark.IsHide();
-                }
+
             }
 
 
@@ -154,6 +150,7 @@ public class EnemyTrace : MonoBehaviour
     //땅상어 전용
     float landSharkOutTime;
     float laandSharkinAttackTime;
+    float landSharkAttackTime2;
 
     // 무면귀 전용
     float mumyeon_Gwi_Stay_Time;
@@ -202,6 +199,8 @@ public class EnemyTrace : MonoBehaviour
                 enemy.isTrace = true;
             }
 
+            
+
             //땅상어 전용
             if (enemyScript.landShark != null)
             {
@@ -225,13 +224,14 @@ public class EnemyTrace : MonoBehaviour
 
                     PlayerController player = collision.GetComponent<PlayerController>();
 
+
                     //범위 내에서 움직임을 감지 && 공격준비가 됐으면 && 공격속도 5초
                     if (player.isMoving && enemyScript.landShark.isAttackReady && enemyScript.landShark.isIn 
                         && laandSharkinAttackTime >= 5f)
                     {
-                        landSharkAttackTime += Time.deltaTime;
+                        landSharkAttackTime2 += Time.deltaTime;
 
-                        if(landSharkAttackTime >= 0.5f)
+                        if (landSharkAttackTime2 >= 0.5f)
                         {
                             enemyScript.landSharkAttack.JumpAttack();
                         }

@@ -62,8 +62,7 @@ public class LandShark : Enemy
         {
             sp.sprite = OutSprite;
         }
-        // 스프라이트 회전
-        EnemyNormalTurn2();
+
 
         //잠복시 회복 시간
         healTime += Time.deltaTime;
@@ -75,39 +74,61 @@ public class LandShark : Enemy
         if(!isStop) { EnemyMove(); }
     }
 
+
+    bool isRush;
+
+    void PlayerTrsFind()
+    {
+        enemyTargetDir = (player.transform.position - transform.position).normalized;
+    }
+
     public override void EnemyMove()
     {
-        enemyTargetDir = (enemyTrace.targetPos - transform.position).normalized;
+        
 
-        //돌출 시
-        if (isOut && !isIn && isTrace)
+        if (isRush)
         {
-            rigid.MovePosition(transform.position + enemyTargetDir * enemyRunSpeed * Time.deltaTime);
+            // 에니메이션
+            EnemyTraceTurn();
+
+            // 이동
+            transform.Translate(enemyTargetDir * landSharkAttackSpeed * Time.deltaTime);
         }
 
         //최대 채력이 아니면 도망
         else if(isEnemyRun)
         {
+            enemyTargetDir = (enemyTrace.targetPos - transform.position).normalized;
             rigid.MovePosition(transform.position + -enemyTargetDir * enemyRunSpeed * Time.deltaTime);
+            EnemyTraceTurn();
         }
 
         else
         {
             transform.Translate(moveDirection * enemyMoveSpeed * Time.deltaTime);
+            // 스프라이트 회전
+            EnemyNormalTurn();
         }
     }
 
     //잠복으로 변환 하는 메서드
     public void IsHide()
     {
-        isIn = true;
         isOut = false;
+        isIn = true;
+
+        // 에니메이션 실행
+        anim.SetBool("isHide", true);
     }
     //돌출로 변환 하는 메서드
     public void isHideOut()
     {
         isIn = false;
         isOut = true;
+
+        // 에니메이션 실행
+        anim.SetBool("isHide", false);
+
     }
 
     void LandSharkStat()
@@ -141,35 +162,28 @@ public class LandShark : Enemy
 
     public IEnumerator LandSharkJumpAttackMove()
     {
+        // 에니메이션 실행 11.03
+        anim.SetBool("isAttackReady", true);
+        PlayerTrsFind();
         // 도약 전 0.5초 대기 11.03
         yield return new WaitForSeconds(0.5f);
 
-        float stopDistance = 0f;
+        // 에니메이션 실행 11.03
+        anim.SetBool("isAttack", true);
 
-        float distanceToTarget = Vector3.Distance(transform.position, enemyTrace.targetPos);
-        enemyTargetDir = (enemyTrace.targetPos - transform.position).normalized;
-        Vector3 targetPosition = enemyTrace.targetPos + (enemyTargetDir * stopDistance);
-        
-        //거리가 멈추는 거리보다 크면 근데 사실상 true라 초에 맞춰서 멈추게 해주었음
-        if (distanceToTarget > stopDistance)
-        {
-            //데미지를 점프 어택 데미지만큼 할당시켜줌
-            landSharkAttack.enemyDamage = landSharkAttack.landSharkJumpAttackDamage;
-            //플레이어를 뚫고 가야 하기 때문에 잠시 꺼준 후
-            rigid.simulated = false;
+        isStop = false;
+        landSharkAttack.enemyAttackCollider.enabled = true;
+        isRush = true;
 
-            transform.position = Vector3.MoveTowards(
-                transform.position,
-                targetPosition - Vector3.right,
-                landSharkAttackSpeed * Time.deltaTime
-            );
-            //0.7초. 이건 행동 보고 수정해줘야 할 듯
-            yield return new WaitForSeconds(0.7f);
-        }
+        landSharkAttack.enemyDamage = landSharkAttack.landSharkJumpAttackDamage;
+
+        //0.7초. 이건 행동 보고 수정해줘야 할 듯
+        yield return new WaitForSeconds(1f);
+
+        isRush = false;
 
         //공격 트리거 초기화
         isAttackReady = false;
-        isStop = false;
         enemyTrace.landSharkAttackTime = 0;
 
         //콜라이더 비활성화
@@ -183,6 +197,9 @@ public class LandShark : Enemy
 
         //잠복이 끝나고 돌출로 바꿔줌
         isHideOut();
+
+        anim.SetBool("isAttack", false);
+        anim.SetBool("isAttackReady", false);
 
         yield return null;
     }
