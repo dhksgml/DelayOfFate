@@ -12,21 +12,28 @@ public class Stage_Manager : MonoBehaviour
     public GameObject WeaponPrefab; //무기 장착 페이지
 
     public TMP_Text tooltip_text; // 툴팁
-    public void Weapon_ch() // 장비 씬으로 전환되었을때
+
+    private void Start()
     {
-        Bk_image.sprite = Quest_weapon_image[0];//바꿔야함
-        WeaponPrefab.SetActive(true);
-        QuestPrefab.SetActive(false);
-        ShopPrefab.SetActive(false);
-        tooltip_text.text = "조작[방향키]\n장착[Z]";
+        Mission_ch();
+        MissionManager.Instance.Mission_ok = true; // 미션 부터 시작
+        MissionManager.Instance.Mission_start();
     }
     public void Mission_ch() // 미션 씬으로 전환되었을때
     {
-        Bk_image.sprite = Quest_weapon_image[0];//바꿔야함
+        Bk_image.sprite = Quest_weapon_image[1];//바꿔야함
         WeaponPrefab.SetActive(false);
         QuestPrefab.SetActive(true);
         ShopPrefab.SetActive(false);
         tooltip_text.text = "조작[방향키]\n결정[Z]";
+    }
+    public void Weapon_ch() // 장비 씬으로 전환되었을때
+    {
+        Bk_image.sprite = Quest_weapon_image[2];//바꿔야함
+        WeaponPrefab.SetActive(true);
+        QuestPrefab.SetActive(false);
+        ShopPrefab.SetActive(false);
+        tooltip_text.text = "조작[방향키]\n장착[Z], 해제[X]";
     }
     public void Shop_ch() // 상점 페이지로 전환
     {

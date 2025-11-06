@@ -8,14 +8,12 @@ public class ShopQuickSlot : MonoBehaviour
 {
     public Item[] quickSlots = new Item[4]; // 4개의 퀵슬롯
     public ItemData[] SlotsData; // 슬롯이 가지고 있는 아이템 데이터
-    //public Item[] weaponSlots = new Item[2];
     public ItemData[] weaponSlotsData;
     public int selectedWeaponIndex = 0;
     public int selectedSlotIndex = 0; // 현재 선택된 슬롯
 
     public Image[] weaponSlotImage;
 
-    //public TMP_Text[] weapon_Count;     // 무기 개수 (없애야 하나 고민중)
     public TMP_Text weapon_name;     // 무기 이름 
     public Image[] slotImages;          // 각 슬롯의 아이템 아이콘
     public Image[] slotBackgrounds;     // 각 슬롯의 배경 이미지 (활성화 표시)

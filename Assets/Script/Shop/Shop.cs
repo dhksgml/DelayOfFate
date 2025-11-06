@@ -19,21 +19,18 @@ public class Shop : MonoBehaviour
 
     private List<string> soulNames = new List<string>();
     private List<int> soulPrices = new List<int>();
-    private bool[] soulPurchased = new bool[4]; // 영혼 4개 구매 여부
+    private bool[] soulPurchased = new bool[8]; // 영혼 4개 구매 여부
 
     private List<string> allSoulIds = new List<string>();
 
     public Image[] soulIcons; // UI에 보여줄 아이콘 4개
 
     public TMP_Text[] weaponSlots; // 상품 목록들 무기, 영혼, 초롱
-    public ItemData[] weaponData; // 무기 데이터
+    
 
     [SerializeField] private List<Transform> menuItems; // 버튼 15개
     [SerializeField] private int currentIndex = 0;
     [SerializeField] private Transform selector; // 선택 표시용 오브젝트
-
-    private int rowSize = 5; // 가로 5개
-    private int rowCount = 3; // 세로 3줄
 
     public GameObject ch_soul_gold_bt;//교환 버튼 (비활성화 용)
     public GameObject ch_gold_soul_bt;//교환 버튼 (비활성화 용)
@@ -53,7 +50,7 @@ public class Shop : MonoBehaviour
     private string[] noWeaponLines = { "어이, \n무기는 가져가야지!" };
     private string[] enoughWeaponLines = { "무기는 2개면\n충분하지." };
     private string itemId = "Soul_Add_8_1";
-    private string[] soul_num = new string[4];//영혼 설명용 임시 지역 변수
+    private string[] soul_num = new string[8];//영혼 설명용 임시 지역 변수
     private PassiveItemUI passiveItemUI;
     private PassiveItemManager passiveItemManager;
     private Stage_Manager stage_Manager;
@@ -109,85 +106,111 @@ public class Shop : MonoBehaviour
     {
         int previousIndex = currentIndex; // 이전 인덱스 저장
 
+        // ============================================
+        // 현재 줄과 해당 줄의 시작/끝 인덱스 계산
+        // 1줄(0~3): 4개, 2줄(4~7): 4개, 3줄(8~12): 5개
+        // 3줄 배치 순서 이전, 리롤, 전투, 교환, 교환 
+        // ============================================
+        int currentRow = GetRowFromIndex(currentIndex);
+        int rowStart = GetRowStartIndex(currentRow);
+        int rowEnd = GetRowEndIndex(currentRow);
+        int rowLength = rowEnd - rowStart + 1;
+
         // 위로 이동
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            currentIndex -= rowSize;
-            if (currentIndex < 0) currentIndex += rowSize * rowCount;
-        }
-        // 아래로 이동
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            currentIndex += rowSize;
-            if (currentIndex >= rowSize * rowCount) currentIndex -= rowSize * rowCount;
-        }
-        // 왼쪽 이동
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            int rowStart = (currentIndex / rowSize) * rowSize;
-            currentIndex--;
-            if (currentIndex < rowStart) currentIndex = rowStart + rowSize - 1;
-        }
-        // 오른쪽 이동
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            int rowStart = (currentIndex / rowSize) * rowSize;
-            int rowEnd = rowStart + rowSize - 1;
-            currentIndex++;
-            if (currentIndex > rowEnd) currentIndex = rowStart;
-        }
-
-        // ===== 이동 불가능한 곳 체크 =====
-        // 9번은 개발중이라 스킵
-        if (currentIndex == 9)
-        {
-            // 위에서 왔으면 11로, 아래서 왔으면 9로
-            if (previousIndex > currentIndex) // 아래에서 위로
-                currentIndex = 8;
-            else // 위에서 아래로
-                currentIndex = 11;
-        }
-        if (currentIndex == 10)
-        {
-            // 위에서 왔으면 11로, 아래서 왔으면 9로
-            if (previousIndex > currentIndex) // 아래에서 위로
-                currentIndex = 9;
-            else // 위에서 아래로
-                currentIndex = 11;
-        }
-        // 13, 14번은 1일차에는 접근 불가
-        if (GameManager.Instance.Day == 1)
-        {
-            if (currentIndex == 13 || currentIndex == 14)
+            if (currentRow == 0) // 1줄에서 위로
             {
-                // 위에서 왔으면 12로, 아래/오른쪽에서 왔으면 되돌리기
-                if (previousIndex < currentIndex) // 위에서 아래로 or 왼쪽에서 오른쪽으로
-                    currentIndex = 12;
-                else // 아래에서 위로 or 오른쪽에서 왼쪽으로
-                    currentIndex = previousIndex; // 원래 위치로 복귀
+                // 3줄로 이동 (같은 열 유지, 3줄이 더 길면 끝으로)
+                int columnInRow = currentIndex - rowStart;
+                currentIndex = 8 + columnInRow; // 3줄 시작(8) + 열 위치
+                if (currentIndex > 12) currentIndex = 12; // 3줄 끝
+            }
+            else if (currentRow == 1) // 2줄에서 위로
+            {
+                // 1줄로 이동
+                int columnInRow = currentIndex - rowStart;
+                currentIndex = 0 + columnInRow; // 1줄 시작(0) + 열 위치
+            }
+            else if (currentRow == 2) // 3줄에서 위로
+            {
+                // 2줄로 이동 (3줄이 5개라 4번째부터는 2줄 끝으로)
+                int columnInRow = currentIndex - rowStart;
+                currentIndex = 4 + columnInRow; // 2줄 시작(4) + 열 위치
+                if (currentIndex > 7) currentIndex = 7; // 2줄 끝
             }
         }
 
-        // UI 업데이트 (이동이 확정된 후)
+        // 아래로 이동
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            if (currentRow == 0) // 1줄에서 아래로
+            {
+                // 2줄로 이동
+                int columnInRow = currentIndex - rowStart;
+                currentIndex = 4 + columnInRow; // 2줄 시작(4) + 열 위치
+            }
+            else if (currentRow == 1) // 2줄에서 아래로
+            {
+                // 3줄로 이동 (같은 열 유지)
+                int columnInRow = currentIndex - rowStart;
+                currentIndex = 8 + columnInRow; // 3줄 시작(8) + 열 위치
+            }
+            else if (currentRow == 2) // 3줄에서 아래로
+            {
+                // 1줄로 이동 (3줄이 5개라 4번째부터는 1줄 끝으로)
+                int columnInRow = currentIndex - rowStart;
+                currentIndex = 0 + columnInRow; // 1줄 시작(0) + 열 위치
+                if (currentIndex > 3) currentIndex = 3; // 1줄 끝
+            }
+        }
+
+        // 왼쪽 이동
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            currentIndex--;
+            if (currentIndex < rowStart) currentIndex = rowEnd; // 현재 줄의 끝으로
+        }
+
+        // 오른쪽 이동
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            currentIndex++;
+            if (currentIndex > rowEnd) currentIndex = rowStart; // 현재 줄의 시작으로
+        }
+
+        // 11, 12번은 1일차에는 접근 불가 (3줄 4, 5번째)
+        if (GameManager.Instance.Day == 1)
+        {
+            if (currentIndex == 11 || currentIndex == 12)
+            {
+                if (previousIndex < currentIndex) // 왼쪽에서 오른쪽으로 or 위에서 아래로
+                    currentIndex = previousIndex; // 원래 위치로 복귀
+                else // 오른쪽에서 왼쪽으로 or 아래에서 위로
+                    currentIndex = 10;
+            }
+        }
+
+        // UI 업데이트
         UpdateSelectorPosition();
 
-        // itemId 설정
-        if (currentIndex == 0) { itemId = "Soul_Add_8_1"; }
-        else if (currentIndex == 1) { itemId = "Soul_Add_8_2"; }
-        else if (currentIndex == 2) { itemId = "Soul_Add_8_3"; }
-        else if (currentIndex == 3) { itemId = "Soul_Add_8_4"; }
-        else if (currentIndex == 4) { itemId = "Soul_Add_8_5"; }
-        else if (currentIndex == 5) { itemId = soul_num[0]; }
-        else if (currentIndex == 6) { itemId = soul_num[1]; }
-        else if (currentIndex == 7) { itemId = soul_num[2]; }
-        else if (currentIndex == 8) { itemId = soul_num[3]; }
-        else if (currentIndex == 9) { itemId = "Soul_Add_9_1"; }
-        else if (currentIndex == 10) { itemId = ""; } // 개발중
-        else if (currentIndex == 11) { itemId = "Soul_Add_10_4"; }
-        else if (currentIndex == 12) { itemId = "Soul_Add_10_5"; }
-        else if (currentIndex == 13) { itemId = "Soul_Add_10_6"; }
-        else if (currentIndex == 14) { itemId = "Soul_Add_10_7"; }
-        else { itemId = ""; }
+        // ===== itemId 설정 =====
+        // 1줄(0~3): soul_num[0~3]
+        // 2줄(4~7): soul_num[4~7]
+        // 3줄(8~12): Soul_Add_10_1 ~ Soul_Add_10_5
+        if (currentIndex >= 0 && currentIndex <= 7)
+        {
+            itemId = soul_num[currentIndex];
+        }
+        else if (currentIndex >= 8 && currentIndex <= 12)
+        {
+            int soulAddIndex = currentIndex - 8 + 1; // 8→1, 9→2, 10→3, 11→4, 12→5
+            itemId = $"Soul_Add_10_{soulAddIndex}";
+        }
+        else
+        {
+            itemId = "";
+        }
 
         var item = PassiveItemManager.Instance.passiveItems.Find(i => i.id == itemId);
         if (item != null)
@@ -201,6 +224,34 @@ public class Shop : MonoBehaviour
             ExecuteOption(currentIndex);
         }
     }
+    int GetRowFromIndex(int index)// 0~3: 0줄, 4~7: 1줄, 8~12: 2줄
+    {
+        if (index >= 0 && index <= 3) return 0; // 1줄
+        if (index >= 4 && index <= 7) return 1; // 2줄
+        if (index >= 8 && index <= 12) return 2; // 3줄
+        return 0;
+    }
+    int GetRowStartIndex(int row)// Helper: 줄의 시작 인덱스
+    {
+        switch (row)
+        {
+            case 0: return 0;  // 1줄 시작
+            case 1: return 4;  // 2줄 시작
+            case 2: return 8;  // 3줄 시작
+            default: return 0;
+        }
+    }
+    int GetRowEndIndex(int row)// Helper: 줄의 끝 인덱스
+    {
+        switch (row)
+        {
+            case 0: return 3;  // 1줄 끝 (4개)
+            case 1: return 7;  // 2줄 끝 (4개)
+            case 2: return 12; // 3줄 끝 (5개)
+            default: return 0;
+        }
+    }
+
 
     private void UpdateSelectorPosition()
     {
@@ -215,20 +266,15 @@ public class Shop : MonoBehaviour
         //var itemId = "Soul_Add_4_3";
         //var item = PassiveItemManager.Instance.passiveItems.Find(i => i.id == itemId);
         Debug.Log("선택된 아이템: " + index);
-        if (index >= 0 && index <= 4)
+        if (index >= 0 && index <= 7)
         {
-            BuyWeapon(index);
+            BuySoul(index);
         }
-        else if (index >= 5 && index <= 8)
-        {
-            BuySoul(index-5);
-        }
-        if (index == 9) { /*호롱강화?*/ }
-        if (index == 10) { /*장비장착으로*/ }
-        if (index == 11) { Reroll(); }
-        if (index == 12) { stage_Manager.Battle_ch(); }
-        if (index == 13) { Soul_c_Gold(); }
-        if (index == 14) { Gold_c_Soul(); }
+        if (index == 8) { Reroll(); }//이전으로 돌아가기 코드 넣기
+        if (index == 9) { Reroll(); } 
+        if (index == 10) { stage_Manager.Battle_ch(); }
+        if (index == 11) { Soul_c_Gold(); }
+        if (index == 12) { Gold_c_Soul(); }
         //passiveItemUI.Show(item.itemName, item.description, item.rating);
 
         // index 기준으로 상점 로직 실행 (예: 구매, 설명창 열기 등)
@@ -236,19 +282,15 @@ public class Shop : MonoBehaviour
     void InitializeShop()
     {
         weaponPrices.Clear();
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 8; i++)
         {
-            //int weaponPrice = 30 + (GameManager.Instance.Day * 30); //무기 금액
-            int weaponPrice = 0;
-            weaponPrices.Add(weaponPrice);
-            weaponSlots_text(i, weaponPrice, "Gold");
+            weaponSlots_text(i, 0, "Gold");
         }
 
-        weaponSlots_text(9, lantern_1, "Soul"); // 초롱가격
-        weaponSlots_text(10, rerollCost, "Soul"); // 리롤 가격
+        weaponSlots_text(8, rerollCost, "Soul"); // 리롤 가격
 
         // 영혼 구매 상태 초기화
-        soulPurchased = new bool[4];
+        soulPurchased = new bool[8];
         RerollSouls();
     }
     void weaponSlots_text(int Slot,int coin,string name)
@@ -263,60 +305,7 @@ public class Shop : MonoBehaviour
             weaponSlots[Slot].text += "<sprite=9> ";
         }
     }
-    public void BuyWeapon(int index) // 무기 구매
-    {
-        if (index < 0 || index >= 5) return;
 
-        int price = weaponPrices[index];
-
-        if (PassiveItemManager.Instance != null)
-            price = 0;
-
-        if (Gold < price) 
-        { 
-            speech_bubble_on("부족");
-            return;
-        }
-
-        // 내부에서 바로 퀵슬롯 참조
-        ShopQuickSlot shopQuickSlot = FindObjectOfType<ShopQuickSlot>();
-        if (shopQuickSlot == null) return;
-
-        // 빈 슬롯 찾기
-        int emptySlotIndex = -1;
-        for (int i = 0; i < shopQuickSlot.weaponSlotsData.Length; i++)
-        {
-            ItemData item = shopQuickSlot.weaponSlotsData[i];
-            if (item == null || string.IsNullOrEmpty(item.itemName))
-            {
-                emptySlotIndex = i;
-                break;
-            }
-        }
-
-        if (emptySlotIndex == -1)
-        {
-            Debug.Log("퀵슬롯이 모두 찼습니다.");
-            Shop shop = FindObjectOfType<Shop>();
-            if (shop != null)
-                shop.speech_bubble_on("무기충분");
-            return;
-        }
-        GameManager.Instance.Sub_Gold(price);
-
-        weaponSlots[index].text = "구매 완료";
-        GameEvents.CallBuyWeapon();
-        speech_bubble_on("구매");
-        Button btn = weaponSlots[index].GetComponentInParent<Button>();
-        if (btn != null) btn.interactable = false;
-
-        if (SoundManager.Instance != null)
-            SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
-
-        shopQuickSlot.weaponSlotsData[emptySlotIndex] = weaponData[index];
-        GameManager.Instance.WeaponData[emptySlotIndex] = shopQuickSlot.weaponSlotsData[emptySlotIndex];
-        OnItemHover(emptySlotIndex, weaponData[index]);
-    }
 
     public void UpdateWeaponPrice()
     {
@@ -399,7 +388,7 @@ public class Shop : MonoBehaviour
             else
             {
                 int nextPrice = (F_leval == 1) ? lantern_2 : 0;
-                weaponSlots_text(9, nextPrice, "Soul");
+                weaponSlots_text(8, nextPrice, "Soul");
             }
 
             Debug.Log($"Purchased lantern ({F_leval}/2) for {price} coins.");
@@ -414,11 +403,11 @@ public class Shop : MonoBehaviour
     public void RerollSouls()
     {
         // 리스트 초기화 보장
-        if (soulNames.Count < 4)
+        if (soulNames.Count < 8)
         {
             soulNames.Clear();
             soulPrices.Clear();
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 8; i++)
             {
                 soulNames.Add("");
                 soulPrices.Add(0);
@@ -437,9 +426,9 @@ public class Shop : MonoBehaviour
             }
         }
 
-        // 2. 랜덤 섞기 & 4개 추출 (중복 제거)
+        // 2. 랜덤 섞기 & 8개 추출 (중복 제거)
         availableSouls = availableSouls.OrderBy(x => Random.value).ToList();
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 8; i++)
         {
             if (soulPurchased[i]) continue;
 
@@ -448,7 +437,7 @@ public class Shop : MonoBehaviour
                 Debug.LogWarning("미구매 아이템이 4개 미만입니다!");
                 soulNames[i] = "";
                 soulPrices[i] = 0;
-                weaponSlots_text(5 + i, 0, "Gold");
+                weaponSlots_text(i, 0, "Gold");
                 soulIcons[i].sprite = null;
                 continue;
             }
@@ -479,7 +468,7 @@ public class Shop : MonoBehaviour
                     break;
             }
             // UI 텍스트 갱신
-            weaponSlots_text(5 + i, soulPrices[i], "Gold");
+            weaponSlots_text(i, soulPrices[i], "Gold");
 
             // 아이콘 갱신
             SetSoulIcon(i, id);
@@ -685,7 +674,7 @@ public class Shop : MonoBehaviour
         {
             GameManager.Instance.Sub_Soul(rerollCost);
             rerollCost += 30;
-            weaponSlots_text(10, rerollCost, "Soul");
+            weaponSlots_text(8, rerollCost, "Soul");
             RerollSouls();
             if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
             speech_bubble_on("리롤");
