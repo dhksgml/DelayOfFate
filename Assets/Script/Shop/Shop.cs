@@ -226,7 +226,7 @@ public class Shop : MonoBehaviour
         if (index == 9) { /*호롱강화?*/ }
         if (index == 10) { /*장비장착으로*/ }
         if (index == 11) { Reroll(); }
-        if (index == 12) { stage_Manager.Shop_end(); }
+        if (index == 12) { stage_Manager.Battle_ch(); }
         if (index == 13) { Soul_c_Gold(); }
         if (index == 14) { Gold_c_Soul(); }
         //passiveItemUI.Show(item.itemName, item.description, item.rating);

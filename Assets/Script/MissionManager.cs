@@ -125,38 +125,42 @@ public class MissionManager : MonoBehaviour
     void UpdateMissionInfo()
     {
         Mission_System selectedSlot = null;
-
         switch (currentSelectedIndex)
         {
             case 0: selectedSlot = missionSlot1; break;
             case 1: selectedSlot = missionSlot2; break;
             case 2: selectedSlot = missionSlot3; break;
         }
-
         if (selectedSlot == null) return;
 
         var missionData = selectedSlot.GetCurrentMission();
-        print(missionData.passiveRewardId);
-        if (missionData.passiveRewardId == "Soul_Add_10_1")
-        {
+        PassiveItemUI passiveUI = FindObjectOfType<PassiveItemUI>();
+        if (passiveUI == null) return;
 
-        }
-        if (missionData.passiveRewardId == "Soul_Add_10_2")
+        // 보상 타입에 따라 설명 업데이트
+        switch (missionData.rewardType)
         {
+            case Mission_System.RewardType.Soul:
+                // 혼 보상 설명
+                passiveUI.Show("혼", "대부분 악귀를 처치해 얻음\n딸의 약값으로 자주 거래됨", 7);
+                break;
 
-        }
-        // 혼령강화 보상이면 설명 업데이트
-        if (!string.IsNullOrEmpty(missionData.passiveRewardId))
-        {
-            var item = PassiveItemManager.Instance.passiveItems.Find(i => i.id == missionData.passiveRewardId);
-            if (item != null)
-            {
-                PassiveItemUI passiveUI = FindObjectOfType<PassiveItemUI>();
-                if (passiveUI != null)
+            case Mission_System.RewardType.Money:
+                // 냥 보상 설명
+                passiveUI.Show("냥", $"귀한 물건을 판매해 얻음\n상점에서 혼령강화을 구매할 때 자주 거래됨", 7);
+                break;
+
+            default:
+                // 혼령강화 보상 설명
+                if (!string.IsNullOrEmpty(missionData.passiveRewardId))
                 {
-                    passiveUI.Show(item.itemName, item.description, item.rating);
+                    var item = PassiveItemManager.Instance.passiveItems.Find(i => i.id == missionData.passiveRewardId);
+                    if (item != null)
+                    {
+                        passiveUI.Show(item.itemName, item.description, item.rating);
+                    }
                 }
-            }
+                break;
         }
     }
 
@@ -198,7 +202,7 @@ public class MissionManager : MonoBehaviour
             selectedPassiveId = activeMission.passiveRewardId; // Mission_System에서 설정한 ID
         }
 
-        FindObjectOfType<Stage_Manager>().Quest_ok();
+        FindObjectOfType<Stage_Manager>().Shop_ch();
         Debug.Log($"미션 선택됨: {activeMission.type}, 목표: {activeMission.targetCount}");
     }
 

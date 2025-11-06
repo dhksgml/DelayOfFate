@@ -29,6 +29,9 @@ public class PassiveItemUI : MonoBehaviour
 			case 6:
 				EMDRMQ = "강화";
 				break;
+			case 7:
+				EMDRMQ = "재화";
+				break;
 			default:
 				EMDRMQ = " ";
 				break;
