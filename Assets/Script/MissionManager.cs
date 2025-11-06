@@ -27,6 +27,8 @@ public class MissionManager : MonoBehaviour
     private bool isMissionSelected = false; // 미션 선택됨 (상점에서)
     private bool isMissionCompleted = false;
 
+    public bool Mission_ok = false; //미션을 수락 가능한 상태인지 체크
+
     // 미션 진행도 추적
     private int killCount = 0;
     private int interactCount = 0;
@@ -51,35 +53,41 @@ public class MissionManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    void Start()
+    
+    public void Mission_start() // 시작 신호
     {
-        // 미션 슬롯 초기화
-        if (missionSlot1 != null) missionSlot1.GenerateRandomMission();
-        if (missionSlot2 != null) missionSlot2.GenerateRandomMission();
-        if (missionSlot3 != null) missionSlot3.GenerateRandomMission();
-        UpdateSelectionUI();
-        UpdateMissionInfo(); // 설명 업데이트
+        if (Mission_ok)
+        {
+            // 미션 슬롯 초기화
+            if (missionSlot1 != null) missionSlot1.GenerateRandomMission();
+            if (missionSlot2 != null) missionSlot2.GenerateRandomMission();
+            if (missionSlot3 != null) missionSlot3.GenerateRandomMission();
+            UpdateSelectionUI();
+            UpdateMissionInfo(); // 설명 업데이트
+        }
     }
 
     void Update()
     {
-        // 상점 씬에서만 미션 선택 가능
-        if (IsInShopScene())
+        if (Mission_ok)
         {
-            HandleMissionSelection();
-            HideMissionUI(); // 상점에서는 미션 UI 숨김
-        }
-        // 인게임 씬에서는 미션 UI 표시
-        else if (IsInGameScene())
-        {
-            UpdateInGameMissionUI();
-        }
+            // 상점 씬에서만 미션 선택 가능
+            if (IsInShopScene())
+            {
+                HandleMissionSelection();
+                HideMissionUI(); // 상점에서는 미션 UI 숨김
+            }
+            // 인게임 씬에서는 미션 UI 표시
+            else if (IsInGameScene())
+            {
+                UpdateInGameMissionUI();
+            }
 
-        // 미션 진행 중 시간 체크
-        if (isMissionActive && activeMission != null)
-        {
-            CheckTimeLimitMission();
+            // 미션 진행 중 시간 체크
+            if (isMissionActive && activeMission != null)
+            {
+                CheckTimeLimitMission();
+            }
         }
     }
 
@@ -202,7 +210,8 @@ public class MissionManager : MonoBehaviour
             selectedPassiveId = activeMission.passiveRewardId; // Mission_System에서 설정한 ID
         }
 
-        FindObjectOfType<Stage_Manager>().Shop_ch();
+        FindObjectOfType<Stage_Manager>().Weapon_ch();
+        Mission_ok = false; // 미션골랐으면 비활성화
         Debug.Log($"미션 선택됨: {activeMission.type}, 목표: {activeMission.targetCount}");
     }
 
