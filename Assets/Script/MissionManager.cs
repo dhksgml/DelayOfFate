@@ -125,7 +125,7 @@ public class MissionManager : MonoBehaviour
         }
 
         // Z, X, C 키로 각 미션 직접 선택
-        if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.C)) && !isMissionActive)
+        if ((Input.GetKeyDown(KeyCode.Z)/* || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D)*/) && !isMissionActive)
         {
             SelectMission(currentSelectedIndex);
         }

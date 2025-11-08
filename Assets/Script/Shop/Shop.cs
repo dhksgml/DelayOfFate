@@ -15,7 +15,7 @@ public class Shop : MonoBehaviour
     private const int lantern_1 = 500;
     private const int lantern_2 = 1000;
 
-    private List<int> weaponPrices = new List<int>();
+    public List<int> weaponPrices = new List<int>();
 
     private List<string> soulNames = new List<string>();
     private List<int> soulPrices = new List<int>();
@@ -47,8 +47,7 @@ public class Shop : MonoBehaviour
     private string[] rerollLines = {"여기 새 품목들이네", "이 물건 맞나?", "이걸 찾나?" };//리롤
     private string[] notEnoughLines = { "이건 자선사업이\n아니네", "냥이 없나?", "냥이 부족한거\n같네만?", "공짜는 안되네"};//부족
     private string[] jokeLines = {"이 곰방대는 안파네", "뭐라도 하나\n사지 그러나", "(한숨)", "자네도 삿갓을\n좋아하나?", "천천히 둘러보게나", "몸은 괜찮나?", "안전이 최고지", "흠...", "또 악귀들이\n기승인가?", "좋아하는 색이 있나?" };//농담
-    private string[] noWeaponLines = { "어이, \n무기는 가져가야지!" };
-    private string[] enoughWeaponLines = { "무기는 2개면\n충분하지." };
+    private string[] noWeaponLines = { "어이, \n무기는 가져가야지!", "무기를 까먹은거 같네만?" };
     private string itemId = "Soul_Add_8_1";
     private string[] soul_num = new string[8];//영혼 설명용 임시 지역 변수
     private PassiveItemUI passiveItemUI;
@@ -270,7 +269,7 @@ public class Shop : MonoBehaviour
         {
             BuySoul(index);
         }
-        if (index == 8) { Reroll(); }//이전으로 돌아가기 코드 넣기
+        if (index == 8) { stage_Manager.Weapon_ch(); }
         if (index == 9) { Reroll(); } 
         if (index == 10) { stage_Manager.Battle_ch(); }
         if (index == 11) { Soul_c_Gold(); }
@@ -334,9 +333,9 @@ public class Shop : MonoBehaviour
             GameManager.Instance.Sub_Gold(price);
             soulPurchased[index] = true;
 
-            weaponSlots[index + 5].text = "구매 완료";
+            weaponSlots[index].text = "구매 완료";
             speech_bubble_on("구매");
-            Button btn = weaponSlots[index + 5].GetComponentInParent<Button>();
+            Button btn = weaponSlots[index].GetComponentInParent<Button>();
             Soul_in_text slot = soulIcons[index].GetComponentInParent<Soul_in_text>();
             if (btn != null)
             {
@@ -354,7 +353,7 @@ public class Shop : MonoBehaviour
             speech_bubble_on("부족");
         }
     }
-    public void BuyLantern() // 호롱 업글
+    /*public void BuyLantern() // 호롱 업글
     {
         int F_leval = GameManager.Instance.playerData.flashLightLevel;
         if (F_leval >= 2)
@@ -397,7 +396,7 @@ public class Shop : MonoBehaviour
         {
             speech_bubble_on("부족");
         }
-    }
+    }*/
 
 
     public void RerollSouls()
@@ -570,12 +569,6 @@ public class Shop : MonoBehaviour
             line = GetRandomLine(noWeaponLines);
             if (!isJokeOnCooldown) StartCoroutine(JokeCooldown());
         }
-        else if(text_t == "무기충분")
-        {
-            line = GetRandomLine(enoughWeaponLines);
-            if (!isJokeOnCooldown) StartCoroutine(JokeCooldown());
-        }
-
 
         if (!string.IsNullOrEmpty(line))
         {

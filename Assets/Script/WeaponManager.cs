@@ -1,16 +1,13 @@
 using UnityEngine;
 using TMPro;
 
+
 public class WeaponManager : MonoBehaviour
 {
-    public static WeaponManager Instance { get; private set; }
+    ShopQuickSlot shopQuickSlot;
 
     [Header("Equipment Slots")]
-    public GameObject equipmentSlot1; // 장비 슬롯 1
-    public GameObject equipmentSlot2; // 장비 슬롯 2
-    public GameObject equipmentSlot3; // 장비 슬롯 3
-    public GameObject equipmentSlot4; // 장비 슬롯 4
-    public GameObject equipmentSlot5; // 장비 슬롯 5
+    public GameObject[] equipmentSlot; // 장비 슬롯
 
     [Header("Selection")]
     public GameObject selectionIndicator; // 선택 표시 오브젝트 (이동하는 1개)
@@ -23,22 +20,11 @@ public class WeaponManager : MonoBehaviour
     private int[] equippedSlots = new int[2] { -1, -1 }; // 장착된 장비 슬롯 인덱스 (0~4), -1은 빈칸
     private int currentEquipSlot = 0; // 현재 장착할 슬롯 (0 or 1)
 
-    void Awake()
-    {
-        // 싱글톤 패턴
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+    public bool canProcessInput = false; // 입력 처리 가능 플래그
 
     void Start()
     {
+        shopQuickSlot = FindObjectOfType<ShopQuickSlot>();
         UpdateSelectionUI();
     }
 
@@ -46,75 +32,26 @@ public class WeaponManager : MonoBehaviour
     {
         HandleEquipmentSelection();
     }
-
-    /*public void BuyWeapon(int index) // 무기 구매
+    void LateUpdate()
     {
-        if (index < 0 || index >= 5) return;
-
-        int price = weaponPrices[index];
-
-        if (PassiveItemManager.Instance != null)
-            price = 0;
-
-        // 내부에서 바로 퀵슬롯 참조
-        ShopQuickSlot shopQuickSlot = FindObjectOfType<ShopQuickSlot>();
-        if (shopQuickSlot == null) return;
-
-        // 빈 슬롯 찾기
-        int emptySlotIndex = -1;
-        for (int i = 0; i < shopQuickSlot.weaponSlotsData.Length; i++)
-        {
-            ItemData item = shopQuickSlot.weaponSlotsData[i];
-            if (item == null || string.IsNullOrEmpty(item.itemName))
-            {
-                emptySlotIndex = i;
-                break;
-            }
-        }
-
-        if (emptySlotIndex == -1)
-        {
-            Debug.Log("퀵슬롯이 모두 찼습니다.");
-            Shop shop = FindObjectOfType<Shop>();
-            if (shop != null)
-                shop.speech_bubble_on("무기충분");
-            return;
-        }
-        GameManager.Instance.Sub_Gold(price);
-
-        weaponSlots[index].text = "구매 완료";
-        GameEvents.CallBuyWeapon();
-        speech_bubble_on("구매");
-        Button btn = weaponSlots[index].GetComponentInParent<Button>();
-        if (btn != null) btn.interactable = false;
-
-        if (SoundManager.Instance != null)
-            SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
-
-        shopQuickSlot.weaponSlotsData[emptySlotIndex] = weaponData[index];
-        GameManager.Instance.WeaponData[emptySlotIndex] = shopQuickSlot.weaponSlotsData[emptySlotIndex];
-        OnItemHover(emptySlotIndex, weaponData[index]);
-    }*/
-    // ============================================
-    // TODO: 장비 선택 입력 처리
-    // - 좌우 방향키: 선택 이동 (0~5)
-    // - Z키: 현재 선택한 장비/버튼 확정
-    // - X키: 장착 해제 (1번 슬롯부터)
-    // ============================================
+        // LateUpdate에서 UI 업데이트
+        UpdateSelectionUI();
+    }
     void HandleEquipmentSelection()
     {
+        // 입력 처리 불가능하면 무시
+        if (!canProcessInput) return;
+
         // 좌우 이동
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             currentSelectedIndex--;
             if (currentSelectedIndex < 0) currentSelectedIndex = 5; // 0~5 순환
-            UpdateSelectionUI();
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             currentSelectedIndex++;
             if (currentSelectedIndex > 5) currentSelectedIndex = 0; // 0~5 순환
-            UpdateSelectionUI();
         }
 
         // Z키: 확정
@@ -148,12 +85,12 @@ public class WeaponManager : MonoBehaviour
     // ============================================
     void ConfirmSelection()
     {
-        if (currentSelectedIndex >= 0 && currentSelectedIndex <= 4)
+        if (currentSelectedIndex >= 0 && currentSelectedIndex <= equipmentSlot.Length -1)
         {
             // 장비 장착
             EquipWeapon(currentSelectedIndex);
         }
-        else if (currentSelectedIndex == 5)
+        else if (currentSelectedIndex == equipmentSlot.Length)
         {
             // 다음 버튼
             OnNextButtonPressed();
@@ -231,53 +168,64 @@ public class WeaponManager : MonoBehaviour
         FindObjectOfType<Stage_Manager>().Shop_ch();
     }
 
-    // ============================================
-    // TODO: 실제 장비 적용 메서드
-    // - equipSlot: 0번 또는 1번 칸
-    // - slotIndex: 장비 슬롯 인덱스 (0~4)
-    // ============================================
-    void ApplyEquipment(int equipSlot, int slotIndex)
+    void ApplyEquipment(int equipSlot, int index)
     {
-        GameObject selectedEquipment = GetEquipmentSlot(slotIndex);
-        if (selectedEquipment == null) return;
+        if (index < 0 || index >= equipmentSlot.Length)
+        {
+            Debug.LogWarning($"잘못된 장비 인덱스: {index}");
+            return;
+        }
 
-        // TODO: 실제 장비 데이터를 플레이어에게 적용
-        // 예: PlayerWeaponManager.Instance.EquipWeapon(equipSlot, selectedEquipment.GetWeaponData());
+        // 빈 슬롯 찾기
+        int emptySlotIndex = -1;
+        for (int i = 0; i < shopQuickSlot.weaponSlotsData.Length; i++)
+        {
+            ItemData item = shopQuickSlot.weaponSlotsData[i];
+            if (item == null || string.IsNullOrEmpty(item.itemName))
+            {
+                emptySlotIndex = i;
+                break;
+            }
+        }
 
-        Debug.Log($"{equipSlot}번 칸에 {selectedEquipment.name} 장착 완료");
+        if (emptySlotIndex == -1)
+        {
+            Debug.LogWarning("모든 무기 슬롯이 가득 찼습니다.");
+            return;
+        }
+
+        GameEvents.CallBuyWeapon();
+
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_1"));
+        }
+
+        shopQuickSlot.weaponSlotsData[emptySlotIndex] = weaponData[index];
+        GameManager.Instance.WeaponData[emptySlotIndex] = weaponData[index];
+
+        Debug.Log($"{equipSlot}번 칸에 {weaponData[index].itemName} 장착 완료");
     }
 
-    // ============================================
-    // TODO: 실제 장비 제거 메서드
-    // - equipSlot: 0번 또는 1번 칸
-    // ============================================
     void RemoveEquipment(int equipSlot)
     {
-        // TODO: 실제 장비 데이터를 플레이어에게서 제거
-        // 예: PlayerWeaponManager.Instance.UnequipWeapon(equipSlot);
-
+        shopQuickSlot.weaponSlotsData[equipSlot] = null;
+        GameManager.Instance.WeaponData[equipSlot] = null;
         Debug.Log($"{equipSlot}번 칸 장비 해제 완료");
     }
 
-    // ============================================
-    // Helper: 슬롯 인덱스로 Equipment_System 가져오기
-    // ============================================
     GameObject GetEquipmentSlot(int slotIndex)
     {
-        switch (slotIndex)
+        if (equipmentSlot.Length >= slotIndex)
         {
-            case 0: return equipmentSlot1;
-            case 1: return equipmentSlot2;
-            case 2: return equipmentSlot3;
-            case 3: return equipmentSlot4;
-            case 4: return equipmentSlot5;
-            default: return null;
+            return equipmentSlot[slotIndex];
+        }
+        else
+        {
+            return null;
         }
     }
 
-    // ============================================
-    // 외부 접근용: 현재 장착된 장비 확인
-    // ============================================
     public int[] GetEquippedSlots()
     {
         return equippedSlots;
