@@ -63,23 +63,17 @@ public class Shop : MonoBehaviour
         // Build base list: groups 1..7, numbers 1..2
         for (int g = 1; g <= 7; g++)
         {
-            // Skip all group 2 (refining, temporary)
-            if (g == 2) continue;
-
             for (int n = 1; n <= 2; n++)
             {
-                // Skip 6_1 only (temporary)
-                //if (g == 6 && n == 1) continue;
-
                 allSoulIds.Add($"Soul_Add_{g}_{n}");
             }
         }
 
-        // Manually add known _3 variants (except 2_3 which we are excluding)
+        allSoulIds.Add("Soul_Add_2_3"); // 추가!
         allSoulIds.Add("Soul_Add_4_3");
-        allSoulIds.Add("Soul_Add_6_3"); // allowed; only 6_1 is excluded
-        
-        RerollSouls(); // run before Start
+        allSoulIds.Add("Soul_Add_6_3");
+
+        RerollSouls();
     }
 
 
@@ -204,7 +198,7 @@ public class Shop : MonoBehaviour
         else if (currentIndex >= 8 && currentIndex <= 12)
         {
             int soulAddIndex = currentIndex - 8 + 1; // 8→1, 9→2, 10→3, 11→4, 12→5
-            itemId = $"Soul_Add_10_{soulAddIndex}";
+            itemId = $"Soul_Add_10_{soulAddIndex+1}";
         }
         else
         {
@@ -399,6 +393,8 @@ public class Shop : MonoBehaviour
     }*/
 
 
+    // Shop.cs - RerollSouls() 메서드 수정
+
     public void RerollSouls()
     {
         // 리스트 초기화 보장
@@ -413,27 +409,27 @@ public class Shop : MonoBehaviour
             }
         }
 
-        // 1. 후보군 만들기 (미구매 아이템만)
         List<string> availableSouls = new List<string>();
-        foreach (var id in allSoulIds)
+        foreach (var item in passiveItemManager.passiveItems)
         {
-            // 구매 안 했고, 미션에서 예약도 안 된 것만
-            if (!PassiveItemManager.Instance.IsPurchased(id) &&
-                !PassiveItemManager.Instance.reservedPassiveIds.Contains(id))
+            // 조건: 구매 안 됨 + 예약 안 됨 + 혼령강화만 (등급 1~4)
+            if (!item.isPurchased &&
+                !PassiveItemManager.Instance.reservedPassiveIds.Contains(item.id) &&
+                item.rating >= 1 && item.rating <= 4) // 혼령강화만 (등급 5,6,7 제외)
             {
-                availableSouls.Add(id);
+                availableSouls.Add(item.id);
             }
         }
 
-        // 2. 랜덤 섞기 & 8개 추출 (중복 제거)
         availableSouls = availableSouls.OrderBy(x => Random.value).ToList();
+
         for (int i = 0; i < 8; i++)
         {
             if (soulPurchased[i]) continue;
 
             if (i >= availableSouls.Count)
             {
-                Debug.LogWarning("미구매 아이템이 4개 미만입니다!");
+                Debug.LogWarning($"미구매 아이템이 {i}개 미만입니다!");
                 soulNames[i] = "";
                 soulPrices[i] = 0;
                 weaponSlots_text(i, 0, "Gold");
@@ -443,42 +439,48 @@ public class Shop : MonoBehaviour
 
             string id = availableSouls[i];
             soulNames[i] = id;
+
             PassiveItemData itemData = passiveItemManager.passiveItems.Find(x => x.id == id);
-            int rating = itemData != null ? itemData.rating : 1; // 기본값은 1
+            int rating = itemData != null ? itemData.rating : 1;
+
             switch (rating)
             {
                 case 1:
-                    soulPrices[i] = 150;
-                    soulPrices[i] += Random.Range(-10, +11);
+                    soulPrices[i] = 150 + Random.Range(-10, +11);
                     break;
                 case 2:
-                    soulPrices[i] = 215;
-                    soulPrices[i] += Random.Range(-15, +16);
+                    soulPrices[i] = 215 + Random.Range(-15, +16);
                     break;
                 case 3:
-                    soulPrices[i] = 300;
-                    soulPrices[i] += Random.Range(-20, +21);
+                    soulPrices[i] = 300 + Random.Range(-20, +21);
                     break;
                 case 4:
-                    soulPrices[i] = 400;
-                    soulPrices[i] += Random.Range(-25, +26);
+                    soulPrices[i] = 400 + Random.Range(-25, +26);
                     break;
                 default:
+                    soulPrices[i] = 150; // 기본값
                     break;
             }
+
             // UI 텍스트 갱신
             weaponSlots_text(i, soulPrices[i], "Gold");
 
             // 아이콘 갱신
             SetSoulIcon(i, id);
-            
-            // 슬롯에 있는 ShopSlot 컴포넌트에 itemId 전달
+
+            // 슬롯에 있는 Soul_in_text 컴포넌트에 itemId 전달
             Soul_in_text slot = soulIcons[i].GetComponentInParent<Soul_in_text>();
             if (slot != null)
             {
                 slot.itemId = id;
             }
         }
+
+        Debug.Log($"[상점 리롤] 전체 후보군: {availableSouls.Count}개");
+        Debug.Log($"[상점 리롤] 등급 1: {availableSouls.Count(x => passiveItemManager.passiveItems.Find(i => i.id == x)?.rating == 1)}개");
+        Debug.Log($"[상점 리롤] 등급 2: {availableSouls.Count(x => passiveItemManager.passiveItems.Find(i => i.id == x)?.rating == 2)}개");
+        Debug.Log($"[상점 리롤] 등급 3: {availableSouls.Count(x => passiveItemManager.passiveItems.Find(i => i.id == x)?.rating == 3)}개");
+        Debug.Log($"[상점 리롤] 등급 4: {availableSouls.Count(x => passiveItemManager.passiveItems.Find(i => i.id == x)?.rating == 4)}개");
     }
 
     void SetSoulIcon(int slotIndex, string id)

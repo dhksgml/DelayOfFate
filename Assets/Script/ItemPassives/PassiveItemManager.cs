@@ -129,19 +129,25 @@ public class PassiveItemManager : MonoBehaviour
         {
             case "1_1": return "천하장사";
             case "1_2": return "정정당당";
+
             case "2_1": return "문전박대";
             case "2_2": return "백발백중";
             case "2_3": return "쾌도난마";
+
             case "3_1": return "금의환향";
             case "3_2": return "다다익선";
+
             case "4_1": return "금강불괴";
             case "4_2": return "외강내유";
             case "4_3": return "외유내강";
+
             case "5_1": return "가담항설";
             case "5_2": return "취사선택";
+
             case "6_1": return "등용문";
             case "6_2": return "승승장구";
             case "6_3": return "선견지명";
+
             case "7_1": return "구사일생";
             case "7_2": return "궁여지책";
             //패시브 아님
@@ -152,10 +158,12 @@ public class PassiveItemManager : MonoBehaviour
             case "8_5": return "족자";
             case "9_1": return "";
             case "9_2": return "";
-            case "10_4": return "재입고";
-            case "10_5": return "전투로";
-            case "10_6": return "냥 교환";
-            case "10_7": return "혼 교환";
+            case "10_1": return "상점";//상점
+            case "10_2": return "장비";//이전
+            case "10_3": return "재입고";//리롤
+            case "10_4": return "전투";//전투로
+            case "10_5": return "냥교환";
+            case "10_6": return "혼교환";
             // ...
             default: return " ";
         }
@@ -226,9 +234,9 @@ public class PassiveItemManager : MonoBehaviour
             //<sprite=9> 
             case "1_1": return "소지한 물건당 피해 1할 증가";
             case "1_2": return "악귀에게 주는 피해가 10할 증가\n악귀의 약점을 공격 할 수 없음";
-            case "2_1": return "개발중";//"방망이의 공격 범위가 10할 증가\n방망이의 피해량이 5할 증가";//변경 예정
-            case "2_2": return "개발중";//"부적의 추격 범위가 20할 증가\n부적의 피해량이 5할 증가";//변경 예정
-            case "2_3": return "개발중";//"환도의 공격속도 5할 증가\n환도의 피해가 5할 증가";//변경 예정
+            case "2_1": return "방망이의 피해량이 5할 증가";
+            case "2_2": return "부적을 3개씩 던짐";
+            case "2_3": return "환도의 공격속도 5할 증가\n환도의 피해량이 5증가";
             case "3_1": return "약값 지불 후 보유한 <sprite=8>의\n3할 만큼 획득";
             case "3_2": return "보유한 200 <sprite=9> 당 이동속도 1할 증가\n(최대 3할)";
             case "4_1": return "악귀로 받는 체력피해가\n5할 감소";
@@ -237,9 +245,9 @@ public class PassiveItemManager : MonoBehaviour
             case "5_1": return "가장 가까운 물건의\n위치를 파악함";
             case "5_2": return "비어 있는 손 만큼\n이동속도 1할 증가";
             case "6_1": return "4일차 이후라면 이동속도, 피해량 3할 상승";
-            case "6_2": return "개발중";//"악귀 처치시 체력 5회복, 정신 3회복";//변경 예정
+            case "6_2": return "악귀 처치시 체력 5회복, 정신 3회복";
             case "6_3": return "하루가 지날때 들고 있던 물건의\n가치가 10할 증가";
-            case "7_1": return "개발중";//"체력이 3할 이하시 이동속도 3할 증가";//변경 예정
+            case "7_1": return "체력이 3할 이하시 이동속도 3할 증가";
             case "7_2": return "18각 이상시\n달리기 속도가 5할 증가";
             //패시브 아님
             case "8_1": return "전방을 공격해 10~14의 피해를 입힘\n약점의 경우 즉사시킴";
@@ -249,10 +257,12 @@ public class PassiveItemManager : MonoBehaviour
             case "8_5": return "화면의 모든 악귀에게\n최대체력 5할의 피해를 입힘\n약점의 경우 즉사시킴\n정신력 8~12 소모";
             case "9_1": return "빛이 더 강해짐";
             case "9_2": return "달려도 빛이 꺼지지 않음";
-            case "10_4": return "혼령강화의 목록을\n새로운 품목으로 교체함";
-            case "10_5": return "전투로부터 돈을 벌러 감";
-            case "10_6": return "100 <sprite=8>을 50 <sprite=9>으로 교환함";
-            case "10_7": return "100 <sprite=9>을 50 <sprite=8>으로 교환함";
+            case "10_1": return "혼령강화를 구매하러 감";//상점
+            case "10_2": return "장비를 변경함";//이전
+            case "10_3": return "혼령강화의 목록을\n새로운 품목으로 교체함";//리롤
+            case "10_4": return "전투로부터 돈을 벌러 감";//전투로
+            case "10_5": return "100 <sprite=8>을 50 <sprite=9>으로 교환함";
+            case "10_6": return "100 <sprite=9>을 50 <sprite=8>으로 교환함";
             // ...
             default: return "설명이 없습니다.";
         }
