@@ -115,6 +115,10 @@ public class PlayerController : MonoBehaviour
 
     public bool isKill2Heal;
 
+    // 11.09 추가, 저주인형을 위함
+    [HideInInspector] public bool isHealBan;
+    [HideInInspector] public float healBanTime;
+
     public enum PlayerState
     {
         Idle,
@@ -288,9 +292,11 @@ public class PlayerController : MonoBehaviour
             clickLookTimer = Mathf.Clamp(clickLookTimer, 0f, clickLookDuration);
         }
 
-        if (isFreeze)
+        if (isHealBan)
         {
-            //FreezingCancle();
+            healBanTime -= Time.deltaTime;
+
+            if (healBanTime <= 0) { isHealBan = false; }
 
         }
         UpdateItemCooldown();

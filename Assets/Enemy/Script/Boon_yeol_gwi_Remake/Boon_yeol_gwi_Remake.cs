@@ -5,7 +5,7 @@ using UnityEngine;
 public class Boon_yeol_gwi_Remake : Enemy
 {
 
-    [Header("ºĞ¿­±Í")]
+    [Header("ë¶„ì—´ê·€")]
     public bool isFind;
 
     PlayerController player;
@@ -20,7 +20,7 @@ public class Boon_yeol_gwi_Remake : Enemy
     {
         EnemyInt();
 
-        // ÀÌµ¿ ¹æÇâ ¼³Á¤
+        // ì´ë™ ë°©í–¥ ì„¤ì •
         ChooseNewDirection();
         StartCoroutine(ChangeDirectionRoutine());
     }
@@ -29,7 +29,7 @@ public class Boon_yeol_gwi_Remake : Enemy
     {
         HpBarUpdate();
 
-        //ÀûÀÇ Ã¼·ÂÀÌ 0ÀÌÇÏÀÏ½Ã.
+        //ì ì˜ ì²´ë ¥ì´ 0ì´í•˜ì¼ì‹œ.
         if (enemyHp <= 0 && !isDie)
         {
             isDie = true;
@@ -43,7 +43,7 @@ public class Boon_yeol_gwi_Remake : Enemy
 
     public override void EnemyMove()
     {
-        // Ãß°İ ¸ñÇ¥
+        // ì¶”ê²© ëª©í‘œ
         enemyTargetDir = (player.transform.position - transform.position).normalized;
 
         if (isFind)
@@ -54,10 +54,9 @@ public class Boon_yeol_gwi_Remake : Enemy
             transform.Translate(enemyTargetDir * enemyMoveSpeed * Time.deltaTime);
         }
 
-        // ±× ¿Ü
+        // ê·¸ ì™¸
         else if (!isFind)
         {
-            Debug.Log(2);
             EnemyNormalTurn2();
 
             transform.Translate(moveDirection * enemyMoveSpeed * Time.deltaTime);
@@ -69,11 +68,11 @@ public class Boon_yeol_gwi_Remake : Enemy
     {
         if (collision != null)
         {
-            //ÇÇ°İ È¿°ú
+            //í”¼ê²© íš¨ê³¼
             Attack_sc attack = collision.GetComponent<Attack_sc>();
             if (collision.gameObject.CompareTag("Attack") && !isEnemyHit && attack != null)
             {
-                // Å¸ÀÔÀÌ ÀÏÄ¡ÇÏ¸é Áï»ç
+                // íƒ€ì…ì´ ì¼ì¹˜í•˜ë©´ ì¦‰ì‚¬
                 if (!attack.CheckWeaknessPassive() && attack.attackType.ToString() == enemyWeakness.ToString())
                 {
                     Enemy_Weakness_Hit(attack.damage, attack.attackType.ToString(), enemyHp);
@@ -89,7 +88,7 @@ public class Boon_yeol_gwi_Remake : Enemy
             }
 
 
-            // ºû¿¡ Ãæµ¹½Ã Àº½Å Ç®¸²
+            // ë¹›ì— ì¶©ëŒì‹œ ì€ì‹  í’€ë¦¼
             if (collision.gameObject.CompareTag("Light"))
             {
                 EnemyLightHit();
@@ -101,7 +100,7 @@ public class Boon_yeol_gwi_Remake : Enemy
     {
         if (collision != null)
         {
-            // ºû¿¡¼­ ¹ş¾î³¯½Ã Àº½Å
+            // ë¹›ì—ì„œ ë²—ì–´ë‚ ì‹œ ì€ì‹ 
             if (collision.gameObject.CompareTag("Light"))
             {
                 EnemyCloaking();
