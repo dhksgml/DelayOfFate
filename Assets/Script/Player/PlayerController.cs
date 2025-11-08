@@ -203,7 +203,16 @@ public class PlayerController : MonoBehaviour
             if (GameManager.Instance.Day >= 4)
                 bonus += 0.3f;
         }
+
+        if (PassiveItemManager.Instance.HasEffect("Soul_Add_7_1"))
+        {
+            float healthRatio = currentHp / maxHp;
+
+            if(healthRatio <= 0.3f)
+                bonus += 0.3f;
+        }
             
+
         if (PassiveItemManager.Instance.HasEffect("Soul_Add_7_2") && quickSlotUI.angleUnit >= 18)
             bonus += 0.5f;
 

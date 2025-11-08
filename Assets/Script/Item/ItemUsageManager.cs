@@ -92,6 +92,20 @@ public class ItemUsageManager : MonoBehaviour
             Quaternion paperRotation = Quaternion.Euler(0f, 0f, paperAngle);
 
             GameObject go = Instantiate(Paper, spawnPos, paperRotation);
+            if(PassiveItemManager.Instance.HasEffect("Soul_Add_2_2"))
+            {
+                //부적 3갈래로 생성
+                //이미 하나는 생성했으니, 위쪽과 아래쪽으로 하나씩 더 생성
+                float spreadAngle = 15f; // 각도 차이 (위/아래로)
+                for (int i = -1; i <= 1; i++)
+                {
+                    if (i == 0) continue; // 가운데는 이미 생성됨
+
+                    float additionalAngle = paperAngle + (i * spreadAngle);
+                    Quaternion additionalRot = Quaternion.Euler(0f, 0f, additionalAngle);
+                    Instantiate(Paper, spawnPos, additionalRot);
+                }
+            }
             if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_throw"));
 
             if (direction.x < 0f)
