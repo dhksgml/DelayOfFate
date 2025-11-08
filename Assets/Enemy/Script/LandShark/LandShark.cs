@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static EnemyTrace;
 using static UnityEngine.GraphicsBuffer;
 
 public class LandShark : Enemy
@@ -73,7 +74,9 @@ public class LandShark : Enemy
         //잠복과 돌출시 하는 행동
         LandSharkStat();
 
-        if(!isStop) { EnemyMove(); }
+        Debug.Log(isStop);
+        EnemyMove();
+        //if(!isStop) { EnemyMove(); }
     }
 
 
@@ -95,6 +98,11 @@ public class LandShark : Enemy
 
             // 이동
             transform.Translate(enemyTargetDir * landSharkAttackSpeed * Time.deltaTime);
+        }
+
+        else if (isStop)
+        {
+            return;
         }
 
         //최대 채력이 아니면 도망
@@ -121,6 +129,9 @@ public class LandShark : Enemy
 
         // 에니메이션 실행
         anim.SetBool("isHide", true);
+
+        // 이동
+        isStop = false;
     }
     //돌출로 변환 하는 메서드
     public void isHideOut()
@@ -167,17 +178,18 @@ public class LandShark : Enemy
         // 에니메이션 실행 11.03
         anim.SetBool("isAttackReady", true);
         PlayerTrsFind();
+
+        landSharkAttack.enemyDamage = landSharkAttack.landSharkJumpAttackDamage;
+
         // 도약 전 0.5초 대기 11.03
         yield return new WaitForSeconds(0.5f);
 
         // 에니메이션 실행 11.03
         anim.SetBool("isAttack", true);
 
-        isStop = false;
-        landSharkAttack.enemyAttackCollider.enabled = true;
+        // 한번 히트시에만 켜줌
+        if (!landSharkAttack.isRushHit) { landSharkAttack.enemyAttackCollider.enabled = true; }
         isRush = true;
-
-        landSharkAttack.enemyDamage = landSharkAttack.landSharkJumpAttackDamage;
 
         //0.7초. 이건 행동 보고 수정해줘야 할 듯
         yield return new WaitForSeconds(1f);
@@ -203,7 +215,11 @@ public class LandShark : Enemy
         anim.SetBool("isAttack", false);
         anim.SetBool("isAttackReady", false);
 
-        yield return null;
+        yield return new WaitForSeconds(2f);
+
+        // 트리거 초기화
+        landSharkAttack.isRushHit = false;
+
     }
     void OnCollisionExit2D(Collision2D collision)
     {
