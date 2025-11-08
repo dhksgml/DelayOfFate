@@ -15,11 +15,11 @@ public class Torch : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if(collision.CompareTag("Player"))
-        {
-            collision.GetComponent<PlayerController>()?.RefillFlashlight(refillFlashlightAmount);
-        }
-    }
+    //private void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    if(collision.CompareTag("Player"))
+    //    {
+    //        collision.GetComponent<PlayerController>()?.RefillFlashlight(refillFlashlightAmount);
+    //    }
+    //}
 }
