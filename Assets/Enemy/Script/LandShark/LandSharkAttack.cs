@@ -11,6 +11,7 @@ public class LandSharkAttack : EnemyAttack
     PlayerController player;
     public int landSharkJumpAttackDamage;
     public int currentDamage;
+    [HideInInspector] public bool isRushHit;
 
     void Awake()
     {
@@ -81,6 +82,8 @@ public class LandSharkAttack : EnemyAttack
         {
             if (collision.gameObject.CompareTag("Player"))
             {
+                isRushHit = true;
+                enemyAttackCollider.enabled = false;
                 PlayerController player = collision.GetComponent<PlayerController>();
                 //충돌시 데미지를 줌
                 player.DamagedHP(enemyDamage);
