@@ -123,6 +123,10 @@ public class Attack_sc : MonoBehaviour
             }
         }
 
+        //문전박대 데미지 증가
+        if (attackType == AttackType.Bat && PassiveItemManager.Instance.HasEffect("Soul_Add_2_1"))
+            damageBonus += 0.5f;
+
         return 1.0f + damageBonus; // 기본 100% + 보너스
     }
 
@@ -151,7 +155,11 @@ public class Attack_sc : MonoBehaviour
                     {
                         itemBonus += 3 * player_Item_P.item_p_count[8]; // +2 × 개수
                     }
+
                     baseDamage = Mathf.FloorToInt(Random.Range(10f, 14f + 1));
+                    if (PassiveItemManager.Instance.HasEffect("Soul_Add_2_3"))
+                        baseDamage += 5;
+
                     break;
                 }
             case AttackType.Bat:
