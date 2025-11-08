@@ -14,8 +14,11 @@ public class HealingItem : MonoBehaviour
             {
                 PlayerController player = collision.gameObject.GetComponent<PlayerController>();
 
-                // 회복
-                player.Hp_add(healing);
+                if (!player.isHealBan)
+                {
+                    // 회복
+                    player.Hp_add(healing);
+                }
 
                 // 삭제
                 Destroy(gameObject);

@@ -329,8 +329,11 @@ public abstract class Enemy     : MonoBehaviour
         enemyMoveSpeed = enemyMoveSpeed * cloakingSpeed;
         enemyRunSpeed = enemyRunSpeed * cloakingSpeed;
 
-        // 눈을 표시해줌
-        nightVision.SetActive(true);
+        if (nightVision != null)
+        {
+            // 눈을 표시해줌
+            nightVision.SetActive(true);
+        }
     }
 
     #endregion
