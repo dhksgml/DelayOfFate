@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2129524968966117579}
   - component: {fileID: 1080896599292874791}
   - component: {fileID: 2930368111101819406}
+  - component: {fileID: 9024293814450745642}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -55,6 +56,55 @@ MonoBehaviour:
     flashLightLevel: 1
     gold: 0
     soul: 0
+    quickSlots:
+    - id: 0
+      itemType: 0
+      itemName: 
+      item_Passive: 
+      InGameSprite: {fileID: 0}
+      spendSPAmount: 0
+      Coin: 0
+      isUsable: 0
+      Usage_cool_down: 0
+      Charging: 0
+      CoinDeviation: 0
+      Drop_item: 0
+    - id: 0
+      itemType: 0
+      itemName: 
+      item_Passive: 
+      InGameSprite: {fileID: 0}
+      spendSPAmount: 0
+      Coin: 0
+      isUsable: 0
+      Usage_cool_down: 0
+      Charging: 0
+      CoinDeviation: 0
+      Drop_item: 0
+    - id: 0
+      itemType: 0
+      itemName: 
+      item_Passive: 
+      InGameSprite: {fileID: 0}
+      spendSPAmount: 0
+      Coin: 0
+      isUsable: 0
+      Usage_cool_down: 0
+      Charging: 0
+      CoinDeviation: 0
+      Drop_item: 0
+    - id: 0
+      itemType: 0
+      itemName: 
+      item_Passive: 
+      InGameSprite: {fileID: 0}
+      spendSPAmount: 0
+      Coin: 0
+      isUsable: 0
+      Usage_cool_down: 0
+      Charging: 0
+      CoinDeviation: 0
+      Drop_item: 0
     damageTakenMultiplier: 1
     damageMultiplier: 1
     speedMultiplier: 1
@@ -76,6 +126,55 @@ MonoBehaviour:
   - 2000
   - 2000
   - 2000
+  currentQuickSlot:
+  - id: 0
+    itemType: 0
+    itemName: 
+    item_Passive: 
+    InGameSprite: {fileID: 0}
+    spendSPAmount: 0
+    Coin: 0
+    isUsable: 0
+    Usage_cool_down: 0
+    Charging: 0
+    CoinDeviation: 0
+    Drop_item: 0
+  - id: 0
+    itemType: 0
+    itemName: 
+    item_Passive: 
+    InGameSprite: {fileID: 0}
+    spendSPAmount: 0
+    Coin: 0
+    isUsable: 0
+    Usage_cool_down: 0
+    Charging: 0
+    CoinDeviation: 0
+    Drop_item: 0
+  - id: 0
+    itemType: 0
+    itemName: 
+    item_Passive: 
+    InGameSprite: {fileID: 0}
+    spendSPAmount: 0
+    Coin: 0
+    isUsable: 0
+    Usage_cool_down: 0
+    Charging: 0
+    CoinDeviation: 0
+    Drop_item: 0
+  - id: 0
+    itemType: 0
+    itemName: 
+    item_Passive: 
+    InGameSprite: {fileID: 0}
+    spendSPAmount: 0
+    Coin: 0
+    isUsable: 0
+    Usage_cool_down: 0
+    Charging: 0
+    CoinDeviation: 0
+    Drop_item: 0
   killcount: 0
   SlotsData:
   - {fileID: 0}
@@ -123,3 +222,25 @@ MonoBehaviour:
   Passive_Item_Icon_7:
   - {fileID: 21300000, guid: 522914fcde1044f459ed0aeebb4385b2, type: 3}
   - {fileID: 21300000, guid: 856bd2dfe55e6684390b805dd20fba91, type: 3}
+--- !u!114 &9024293814450745642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7200107309123050454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12d603aa287b3ea4caa05845d2152326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  missionSlot1: {fileID: 0}
+  missionSlot2: {fileID: 0}
+  missionSlot3: {fileID: 0}
+  selectionIndicator: {fileID: 0}
+  missionPositions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  inGameMissionText: {fileID: 0}
+  missionUIPanel: {fileID: 0}

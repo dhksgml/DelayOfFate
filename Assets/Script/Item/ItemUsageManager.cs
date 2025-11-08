@@ -43,6 +43,7 @@ public class ItemUsageManager : MonoBehaviour
     void SpawnAttackEffect(Attack_sc.AttackType type)
     {
         GameEvents.CallUseItem(type);
+        MissionManager.Instance.OnWeaponUsed(type.ToString());
 
         // 플레이어가 바라보는 방향 사용
         Vector2 direction = playerController.lastMoveDirection;

@@ -354,7 +354,7 @@ public abstract class Enemy     : MonoBehaviour
         // 이동속도 0으로 해서 움직이지 못하게
         enemyMoveSpeed = 0;
 
-
+        MissionManager.Instance.OnEnemyKilled(); // 처치 미션 증가
         //투명도 값을 1.0에서 0.01씩 뺴주면서 천천히 투명하게 해줌
         for (float i = 1.0f; i >= 0.0f; i -= 0.02f )
         {

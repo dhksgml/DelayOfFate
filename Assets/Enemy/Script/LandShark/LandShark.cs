@@ -7,16 +7,18 @@ using static UnityEngine.GraphicsBuffer;
 
 public class LandShark : Enemy
 {
-    [Header("¶¥»ó¾î")]
-    public bool isOut; //µ¹Ãâ
-    public bool isIn; //Àáº¹
-    public bool isAttackReady; //°ø°İ ÁØºñ
-    public bool isStop; //¸ØÃã
+    [Header("ë•…ìƒì–´")]
+    public bool isOut; //ëŒì¶œ
+    public bool isIn; //ì ë³µ
+    public bool isAttackReady; //ê³µê²© ì¤€ë¹„
+    public bool isStop; //ë©ˆì¶¤
     public float landSharkAttackSpeed;
     [SerializeField] LandSharkAttack landSharkAttack;
+    [SerializeField] Sprite hideSprite;
+    [SerializeField] Sprite OutSprite;
 
 
-    PlayerController player; //ÇÃ·¹ÀÌ¾î
+    PlayerController player; //í”Œë ˆì´ì–´
 
     float enemyOriginHP;
     void Awake()
@@ -32,10 +34,10 @@ public class LandShark : Enemy
 
         enemyOriginHP = enemyHp;
 
-        // Ã³À½¿¡ ·£´ıÇÑ ¹æÇâ ¼³Á¤
+        // ì²˜ìŒì— ëœë¤í•œ ë°©í–¥ ì„¤ì •
         ChooseNewDirection();
 
-        // ÁÖ±âÀûÀ¸·Î ¹æÇâ ÀüÈ¯
+        // ì£¼ê¸°ì ìœ¼ë¡œ ë°©í–¥ ì „í™˜
         StartCoroutine(ChangeDirectionRoutine());
     }
 
@@ -43,66 +45,103 @@ public class LandShark : Enemy
 
     void Update()
     {
-        //ÀûÀÇ Ã¼·ÂÀÌ 0ÀÌÇÏÀÏ½Ã.
+        HpBarUpdate();
+
+        //ì ì˜ ì²´ë ¥ì´ 0ì´í•˜ì¼ì‹œ.
         if (enemyHp <= 0 && !isDie)
         {
             isDie = true;
             StartCoroutine(EnemyDie());
         }
-        //Àáº¹½Ã È¸º¹ ½Ã°£
+
+        // ì ë³µ
+        if (isIn)
+        {
+            sp.sprite = hideSprite;
+        }
+        // ëŒì¶œ
+        else if (isOut)
+        {
+            sp.sprite = OutSprite;
+        }
+
+
+        //ì ë³µì‹œ íšŒë³µ ì‹œê°„
         healTime += Time.deltaTime;
 
 
-        //Àáº¹°ú µ¹Ãâ½Ã ÇÏ´Â Çàµ¿
+        //ì ë³µê³¼ ëŒì¶œì‹œ í•˜ëŠ” í–‰ë™
         LandSharkStat();
 
         if(!isStop) { EnemyMove(); }
     }
 
+
+    bool isRush;
+
+    void PlayerTrsFind()
+    {
+        enemyTargetDir = (player.transform.position - transform.position).normalized;
+    }
+
     public override void EnemyMove()
     {
-        enemyTargetDir = (enemyTrace.targetPos - transform.position).normalized;
+        
 
-        //µ¹Ãâ ½Ã
-        if (isOut && !isIn && isTrace)
+        if (isRush)
         {
-            rigid.MovePosition(transform.position + enemyTargetDir * enemyRunSpeed * Time.deltaTime);
+            // ì—ë‹ˆë©”ì´ì…˜
+            EnemyTraceTurn();
+
+            // ì´ë™
+            transform.Translate(enemyTargetDir * landSharkAttackSpeed * Time.deltaTime);
         }
 
-        //ÃÖ´ë Ã¤·ÂÀÌ ¾Æ´Ï¸é µµ¸Á
+        //ìµœëŒ€ ì±„ë ¥ì´ ì•„ë‹ˆë©´ ë„ë§
         else if(isEnemyRun)
         {
+            enemyTargetDir = (enemyTrace.targetPos - transform.position).normalized;
             rigid.MovePosition(transform.position + -enemyTargetDir * enemyRunSpeed * Time.deltaTime);
+            EnemyTraceTurn();
         }
 
         else
         {
             transform.Translate(moveDirection * enemyMoveSpeed * Time.deltaTime);
+            // ìŠ¤í”„ë¼ì´íŠ¸ íšŒì „
+            EnemyNormalTurn();
         }
     }
 
-    //Àáº¹À¸·Î º¯È¯ ÇÏ´Â ¸Ş¼­µå
+    //ì ë³µìœ¼ë¡œ ë³€í™˜ í•˜ëŠ” ë©”ì„œë“œ
     public void IsHide()
     {
-        isIn = true;
         isOut = false;
+        isIn = true;
+
+        // ì—ë‹ˆë©”ì´ì…˜ ì‹¤í–‰
+        anim.SetBool("isHide", true);
     }
-    //µ¹Ãâ·Î º¯È¯ ÇÏ´Â ¸Ş¼­µå
+    //ëŒì¶œë¡œ ë³€í™˜ í•˜ëŠ” ë©”ì„œë“œ
     public void isHideOut()
     {
         isIn = false;
         isOut = true;
+
+        // ì—ë‹ˆë©”ì´ì…˜ ì‹¤í–‰
+        anim.SetBool("isHide", false);
+
     }
 
     void LandSharkStat()
     {
-        if (isIn) //Àáº¹½Ã
+        if (isIn) //ì ë³µì‹œ
         {
             healTime += Time.deltaTime;
 
-            //ÀûÀÇ Ã¼·ÂÀÌ ÃÖ´ë Ã¼·ÂÀÌ ¾Æ´Ï¶ó¸é
+            //ì ì˜ ì²´ë ¥ì´ ìµœëŒ€ ì²´ë ¥ì´ ì•„ë‹ˆë¼ë©´
             if (enemyHp < enemyOriginHP) { isEnemyRun = true; }
-            //ÃÖ´ëÃ¼·ÂÀÌ¶ó¸é
+            //ìµœëŒ€ì²´ë ¥ì´ë¼ë©´
             else if (enemyHp == enemyOriginHP)
             {
                 isAttackReady = true;
@@ -117,7 +156,7 @@ public class LandShark : Enemy
             }
         }
 
-        else if (isOut) //µ¹Ãâ½Ã
+        else if (isOut) //ëŒì¶œì‹œ
         {
             isAttackReady = false;
         }
@@ -125,45 +164,44 @@ public class LandShark : Enemy
 
     public IEnumerator LandSharkJumpAttackMove()
     {
-        float stopDistance = 0f;
+        // ì—ë‹ˆë©”ì´ì…˜ ì‹¤í–‰ 11.03
+        anim.SetBool("isAttackReady", true);
+        PlayerTrsFind();
+        // ë„ì•½ ì „ 0.5ì´ˆ ëŒ€ê¸° 11.03
+        yield return new WaitForSeconds(0.5f);
 
-        float distanceToTarget = Vector3.Distance(transform.position, enemyTrace.targetPos);
-        enemyTargetDir = (enemyTrace.targetPos - transform.position).normalized;
-        Vector3 targetPosition = enemyTrace.targetPos + (enemyTargetDir * stopDistance);
-        
-        //°Å¸®°¡ ¸ØÃß´Â °Å¸®º¸´Ù Å©¸é ±Ùµ¥ »ç½Ç»ó true¶ó ÃÊ¿¡ ¸ÂÃç¼­ ¸ØÃß°Ô ÇØÁÖ¾úÀ½
-        if (distanceToTarget > stopDistance)
-        {
-            //µ¥¹ÌÁö¸¦ Á¡ÇÁ ¾îÅÃ µ¥¹ÌÁö¸¸Å­ ÇÒ´ç½ÃÄÑÁÜ
-            landSharkAttack.enemyDamage = landSharkAttack.landSharkJumpAttackDamage;
-            //ÇÃ·¹ÀÌ¾î¸¦ ¶Õ°í °¡¾ß ÇÏ±â ¶§¹®¿¡ Àá½Ã ²¨ÁØ ÈÄ
-            rigid.simulated = false;
+        // ì—ë‹ˆë©”ì´ì…˜ ì‹¤í–‰ 11.03
+        anim.SetBool("isAttack", true);
 
-            transform.position = Vector3.MoveTowards(
-                transform.position,
-                targetPosition - Vector3.right,
-                landSharkAttackSpeed * Time.deltaTime
-            );
-            //0.7ÃÊ. ÀÌ°Ç Çàµ¿ º¸°í ¼öÁ¤ÇØÁà¾ß ÇÒ µí
-            yield return new WaitForSeconds(0.7f);
-        }
-
-        //°ø°İ Æ®¸®°Å ÃÊ±âÈ­
-        isAttackReady = false;
         isStop = false;
+        landSharkAttack.enemyAttackCollider.enabled = true;
+        isRush = true;
+
+        landSharkAttack.enemyDamage = landSharkAttack.landSharkJumpAttackDamage;
+
+        //0.7ì´ˆ. ì´ê±´ í–‰ë™ ë³´ê³  ìˆ˜ì •í•´ì¤˜ì•¼ í•  ë“¯
+        yield return new WaitForSeconds(1f);
+
+        isRush = false;
+
+        //ê³µê²© íŠ¸ë¦¬ê±° ì´ˆê¸°í™”
+        isAttackReady = false;
         enemyTrace.landSharkAttackTime = 0;
 
-        //Äİ¶óÀÌ´õ ºñÈ°¼ºÈ­
+        //ì½œë¼ì´ë” ë¹„í™œì„±í™”
         landSharkAttack.enemyAttackCollider.enabled = false;
         
-        //ºñÈ°¼ºÈ­ µÈ simulated¸¦ È°¼ºÈ­ ½ÃÄÑÁØ´Ù.
+        //ë¹„í™œì„±í™” ëœ simulatedë¥¼ í™œì„±í™” ì‹œì¼œì¤€ë‹¤.
         rigid.simulated = true;
 
-        //µ¥¹ÌÁö¸¦ ¿ø·¡ µ¥¹ÌÁö·Î µ¹·Á³öÁÜ
+        //ë°ë¯¸ì§€ë¥¼ ì›ë˜ ë°ë¯¸ì§€ë¡œ ëŒë ¤ë†”ì¤Œ
         landSharkAttack.enemyDamage = landSharkAttack.currentDamage;
 
-        //Àáº¹ÀÌ ³¡³ª°í µ¹Ãâ·Î ¹Ù²ãÁÜ
+        //ì ë³µì´ ëë‚˜ê³  ëŒì¶œë¡œ ë°”ê¿”ì¤Œ
         isHideOut();
+
+        anim.SetBool("isAttack", false);
+        anim.SetBool("isAttackReady", false);
 
         yield return null;
     }
@@ -175,6 +213,11 @@ public class LandShark : Enemy
             {
                 WallCollOrigin();
             }
+            // ë¹›ì— ì¶©ëŒì‹œ ì€ì‹  í’€ë¦¼
+            if (collision.gameObject.CompareTag("Light"))
+            {
+                EnemyCloaking();
+            }
         }
     }
 
@@ -185,6 +228,12 @@ public class LandShark : Enemy
             if (collision.gameObject.CompareTag("Wall"))
             {
                 WallNotCross();
+            }
+
+            // ë¹›ì— ì¶©ëŒì‹œ ì€ì‹  í’€ë¦¼
+            if (collision.gameObject.CompareTag("Light"))
+            {
+                EnemyLightHit();
             }
         }
     }
