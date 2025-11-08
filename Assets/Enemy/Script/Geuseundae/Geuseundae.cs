@@ -7,6 +7,8 @@ public class Geuseundae : Enemy
     [Header("그슨대")]
     [SerializeField] bool isStop;
     [SerializeField] bool isNoDamage;
+    [SerializeField] Material notSeeMaterial;
+    [SerializeField] Material seeMaterial;  
     PlayerController player;
 
 
@@ -164,6 +166,8 @@ public class Geuseundae : Enemy
         c.a = 0.0f;
         sp.color = c;
 
+        // 쉐이더 변경
+        sp.material.shader = notSeeMaterial.shader;
 
     }
 
@@ -184,7 +188,8 @@ public class Geuseundae : Enemy
         c.a = 1.0f;
         sp.color = c;
 
-        sp.material.shader = Shader.Find("Sprites/Default");
+        // 쉐이더 변경
+        sp.material.shader = seeMaterial.shader;
 
         // 체력바를 비활성화 해줌
         enemyHpBar.hpObj.SetActive(false);
