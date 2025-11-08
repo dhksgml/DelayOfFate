@@ -51,13 +51,14 @@ public class PlayerController : MonoBehaviour
     public GameObject lightCircleObject;
     public float flashLightDistance = 3f;
     public float refillFlashlightCooltime = 0.5f; //호롱 회복 속도
+    public float refillFlashlightAmount = 0.1f; //호롱 회복량
 
     private Light2D flashLight;
     //private float flashlightRadius;
     private float startRadius = 10f; //최대 시야 크기
     private float minRadius = 0f; //최소 시야 크기
     private float currentRadius; //현재 시야 크기
-    private float decreaseRate = 0.1f; //시야 감소폭
+    private float decreaseRate = 0.3f; //시야 감소폭
     private bool isOn = true; //플래시라이트 상태
     private Coroutine refillCoroutine;
 
@@ -192,6 +193,8 @@ public class PlayerController : MonoBehaviour
         float baseSpeed = GameManager.Instance.playerData.speedMultiplier;
         float bonus = 0f;
 
+        if (!isOn) bonus += 0.3f;
+
         if (PassiveItemManager.Instance.HasEffect("Soul_Add_3_2"))
             bonus += Mathf.Clamp(Mathf.FloorToInt(GameManager.Instance.Gold / 200), 0, 3) * 0.1f;
 
@@ -203,7 +206,16 @@ public class PlayerController : MonoBehaviour
             if (GameManager.Instance.Day >= 4)
                 bonus += 0.3f;
         }
+
+        if (PassiveItemManager.Instance.HasEffect("Soul_Add_7_1"))
+        {
+            float healthRatio = currentHp / maxHp;
+
+            if(healthRatio <= 0.3f)
+                bonus += 0.3f;
+        }
             
+
         if (PassiveItemManager.Instance.HasEffect("Soul_Add_7_2") && quickSlotUI.angleUnit >= 18)
             bonus += 0.5f;
 
@@ -262,6 +274,10 @@ public class PlayerController : MonoBehaviour
                 SpendBattery();
                 //flashLight.pointLightOuterRadius = currentRadius;
                 flashLightObject.GetComponent<CircleCollider2D>().radius = currentRadius / 2;
+            }
+            else
+            {
+                RefillFlashlight(refillFlashlightAmount);
             }
             
         }

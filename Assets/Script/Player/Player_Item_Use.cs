@@ -220,9 +220,15 @@ public class Player_Item_Use : MonoBehaviour
                     // 아이템 사용
                     TryUseItem(selectedItem);
 
+                    float targetCooltime = selectedItem.Usage_cool_down;
                     // 일반 쿨다운 적용
-                    playercontroller.Player_Usage_cu_cool_down = selectedItem.Usage_cool_down;
-                    playercontroller.SetUseItemCooltime(selectedItem.Usage_cool_down);
+                    playercontroller.Player_Usage_cu_cool_down = targetCooltime;
+
+                    //쾌도난마 쿨타임
+                    if (PassiveItemManager.Instance.HasEffect("Soul_Add_2_3") && selectedItem.id == 999)
+                        targetCooltime *= 1.5f;
+
+                    playercontroller.SetUseItemCooltime(targetCooltime);
 
                     // UI 갱신
                     UpdateQuickSlotUI();
