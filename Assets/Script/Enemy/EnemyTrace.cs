@@ -211,8 +211,9 @@ public class EnemyTrace : MonoBehaviour
                     {
                         landSharkOutTime += Time.deltaTime;
 
+
                         // 2초가 지나면 11.03 수정
-                        if(landSharkOutTime >= 2f)
+                        if (landSharkOutTime >= 2f)
                         {
                             //잠복으로 변환
                             enemyScript.landShark.IsHide();

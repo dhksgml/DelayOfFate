@@ -22,8 +22,11 @@ public class WildBoar_Attack : EnemyAttack
 
         rotationColl();
 
-        if (time >= enemyAttackSpeed && distance <= 3f && !wildBoar.isStop)
+        if (time >= enemyAttackSpeed && distance <= 6f && !wildBoar.isStop)
         {
+
+            // 멈추게해줌
+            wildBoar.isStop = true;
 
             // 에니메이션
             wildBoar.anim.SetTrigger("isAttack");
@@ -31,7 +34,8 @@ public class WildBoar_Attack : EnemyAttack
             enemyAttackCollider.enabled = true;
             enemy.isEnemyAttack = false;
             time = 0;
-            Invoke("Delay", 0.5f);
+            Invoke("Delay", 0.1f);
+            Invoke("DelayTrigger", 1f);
         }
     }
 
@@ -47,5 +51,10 @@ public class WildBoar_Attack : EnemyAttack
     public void Delay()
     {
         enemyAttackCollider.enabled = false;
+        
+    }
+    public void DelayTrigger()
+    {
+        wildBoar.isStop = false;
     }
 }
