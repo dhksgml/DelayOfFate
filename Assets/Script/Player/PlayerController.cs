@@ -115,6 +115,10 @@ public class PlayerController : MonoBehaviour
 
     public bool isKill2Heal;
 
+    // 11.09 추가, 저주인형을 위함
+    [HideInInspector] public bool isHealBan;
+    [HideInInspector] public float healBanTime;
+
     public enum PlayerState
     {
         Idle,
@@ -271,12 +275,14 @@ public class PlayerController : MonoBehaviour
 
             if (isOn)
             {
+                flashLightObject.GetComponent<CircleCollider2D>().enabled = true;
                 SpendBattery();
                 //flashLight.pointLightOuterRadius = currentRadius;
-                flashLightObject.GetComponent<CircleCollider2D>().radius = currentRadius / 2;
+                //flashLightObject.GetComponent<CircleCollider2D>().radius = currentRadius;
             }
             else
             {
+                flashLightObject.GetComponent<CircleCollider2D>().enabled = false;
                 RefillFlashlight(refillFlashlightAmount);
             }
             
@@ -288,9 +294,11 @@ public class PlayerController : MonoBehaviour
             clickLookTimer = Mathf.Clamp(clickLookTimer, 0f, clickLookDuration);
         }
 
-        if (isFreeze)
+        if (isHealBan)
         {
-            //FreezingCancle();
+            healBanTime -= Time.deltaTime;
+
+            if (healBanTime <= 0) { isHealBan = false; }
 
         }
         UpdateItemCooldown();
