@@ -26,6 +26,8 @@ public class Attack_sc : MonoBehaviour
     private Player_Item_Use player_Item_Use;
     private Player_Item_p player_Item_P;
 
+    private Enemy collidedEnemy;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -123,6 +125,14 @@ public class Attack_sc : MonoBehaviour
             }
         }
 
+        //속전속결
+        if (PassiveItemManager.Instance.HasEffect("Soul_Add_1_3") && GetIsEnemyHealthFull())
+            damageBonus += 0.3f;
+
+        //기고만장
+        if (PassiveItemManager.Instance.HasEffect("Soul_Add_1_4") && player_Item_Use.GetIsFullHealth())
+            damageBonus += 0.3f;
+
         //문전박대 데미지 증가
         if (attackType == AttackType.Bat && PassiveItemManager.Instance.HasEffect("Soul_Add_2_1"))
             damageBonus += 0.5f;
@@ -178,11 +188,17 @@ public class Attack_sc : MonoBehaviour
                         itemBonus += 2 * player_Item_P.item_p_count[9]; // +5 × 개수
                     }
                     baseDamage = Mathf.FloorToInt(Random.Range(6f, 8f + 1));
+
+                    //백발백중
+                    if (PassiveItemManager.Instance.HasEffect("Soul_Add_2_2"))
+                        baseDamage -= 2;
+
                     break;
                 }
             default:
                 return 0f;
         }
+
         // 1단계: + 증가량 적용
         float totalDamage = baseDamage + itemBonus;
 
@@ -218,6 +234,8 @@ public class Attack_sc : MonoBehaviour
             }
             if (enemy != null && enemy.gameObject.CompareTag("Enemy"))
             {
+                collidedEnemy = collision.GetComponent<Enemy>();
+
                 if (enemy.gameObject.CompareTag("Enemy"))
                 {
                     // Scroll은 적 체력의 절반 (고정 피해, 할 적용 안함)
@@ -233,5 +251,11 @@ public class Attack_sc : MonoBehaviour
     protected virtual void TriggerWeaknessEffect()
     {
         if (AttackType.Bottle == attackType) { player_Item_Use.bottleCooldown = 0; }
+    }
+
+    private bool GetIsEnemyHealthFull()
+    {
+        if (collidedEnemy == null) return false;
+        return (collidedEnemy.enemyHp / collidedEnemy.enemyMaxHp) == 1;
     }
 }

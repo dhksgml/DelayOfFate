@@ -461,4 +461,9 @@ public class Player_Item_Use : MonoBehaviour
         }
         return emptyCount;
     }
+
+    public bool GetIsFullHealth()
+    {
+        return (playercontroller.currentHp / playercontroller.maxHp) == 1;
+    }
 }
