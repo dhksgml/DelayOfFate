@@ -49,6 +49,8 @@ public class PassiveItemManager : MonoBehaviour
                 AddPassiveItem(g, n);
             }
         }
+        AddPassiveItem(1, 3);
+        AddPassiveItem(1, 4);
         // 3번째 효과 Soul_Add_2_3, Soul_Add_4_3, Soul_Add_6_3
         for (int n = 2; n <= 6; n += 2)
         {
@@ -129,13 +131,20 @@ public class PassiveItemManager : MonoBehaviour
         {
             case "1_1": return "천하장사";
             case "1_2": return "정정당당";
+            case "1_3": return "속전속결";
+            case "1_4": return "기고만장";
+            case "1_5": return "백전백승";
+            case "1_6": return "불철주야";
 
             case "2_1": return "문전박대";
             case "2_2": return "백발백중";
             case "2_3": return "쾌도난마";
+            case "2_4": return "일망타진";
+            case "2_5": return "현호세세";
 
             case "3_1": return "금의환향";
             case "3_2": return "다다익선";
+            case "3_3": return "일확천금";
 
             case "4_1": return "금강불괴";
             case "4_2": return "외강내유";
@@ -143,13 +152,19 @@ public class PassiveItemManager : MonoBehaviour
 
             case "5_1": return "가담항설";
             case "5_2": return "취사선택";
+            case "5_3": return "경화수월";
+            case "5_4": return "어부지리";
 
             case "6_1": return "등용문";
             case "6_2": return "승승장구";
             case "6_3": return "선견지명";
+            case "6_4": return "일취월장";
+            case "6_5": return "독불장군";
 
             case "7_1": return "구사일생";
             case "7_2": return "궁여지책";
+            case "7_3": return "무아지경";
+            case "7_4": return "배수진";
             //패시브 아님
             case "8_1": return "환도";
             case "8_2": return "방망이";
@@ -233,22 +248,41 @@ public class PassiveItemManager : MonoBehaviour
             //<sprite=8> 
             //<sprite=9> 
             case "1_1": return "소지한 물건당 피해 1할 증가";
-            case "1_2": return "악귀에게 주는 피해가 10할 증가\n악귀의 약점을 공격 할 수 없음";
+            case "1_2": return "악귀에게 주는 피해가 10할 증가\n<color=red>악귀의 약점을 공격 할 수 없음</color>";
+            case "1_3": return "최대체력인 악귀에게 피해량 3할 증가";
+            case "1_4": return "최대체력 일때 피해량 3할 증가";
+            case "1_5": return "오늘 처치한 악귀의 수 만큼 피해량 1 증가\n(최대 10)";
+            case "1_6": return "12각 이상시 피해량 5할 증가";
+
             case "2_1": return "방망이의 피해량이 5할 증가";
-            case "2_2": return "부적을 3개씩 던짐";
+            case "2_2": return "<color=red>부적의 피해량 2 감소</color>\n부적을 3개씩 던짐";
             case "2_3": return "환도의 공격속도 5할 증가\n환도의 피해량이 5증가";
+            case "2_4": return "족자로 동시에 3 이상을 대상으로 공격에 성공했다면\n소모한 정신력을 회복함";
+            case "2_5": return "호리병으로 적을 처치하면 혼을 2배로 획득\n재사용 시간이 5할 줄어듬";
+
             case "3_1": return "약값 지불 후 보유한 <sprite=8>의\n3할 만큼 획득";
             case "3_2": return "보유한 200 <sprite=9> 당 이동속도 1할 증가\n(최대 3할)";
-            case "4_1": return "악귀로 받는 체력피해가\n5할 감소";
-            case "4_2": return "체력이 75 증가\n정신이 25 감소";
-            case "4_3": return "정신이 75 증가\n체력이 25 감소";
+            case "3_3": return "물건 즉시판매시 1할의 확률로 1000 냥 획득";
+
+            case "4_1": return "악귀로 받는 체력피해 5할 감소";
+            case "4_2": return "체력 75 증가\n<color=red>정신 25 감소</color>";
+            case "4_3": return "정신 75 증가\n<color=red>체력 25 감소</color>";
+
             case "5_1": return "가장 가까운 물건의\n위치를 파악함";
             case "5_2": return "비어 있는 손 만큼\n이동속도 1할 증가";
+            case "5_3": return "호롱불이 꺼지지 않음";
+            case "5_4": return "악귀로 부터 혼을 얻을 때\n10할 추가 획득";
+
             case "6_1": return "4일차 이후라면 이동속도, 피해량 3할 상승";
             case "6_2": return "악귀 처치시 체력 5회복, 정신 3회복";
             case "6_3": return "하루가 지날때 들고 있던 물건의\n가치가 10할 증가";
+            case "6_4": return "보유한 300 혼 당 피해량 1할 증가\n(최대 7할)";
+            case "6_5": return "오늘 상호작용한 장소 수만큼 피해량 1할 증가\n(최대 4할)";
+
             case "7_1": return "체력이 3할 이하시 이동속도 3할 증가";
             case "7_2": return "18각 이상시\n달리기 속도가 5할 증가";
+            case "7_3": return "체력 5할 이하면 피해량 5할 증가";
+            case "7_4": return "체력 150 증가\n<color=red>체력 5할 이상시 체력회복불가</color>";
             //패시브 아님
             case "8_1": return "전방을 공격해 10~14의 피해를 입힘\n약점의 경우 즉사시킴";
             case "8_2": return "전방을 공격해 20~30의 피해를 입힘\n약점의 경우 즉사시킴";
@@ -273,21 +307,41 @@ public class PassiveItemManager : MonoBehaviour
         {
             case "1_1": return 2;
             case "1_2": return 3;
+            case "1_3": return 1;
+            case "1_4": return 1;
+            case "1_5": return 2;
+            case "1_6": return 2;
+
             case "2_1": return 1;
             case "2_2": return 1;
             case "2_3": return 1;
+            case "2_4": return 1;
+            case "2_5": return 1;
+
             case "3_1": return 3;
             case "3_2": return 2;
+            case "3_3": return 1;
+
             case "4_1": return 4;
             case "4_2": return 1;
             case "4_3": return 1;
+
             case "5_1": return 1;
             case "5_2": return 2;
+            case "5_3": return 1;
+            case "5_4": return 2;
+
             case "6_1": return 2;
             case "6_2": return 2;
             case "6_3": return 3;
+            case "6_4": return 3;
+            case "6_5": return 1;
+
             case "7_1": return 2;
             case "7_2": return 1;
+            case "7_3": return 3;
+            case "7_4": return 2;
+
             //패시브 아님
             case "8_1": return 5;
             case "8_2": return 5;
@@ -364,12 +418,24 @@ public class PassiveItemManager : MonoBehaviour
                 break;
             case "Soul_Add_1_3":// 
                 break;
+            case "Soul_Add_1_4":// 
+                break;
+            case "Soul_Add_1_5":// 
+                break;
+            case "Soul_Add_1_6":// 
+                break;
+
             case "Soul_Add_2_1":// 
                 break;
             case "Soul_Add_2_2":// 
                 break;
             case "Soul_Add_2_3":// 
                 break;
+            case "Soul_Add_2_4":// 
+                break;
+            case "Soul_Add_2_5":// 
+                break;
+
             case "Soul_Add_3_1":// 
                 DoPassive_3_1();
                 break;
@@ -377,6 +443,7 @@ public class PassiveItemManager : MonoBehaviour
                 break;
             case "Soul_Add_3_3":// 
                 break;
+
             case "Soul_Add_4_1":// 
                 DoPassive_4_1();
                 break;
@@ -386,6 +453,7 @@ public class PassiveItemManager : MonoBehaviour
             case "Soul_Add_4_3":// 
                 DoPassive_4_3();
                 break;
+
             case "Soul_Add_5_1":// 
                 DoPassive_5_1();
                 break;
@@ -394,6 +462,9 @@ public class PassiveItemManager : MonoBehaviour
                 break;
             case "Soul_Add_5_3":// 
                 break;
+            case "Soul_Add_5_4":// 
+                break;
+
             case "Soul_Add_6_1":// 
                 break;
             case "Soul_Add_6_2":// 
@@ -402,6 +473,11 @@ public class PassiveItemManager : MonoBehaviour
             case "Soul_Add_6_3":// 
                                 //DoPassive_6_3();
                 break;
+            case "Soul_Add_6_4":// 
+                break;
+            case "Soul_Add_6_5":// 
+                break;
+
             case "Soul_Add_7_1":// 
                 DoPassive_7_1();
                 break;
@@ -409,6 +485,8 @@ public class PassiveItemManager : MonoBehaviour
                 DoPassive_7_2();
                 break;
             case "Soul_Add_7_3":// 
+                break;
+            case "Soul_Add_7_4":// 
                 break;
         }
     }
@@ -423,12 +501,24 @@ public class PassiveItemManager : MonoBehaviour
                 break;
             case "Soul_Add_1_3":// 
                 break;
+            case "Soul_Add_1_4":// 
+                break;
+            case "Soul_Add_1_5":// 
+                break;
+            case "Soul_Add_1_6":// 
+                break;
+
             case "Soul_Add_2_1":// 
                 break;
             case "Soul_Add_2_2":// 
                 break;
             case "Soul_Add_2_3":// 
                 break;
+            case "Soul_Add_2_4":// 
+                break;
+            case "Soul_Add_2_5":// 
+                break;
+
             case "Soul_Add_3_1":// 
                 //RemovePassive_3_1();
                 break;
@@ -436,6 +526,7 @@ public class PassiveItemManager : MonoBehaviour
                 break;
             case "Soul_Add_3_3":// 
                 break;
+
             case "Soul_Add_4_1":// 
                 RemovePassive_4_1();
                 break;
@@ -445,6 +536,7 @@ public class PassiveItemManager : MonoBehaviour
             case "Soul_Add_4_3":// 
                 //RemovePassive_4_3();
                 break;
+
             case "Soul_Add_5_1":// 
                 RemovePassive_5_1();
                 break;
@@ -453,6 +545,9 @@ public class PassiveItemManager : MonoBehaviour
                 break;
             case "Soul_Add_5_3":// 
                 break;
+            case "Soul_Add_5_4":// 
+                break;
+
             case "Soul_Add_6_1":// 
                 break;
             case "Soul_Add_6_2":// 
@@ -461,6 +556,11 @@ public class PassiveItemManager : MonoBehaviour
             case "Soul_Add_6_3":// 
                                 //DoPassive_6_3();
                 break;
+            case "Soul_Add_6_4":// 
+                break;
+            case "Soul_Add_6_5":// 
+                break;
+
             case "Soul_Add_7_1":// 
                 RemovePassive_7_1();
                 break;
@@ -468,6 +568,8 @@ public class PassiveItemManager : MonoBehaviour
                 RemovePassive_7_2();
                 break;
             case "Soul_Add_7_3":// 
+                break;
+            case "Soul_Add_7_4":// 
                 break;
         }
     }
