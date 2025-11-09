@@ -6,6 +6,7 @@ public class Geuseundae : Enemy
 {
     [Header("그슨대")]
     [SerializeField] bool isStop;
+    [HideInInspector] public bool isAttack;
     [SerializeField] bool isNoDamage;
     [SerializeField] Material notSeeMaterial;
     [SerializeField] Material seeMaterial;  
@@ -51,11 +52,15 @@ public class Geuseundae : Enemy
     public override void EnemyMove()
     {
         enemyTargetDir = (player.transform.position - transform.position).normalized;
+        
 
-        if (isStop)
+        // 공격 범위 내에 들어오면
+        if (isAttack)
         {
             // 에니메이션
             //anim.SetBool("isMove", false);
+
+
             return;
         }
 
@@ -73,7 +78,6 @@ public class Geuseundae : Enemy
 
             // 현재 방향으로 이동
             transform.Translate(moveDirection * enemyMoveSpeed * Time.deltaTime);
-
         }
     }
 

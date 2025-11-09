@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boon_yeol_gwi_bullet : MonoBehaviour
+public class Geuseundae_Bullet : MonoBehaviour
 {
     [SerializeField] float speed = 3f;
     [SerializeField] float damage = 10f;
     [HideInInspector] public bool isHide;
+    [SerializeField] float playerMinusLightGage;
 
     Rigidbody2D rb;
     PlayerController player;
@@ -30,11 +31,8 @@ public class Boon_yeol_gwi_bullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (isHide)
-                player.DamagedHP(damage * 1.5f);
-            else
-                player.DamagedHP(damage);
-
+            player.DamagedHP(damage);
+            player.currentRadius -= playerMinusLightGage;
             Destroy(gameObject);
         }
     }
