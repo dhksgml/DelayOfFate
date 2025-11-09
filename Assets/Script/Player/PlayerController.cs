@@ -275,12 +275,14 @@ public class PlayerController : MonoBehaviour
 
             if (isOn)
             {
+                flashLightObject.GetComponent<CircleCollider2D>().enabled = true;
                 SpendBattery();
                 //flashLight.pointLightOuterRadius = currentRadius;
-                flashLightObject.GetComponent<CircleCollider2D>().radius = currentRadius / 2;
+                //flashLightObject.GetComponent<CircleCollider2D>().radius = currentRadius;
             }
             else
             {
+                flashLightObject.GetComponent<CircleCollider2D>().enabled = false;
                 RefillFlashlight(refillFlashlightAmount);
             }
             
