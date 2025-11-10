@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2961601071751758948}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.29, y: 0.01, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 841805429, guid: a89636f55b8de1643971b7f49627086d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -279,6 +279,10 @@ MonoBehaviour:
   isFind: 0
   enemyDamage: 30
   healBanTime: 20
+  curseDollSprite:
+  - {fileID: 841805429, guid: a89636f55b8de1643971b7f49627086d, type: 3}
+  - {fileID: -1393900333, guid: a89636f55b8de1643971b7f49627086d, type: 3}
+  - {fileID: 1331228813, guid: a89636f55b8de1643971b7f49627086d, type: 3}
 --- !u!1 &8389716010803181013
 GameObject:
   m_ObjectHideFlags: 0
