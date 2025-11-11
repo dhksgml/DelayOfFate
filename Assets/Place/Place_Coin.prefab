@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -914339061, guid: 862c64161b9fca34f8577a186d6a8330, type: 3}
+  m_Sprite: {fileID: 804804525, guid: a93b9cd6f7ef2d6489ecf4bd1ff85e81, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -288,12 +288,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 846ea87ed4cba1c40998e35cc107a8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  place_enum: 1
+  place_enum: 4
   key_UI_iamge: {fileID: 8583213906846447739}
   sprite_ch_spr:
   - {fileID: -1055866947, guid: b8a0ae0f400f3534386e872c817c8982, type: 3}
   - {fileID: -1735212769, guid: b8a0ae0f400f3534386e872c817c8982, type: 3}
   warningText: {fileID: 0}
+  special_obj: {fileID: 0}
 --- !u!61 &8004555911403342272
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -337,7 +338,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 2, y: 2}
   m_EdgeRadius: 0
 --- !u!50 &4648586438199354265
 Rigidbody2D:

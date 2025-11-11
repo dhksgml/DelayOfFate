@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a81ddb9db58a04b4aa02360f30ae9826
+guid: 8bc4e793a9aa5b145b2d1cf0fcb70cca
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,7 +97,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sprite1_strip4_2_0
+      name: 1_2 tal_strip5_0
       rect:
         serializedVersion: 2
         x: 0
@@ -111,14 +111,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eb7fe3fc6d76b4f40ac68ba253f12358
-      internalID: -933704475
+      spriteID: a5840efa3d44bf24fa0e82d91415405a
+      internalID: 1100909499
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite1_strip4_2_1
+      name: 1_2 tal_strip5_1
       rect:
         serializedVersion: 2
         x: 128
@@ -132,14 +132,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8f5ab51aeaf6a7849a45d6bd20ceb899
-      internalID: 245018793
+      spriteID: c74b8dac078c2f94f9ae776f2e135a73
+      internalID: -1087370475
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite1_strip4_2_2
+      name: 1_2 tal_strip5_2
       rect:
         serializedVersion: 2
         x: 256
@@ -153,14 +153,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 21fec46463e7a7c4e9418a740eb45a5b
-      internalID: 1494805226
+      spriteID: 047f74b8ab8fcc24185a550e9e0b9ada
+      internalID: -630213634
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite1_strip4_2_3
+      name: 1_2 tal_strip5_3
       rect:
         serializedVersion: 2
         x: 384
@@ -174,8 +174,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d1bbc4ba36dddee4ea3153b5aaf9438f
-      internalID: -256824090
+      spriteID: a272ef927ef105a4f9323a2aabae21e2
+      internalID: 309667644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1_2 tal_strip5_4
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7da96f7bfadfb741805158abf4932a7
+      internalID: -591989921
       vertices: []
       indices: 
       edges: []
@@ -191,10 +212,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      sprite1_strip4_2_0: -933704475
-      sprite1_strip4_2_1: 245018793
-      sprite1_strip4_2_2: 1494805226
-      sprite1_strip4_2_3: -256824090
+      1_2 tal_strip5_0: 1100909499
+      1_2 tal_strip5_1: -1087370475
+      1_2 tal_strip5_2: -630213634
+      1_2 tal_strip5_3: 309667644
+      1_2 tal_strip5_4: -591989921
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

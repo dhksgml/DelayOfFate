@@ -12,52 +12,52 @@ public class RoomRandomPlacement : MonoBehaviour
     public int width;
     public int height;
     public int roomCount;
-    public float spacing;//·ë °Å¸® (ÀÌÁ¦ »ç½Ç»ó °íÁ¤)
+    public float spacing;//ë£¸ ê±°ë¦¬ (ì´ì œ ì‚¬ì‹¤ìƒ ê³ ì •)
 
-    [HideInInspector] public int[] Cost_list; //¾à°ª
-    [HideInInspector] public int[] map_structure; //¸Ê±¸Á¶
-    [HideInInspector] public int[] room_count; //¹æ °ì¼ö (¿ÀÂ÷1)
-    [HideInInspector] public int[] value_points; //¹Ù´Ú¿¡ ±ò¸®´Â ±× °¡Ä¡
-    [HideInInspector] public int[] value_error; //¹Ù´Ú¿¡ ±ò¸®´Â °¡Ä¡ÀÇ ¿ÀÂ÷
+    [HideInInspector] public int[] Cost_list; //ì•½ê°’
+    [HideInInspector] public int[] map_structure; //ë§µêµ¬ì¡°
+    [HideInInspector] public int[] room_count; //ë°© ê³—ìˆ˜ (ì˜¤ì°¨1)
+    [HideInInspector] public int[] value_points; //ë°”ë‹¥ì— ê¹”ë¦¬ëŠ” ê·¸ ê°€ì¹˜
+    [HideInInspector] public int[] value_error; //ë°”ë‹¥ì— ê¹”ë¦¬ëŠ” ê°€ì¹˜ì˜ ì˜¤ì°¨
 
     public GameObject[] allRoomPrefabs;
     public GameObject corridorPrefab;
     public float corridorThickness = 1f;
     private SpawnManager spawnManager;
     private PlayerController player;
-    public GameObject Place_Resurrection; // ºÎÈ° Àå¼Ò
-    public GameObject Place_Sale; // ÆÇ¸Å Àå¼Ò
-    public GameObject Place_Escape; // Å»Ãâ Àå¼Ò
+    public GameObject Place_Resurrection; // ë¶€í™œ ì¥ì†Œ
+    public GameObject Place_Sale; // íŒë§¤ ì¥ì†Œ
+    public GameObject Place_Escape; // íƒˆì¶œ ì¥ì†Œ
+    public GameObject Place_Soul; // í˜¼ ì¥ì†Œ
+    public GameObject Place_Coin; // ëƒ¥ ì¥ì†Œ
+    public GameObject Place_Eye; // ëˆˆ ì¥ì†Œ
     public PlaceManager placeManager;
 
-
-
-
     public List<Vector2Int> roomPositions = new();
-    // ¼öÁ¤À» À§ÇØ ºñÈ°¼ºÈ­
+    // ìˆ˜ì •ì„ ìœ„í•´ ë¹„í™œì„±í™”
     public Dictionary<Vector2Int, string> roomDirections = new();
     //private Dictionary<Vector2Int, GameObject> roomObjects = new();
 
     public Dictionary<Vector2Int, GameObject> roomObjects = new Dictionary<Vector2Int, GameObject>();
 
-    // Ãß°¡µÊ: ¹æ ÁÂÇ¥ -> »ç¿ëµÈ ÇÁ¸®ÆÕ ¿øº»
+    // ì¶”ê°€ë¨: ë°© ì¢Œí‘œ -> ì‚¬ìš©ëœ í”„ë¦¬íŒ¹ ì›ë³¸
     public Dictionary<Vector2Int, GameObject> roomPrefabsUsed = new Dictionary<Vector2Int, GameObject>();
 
-    // º¹µµ°ªÀ» ÁÖ±â À§ÇÔ
+    // ë³µë„ê°’ì„ ì£¼ê¸° ìœ„í•¨
     public List<GameObject> tossCors = new List<GameObject>();
 
-    // »ç½Å ¼ÒÈ¯À» À§ÇÔ
+    // ì‚¬ì‹  ì†Œí™˜ì„ ìœ„í•¨
     public List<Vector3> randomPlace;
 
     public List<GameObject> randomPlaceObj;
 
-    private void Awake() //¹è¿­ ÃÊ±âÈ­
+    private void Awake() //ë°°ì—´ ì´ˆê¸°í™”
     {
-        Cost_list = new int[] { 0, 0, 0, 0, 0 }; //¾à°ª
-        map_structure = new int[] { 3, 4, 4, 5, 5 }; //¸Ê±¸Á¶
-        room_count = new int[] { 8, 12, 16, 20, 24 }; //¹æ °ì¼ö (¿ÀÂ÷1)
-        value_points = new int[] { 600, 900, 1200, 1600, 2000 }; //¹Ù´Ú¿¡ ±ò¸®´Â ±× °¡Ä¡
-        value_error = new int[] { 50, 75, 125, 200, 300 }; //¹Ù´Ú¿¡ ±ò¸®´Â °¡Ä¡ÀÇ ¿ÀÂ÷
+        Cost_list = new int[] { 0, 0, 0, 0, 0 }; //ì•½ê°’
+        map_structure = new int[] { 3, 4, 4, 5, 5 }; //ë§µêµ¬ì¡°
+        room_count = new int[] { 8, 12, 16, 20, 24 }; //ë°© ê³—ìˆ˜ (ì˜¤ì°¨1)
+        value_points = new int[] { 600, 900, 1200, 1600, 2000 }; //ë°”ë‹¥ì— ê¹”ë¦¬ëŠ” ê·¸ ê°€ì¹˜
+        value_error = new int[] { 50, 75, 125, 200, 300 }; //ë°”ë‹¥ì— ê¹”ë¦¬ëŠ” ê°€ì¹˜ì˜ ì˜¤ì°¨
     }
 
     void Start()
@@ -66,11 +66,11 @@ public class RoomRandomPlacement : MonoBehaviour
         placeManager = FindObjectOfType<PlaceManager>();
         spawnManager = GetComponent<SpawnManager>();
         
-        Room_re_data(); // ÇöÀç ³¯Â¥¿¡ ¸Â°Ô °ª ÀçÁ¶Á¤
+        Room_re_data(); // í˜„ì¬ ë‚ ì§œì— ë§ê²Œ ê°’ ì¬ì¡°ì •
         GenerateRooms();
-        FillTilemapWithFloorTiles(); //Å¸ÀÏ¸Ê ¸ÕÀú ±ò±â
-        MovePlayerToRandomRoom(); // Ãß°¡ ÇÃ·¹ÀÌ¾î ½ºÆù ÈÄ
-        spawnManager.SpawnWave_ByPattern(GameManager.Instance.Day - 1); //¿ä¼Òµé ½ºÆù Àû, ¾ÆÀÌÅÛ ½ºÆù
+        FillTilemapWithFloorTiles(); //íƒ€ì¼ë§µ ë¨¼ì € ê¹”ê¸°
+        MovePlayerToRandomRoom(); // ì¶”ê°€ í”Œë ˆì´ì–´ ìŠ¤í° í›„
+        spawnManager.SpawnWave_ByPattern(GameManager.Instance.Day - 1); //ìš”ì†Œë“¤ ìŠ¤í° ì , ì•„ì´í…œ ìŠ¤í°
     }
     void Room_re_data()
     {
@@ -79,7 +79,7 @@ public class RoomRandomPlacement : MonoBehaviour
         width = baseValue;
         height = baseValue;
 
-        if ((Day + 1) % 2 == 1)//È¦¼ö ³¯ ÀÏ °æ¿ì °¡·Î ¼¼·Î µÑÁß ÇÏ³ª¸¸ +1À» ÇÔ
+        if ((Day + 1) % 2 == 1)//í™€ìˆ˜ ë‚  ì¼ ê²½ìš° ê°€ë¡œ ì„¸ë¡œ ë‘˜ì¤‘ í•˜ë‚˜ë§Œ +1ì„ í•¨
         {
             (width, height) = Random.Range(0, 2) == 0
                 ? (baseValue + 1, baseValue)
@@ -124,79 +124,44 @@ public class RoomRandomPlacement : MonoBehaviour
         int dayIndex = GameManager.Instance.Day - 1;
         int objectCountPerType = Mathf.Max(1, (dayIndex) / 2 + 1);
 
-        // roomObjects.Values¸¦ ¸®½ºÆ®·Î °¡Á®¿Í ¼¯´Â´Ù
+        // roomObjects.Valuesë¥¼ ë¦¬ìŠ¤íŠ¸ë¡œ ê°€ì ¸ì™€ ì„ëŠ”ë‹¤
         var shuffledRooms = roomObjects.Values.OrderBy(x => Random.value).ToList();
 
-        // ÇÃ·¹ÀÌ¾î À§Ä¡ (Ã¹ ¹øÂ° ¹æ)
-        // ÇÃ·¹ÀÌ¾î ÀÌµ¿
+        // í”Œë ˆì´ì–´ ìœ„ì¹˜ (ì²« ë²ˆì§¸ ë°©)
+        // í”Œë ˆì´ì–´ ì´ë™
         player.transform.position = shuffledRooms[0].transform.position;
 
-        // ¸ğµç EnemyPoint Ã£±â
+        // ëª¨ë“  EnemyPoint ì°¾ê¸°
         GameObject[] enemyPoints = GameObject.FindGameObjectsWithTag("EnemyPoint");
         
         foreach (GameObject point in enemyPoints)
         {
-            print("Ã£À½");
-            // ÇÃ·¹ÀÌ¾î¿ÍÀÇ °Å¸® °è»ê
+            print("ì°¾ìŒ");
+            // í”Œë ˆì´ì–´ì™€ì˜ ê±°ë¦¬ ê³„ì‚°
             float distance = Vector2.Distance(player.transform.position, point.transform.position);
 
             if (distance <= 32f)
             {
-                print("Á¦°Å ½Ãµµ");
-                point.tag = "Untagged"; // Á¦°Å Á÷Àü ÅÂ±×¸¦ º¯°æÇØ¼­ ½ºÆùÂÊ¿¡¼­ ¸øÃ£°Ô ¸¸µë
-                // ¹İ°æ 32 ¾È -> Á¦°Å
+                print("ì œê±° ì‹œë„");
+                point.tag = "Untagged"; // ì œê±° ì§ì „ íƒœê·¸ë¥¼ ë³€ê²½í•´ì„œ ìŠ¤í°ìª½ì—ì„œ ëª»ì°¾ê²Œ ë§Œë“¬
+                // ë°˜ê²½ 32 ì•ˆ -> ì œê±°
                 Destroy(point);
             }
         }
 
         int roomIndex = 1;
 
-        #region ±¸ÄÚµå
-        // ºÎÈ° Àå¼Ò ¹èÄ¡
-        //for (int i = 0; i < objectCountPerType && roomIndex < shuffledRooms.Count; i++)
-        //{
-        //    GameObject obj = Instantiate(Place_Resurrection, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
-        //    placeManager.resurrection_pos = shuffledRooms[roomIndex].transform.position;
-        //    randomPlace.Add(obj.transform.position);
-        //    randomPlaceObj.Add(obj);
-        //    roomIndex++;
-        //}
-
-        //// ÆÇ¸Å Àå¼Ò ¹èÄ¡
-        //for (int i = 0; i < objectCountPerType && roomIndex < shuffledRooms.Count; i++)
-        //{
-        //    GameObject obj = Instantiate(Place_Sale, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
-        //    placeManager.sale_pos = shuffledRooms[roomIndex].transform.position;
-        //    randomPlace.Add(obj.transform.position);
-        //    randomPlaceObj.Add(obj);
-        //    roomIndex++;
-        //}
-
-        //// Å»Ãâ Àå¼Ò ¹èÄ¡
-        //for (int i = 0; i < objectCountPerType && roomIndex < shuffledRooms.Count; i++)
-        //{
-        //    GameObject obj = Instantiate(Place_Escape, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
-        //    placeManager.escape_pos = shuffledRooms[roomIndex].transform.position;
-        //    randomPlace.Add(obj.transform.position);
-        //    randomPlaceObj.Add(obj);
-        //    roomIndex++;
-        //}
-        #endregion
-
-        // ºÎÈ° Àå¼Ò ¹èÄ¡
+        // ë¶€í™œ ì¥ì†Œ ë°°ì¹˜
         for (int i = 0; i < objectCountPerType && roomIndex < shuffledRooms.Count; i++)
         {
             GameObject obj = Instantiate(Place_Resurrection, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
-
-            // ¸®½ºÆ®¿¡ ÀúÀå
             placeManager.resurrection_positions.Add(shuffledRooms[roomIndex].transform.position);
-
             randomPlace.Add(obj.transform.position);
             randomPlaceObj.Add(obj);
             roomIndex++;
         }
 
-        // ÆÇ¸Å Àå¼Ò
+        // íŒë§¤ ì¥ì†Œ
         for (int i = 0; i < objectCountPerType && roomIndex < shuffledRooms.Count; i++)
         {
             GameObject obj = Instantiate(Place_Sale, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
@@ -206,7 +171,7 @@ public class RoomRandomPlacement : MonoBehaviour
             roomIndex++;
         }
 
-        // Å»Ãâ Àå¼Ò
+        // íƒˆì¶œ ì¥ì†Œ
         for (int i = 0; i < objectCountPerType && roomIndex < shuffledRooms.Count; i++)
         {
             GameObject obj = Instantiate(Place_Escape, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
@@ -215,12 +180,42 @@ public class RoomRandomPlacement : MonoBehaviour
             randomPlaceObj.Add(obj);
             roomIndex++;
         }
+
+        // í˜¼ ì¥ì†Œ ë°°ì¹˜
+        for (int i = 0; i < objectCountPerType && roomIndex < shuffledRooms.Count; i++)
+        {
+            GameObject obj = Instantiate(Place_Soul, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
+            placeManager.soul_positions.Add(shuffledRooms[roomIndex].transform.position);
+            randomPlace.Add(obj.transform.position);
+            randomPlaceObj.Add(obj);
+            roomIndex++;
+        }
+
+        // ëƒ¥ ì¥ì†Œ
+        for (int i = 0; i < objectCountPerType && roomIndex < shuffledRooms.Count; i++)
+        {
+            GameObject obj = Instantiate(Place_Coin, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
+            placeManager.coin_positions.Add(shuffledRooms[roomIndex].transform.position);
+            randomPlace.Add(obj.transform.position);
+            randomPlaceObj.Add(obj);
+            roomIndex++;
+        }
+
+        // ëˆˆ ì¥ì†Œ
+        for (int i = 0; i < objectCountPerType && roomIndex < shuffledRooms.Count; i++)
+        {
+            GameObject obj = Instantiate(Place_Eye, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
+            placeManager.eye_positions.Add(shuffledRooms[roomIndex].transform.position);
+            randomPlace.Add(obj.transform.position);
+            randomPlaceObj.Add(obj);
+            roomIndex++;
+        }
     }
 
-    // ¹æ »ı¼º
+    // ë°© ìƒì„±
     void TryRandomRoomPositions()
     {
-        // ¹æ »ı¼º
+        // ë°© ìƒì„±
         roomPositions.Clear();
         while (roomPositions.Count < roomCount)
         {
@@ -327,7 +322,7 @@ public class RoomRandomPlacement : MonoBehaviour
         }
     }
 
-    // ¼öÁ¤ÇÏ´À¶ó Àá±À
+    // ìˆ˜ì •í•˜ëŠë¼ ì êµ¼
     //void PlaceRooms()
     //{
     //    foreach (Vector2Int pos in roomPositions)
@@ -356,7 +351,7 @@ public class RoomRandomPlacement : MonoBehaviour
 
                 roomObjects[pos] = room;
 
-                // Ãß°¡: prefab ¿øº» ±â·Ï
+                // ì¶”ê°€: prefab ì›ë³¸ ê¸°ë¡
                 roomPrefabsUsed[pos] = prefab;
             }
         }
@@ -427,7 +422,7 @@ public class RoomRandomPlacement : MonoBehaviour
         };
     }
 
-    // ¹æÀ» ¿¬°á
+    // ë°©ì„ ì—°ê²°
     //void ConnectRoomsWithDoubleCorridor(GameObject roomA, GameObject roomB, string direction)
     //{
     //    string oppDirection = GetOppositeDirection(direction);
@@ -457,10 +452,10 @@ public class RoomRandomPlacement : MonoBehaviour
     //    }
     //}
 
-    // RoomRandomPlacement¿¡ Ãß°¡
+    // RoomRandomPlacementì— ì¶”ê°€
     public Dictionary<(Vector2Int, Vector2Int), List<GameObject>> corridorDict = new();
 
-    // ¹æÀ» ¿¬°á
+    // ë°©ì„ ì—°ê²°
     //void ConnectRoomsWithDoubleCorridor(GameObject roomA, GameObject roomB, string direction)
     //{
     //    string oppDirection = GetOppositeDirection(direction);
@@ -488,7 +483,7 @@ public class RoomRandomPlacement : MonoBehaviour
     //        corridor.transform.right = dirVec;
     //        corridor.transform.localScale = new Vector3(length, corridorThickness, corridorThickness);
 
-    //        // ¸®½ºÆ®¿¡ Ãß°¡
+    //        // ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€
     //        tossCors.Add(corridor);
     //    }
     //}
@@ -515,7 +510,7 @@ public class RoomRandomPlacement : MonoBehaviour
 
             tossCors.Add(corridor);
 
-            // ÁÂÇ¥ ±â¹İÀ¸·Î µñ¼Å³Ê¸®¿¡ ÀúÀå
+            // ì¢Œí‘œ ê¸°ë°˜ìœ¼ë¡œ ë”•ì…”ë„ˆë¦¬ì— ì €ì¥
             Vector2Int startPos = new Vector2Int(Mathf.RoundToInt(exitA.position.x / spacing), Mathf.RoundToInt(exitA.position.y / spacing));
             Vector2Int endPos = new Vector2Int(Mathf.RoundToInt(exitB.position.x / spacing), Mathf.RoundToInt(exitB.position.y / spacing));
 
@@ -542,11 +537,11 @@ public class RoomRandomPlacement : MonoBehaviour
     {
         if (floorTiles == null || groundTilemap == null)
         {
-            Debug.LogWarning("Å¸ÀÏ¸Ê ¶Ç´Â Å¸ÀÏ ¼³Á¤ÀÌ ºüÁ³½À´Ï´Ù.");
+            Debug.LogWarning("íƒ€ì¼ë§µ ë˜ëŠ” íƒ€ì¼ ì„¤ì •ì´ ë¹ ì¡ŒìŠµë‹ˆë‹¤.");
             return;
         }
 
-        int[,] dayToIndex = new int[,]//°¢ ÀÏÂ÷º° ¸Â´Â Å¸ÀÏµé 2ÀÏÂ÷ ¸¶´Ù Å¸ÀÏÀÌ º¯°æµÇ¾ßÇÔ (¿ø·¡´Â Àå¼Ò¸¦ ¼±ÅÃÇÏ´Â ´À³¦À» ÁÖ°í ½Í±äÇÑµ¥... ÀÏ´Ü ÀÌ·¸°Ô)
+        int[,] dayToIndex = new int[,]//ê° ì¼ì°¨ë³„ ë§ëŠ” íƒ€ì¼ë“¤ 2ì¼ì°¨ ë§ˆë‹¤ íƒ€ì¼ì´ ë³€ê²½ë˜ì•¼í•¨ (ì›ë˜ëŠ” ì¥ì†Œë¥¼ ì„ íƒí•˜ëŠ” ëŠë‚Œì„ ì£¼ê³  ì‹¶ê¸´í•œë°... ì¼ë‹¨ ì´ë ‡ê²Œ)
         {
             {1, 0},
             {2, 0},
@@ -555,7 +550,7 @@ public class RoomRandomPlacement : MonoBehaviour
             {5, 1},
             {6, 1},
             {7, 1}
-        };//(Áö±İÀº 1¸¸ ÀÖ´Âµ¥ 2,3 µµ ÀÖ¾î¾ß¸ÂÀ½)
+        };//(ì§€ê¸ˆì€ 1ë§Œ ìˆëŠ”ë° 2,3 ë„ ìˆì–´ì•¼ë§ìŒ)
 
         int day = GameManager.Instance.Day;
         int index = 0;
@@ -569,7 +564,7 @@ public class RoomRandomPlacement : MonoBehaviour
             }
         }
 
-        TileBase chosenTile = floorTiles[index]; //Å¸ÀÏ ¼³Á¤ ¿Ï·á
+        TileBase chosenTile = floorTiles[index]; //íƒ€ì¼ ì„¤ì • ì™„ë£Œ
 
 
         foreach (var kvp in roomObjects)
@@ -587,10 +582,10 @@ public class RoomRandomPlacement : MonoBehaviour
             }
         }
 
-        // º¹µµ¿¡µµ Å¸ÀÏ ±ò±â (corridorPrefab¿¡¼­ InstantiateµÈ º¹µµµé¿¡ ´ëÇØ)
+        // ë³µë„ì—ë„ íƒ€ì¼ ê¹”ê¸° (corridorPrefabì—ì„œ Instantiateëœ ë³µë„ë“¤ì— ëŒ€í•´)
         foreach (Transform child in transform)
         {
-            if (child.name.Contains("Corridor")) // ÀÌ¸§ ÇÊÅÍ (prefab ÀÌ¸§ ¸Â°Ô Á¶Á¤ °¡´É)
+            if (child.name.Contains("Corridor")) // ì´ë¦„ í•„í„° (prefab ì´ë¦„ ë§ê²Œ ì¡°ì • ê°€ëŠ¥)
             {
                 Vector3 corridorWorldPos = child.position;
                 Vector3Int originCell = groundTilemap.WorldToCell(corridorWorldPos);

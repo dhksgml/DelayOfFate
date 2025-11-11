@@ -4,38 +4,41 @@ using UnityEngine;
 
 public class MapSpawn : MonoBehaviour
 {
-    [SerializeField] RoomRandomPlacement roomGenerator; // RoomRandomPlacement ÂüÁ¶
+    [SerializeField] RoomRandomPlacement roomGenerator; // RoomRandomPlacement ì°¸ì¡°
     [SerializeField] Vector3 baseOffset = new Vector3(0, -2000, 0);
 
-    [SerializeField] GameObject verticalCorridorPrefab;    // À§/¾Æ·¡ ¿¬°á
-    [SerializeField] GameObject horizontalCorridorPrefab;  // ÁÂ/¿ì ¿¬°á
+    [SerializeField] GameObject verticalCorridorPrefab;    // ìœ„/ì•„ë˜ ì—°ê²°
+    [SerializeField] GameObject horizontalCorridorPrefab;  // ì¢Œ/ìš° ì—°ê²°
 
-    // Àå¼Ò
+    // ì¥ì†Œ
     [SerializeField] GameObject miniPlace_Resurrection;
     [SerializeField] GameObject miniPlace_Sale;
     [SerializeField] GameObject miniPlace_Escape;
+    [SerializeField] GameObject miniPlace_Soul; // í˜¼ ì¥ì†Œ
+    [SerializeField] GameObject miniPlace_Coin; // ëƒ¥ ì¥ì†Œ
+    [SerializeField] GameObject miniPlace_Eye; // ëˆˆ ì¥ì†Œ
 
     [SerializeField] Camera minimapCam;
 
-    // ¸ÊÀ» °¡¸®´Â°É ¼³Á¤ÇÏ´Â ½ºÅ©¸³Æ®
+    // ë§µì„ ê°€ë¦¬ëŠ”ê±¸ ì„¤ì •í•˜ëŠ” ìŠ¤í¬ë¦½íŠ¸
     [SerializeField] Minimap_Blind blindScript;
 
-    // ¸Ê ÀúÀå¿ë
+    // ë§µ ì €ì¥ìš©
     [SerializeField] GameObject mapSave;
 
-    // Ä«¸Ş¶ó ÃÖ´ë »çÀÌÁî
+    // ì¹´ë©”ë¼ ìµœëŒ€ ì‚¬ì´ì¦ˆ
     [SerializeField] int cameraMaxSize;
-    // Ä«¸Ş¶ó ±âº» »çÀÌÁî
+    // ì¹´ë©”ë¼ ê¸°ë³¸ ì‚¬ì´ì¦ˆ
     [SerializeField] int cameraBaseSize;
 
     [SerializeField] List<Minimap_Blind> blindList = new ();
 
     IEnumerator Start()
     {
-        // ¹æÀÌ »ı¼ºµÉ ¶§±îÁö ´ë±â
+        // ë°©ì´ ìƒì„±ë  ë•Œê¹Œì§€ ëŒ€ê¸°
         yield return new WaitUntil(() => roomGenerator != null && roomGenerator.roomObjects.Count > 0);
 
-        // 1. ¹æ º¹Á¦
+        // 1. ë°© ë³µì œ
         foreach (var kvp in roomGenerator.roomObjects)
         {
             Vector2Int gridPos = kvp.Key;
@@ -44,7 +47,7 @@ public class MapSpawn : MonoBehaviour
             mapSave = Instantiate(originalRoom, spawnPos, Quaternion.identity, transform);
 
 
-            // ÄÄÆ÷³ÍÆ® ÃßÃâ
+            // ì»´í¬ë„ŒíŠ¸ ì¶”ì¶œ
             Minimap_Blind blind = mapSave.GetComponent<Minimap_Blind>();
             Minimap_Blind originBlind = originalRoom.GetComponent<Minimap_Blind>();
 
@@ -56,8 +59,8 @@ public class MapSpawn : MonoBehaviour
             blindList.Add(originBlind);
 
         }
-        #region ±¸ ÄÚµå
-        // 2. º¹µµ »ı¼º
+        #region êµ¬ ì½”ë“œ
+        // 2. ë³µë„ ìƒì„±
         //foreach (var kvp in roomGenerator.roomObjects)
         //{
         //    Vector2Int pos = kvp.Key;
@@ -67,10 +70,10 @@ public class MapSpawn : MonoBehaviour
         //    {
         //        Vector2Int neighborPos = roomGenerator.GetNeighbor(pos, dir);
 
-        //        // ÀÌ¹Ì ¾ø´Â ¹æÀÌ¸é ¹«½Ã
+        //        // ì´ë¯¸ ì—†ëŠ” ë°©ì´ë©´ ë¬´ì‹œ
         //        if (!roomGenerator.roomObjects.ContainsKey(neighborPos)) continue;
 
-        //        // Áßº¹ »ı¼º ¹æÁö: Ç×»ó ÀÛÀº ÁÂÇ¥ ±âÁØÀ¸·Î »ı¼º
+        //        // ì¤‘ë³µ ìƒì„± ë°©ì§€: í•­ìƒ ì‘ì€ ì¢Œí‘œ ê¸°ì¤€ìœ¼ë¡œ ìƒì„±
         //        if (pos.y > neighborPos.y || (pos.y == neighborPos.y && pos.x > neighborPos.x)) continue;
 
         //        Vector3 worldPos = (new Vector3(pos.x, pos.y, 0) + new Vector3(neighborPos.x, neighborPos.y, 0)) / 2f;
@@ -87,10 +90,10 @@ public class MapSpawn : MonoBehaviour
         //foreach (var kvp in roomGenerator.roomObjects)
         //{
         //    Vector2Int pos = kvp.Key;
-        //    // º¹µµ¿¡ °ªÀ» Àü´ŞÇØÁÖ±â À§ÇÔ
+        //    // ë³µë„ì— ê°’ì„ ì „ë‹¬í•´ì£¼ê¸° ìœ„í•¨
         //    GameObject originCor = roomGenerator.tossCor;
         //    Minimap_Blind corBlind = originCor.GetComponent<Minimap_Blind>();
-        //    Debug.Log(" º¹»çÇÒ º¹µµ : " + originCor);
+        //    Debug.Log(" ë³µì‚¬í•  ë³µë„ : " + originCor);
 
         //    string exits = roomGenerator.roomDirections[pos];
 
@@ -111,13 +114,13 @@ public class MapSpawn : MonoBehaviour
 
 
 
-        //        // º¹Á¦
+        //        // ë³µì œ
         //        GameObject mapCorridor = Instantiate(corridorPrefabToUse, worldPos, Quaternion.identity, transform);
 
         //        corBlind.copyRoomObj = mapCorridor;
 
         //        corBlind.CopyRoomBlindGet();
-        //        Debug.Log(" º¹»çµÈ º¹µµ : " + corBlind.copyRoomObj);
+        //        Debug.Log(" ë³µì‚¬ëœ ë³µë„ : " + corBlind.copyRoomObj);
         //    }
         //}
         #endregion
@@ -140,10 +143,10 @@ public class MapSpawn : MonoBehaviour
                     ? verticalCorridorPrefab
                     : horizontalCorridorPrefab;
 
-                // ¹Ì´Ï¸Ê¿ë º¹µµ »ı¼º
+                // ë¯¸ë‹ˆë§µìš© ë³µë„ ìƒì„±
                 GameObject mapCorridor = Instantiate(corridorPrefabToUse, worldPos, Quaternion.identity, transform);
 
-                // ¿øº» º¹µµ Ã£±â: ÁÂÇ¥ ±âÁØ
+                // ì›ë³¸ ë³µë„ ì°¾ê¸°: ì¢Œí‘œ ê¸°ì¤€
                 if (roomGenerator.corridorDict.TryGetValue((pos, neighborPos), out List<GameObject> originCors))
                 {
                     foreach (var originCor in originCors)
@@ -168,41 +171,20 @@ public class MapSpawn : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogWarning($"¿øº» º¹µµ¸¦ Ã£À» ¼ö ¾øÀ½: {pos} - {neighborPos}");
+                    Debug.LogWarning($"ì›ë³¸ ë³µë„ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŒ: {pos} - {neighborPos}");
                 }
             }
         }
 
-        // 3. ¹Ì´Ï¸Ê¿¡ ºÎÈ°/ÆÇ¸Å/Å»Ãâ Àå¼Ò º¹Á¦
-        //foreach (Vector2 pos in roomGenerator.randomPlace)
-        //{
-        //    Vector2 baseOff = new Vector2(baseOffset.x, baseOffset.y);
-
-        //    // ½ÇÁ¦ ¸Ê ÁÂÇ¥ ±âÁØÀ¸·Î ¾î¶² Àå¼ÒÀÎÁö È®ÀÎ
-        //    if (roomGenerator.placeManager.resurrection_pos == pos)
-        //    {
-        //        Instantiate(miniPlace_Resurrection, pos + baseOff, Quaternion.identity, transform);
-
-        //    }
-        //    else if (roomGenerator.placeManager.sale_pos == pos)
-        //    {
-        //        Instantiate(miniPlace_Sale, pos + baseOff, Quaternion.identity, transform);
-        //    }
-        //    else if (roomGenerator.placeManager.escape_pos == pos)
-        //    {
-        //        Instantiate(miniPlace_Escape, pos + baseOff, Quaternion.identity, transform);
-        //    }
-        //}
-
-        // 3. ¹Ì´Ï¸Ê¿¡ ºÎÈ°/ÆÇ¸Å/Å»Ãâ Àå¼Ò º¹Á¦
-        foreach (GameObject originPlace in roomGenerator.randomPlaceObj)  // ¿ÀºêÁ§Æ® ±âÁØ
+        // 3. ë¯¸ë‹ˆë§µì— ë¶€í™œ/íŒë§¤/íƒˆì¶œ ì¥ì†Œ ë³µì œ
+        foreach (GameObject originPlace in roomGenerator.randomPlaceObj)  // ì˜¤ë¸Œì íŠ¸ ê¸°ì¤€
         {
             Vector2 pos = originPlace.transform.position;
             Vector2 baseOff = new Vector2(baseOffset.x, baseOffset.y);
 
             GameObject minimapPlace = null;
 
-            // ½ÇÁ¦ ¸Ê ÁÂÇ¥ ±âÁØÀ¸·Î ¾î¶² Àå¼ÒÀÎÁö È®ÀÎ
+            // ì‹¤ì œ ë§µ ì¢Œí‘œ ê¸°ì¤€ìœ¼ë¡œ ì–´ë–¤ ì¥ì†Œì¸ì§€ í™•ì¸
             if (roomGenerator.placeManager.resurrection_positions.Contains((Vector2)originPlace.transform.position))
             {
                 minimapPlace = Instantiate(miniPlace_Resurrection, pos + baseOff, Quaternion.identity, transform);
@@ -215,8 +197,20 @@ public class MapSpawn : MonoBehaviour
             {
                 minimapPlace = Instantiate(miniPlace_Escape, pos + baseOff, Quaternion.identity, transform);
             }
+            else if (roomGenerator.placeManager.soul_positions.Contains((Vector2)originPlace.transform.position))
+            {
+                minimapPlace = Instantiate(miniPlace_Soul, pos + baseOff, Quaternion.identity, transform);
+            }
+            else if (roomGenerator.placeManager.coin_positions.Contains((Vector2)originPlace.transform.position))
+            {
+                minimapPlace = Instantiate(miniPlace_Coin, pos + baseOff, Quaternion.identity, transform);
+            }
+            else if (roomGenerator.placeManager.eye_positions.Contains((Vector2)originPlace.transform.position))
+            {
+                minimapPlace = Instantiate(miniPlace_Eye, pos + baseOff, Quaternion.identity, transform);
+            }
 
-            // Place_Player_Find ¿¬°á
+            // Place_Player_Find ì—°ê²°
             if (minimapPlace != null)
             {
                 Place_Player_Find finder = originPlace.GetComponentInChildren <Place_Player_Find>();
@@ -229,8 +223,8 @@ public class MapSpawn : MonoBehaviour
         }
 
 
-        #region ±¸ ÄÚµå
-        // 4. Ä«¸Ş¶ó¸¦ ¸Ê Áß½ÉÀ¸·Î ÀÌµ¿
+        #region êµ¬ ì½”ë“œ
+        // 4. ì¹´ë©”ë¼ë¥¼ ë§µ ì¤‘ì‹¬ìœ¼ë¡œ ì´ë™
         //if (minimapCam != null)
         //{
         //    Vector3 minPos = new Vector3(float.MaxValue, float.MaxValue, 0);
@@ -259,12 +253,12 @@ public class MapSpawn : MonoBehaviour
         //}
         #endregion
 
-        // 4. Ä«¸Ş¶ó¸¦ ¸Ê Áß½ÉÀ¸·Î ÀÌµ¿ ¹× »çÀÌÁî Á¶Á¤
-        // 1. ¹Ì´Ï¸Ê Àü¿ë ¸Ê¸¸ ¼±ÅÃ
+        // 4. ì¹´ë©”ë¼ë¥¼ ë§µ ì¤‘ì‹¬ìœ¼ë¡œ ì´ë™ ë° ì‚¬ì´ì¦ˆ ì¡°ì •
+        // 1. ë¯¸ë‹ˆë§µ ì „ìš© ë§µë§Œ ì„ íƒ
         List<Transform> minimapObjects = new List<Transform>();
         foreach (Transform child in transform)
         {
-            // ¿¹: ÀÌ¸§ÀÌ³ª ·¹ÀÌ¾î µîÀ¸·Î ¹Ì´Ï¸Ê Àü¿ë¸¸ ÇÊÅÍ¸µ
+            // ì˜ˆ: ì´ë¦„ì´ë‚˜ ë ˆì´ì–´ ë“±ìœ¼ë¡œ ë¯¸ë‹ˆë§µ ì „ìš©ë§Œ í•„í„°ë§
             if (child.name.Contains("Mini") || child.name.Contains("Corridor") || child.name.Contains("Place"))
                 minimapObjects.Add(child);
         }
@@ -284,7 +278,7 @@ public class MapSpawn : MonoBehaviour
             center.z = minimapCam.transform.position.z;
             minimapCam.transform.position = center;
 
-            // Ä«¸Ş¶ó »çÀÌÁî °è»ê
+            // ì¹´ë©”ë¼ ì‚¬ì´ì¦ˆ ê³„ì‚°
             float mapWidth = maxPos.x - minPos.x;
             float mapHeight = maxPos.y - minPos.y;
             float aspect = minimapCam.aspect;
@@ -293,12 +287,12 @@ public class MapSpawn : MonoBehaviour
             size = Mathf.Clamp(cameraBaseSize + size + 1f, 5f, cameraMaxSize);
             minimapCam.orthographicSize = size;
         }
-        // ¹æ ²¨ÁÖ±â
+        // ë°© êº¼ì£¼ê¸°
         foreach(var blind in blindList)
         {
             blind.RoomSetActiveFalse();
         }
 
-        Debug.Log($"ÃÑ {roomGenerator.roomObjects.Count}°³ÀÇ ¹æ, º¹µµ, Àå¼Ò¸¦ ¹Ì´Ï¸Ê¿¡ º¹Á¦Çß½À´Ï´Ù.");
+        Debug.Log($"ì´ {roomGenerator.roomObjects.Count}ê°œì˜ ë°©, ë³µë„, ì¥ì†Œë¥¼ ë¯¸ë‹ˆë§µì— ë³µì œí–ˆìŠµë‹ˆë‹¤.");
     }
 }
