@@ -32,6 +32,9 @@ public class Geuseundae_Attack : EnemyAttack
 
             if (time >= enemyAttackSpeed)
             {
+                // 에니메이션
+                geuseundae.anim.SetTrigger("isAttack");
+
                 // 투사체 발사
                 GameObject bullet = Instantiate(this.bullet, transform.position, Quaternion.identity);
 

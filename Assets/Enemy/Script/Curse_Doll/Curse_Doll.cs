@@ -10,6 +10,7 @@ public class Curse_Doll : Enemy
     [SerializeField] bool isFind;
     [SerializeField] float enemyDamage;
     [SerializeField] float healBanTime;
+    [SerializeField] Sprite[] curseDollSprite; // 0 정지 1 준비 2 공격
 
     PlayerController player;
 
@@ -48,6 +49,8 @@ public class Curse_Doll : Enemy
         // 돌진
         if (isFind)
         {
+            // 공격 스프라이트
+            sp.sprite = curseDollSprite[2];
             // 에니메이션
 
             //EnemyTraceTurn2();
@@ -133,8 +136,13 @@ public class Curse_Doll : Enemy
         // stopTime 동안 기다리되, 클로킹이 되면 중단
         while (elapsed < stopTime)
         {
+            // 정찰 스프라이트
+            sp.sprite = curseDollSprite[1];
+
             if (iscloaking)
             {
+                // 정지 스프라이트
+                sp.sprite = curseDollSprite[0];
                 Debug.Log("중단");
                 // 클로킹 상태가 되면 코루틴 즉시 종료
                 yield break;
