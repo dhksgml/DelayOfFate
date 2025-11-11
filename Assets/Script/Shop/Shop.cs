@@ -15,8 +15,6 @@ public class Shop : MonoBehaviour
     private const int lantern_1 = 500;
     private const int lantern_2 = 1000;
 
-    public List<int> weaponPrices = new List<int>();
-
     private List<string> soulNames = new List<string>();
     private List<int> soulPrices = new List<int>();
     private bool[] soulPurchased = new bool[8]; // 영혼 4개 구매 여부
@@ -39,6 +37,7 @@ public class Shop : MonoBehaviour
     public Image speech_bubble_image;//말풍선 이미지
     //public Sprite[] speech_bubble_sprite;//말풍선 이미지
     public TMP_Text speech_bubble_text;//말풍선 텍스트
+
     private System.Random rand = new System.Random();
     private bool isJokeOnCooldown = false;
     private Coroutine currentBubbleRoutine;
@@ -68,8 +67,9 @@ public class Shop : MonoBehaviour
                 allSoulIds.Add($"Soul_Add_{g}_{n}");
             }
         }
-
-        allSoulIds.Add("Soul_Add_2_3"); // 추가!
+        allSoulIds.Add("Soul_Add_1_3");
+        allSoulIds.Add("Soul_Add_1_4");
+        allSoulIds.Add("Soul_Add_2_3");
         allSoulIds.Add("Soul_Add_4_3");
         allSoulIds.Add("Soul_Add_6_3");
 
@@ -274,7 +274,6 @@ public class Shop : MonoBehaviour
     }
     void InitializeShop()
     {
-        weaponPrices.Clear();
         for (int i = 0; i < 8; i++)
         {
             weaponSlots_text(i, 0, "Gold");

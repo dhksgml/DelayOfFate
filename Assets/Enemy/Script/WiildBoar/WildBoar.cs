@@ -42,7 +42,7 @@ public class WildBoar : Enemy
             NotDie();
         }
 
-        if (!isDie && !isStop)
+        if (!isDie)
         {
             EnemyMove();
         }
@@ -51,8 +51,13 @@ public class WildBoar : Enemy
 
     public override void EnemyMove()
     {
+        if (isStop)
+        {
+            return;
+        }
+
         //추적중일때 또는 한번 인식을 했을때
-        if (isTrace && !isDie)
+        else if (isTrace && !isDie)
         {
             // 에니메이션
             anim.SetBool("isWalk", true);
@@ -86,6 +91,7 @@ public class WildBoar : Enemy
     [SerializeField] float recoveryTimeSet;
     float recoveryTime;
     bool hasResetHealth = false;
+    bool isdownAnim = false;
 
     public void NotDie()
     {
@@ -98,6 +104,12 @@ public class WildBoar : Enemy
 
             // 에니메이션
             anim.SetBool("isWalk", false);
+
+            if (!isdownAnim)
+            {
+                anim.SetTrigger("isDown");
+                isdownAnim = true;
+            }
         }
 
         recoveryTime += Time.deltaTime;
@@ -120,10 +132,18 @@ public class WildBoar : Enemy
             // 최대채력 절반
             enemyHp = enemyMaxHp / 2;
 
-            // 트리거 초기화
-            isStop = false;
-            isReviving = false;
+            anim.SetTrigger("isWakeUp");
+            isdownAnim = false;
+
+            Invoke("Delay", 1f);
         }
+    }
+
+    void Delay()
+    {
+        // 트리거 초기화
+        isStop = false;
+        isReviving = false;
     }
 
 

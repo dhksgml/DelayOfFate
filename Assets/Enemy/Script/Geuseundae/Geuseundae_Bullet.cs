@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boon_yeol_gwi_bullet : MonoBehaviour
+public class Geuseundae_Bullet : MonoBehaviour
 {
     [SerializeField] float speed = 3f;
     [SerializeField] float damage = 10f;
     [HideInInspector] public bool isHide;
+    [SerializeField] float playerMinusLightGage;
+    [SerializeField] Animator anim;
+    [SerializeField] SpriteRenderer sp;
 
     Rigidbody2D rb;
     PlayerController player;
@@ -19,6 +22,11 @@ public class Boon_yeol_gwi_bullet : MonoBehaviour
         // 플레이어 방향 계산
         Vector2 dir = (player.transform.position - transform.position).normalized;
 
+        // 총알 회전 (오른쪽이 기본 전방일 경우)
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        rb.rotation = angle;
+
+
         // 속도 적용
         rb.velocity = dir * speed;
 
@@ -26,15 +34,24 @@ public class Boon_yeol_gwi_bullet : MonoBehaviour
         Destroy(gameObject, 5f);
     }
 
+    bool isAnim;
+    private void Update()
+    {
+        if (!isAnim)
+        {
+            anim.SetTrigger("isChange");
+            isAnim = true;
+        }
+        
+
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (isHide)
-                player.DamagedHP(damage * 1.5f);
-            else
-                player.DamagedHP(damage);
-
+            player.DamagedHP(damage);
+            player.currentRadius -= playerMinusLightGage;
             Destroy(gameObject);
         }
     }

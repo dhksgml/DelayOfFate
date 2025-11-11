@@ -235,12 +235,10 @@ public class WeaponManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("모든 장비 슬롯이 이미 장착되어 있습니다.");
             return;
         }
 
         equippedSlots[currentEquipSlot] = slotIndex;
-        Debug.Log($"장비 슬롯 {slotIndex + 1}을(를) {currentEquipSlot}번 칸에 장착했습니다.");
 
         ApplyEquipment(currentEquipSlot, slotIndex);
     }
@@ -249,19 +247,13 @@ public class WeaponManager : MonoBehaviour
     {
         if (equippedSlots[1] != -1)
         {
-            Debug.Log($"장비 슬롯 {equippedSlots[1] + 1}을(를) 1번 칸에서 해제했습니다.");
             equippedSlots[1] = -1;
             RemoveEquipment(1);
         }
         else if (equippedSlots[0] != -1)
         {
-            Debug.Log($"장비 슬롯 {equippedSlots[0] + 1}을(를) 0번 칸에서 해제했습니다.");
             equippedSlots[0] = -1;
             RemoveEquipment(0);
-        }
-        else
-        {
-            Debug.Log("장착된 장비가 없습니다.");
         }
     }
 
