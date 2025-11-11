@@ -272,21 +272,22 @@ public class PlayerController : MonoBehaviour
     {
         if (flashLightObject != null)
         {
-            HandleFlashlightInput();
-
-            if (isOn)
+            if (!PassiveItemManager.Instance.HasEffect("Soul_Add_5_3"))
             {
-                flashLightObject.GetComponent<CircleCollider2D>().enabled = true;
-                SpendBattery();
-                //flashLight.pointLightOuterRadius = currentRadius;
-                //flashLightObject.GetComponent<CircleCollider2D>().radius = currentRadius;
+                HandleFlashlightInput();
+                if (isOn)
+                {
+                    flashLightObject.GetComponent<CircleCollider2D>().enabled = true;
+                    SpendBattery();
+                    //flashLight.pointLightOuterRadius = currentRadius;
+                    //flashLightObject.GetComponent<CircleCollider2D>().radius = currentRadius;
+                }
+                else
+                {
+                    flashLightObject.GetComponent<CircleCollider2D>().enabled = false;
+                    RefillFlashlight(refillFlashlightAmount);
+                }
             }
-            else
-            {
-                flashLightObject.GetComponent<CircleCollider2D>().enabled = false;
-                RefillFlashlight(refillFlashlightAmount);
-            }
-            
         }
 
         if (clickLookTimer > 0f)

@@ -51,6 +51,8 @@ public class PassiveItemManager : MonoBehaviour
         }
         AddPassiveItem(1, 3);
         AddPassiveItem(1, 4);
+        AddPassiveItem(3, 3);
+        AddPassiveItem(5, 3);
         // 3번째 효과 Soul_Add_2_3, Soul_Add_4_3, Soul_Add_6_3
         for (int n = 2; n <= 6; n += 2)
         {
@@ -909,6 +911,20 @@ public class PassiveItemManager : MonoBehaviour
         if (HasEffect("Soul_Add_6_1"))
         {
             DoPassive_6_1();
+        }
+
+        //일확천금
+        if(HasEffect("Soul_Add_3_3"))
+        {
+            if (Random.value < 0.1f)
+            {
+                //Debug.Log("성공! (1할의 확률)");
+                GameManager.Instance.Add_Gold(1000);
+            }
+            else
+            {
+                //Debug.Log("실패");
+            }
         }
     }
 

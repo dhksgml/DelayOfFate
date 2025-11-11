@@ -376,6 +376,7 @@ public class Player_Item_Use : MonoBehaviour
             {
                 Destroy(itemObject.gameObject);
                 Sale("one", itemObject.itemData);
+                GameEvents.CallSaleItemImmediately();
             }
         }
     }
