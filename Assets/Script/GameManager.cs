@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     //public Item[] currentWeaponSlots = new Item[2];
     public int killcount = 0; //óġ�� �Ǳ� ��
 
+    public GameObject Effect_pr;
     public ItemData[] SlotsData;
     public ItemData[] WeaponData;
     public bool[] weaponUnlockArray = new bool[5];
@@ -196,7 +197,22 @@ public class GameManager : MonoBehaviour
                 SlotsData[i] = null;
         }
     }
+    void Effect_cr(string ty, Vector3 basePos, float offset)
+    {
 
+        float offsetX = Random.Range(-offset, offset);
+        float offsetY = Random.Range(-offset, offset);
+
+        // ???? ???
+        Vector3 spawnPos = basePos + new Vector3(offsetX, offsetY, 0f);
+
+        // ????? ????
+        GameObject effectObj = Instantiate(Effect_pr, spawnPos, Quaternion.identity);
+
+        // Effect_sc?? ty ?? ????
+        Effect_sc effectScript = effectObj.GetComponent<Effect_sc>();
+        effectScript.ty = ty;
+    }
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;

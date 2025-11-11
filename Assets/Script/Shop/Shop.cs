@@ -60,18 +60,34 @@ public class Shop : MonoBehaviour
         allSoulIds.Clear();
 
         // Build base list: groups 1..7, numbers 1..2
-        for (int g = 1; g <= 7; g++)
+        for (int n = 1; n <= 4; n++)
         {
-            for (int n = 1; n <= 2; n++)
-            {
-                allSoulIds.Add($"Soul_Add_{g}_{n}");
-            }
+            allSoulIds.Add($"Soul_Add_{1}_{n}");
         }
-        allSoulIds.Add("Soul_Add_1_3");
-        allSoulIds.Add("Soul_Add_1_4");
-        allSoulIds.Add("Soul_Add_2_3");
-        allSoulIds.Add("Soul_Add_4_3");
-        allSoulIds.Add("Soul_Add_6_3");
+        for (int n = 1; n <= 3; n++)
+        {
+            allSoulIds.Add($"Soul_Add_{2}_{n}");
+        }
+        for (int n = 1; n <= 3; n++)
+        {
+            allSoulIds.Add($"Soul_Add_{3}_{n}");
+        }
+        for (int n = 1; n <= 3; n++)
+        {
+            allSoulIds.Add($"Soul_Add_{4}_{n}");
+        }
+        for (int n = 1; n <= 3; n++)
+        {
+            allSoulIds.Add($"Soul_Add_{5}_{n}");
+        }
+        for (int n = 1; n <= 3; n++)
+        {
+            allSoulIds.Add($"Soul_Add_{6}_{n}");
+        }
+        for (int n = 1; n <= 2; n++)
+        {
+            allSoulIds.Add($"Soul_Add_{7}_{n}");
+        }
 
         RerollSouls();
     }

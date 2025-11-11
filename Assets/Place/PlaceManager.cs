@@ -6,17 +6,21 @@ public class PlaceManager : MonoBehaviour
 {
     [HideInInspector] public Vector2 escape_pos;
 
-    [HideInInspector] public bool resurrection; // ºÎÈ°°¡´É »óÅÂ
+    [HideInInspector] public bool resurrection; // ë¶€í™œê°€ëŠ¥ ìƒíƒœ
     [HideInInspector] public Vector2 resurrection_pos;
 
-    [HideInInspector] public bool sale; // ÆÇ¸Å
+    [HideInInspector] public bool sale; // íŒë§¤
     [HideInInspector] public Vector2 sale_pos;
 
 
-    // ¹Ì´Ï¸Ê¿ë
+    // ë¯¸ë‹ˆë§µìš©
     [HideInInspector] public List<Vector2> resurrection_positions = new();
     [HideInInspector] public List<Vector2> sale_positions = new();
     [HideInInspector] public List<Vector2> escape_positions = new();
+
+    [HideInInspector] public List<Vector2> soul_positions = new();
+    [HideInInspector] public List<Vector2> coin_positions = new();
+    [HideInInspector] public List<Vector2> eye_positions = new();
     public void Resurrection()
     {
         resurrection = false;
@@ -24,7 +28,7 @@ public class PlaceManager : MonoBehaviour
 
     public void Go_to_escape()
     {
-        //°ÔÀÓ¸Å´ÏÀú¿¡ ÇÃ·¹ÀÌ¾î Á¤º¸ ÀúÀå
+        //ê²Œì„ë§¤ë‹ˆì €ì— í”Œë ˆì´ì–´ ì •ë³´ ì €ì¥
         GameManager.Instance.SaveCurrentQuickSlot(FindObjectOfType<Player_Item_Use>().quickSlots);
         GameManager.Instance.SavePlayerInfo(FindObjectOfType<PlayerController>());
         GameManager.Instance.New_Day_date(FindObjectOfType<QuickSlotUI>().angleUnit);
