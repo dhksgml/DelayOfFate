@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class PassiveItemManager : MonoBehaviour
 {
@@ -588,11 +589,53 @@ public class PassiveItemManager : MonoBehaviour
         if (effect == null) return;
         effect.RemoveEffect();
     }
-    public string GetRandomPassiveByGrade(int grade)
+    // 일차별 등급 확률 테이블
+    private Dictionary<int, Dictionary<int, float>> dayRatingProbabilities = new Dictionary<int, Dictionary<int, float>>()
     {
-        // 등급별 후보 리스트
+        { 1, new Dictionary<int, float> { {1, 75f}, {2, 20f}, {3, 4f}, {4, 1f} } },
+        { 2, new Dictionary<int, float> { {1, 60f}, {2, 30f}, {3, 7f}, {4, 3f} } },
+        { 3, new Dictionary<int, float> { {1, 40f}, {2, 40f}, {3, 10f}, {4, 5f} } },
+        { 4, new Dictionary<int, float> { {1, 20f}, {2, 40f}, {3, 35f}, {4, 7f} } },
+        { 5, new Dictionary<int, float> { {1, 10f}, {2, 35f}, {3, 45f}, {4, 10f} } },
+        { 6, new Dictionary<int, float> { {1, 5f}, {2, 20f}, {3, 55f}, {4, 20f} } },
+        { 7, new Dictionary<int, float> { {1, 3f}, {2, 12f}, {3, 50f}, {4, 35f} } }
+    };
+
+    // 현재 일차에 맞는 등급 결정
+    public int GetRatingByCurrentDay()
+    {
+        int currentDay = GameManager.Instance.Day;
+
+        // 7일차 이상은 7일차 확률 사용
+        if (currentDay > 7) currentDay = 7;
+
+        if (!dayRatingProbabilities.ContainsKey(currentDay))
+        {
+            Debug.LogWarning($"Day {currentDay}의 확률 테이블이 없습니다. 기본값(1일차) 사용");
+            currentDay = 1;
+        }
+
+        Dictionary<int, float> probabilities = dayRatingProbabilities[currentDay];
+        float roll = Random.Range(0f, 100f);
+        float cumulative = 0f;
+
+        foreach (var kvp in probabilities.OrderBy(x => x.Key))
+        {
+            cumulative += kvp.Value;
+            if (roll < cumulative)
+            {
+                return kvp.Key;
+            }
+        }
+
+        return 1; // 기본값
+    }
+
+    // 예약 없이 선택만 하는 메서드 (미션 생성용)
+    public string GetRandomPassiveByGradeWithoutReserve(int grade)
+    {
         List<string> candidates = new List<string>();
-        
+
         foreach (var item in passiveItems)
         {
             // 조건: 구매 안 됨 + 예약 안 됨 + 등급 일치
@@ -603,48 +646,74 @@ public class PassiveItemManager : MonoBehaviour
                 candidates.Add(item.id);
             }
         }
-        // 후보가 없으면 null 반환
+
         if (candidates.Count == 0)
         {
             Debug.LogWarning($"등급 {grade}의 구매 가능한 혼령강화가 없습니다!");
             return null;
         }
 
-        // 랜덤 선택
+        // 랜덤 선택 (예약하지 않음!)
         string selectedId = candidates[Random.Range(0, candidates.Count)];
 
-        // 예약 목록에 추가 (중복 방지)
+        return selectedId; // 예약 목록에 추가하지 않음
+    }
+
+    // 기존 메서드는 그대로 유지 (상점용)
+    public string GetRandomPassiveByGrade(int grade)
+    {
+        List<string> candidates = new List<string>();
+
+        foreach (var item in passiveItems)
+        {
+            if (!item.isPurchased &&
+                !reservedPassiveIds.Contains(item.id) &&
+                item.rating == grade)
+            {
+                candidates.Add(item.id);
+            }
+        }
+
+        if (candidates.Count == 0)
+        {
+            Debug.LogWarning($"등급 {grade}의 구매 가능한 혼령강화가 없습니다!");
+            return null;
+        }
+
+        string selectedId = candidates[Random.Range(0, candidates.Count)];
+
+        // 예약 목록에 추가 (상점용)
         reservedPassiveIds.Add(selectedId);
 
         return selectedId;
     }
-    // 미션 등급에 따른 확률적 혼령강화 추첨
+    // 미션 등급에 따른 혼령강화 추첨 (기존 메서드 수정)
     public string GetRandomPassiveForMission(int missionGrade)
     {
         float roll = Random.Range(0f, 100f);
-        int targetRating = 1; // 기본값: 하급
+        int targetRating = 1;
 
         switch (missionGrade)
         {
             case 0: // 하급 미션
-                if (roll < 50f) targetRating = 1;      // 50% 하급
-                else if (roll < 70f) targetRating = 2; // 20% 중급
-                else if (roll < 85f) targetRating = 3; // 15% 상급
-                else targetRating = 4;                 // 15% 최상급
+                if (roll < 50f) targetRating = 1;
+                else if (roll < 70f) targetRating = 2;
+                else if (roll < 85f) targetRating = 3;
+                else targetRating = 4;
                 break;
 
             case 1: // 중급 미션
-                if (roll < 30f) targetRating = 1;      // 30% 하급
-                else if (roll < 70f) targetRating = 2; // 40% 중급
-                else if (roll < 90f) targetRating = 3; // 20% 상급
-                else targetRating = 4;                 // 10% 최상급
+                if (roll < 30f) targetRating = 1;
+                else if (roll < 70f) targetRating = 2;
+                else if (roll < 90f) targetRating = 3;
+                else targetRating = 4;
                 break;
 
             case 2: // 상급 미션
-                if (roll < 10f) targetRating = 1;      // 10% 하급
-                else if (roll < 40f) targetRating = 2; // 30% 중급
-                else if (roll < 80f) targetRating = 3; // 40% 상급
-                else targetRating = 4;                 // 20% 최상급
+                if (roll < 10f) targetRating = 1;
+                else if (roll < 40f) targetRating = 2;
+                else if (roll < 80f) targetRating = 3;
+                else targetRating = 4;
                 break;
         }
 

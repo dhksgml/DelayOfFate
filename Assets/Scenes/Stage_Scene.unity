@@ -659,6 +659,11 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &158994502 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 389659988171241829, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
+  m_PrefabInstance: {fileID: 1994387569}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &183257260 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4727333508205875627, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
@@ -1285,6 +1290,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1848731532659440568, guid: cd39e69c9816e464a94f8f51e010c959, type: 3}
   m_PrefabInstance: {fileID: 198373988853074188}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &677429548 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8318392257419029073, guid: d3c15544179571f44b5980dfec11f9ff, type: 3}
+  m_PrefabInstance: {fileID: 1994387569}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &686544653 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3533368419496044089, guid: 5b0e7aa3bd22ef243a4de12b6a886d25, type: 3}
@@ -2421,6 +2437,14 @@ PrefabInstance:
       propertyPath: missionSlot3
       value: 
       objectReference: {fileID: 686544654}
+    - target: {fileID: 9024293814450745642, guid: d958a2ab5a163de448ef93dfb29f51ab, type: 3}
+      propertyPath: missionUIPanel
+      value: 
+      objectReference: {fileID: 158994502}
+    - target: {fileID: 9024293814450745642, guid: d958a2ab5a163de448ef93dfb29f51ab, type: 3}
+      propertyPath: inGameMissionText
+      value: 
+      objectReference: {fileID: 677429548}
     - target: {fileID: 9024293814450745642, guid: d958a2ab5a163de448ef93dfb29f51ab, type: 3}
       propertyPath: selectionIndicator
       value: 

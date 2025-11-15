@@ -75,22 +75,18 @@ public class MissionManager : MonoBehaviour
             if (IsInShopScene())
             {
                 HandleMissionSelection();
-                HideMissionUI(); // 상점에서는 미션 UI 숨김
-            }
-            // 인게임 씬에서는 미션 UI 표시
-            else if (IsInGameScene())
-            {
-                UpdateInGameMissionUI();
-            }
-
-            // 미션 진행 중 시간 체크
-            if (isMissionActive && activeMission != null)
-            {
-                CheckTimeLimitMission();
             }
         }
-    }
 
+        // 항상 미션 UI 업데이트 (상점, 인게임 모두)
+        UpdateInGameMissionUI();
+
+        // 미션 진행 중 시간 체크
+        if (isMissionActive && activeMission != null)
+        {
+            CheckTimeLimitMission();
+        }
+    }
     // 상점 씬인지 확인
     bool IsInShopScene()
     {
@@ -145,21 +141,17 @@ public class MissionManager : MonoBehaviour
         PassiveItemUI passiveUI = FindObjectOfType<PassiveItemUI>();
         if (passiveUI == null) return;
 
-        // 보상 타입에 따라 설명 업데이트
         switch (missionData.rewardType)
         {
             case Mission_System.RewardType.Soul:
-                // 혼 보상 설명
                 passiveUI.Show("혼", "대부분 악귀를 처치해 얻음\n딸의 약값으로 자주 거래됨", 7);
                 break;
 
             case Mission_System.RewardType.Money:
-                // 냥 보상 설명
-                passiveUI.Show("냥", $"귀한 물건을 판매해 얻음\n상점에서 혼령강화을 구매할 때 자주 거래됨", 7);
+                passiveUI.Show("냥", "귀한 물건을 판매해 얻음\n상점에서 혼령강화을 구매할 때 자주 거래됨", 7);
                 break;
 
-            default:
-                // 혼령강화 보상 설명
+            case Mission_System.RewardType.Passive:
                 if (!string.IsNullOrEmpty(missionData.passiveRewardId))
                 {
                     var item = PassiveItemManager.Instance.passiveItems.Find(i => i.id == missionData.passiveRewardId);
@@ -195,27 +187,28 @@ public class MissionManager : MonoBehaviour
 
         if (selectedSlot == null) return;
 
-        // 미션 활성화
         activeMission = selectedSlot.GetCurrentMission();
         isMissionSelected = true;
         isMissionActive = false;
         isMissionCompleted = false;
 
-        // 혼령강화 보상이면 예약
-        if (activeMission.rewardType == Mission_System.RewardType.PassiveLow ||
-            activeMission.rewardType == Mission_System.RewardType.PassiveMid ||
-            activeMission.rewardType == Mission_System.RewardType.PassiveHigh ||
-            activeMission.rewardType == Mission_System.RewardType.PassiveMax)
+        // 혼령강화 보상이면 이제 예약 (미션 선택 시점에!)
+        if (activeMission.rewardType == Mission_System.RewardType.Passive)
         {
-            selectedPassiveId = activeMission.passiveRewardId; // Mission_System에서 설정한 ID
+            selectedPassiveId = activeMission.passiveRewardId;
+
+            // 이제 예약 목록에 추가
+            if (!string.IsNullOrEmpty(selectedPassiveId))
+            {
+                PassiveItemManager.Instance.reservedPassiveIds.Add(selectedPassiveId);
+                Debug.Log($"미션 보상 예약: {selectedPassiveId}");
+            }
         }
 
         FindObjectOfType<Stage_Manager>().Weapon_ch();
-        Mission_ok = false; // 미션골랐으면 비활성화
+        Mission_ok = false;
         Debug.Log($"미션 선택됨: {activeMission.type}, 목표: {activeMission.targetCount}");
     }
-
-
     // 미션 진행도 초기화
     void ResetMissionProgress()
     {
@@ -457,11 +450,7 @@ public class MissionManager : MonoBehaviour
                 Debug.Log($"보상 지급: 냥 {activeMission.rewardValue}");
                 break;
 
-            case Mission_System.RewardType.PassiveLow:
-            case Mission_System.RewardType.PassiveMid:
-            case Mission_System.RewardType.PassiveHigh:
-            case Mission_System.RewardType.PassiveMax:
-                // 혼령강화 구매 확정
+            case Mission_System.RewardType.Passive:
                 if (!string.IsNullOrEmpty(selectedPassiveId))
                 {
                     PassiveItemManager.Instance?.ConfirmPassivePurchase(selectedPassiveId);
@@ -471,13 +460,11 @@ public class MissionManager : MonoBehaviour
                 break;
         }
 
-        // 미션 초기화
         isMissionActive = false;
         isMissionSelected = false;
         isMissionCompleted = false;
         activeMission = null;
     }
-
 
     // === 외부 접근용 메서드 ===
 
@@ -531,8 +518,8 @@ public class MissionManager : MonoBehaviour
     // 인게임 미션 UI 업데이트
     void UpdateInGameMissionUI()
     {
-        // 미션이 없으면 UI 숨김
-        if (!isMissionActive || activeMission == null)
+        // activeMission이 null이면 UI 숨김
+        if (activeMission == null)
         {
             HideMissionUI();
             return;
