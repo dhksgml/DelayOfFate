@@ -188,6 +188,20 @@ public class PlayerController : MonoBehaviour
             if (GameManager.Instance.Day >= 4)
                 bonus += 0.3f;
         }
+
+        //일취월장
+        if(PassiveItemManager.Instance.HasEffect("Soul_Add_6_4"))
+        {
+            bonus += Mathf.Clamp(Mathf.FloorToInt(GameManager.Instance.Soul / 300), 0, 7) * 0.1f;
+        }
+
+        //무아지경
+        if (PassiveItemManager.Instance.HasEffect("Soul_Add_7_3"))
+        {
+            if ((currentHp / maxHp) <= 0.5f)
+                bonus += 0.5f;
+        }
+
         // 다른 패시브들 계산
         return baseDamage * (1f + bonus);
     }
@@ -878,6 +892,22 @@ private void SpendBattery()
 
     public void Hp_add(float healing)
     {
+        //배수진
+        if(PassiveItemManager.Instance.HasEffect("Soul_Add_7_4"))
+        {
+            float maxAllowedHp = maxHp * 0.5f;
+
+            if (currentHp >= maxAllowedHp)
+                return;
+
+            currentHp += healing * Hp_add_magnification();
+
+            if (currentHp > maxAllowedHp)
+                currentHp = maxAllowedHp;
+
+            return;
+        }   
+        
         currentHp += healing * Hp_add_magnification();
 
         // 최대 채력 넘어가면 방지
