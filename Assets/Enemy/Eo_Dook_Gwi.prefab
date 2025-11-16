@@ -224,9 +224,9 @@ MonoBehaviour:
   enemyAttackRange: 8
   enemyAttackType: 0
   enemyAttackCollider: {fileID: 455802276215988635}
-  enemy: {fileID: 3074975881576223820}
+  enemy: {fileID: 2661362052396414727}
   time: 0
-  geuseundae: {fileID: 3074975881576223820}
+  geuseundae: {fileID: 0}
   bullet: {fileID: 7133274805120073796, guid: d51a56723ff4c8c4a992ef525fa96c45, type: 3}
 --- !u!1 &8715100621815237470
 GameObject:
@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 3999336839738288988}
   - component: {fileID: 9200287539443861461}
   - component: {fileID: 2902647822814001550}
-  - component: {fileID: 3074975881576223820}
+  - component: {fileID: 2661362052396414727}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -336,7 +336,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
---- !u!114 &3074975881576223820
+--- !u!114 &2661362052396414727
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -345,10 +345,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8715100621815237470}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45c0d14c59d225a46aafd61e815fe3c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 485a725c1e8cd88449b66df4afbabdb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: f5f66e5fec231094190fa957f0c3bb3d, type: 2}
+  enemyData: {fileID: 11400000, guid: 6bdec621c8ade7743a681e889b2df1f4, type: 2}
   enemyName: 
   enemyHp: 0
   enemyMaxHp: 0
@@ -377,7 +377,7 @@ MonoBehaviour:
   isArrive: 0
   iscloaking: 0
   enemyTrace: {fileID: 0}
-  enemyAttack: {fileID: 0}
+  enemyAttack: {fileID: 5753924259590219866}
   sp: {fileID: 1114514256760666707}
   anim: {fileID: 6262192447617324782}
   enemyCorpse: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
@@ -389,18 +389,24 @@ MonoBehaviour:
   enemyDeathEffect: {fileID: 5642766282230003982, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
   Damage_text: {fileID: 467691442841209291, guid: e4e0e37a16a362a4aabe4d4e6b8d17a0, type: 3}
   enemyHpBar: {fileID: 6177720967971437315}
-  nightVision: {fileID: 0}
+  nightVision: {fileID: 6038954708774169671, guid: dca8d0589b28ef540869f4babaf18e38, type: 3}
   enemyDropItem: {fileID: 8248972107541150135, guid: ceccc15fe70af8746bc05742c8fdee65, type: 3}
   enemyTargetDir: {x: 0, y: 0, z: 0}
   isDie: 0
   rigid: {fileID: 0}
   enemyMoveDir: {x: 0, y: 0, z: 0}
   moveDirection: {x: 0, y: 0, z: 0}
+  waitTime: 1
   isStop: 0
-  isAttack: 0
-  isNoDamage: 0
-  notSeeMaterial: {fileID: 2100000, guid: f14e6b95b7c6e654dbf966be49cc373b, type: 2}
-  seeMaterial: {fileID: 2100000, guid: 8f14052349b1b4e408a0c4b87a37e87c, type: 2}
+  enemyDamage: 10
+  enemyOriginDamage: 0
+  isRush: 0
+  playerTrs: {x: 0, y: 0, z: 0}
+  rushTime: 1.5
+  enemyOriginSpeed: 0
+  enemyRushSpeed: 10
+  enemyRushDamage: 10
+  isRushReady: 0
 --- !u!1001 &3823324556162547153
 PrefabInstance:
   m_ObjectHideFlags: 0
