@@ -176,6 +176,7 @@ MonoBehaviour:
     CoinDeviation: 0
     Drop_item: 0
   killcount: 0
+  Effect_pr: {fileID: 2227231818856167281, guid: 28ce97d7594164b45a406c73c93b6fe7, type: 3}
   SlotsData:
   - {fileID: 0}
   - {fileID: 0}

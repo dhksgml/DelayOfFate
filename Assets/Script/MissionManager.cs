@@ -47,13 +47,45 @@ public class MissionManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+            // 씬 로드 이벤트 구독
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
             Destroy(gameObject);
         }
     }
-    
+
+    void OnDestroy()
+    {
+        // 이벤트 구독 해제 (메모리 누수 방지)
+        if (Instance == this)
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+    }
+
+    // 씬이 로드될 때마다 호출됨
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // 미션 UI 오브젝트 찾기
+        FindMissionUIObjects();
+    }
+
+    // 미션 UI 오브젝트를 이름으로 찾기
+    public void FindMissionUIObjects()
+    {
+        // Mission_Text 찾기
+        GameObject textObj = GameObject.Find("Mission_Text");
+        if (textObj != null)
+        {
+            inGameMissionText = textObj.GetComponent<TMP_Text>();
+        }
+
+        // Mission_Image_bk 찾기
+        missionUIPanel = GameObject.Find("Mission_Image_bk");
+    }
     public void Mission_start() // 시작 신호
     {
         if (Mission_ok)
@@ -74,6 +106,8 @@ public class MissionManager : MonoBehaviour
             // 상점 씬에서만 미션 선택 가능
             if (IsInShopScene())
             {
+                print(Mission_ok);
+                print(SceneManager.GetActiveScene().name);
                 HandleMissionSelection();
             }
         }
@@ -558,7 +592,7 @@ public class MissionManager : MonoBehaviour
                 float elapsed = (Time.time - missionStartTime) / 60f;
                 float remaining = activeMission.targetCount - elapsed;
                 if (remaining < 0) remaining = 0;
-                progressText = $"{remaining:F1}각 안에 탈출";
+                progressText = $"{remaining}각 안에 탈출";
                 break;
 
             case Mission_System.MissionType.OneWeaponOnly:
