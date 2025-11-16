@@ -94,6 +94,9 @@ MonoBehaviour:
   Place_Resurrection: {fileID: 6373634918162350719, guid: 5e2095dff9d456a43ab46a2190b13978, type: 3}
   Place_Sale: {fileID: 1044354756543004560, guid: 2dc94e4bb87af7043a43e1b85daa30d9, type: 3}
   Place_Escape: {fileID: 6146136370363173489, guid: f67d7223472b9bd43b099ff957901841, type: 3}
+  Place_Soul: {fileID: 6373634918162350719, guid: a511c6b60a67973468760740866f5d8b, type: 3}
+  Place_Coin: {fileID: 6373634918162350719, guid: ad712ceb2feef0b4b9f1d4bd1d015b8e, type: 3}
+  Place_Eye: {fileID: 6373634918162350719, guid: a5779f985adaf164d811b4c91a14012e, type: 3}
   placeManager: {fileID: 0}
   roomPositions: []
   tossCors: []
@@ -118,6 +121,9 @@ MonoBehaviour:
   miniPlace_Resurrection: {fileID: 6373634918162350719, guid: 5e2095dff9d456a43ab46a2190b13978, type: 3}
   miniPlace_Sale: {fileID: 1044354756543004560, guid: 2dc94e4bb87af7043a43e1b85daa30d9, type: 3}
   miniPlace_Escape: {fileID: 6146136370363173489, guid: f67d7223472b9bd43b099ff957901841, type: 3}
+  miniPlace_Soul: {fileID: 6373634918162350719, guid: a511c6b60a67973468760740866f5d8b, type: 3}
+  miniPlace_Coin: {fileID: 6373634918162350719, guid: ad712ceb2feef0b4b9f1d4bd1d015b8e, type: 3}
+  miniPlace_Eye: {fileID: 6373634918162350719, guid: a5779f985adaf164d811b4c91a14012e, type: 3}
   minimapCam: {fileID: 0}
   blindScript: {fileID: 0}
   mapSave: {fileID: 0}
@@ -189,6 +195,9 @@ MonoBehaviour:
   resurrection_positions: []
   sale_positions: []
   escape_positions: []
+  soul_positions: []
+  coin_positions: []
+  eye_positions: []
 --- !u!114 &1179224993230781712
 MonoBehaviour:
   m_ObjectHideFlags: 0

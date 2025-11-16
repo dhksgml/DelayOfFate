@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -914339061, guid: 862c64161b9fca34f8577a186d6a8330, type: 3}
+  m_Sprite: {fileID: -284760770, guid: a93b9cd6f7ef2d6489ecf4bd1ff85e81, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -196,7 +196,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4712745189209748450}
   - component: {fileID: 3023426101993193441}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: vkvus_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -373,7 +373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 846ea87ed4cba1c40998e35cc107a8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  place_enum: 1
+  place_enum: 3
   key_UI_iamge: {fileID: 8583213906846447739}
   sprite_ch_spr:
   - {fileID: -638276027, guid: c537e724e8b39884e98a2c49eecac260, type: 3}
@@ -397,6 +397,7 @@ MonoBehaviour:
   - {fileID: -960579449, guid: c537e724e8b39884e98a2c49eecac260, type: 3}
   - {fileID: -811282609, guid: c537e724e8b39884e98a2c49eecac260, type: 3}
   warningText: {fileID: 0}
+  special_obj: {fileID: 8807296022799699941}
 --- !u!61 &8004555911403342272
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -440,7 +441,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 2, y: 2}
   m_EdgeRadius: 0
 --- !u!50 &4648586438199354265
 Rigidbody2D:
@@ -492,7 +493,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5921375059106838004}
   - component: {fileID: 4318511413610036545}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: vkvus_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -576,7 +577,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2391775032658405417}
   - component: {fileID: 5896325737413067732}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: vkvus_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -660,7 +661,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8920203258859997173}
   - component: {fileID: 3724063494605240153}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: vkvus_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -819,7 +820,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5327994095026156734}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: ghlwjs_wndtla
   m_TagString: Untagged
   m_Icon: {fileID: 0}
