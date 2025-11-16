@@ -241,7 +241,11 @@ public class Place : MonoBehaviour
 					}
 				}
 			}
-			placeManager.Go_to_escape();
+            // 11.17 추가
+            Minimap_Blind minimap = FindObjectOfType<Minimap_Blind>();
+            minimap.InitEye();
+
+            placeManager.Go_to_escape();
 		}
 		else
 		{
@@ -287,7 +291,11 @@ public class Place : MonoBehaviour
 		SpriteRenderer special_obj_spr = special_obj.GetComponent<SpriteRenderer>();
 		special_obj_spr.sprite = sprite_ch_spr[1];
 		MissionManager.Instance.OnPlaceInteracted();
-	}
+
+		// 11.17 추가
+		Minimap_Blind minimap = FindObjectOfType<Minimap_Blind>();
+		minimap.UseEye();
+    }
 
 	private IEnumerator ShowWarningText()
 	{
