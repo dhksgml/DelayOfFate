@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
     public GameObject lightCircleObject;
     public float flashLightDistance = 3f;
     public float refillFlashlightCooltime = 0.5f; //호롱 회복 속도
-    public float refillFlashlightAmount = 0.1f; //호롱 회복량
+    public float refillFlashlightAmount = 0.25f; //호롱 회복량
 
     private Light2D flashLight;
     //private float flashlightRadius;
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
     private float minRadius = 0f; //최소 시야 크기
     // 그슨대 때문에 public으로 돌려줌
     [HideInInspector] public float currentRadius; //현재 시야 크기
-    private float decreaseRate = 0.3f; //시야 감소폭
+    private float decreaseRate = 0.2f; //시야 감소폭
     private bool isOn = true; //플래시라이트 상태
     private Coroutine refillCoroutine;
 

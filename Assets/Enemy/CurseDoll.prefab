@@ -277,7 +277,7 @@ MonoBehaviour:
   stopTime: 0.5
   rushSpeed: 10
   isFind: 0
-  enemyDamage: 30
+  enemyDamage: 25
   healBanTime: 20
   curseDollSprite:
   - {fileID: 841805429, guid: a89636f55b8de1643971b7f49627086d, type: 3}
