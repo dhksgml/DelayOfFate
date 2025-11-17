@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4171848360086091919}
   - component: {fileID: 7576762358784631293}
   - component: {fileID: 7327014321805191892}
+  - component: {fileID: 272407845701807660}
   m_Layer: 5
   m_Name: NightVision Canvas
   m_TagString: Untagged
@@ -84,7 +85,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &7327014321805191892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,6 +103,30 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &272407845701807660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6038954708774169671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3d41886b1f194148b563425e70e3f63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eye_sprites:
+  - {fileID: -1538171193, guid: a88b76f791e559a4db120b8cde5519e1, type: 3}
+  - {fileID: 1415201857, guid: a88b76f791e559a4db120b8cde5519e1, type: 3}
+  - {fileID: -959430809, guid: a88b76f791e559a4db120b8cde5519e1, type: 3}
+  - {fileID: 503673278, guid: a88b76f791e559a4db120b8cde5519e1, type: 3}
+  - {fileID: 822925119, guid: a88b76f791e559a4db120b8cde5519e1, type: 3}
+  - {fileID: 186891192, guid: a88b76f791e559a4db120b8cde5519e1, type: 3}
+  - {fileID: 884412428, guid: a88b76f791e559a4db120b8cde5519e1, type: 3}
+  - {fileID: -1239360449, guid: a88b76f791e559a4db120b8cde5519e1, type: 3}
+  - {fileID: -421793437, guid: a88b76f791e559a4db120b8cde5519e1, type: 3}
+  - {fileID: 1095008468, guid: a88b76f791e559a4db120b8cde5519e1, type: 3}
+  image: {fileID: 8286313376319831830}
 --- !u!1 &8979182256675212934
 GameObject:
   m_ObjectHideFlags: 0

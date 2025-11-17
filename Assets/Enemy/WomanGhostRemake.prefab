@@ -343,13 +343,12 @@ MonoBehaviour:
   enemyMoveDir: {x: 0, y: 0, z: 0}
   moveDirection: {x: 0, y: 0, z: 0}
   isStop: 0
-  isPlayerSee: 0
   isAttack: 0
   seeTime: 0
   dontSeeTime: 0
   maxStunTime: 3
   minStunTime: 1
-  attackDamage: 50
+  attackDamage: 30
 --- !u!1 &4938018955128738630
 GameObject:
   m_ObjectHideFlags: 0

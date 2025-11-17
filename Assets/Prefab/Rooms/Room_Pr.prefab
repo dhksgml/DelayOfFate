@@ -53,6 +53,8 @@ MonoBehaviour:
   floorTiles:
   - {fileID: 11400000, guid: a7f9d745c132bfc4e8e0aa172629c098, type: 2}
   - {fileID: 11400000, guid: df577670c98228748b8d4533e98eab8c, type: 2}
+  - {fileID: 11400000, guid: 573ad94fc6704ff4cb51dc0e1373e0d0, type: 2}
+  - {fileID: 11400000, guid: bae6a7b192cd3894bb44615d280d5280, type: 2}
   width: 3
   height: 3
   roomCount: 8
@@ -153,6 +155,10 @@ MonoBehaviour:
   - {fileID: 8018078762037570581, guid: f25bfe20f2d714346bc81cf3c82bb67b, type: 3}
   - {fileID: 1049004511381977570, guid: e70050c52580c1b4eb42c4a3aebbd081, type: 3}
   - {fileID: 1679795579066543005, guid: f405f5b9efab51a4693233ea82302f51, type: 3}
+  - {fileID: 6855693868523006174, guid: 4ef109ffa44477b4090f1889547ebfb4, type: 3}
+  - {fileID: 4310116842783595834, guid: 63fb45ba027df8b48be7f3d069e722f0, type: 3}
+  - {fileID: 8389716010803181013, guid: 1c2b498242dfc104581e1f51c2b5a50a, type: 3}
+  - {fileID: 5245941397133006743, guid: 88db72049bf744b418371acf72d7c90e, type: 3}
   itemPrefab: {fileID: 8557445870057906743, guid: d9bfa187f8d7f25489bc60875b28c9ac, type: 3}
   item_date:
   - {fileID: 11400000, guid: 1fe75118182f8e248a4aaf2d76cc9a1a, type: 2}
