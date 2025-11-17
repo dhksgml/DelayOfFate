@@ -1,10 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Place_Player_Find : MonoBehaviour
 {
-    public GameObject minimapPlace;   // MapSpawn¿¡¼­ º¹Á¦ÇÑ ¹Ì´Ï¸Ê Àå¼Ò ¿¬°á
+    public GameObject minimapPlace;   // MapSpawnì—ì„œ ë³µì œí•œ ë¯¸ë‹ˆë§µ ì¥ì†Œ ì—°ê²°
+    Minimap_Blind minimap;
+
+    private void Start()
+    {
+        // 11.17 ì¶”ê°€
+        minimap = FindObjectOfType<Minimap_Blind>();
+    }
+
+    void Update()
+    {
+        if(minimap.isUseEyeReference)
+        {
+            minimapPlace.SetActive(true);
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

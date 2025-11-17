@@ -54,6 +54,9 @@ public class PassiveItemManager : MonoBehaviour
         AddPassiveItem(1, 4);
         AddPassiveItem(3, 3);
         AddPassiveItem(5, 3);
+        AddPassiveItem(6, 4);
+        AddPassiveItem(7, 3);
+        AddPassiveItem(7, 4);
         // 3번째 효과 Soul_Add_2_3, Soul_Add_4_3, Soul_Add_6_3
         for (int n = 2; n <= 6; n += 2)
         {
@@ -950,6 +953,12 @@ public class PassiveItemManager : MonoBehaviour
     {
         QuickSlotUI quickslotUI = FindObjectOfType<QuickSlotUI>();
         TryRemoveEffect(new IncreaseMoveSpeedEffect(GameManager.Instance.playerData, 0.5f));
+    }
+
+    //배수진
+    public void DoPassive_7_4()
+    {
+        TryApplyEffect(new IncreaseMaxHPEffect(GameManager.Instance.playerData, 150));
     }
 
     public void HandleNextDay()

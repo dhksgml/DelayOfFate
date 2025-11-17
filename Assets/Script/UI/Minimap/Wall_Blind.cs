@@ -15,9 +15,10 @@ public class Wall_Blind : MonoBehaviour
     {
         if (minimap_Blind.blindRoomObj == null) { return; }
 
-        // ¸¸¾à ÇÃ·¹ÀÌ¾î°¡ µé¾î¿Í ÀÖÀ¸¸é
+        // ë§Œì•½ í”Œë ˆì´ì–´ê°€ ë“¤ì–´ì™€ ìˆìœ¼ë©´
         if (collision.CompareTag("Player"))
         {
+            if (minimap_Blind.isUseEyeReference) { return; }
             minimap_Blind.PlayerStayMap();
         }
     }
@@ -26,9 +27,10 @@ public class Wall_Blind : MonoBehaviour
     {
         if (minimap_Blind.blindRoomObj == null) { return; }
 
-        // ¸¸¾à ÇÃ·¹ÀÌ¾î°¡ ¹æÀ» ¶°³ª¸é
+        // ë§Œì•½ í”Œë ˆì´ì–´ê°€ ë°©ì„ ë– ë‚˜ë©´
         if (collision.CompareTag("Player"))
         {
+            if (minimap_Blind.isUseEyeReference) { return; }
             minimap_Blind.PlayerSeeMap();
         }
     }
