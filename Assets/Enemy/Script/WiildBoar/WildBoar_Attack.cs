@@ -22,7 +22,7 @@ public class WildBoar_Attack : EnemyAttack
 
         rotationColl();
 
-        if (time >= enemyAttackSpeed && distance <= 6f && !wildBoar.isStop)
+        if (time >= enemyAttackSpeed && distance <= 2.5f && !wildBoar.isStop)
         {
 
             // 멈추게해줌
