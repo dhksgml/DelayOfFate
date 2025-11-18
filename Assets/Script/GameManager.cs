@@ -117,6 +117,11 @@ public class GameManager : MonoBehaviour
         killcount = 0;
         SlotsData = new ItemData[4];
         WeaponData = new ItemData[2];
+
+        if(PassiveItemManager.Instance)
+        {
+            PassiveItemManager.Instance.ResetPassiveItem();
+        }
     }
     public void Next_data_reset()
     {

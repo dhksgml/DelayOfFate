@@ -8,6 +8,9 @@ public class GameoverUI : MonoBehaviour
 
     public void TitleSceneButton()
     {
+        if (GameManager.Instance)
+            GameManager.Instance.AlldataReset();
+
         SceneManager.LoadScene("TitleScene");
     }
 }
