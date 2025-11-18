@@ -4,30 +4,71 @@ using UnityEngine;
 
 public class Minimap_Blind : MonoBehaviour
 {
-    // º¹Á¦µÈ ¹Ì´Ï¸Ê ¿ë ¹æ
+    // ë³µì œëœ ë¯¸ë‹ˆë§µ ìš© ë°©
     public GameObject copyRoomObj;
 
-    // ¹æÀ» °¡¸®´Â ºí¶óÀÎµå
+    // ë°©ì„ ê°€ë¦¬ëŠ” ë¸”ë¼ì¸ë“œ
     public GameObject blindRoomObj;
 
-    // ¾ÆÁ÷ ¹æÀ» ¾È°¬À» ½Ã ºñÈ°¼ºÈ­ ÇØÁÖ±â À§ÇÔ
+    // ì•„ì§ ë°©ì„ ì•ˆê°”ì„ ì‹œ ë¹„í™œì„±í™” í•´ì£¼ê¸° ìœ„í•¨
     public GameObject dontSeeRoom;
 
-    // Àå¼Ò ¾ÆÀÌÄÜ ÀúÀå¿ë
+    // ì¥ì†Œ ì•„ì´ì½˜ ì €ì¥ìš©
     public GameObject placeIcon;
 
     SpriteRenderer sp;
 
     bool isFind = false;
 
+    // ëˆˆì„ ì‚¬ìš©í•˜ë©´ trueë¡œ ë³€ê²½,
+    // ì „ì—­ìœ¼ë¡œ ëŒë ¤ì„œ í•œê°œë§Œ trueë˜ë©´ ë‹¤ ë©ˆì¶”ë„ë¡ í•˜ëŠ”ê²Œ ì¢‹ì€ë“¯
+    public static bool isUseEye = false;
+    // ì™¸ë¶€ ì°¸ì¡°ìš©
+    public bool isUseEyeReference = false;
 
+    private void Update()
+    {
+        if (isUseEye) 
+        {
+            isUseEyeReference = true;
+            UseEyeMapBlind();
+        }
+        else if (!isUseEye) { isUseEyeReference = false; }
+    }
 
-    // Ä«ÇÇµÈ ¹æÀÇ ºí¶óÀÎµå ¿ÀºêÁ§Æ®¸¦ °¡Á®¿À´Â ¸Ş¼­µå
+    // ëˆˆ ì‚¬ìš©ì‹œ
+    void UseEyeMapBlind()
+    {
+        if (blindRoomObj != null)
+        {
+            blindRoomObj.SetActive(false);
+        }
+
+        if(dontSeeRoom != null)
+        {
+            dontSeeRoom.SetActive(true);
+        }
+
+    }
+
+    // ìŠ¤í…Œí‹± true
+    public void UseEye()
+    {
+        isUseEye = true;
+    }
+
+    // ìŠ¤íƒœí‹± false
+    public void InitEye()
+    {
+        isUseEye = false;
+    }
+
+    // ì¹´í”¼ëœ ë°©ì˜ ë¸”ë¼ì¸ë“œ ì˜¤ë¸Œì íŠ¸ë¥¼ ê°€ì ¸ì˜¤ëŠ” ë©”ì„œë“œ
     public void CopyRoomBlindGet()
     {
-        // ÄÄÆ÷³ÍÆ® ÃßÃâ ÈÄ
+        // ì»´í¬ë„ŒíŠ¸ ì¶”ì¶œ í›„
         Minimap_Blind blindCopy = copyRoomObj.GetComponent<Minimap_Blind>();
-        // °¡Á®¿Í¼­ ÇÒ´ç
+        // ê°€ì ¸ì™€ì„œ í• ë‹¹
         blindRoomObj = blindCopy.blindRoomObj;
     }
 
@@ -36,7 +77,7 @@ public class Minimap_Blind : MonoBehaviour
         dontSeeRoom.SetActive(false);
     }
 
-    // ÇÃ·¹ÀÌ¾î°¡ ¸Ê¿¡ Á¸ÀçÇÏ¸é
+    // í”Œë ˆì´ì–´ê°€ ë§µì— ì¡´ì¬í•˜ë©´
     public void PlayerStayMap()
     {
         if (blindRoomObj != null)
@@ -56,7 +97,7 @@ public class Minimap_Blind : MonoBehaviour
         }
     }
 
-    // ÇÃ·¹ÀÌ¾î°¡ ¸ÊÀ» Ã³À½ ºÃÀ¸¸é
+    // í”Œë ˆì´ì–´ê°€ ë§µì„ ì²˜ìŒ ë´¤ìœ¼ë©´
     public void PlayerSeeMap()
     {
         if (blindRoomObj != null)
@@ -77,10 +118,10 @@ public class Minimap_Blind : MonoBehaviour
     {
         if (blindRoomObj == null) { return; }
 
-        // ¸¸¾à ÇÃ·¹ÀÌ¾î°¡ µé¾î¿Í ÀÖÀ¸¸é
+        // ë§Œì•½ í”Œë ˆì´ì–´ê°€ ë“¤ì–´ì™€ ìˆìœ¼ë©´
         if (collision.CompareTag("Player"))
         {
-
+            if (isUseEye) { return; }
             PlayerStayMap();
         }
     }
@@ -89,9 +130,10 @@ public class Minimap_Blind : MonoBehaviour
     {
         if (blindRoomObj == null) { return; }
 
-        // ¸¸¾à ÇÃ·¹ÀÌ¾î°¡ ¹æÀ» ¶°³ª¸é
+        // ë§Œì•½ í”Œë ˆì´ì–´ê°€ ë°©ì„ ë– ë‚˜ë©´
         if (collision.CompareTag("Player"))
         {
+            if (isUseEye) { return; }
             PlayerSeeMap();
         }
     }

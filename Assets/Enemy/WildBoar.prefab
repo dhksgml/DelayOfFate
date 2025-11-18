@@ -501,7 +501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34c8367d4e3592d4584f73aafb976789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyDamage: 25
+  enemyDamage: 15
   enemyAttackSpeed: 5
   enemyAttackRange: 0
   enemyAttackType: 3

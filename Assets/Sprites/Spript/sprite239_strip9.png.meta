@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 61ded9d5e2f0cc6499f43a9a5efafadd
+guid: 4215eec72f8c6304c9e4f956e6ff3f69
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -93,30 +93,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WildBoar_Attack_0
+      name: sprite239_strip9_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 160
-        height: 160
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d430d9dfbd223aa4bb8c949e15042ca6
-      internalID: 99392044
+      spriteID: a08d8ded97ff8914b973ac9050cc8e44
+      internalID: -1120015279
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WildBoar_Attack_1
+      name: sprite239_strip9_1
       rect:
         serializedVersion: 2
-        x: 160
+        x: 128
         y: 0
-        width: 160
-        height: 160
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +132,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 26b19a8886685394e9af447a6ab4c9e5
-      internalID: -1919153726
+      spriteID: 021b11ab97a1d1f459e48ae1a218f617
+      internalID: -176976902
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WildBoar_Attack_2
+      name: sprite239_strip9_2
       rect:
         serializedVersion: 2
-        x: 320
+        x: 256
         y: 0
-        width: 160
-        height: 160
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +153,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5ef6f6c2b77769842b2649472ec3ccfb
-      internalID: 777875266
+      spriteID: d340759252a0bde4c938aab54ef77590
+      internalID: -1349783756
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WildBoar_Attack_3
+      name: sprite239_strip9_3
       rect:
         serializedVersion: 2
-        x: 480
+        x: 384
         y: 0
-        width: 160
-        height: 160
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,8 +174,113 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bcbbe95ebbf93af4390996a2fb636c10
-      internalID: 1255801652
+      spriteID: da4a3927631eea845b6875548aec2961
+      internalID: -123692762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite239_strip9_4
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be28c137b21250f4a99940b783d942b4
+      internalID: -1665542354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite239_strip9_5
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6164cdaab9689b458a5a6098848bdf6
+      internalID: 994947335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite239_strip9_6
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93bd97b467f9fbb49a3747266834e419
+      internalID: 50673088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite239_strip9_7
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c191322b70593f4287e2a1d2deeb3e2
+      internalID: 1745228831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite239_strip9_8
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b99f34edf20c23a468324108cf3dedb4
+      internalID: 619437890
       vertices: []
       indices: 
       edges: []
@@ -204,10 +296,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      WildBoar_Attack_0: 99392044
-      WildBoar_Attack_1: -1919153726
-      WildBoar_Attack_2: 777875266
-      WildBoar_Attack_3: 1255801652
+      sprite239_strip9_0: -1120015279
+      sprite239_strip9_1: -176976902
+      sprite239_strip9_2: -1349783756
+      sprite239_strip9_3: -123692762
+      sprite239_strip9_4: -1665542354
+      sprite239_strip9_5: 994947335
+      sprite239_strip9_6: 50673088
+      sprite239_strip9_7: 1745228831
+      sprite239_strip9_8: 619437890
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

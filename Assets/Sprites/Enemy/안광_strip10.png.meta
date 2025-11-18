@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2a0dcfd9adc02c6418dcfe73aba667ff
+guid: a88b76f791e559a4db120b8cde5519e1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -93,24 +93,11 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: LandShark_Hide_0
+      name: "\uC548\uAD11_strip10_0"
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +111,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d99b3ee91fc5a4643a83ce183221a32b
-      internalID: -147715988
+      spriteID: 98b61bc99ce386e4284a5fc217359492
+      internalID: -1538171193
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LandShark_Hide_1
+      name: "\uC548\uAD11_strip10_1"
       rect:
         serializedVersion: 2
         x: 128
@@ -145,14 +132,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eb65ad9b74eb17b4f907b5def1a1472a
-      internalID: 1186712789
+      spriteID: 7f97219b8978dcd41ab9eb81f16c366f
+      internalID: 1415201857
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LandShark_Hide_2
+      name: "\uC548\uAD11_strip10_2"
       rect:
         serializedVersion: 2
         x: 256
@@ -166,14 +153,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8715f3966d14e564689469025f3fdd0c
-      internalID: 929926085
+      spriteID: a17f4e7de9b998b47b2d8c9c805b6e39
+      internalID: -959430809
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LandShark_Hide_3
+      name: "\uC548\uAD11_strip10_3"
       rect:
         serializedVersion: 2
         x: 384
@@ -187,8 +174,134 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 43e92d97a017bef4f8450e7b6df59a56
-      internalID: 973859283
+      spriteID: 5a4961db5eee61249984a30d7f6518e2
+      internalID: 503673278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uC548\uAD11_strip10_4"
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4373ed4794a8c246b345117a12275e8
+      internalID: 822925119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uC548\uAD11_strip10_5"
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4854f93eccdfa17488d984668e114679
+      internalID: 186891192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uC548\uAD11_strip10_6"
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f213386e48a05d48a2f59ba918d2adf
+      internalID: 884412428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uC548\uAD11_strip10_7"
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7775662859b2404f838c1c6b147eb1e
+      internalID: -1239360449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uC548\uAD11_strip10_8"
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 254c3e84cced30a4484780af1473eec1
+      internalID: -421793437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uC548\uAD11_strip10_9"
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c6601e12b7ab4d4389812d5b1118c92
+      internalID: 1095008468
       vertices: []
       indices: 
       edges: []
@@ -204,10 +317,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      LandShark_Hide_0: -147715988
-      LandShark_Hide_1: 1186712789
-      LandShark_Hide_2: 929926085
-      LandShark_Hide_3: 973859283
+      "\uC548\uAD11_strip10_0": -1538171193
+      "\uC548\uAD11_strip10_1": 1415201857
+      "\uC548\uAD11_strip10_2": -959430809
+      "\uC548\uAD11_strip10_3": 503673278
+      "\uC548\uAD11_strip10_4": 822925119
+      "\uC548\uAD11_strip10_5": 186891192
+      "\uC548\uAD11_strip10_6": 884412428
+      "\uC548\uAD11_strip10_7": -1239360449
+      "\uC548\uAD11_strip10_8": -421793437
+      "\uC548\uAD11_strip10_9": 1095008468
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

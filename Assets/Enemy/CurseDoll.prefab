@@ -274,10 +274,10 @@ MonoBehaviour:
   rigid: {fileID: 0}
   enemyMoveDir: {x: 0, y: 0, z: 0}
   moveDirection: {x: 0, y: 0, z: 0}
-  stopTime: 0.5
+  stopTime: 1
   rushSpeed: 10
   isFind: 0
-  enemyDamage: 30
+  enemyDamage: 10
   healBanTime: 20
   curseDollSprite:
   - {fileID: 841805429, guid: a89636f55b8de1643971b7f49627086d, type: 3}

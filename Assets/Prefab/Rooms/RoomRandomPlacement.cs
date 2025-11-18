@@ -53,11 +53,11 @@ public class RoomRandomPlacement : MonoBehaviour
 
     private void Awake() //배열 초기화
     {
-        Cost_list = new int[] { 0, 0, 0, 0, 0 }; //약값
-        map_structure = new int[] { 3, 4, 4, 5, 5 }; //맵구조
-        room_count = new int[] { 8, 12, 16, 20, 24 }; //방 곗수 (오차1)
-        value_points = new int[] { 600, 900, 1200, 1600, 2000 }; //바닥에 깔리는 그 가치
-        value_error = new int[] { 50, 75, 125, 200, 300 }; //바닥에 깔리는 가치의 오차
+        Cost_list = new int[] { 0, 0, 0, 0, 0, 0, 0 }; //약값
+        map_structure = new int[] { 3, 4, 4, 5, 5, 5, 5 }; //맵구조
+        room_count = new int[] { 8, 12, 16, 20, 24, 25, 25 }; //방 곗수 (오차1)
+        value_points = new int[] { 600, 900, 1200, 1600, 2000, 2000, 2000 }; //바닥에 깔리는 그 가치
+        value_error = new int[] { 50, 75, 125, 200, 300, 300, 300 }; //바닥에 깔리는 가치의 오차
     }
 
     void Start()
@@ -122,57 +122,35 @@ public class RoomRandomPlacement : MonoBehaviour
         }
 
         int dayIndex = GameManager.Instance.Day - 1;
-        int objectCountPerType = Mathf.Max(1, (dayIndex) / 2 + 1);
+
+        // 일차별 장소 개수 계산 (1,2일차: 1개 / 3,4일차: 2개 / 5,6일차: 3개 / 7일차: 4개)
+        int placeCountPerType = (dayIndex / 2) + 1;
 
         // roomObjects.Values를 리스트로 가져와 섞는다
         var shuffledRooms = roomObjects.Values.OrderBy(x => Random.value).ToList();
 
         // 플레이어 위치 (첫 번째 방)
-        // 플레이어 이동
         player.transform.position = shuffledRooms[0].transform.position;
 
-        // 모든 EnemyPoint 찾기
+        // 모든 EnemyPoint 찾기 (플레이어 주변 정리)
         GameObject[] enemyPoints = GameObject.FindGameObjectsWithTag("EnemyPoint");
-        
+
         foreach (GameObject point in enemyPoints)
         {
-            print("찾음");
-            // 플레이어와의 거리 계산
             float distance = Vector2.Distance(player.transform.position, point.transform.position);
 
             if (distance <= 32f)
             {
-                print("제거 시도");
-                point.tag = "Untagged"; // 제거 직전 태그를 변경해서 스폰쪽에서 못찾게 만듬
-                // 반경 32 안 -> 제거
+                point.tag = "Untagged";
                 Destroy(point);
             }
         }
 
         int roomIndex = 1;
 
-        // 부활 장소 배치
-        for (int i = 0; i < objectCountPerType && roomIndex < shuffledRooms.Count; i++)
-        {
-            GameObject obj = Instantiate(Place_Resurrection, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
-            placeManager.resurrection_positions.Add(shuffledRooms[roomIndex].transform.position);
-            randomPlace.Add(obj.transform.position);
-            randomPlaceObj.Add(obj);
-            roomIndex++;
-        }
-
-        // 판매 장소
-        for (int i = 0; i < objectCountPerType && roomIndex < shuffledRooms.Count; i++)
-        {
-            GameObject obj = Instantiate(Place_Sale, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
-            placeManager.sale_positions.Add(shuffledRooms[roomIndex].transform.position);
-            randomPlace.Add(obj.transform.position);
-            randomPlaceObj.Add(obj);
-            roomIndex++;
-        }
-
-        // 탈출 장소
-        for (int i = 0; i < objectCountPerType && roomIndex < shuffledRooms.Count; i++)
+        // ========== 고정 장소 배치 (탈출, 판매) ==========
+        // 탈출 장소 (고정)
+        for (int i = 0; i < placeCountPerType && roomIndex < shuffledRooms.Count; i++)
         {
             GameObject obj = Instantiate(Place_Escape, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
             placeManager.escape_positions.Add(shuffledRooms[roomIndex].transform.position);
@@ -181,33 +159,56 @@ public class RoomRandomPlacement : MonoBehaviour
             roomIndex++;
         }
 
-        // 혼 장소 배치
-        for (int i = 0; i < objectCountPerType && roomIndex < shuffledRooms.Count; i++)
+        // 판매 장소 (고정)
+        for (int i = 0; i < placeCountPerType && roomIndex < shuffledRooms.Count; i++)
         {
-            GameObject obj = Instantiate(Place_Soul, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
-            placeManager.soul_positions.Add(shuffledRooms[roomIndex].transform.position);
+            GameObject obj = Instantiate(Place_Sale, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
+            placeManager.sale_positions.Add(shuffledRooms[roomIndex].transform.position);
             randomPlace.Add(obj.transform.position);
             randomPlaceObj.Add(obj);
             roomIndex++;
         }
 
-        // 냥 장소
-        for (int i = 0; i < objectCountPerType && roomIndex < shuffledRooms.Count; i++)
+        // ========== 랜덤 장소 배치 (부활, 혼, 냥, 눈) ==========
+        // 랜덤 장소 풀 생성 (중복 가능)
+        List<System.Action<int>> randomPlaceFunctions = new List<System.Action<int>>
         {
-            GameObject obj = Instantiate(Place_Coin, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
-            placeManager.coin_positions.Add(shuffledRooms[roomIndex].transform.position);
-            randomPlace.Add(obj.transform.position);
-            randomPlaceObj.Add(obj);
-            roomIndex++;
-        }
+            // 부활 장소 임시제거
+            /*(idx) => {
+                GameObject obj = Instantiate(Place_Resurrection, shuffledRooms[idx].transform.position, Quaternion.identity);
+                placeManager.resurrection_positions.Add(shuffledRooms[idx].transform.position);
+                randomPlace.Add(obj.transform.position);
+                randomPlaceObj.Add(obj);
+            },*/
+            // 혼 장소
+            (idx) => {
+                GameObject obj = Instantiate(Place_Soul, shuffledRooms[idx].transform.position, Quaternion.identity);
+                placeManager.soul_positions.Add(shuffledRooms[idx].transform.position);
+                randomPlace.Add(obj.transform.position);
+                randomPlaceObj.Add(obj);
+            },
+            // 냥 장소
+            (idx) => {
+                GameObject obj = Instantiate(Place_Coin, shuffledRooms[idx].transform.position, Quaternion.identity);
+                placeManager.coin_positions.Add(shuffledRooms[idx].transform.position);
+                randomPlace.Add(obj.transform.position);
+                randomPlaceObj.Add(obj);
+            },
+            // 눈 장소
+            (idx) => {
+                GameObject obj = Instantiate(Place_Eye, shuffledRooms[idx].transform.position, Quaternion.identity);
+                placeManager.eye_positions.Add(shuffledRooms[idx].transform.position);
+                randomPlace.Add(obj.transform.position);
+                randomPlaceObj.Add(obj);
+            }
+        };
 
-        // 눈 장소
-        for (int i = 0; i < objectCountPerType && roomIndex < shuffledRooms.Count; i++)
+        // 랜덤 장소 배치 (placeCountPerType만큼, 중복 가능)
+        for (int i = 0; i < placeCountPerType && roomIndex < shuffledRooms.Count; i++)
         {
-            GameObject obj = Instantiate(Place_Eye, shuffledRooms[roomIndex].transform.position, Quaternion.identity);
-            placeManager.eye_positions.Add(shuffledRooms[roomIndex].transform.position);
-            randomPlace.Add(obj.transform.position);
-            randomPlaceObj.Add(obj);
+            // 랜덤으로 장소 타입 선택 (중복 가능)
+            int randomPlaceType = Random.Range(0, randomPlaceFunctions.Count);
+            randomPlaceFunctions[randomPlaceType](roomIndex);
             roomIndex++;
         }
     }
@@ -547,9 +548,9 @@ public class RoomRandomPlacement : MonoBehaviour
             {2, 0},
             {3, 1},
             {4, 1},
-            {5, 1},
-            {6, 1},
-            {7, 1}
+            {5, 2},
+            {6, 2},
+            {7, 3}
         };//(지금은 1만 있는데 2,3 도 있어야맞음)
 
         int day = GameManager.Instance.Day;

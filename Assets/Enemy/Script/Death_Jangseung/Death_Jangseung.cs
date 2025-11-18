@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Death_Jangseung : Enemy
 {
-    [Header("Á×À½Àå½Â")]
+    [Header("ì£½ìŒì¥ìŠ¹")]
     public float attackSeeTime;
-    PlayerController player; //ÇÃ·¹ÀÌ¾î
-    // Àû ÃßÀû ÄÚµå¿¡¼­ °¡Á®¿Ã ¿¹Á¤
-    [HideInInspector] public Vector3 attackTargetTrs; // °ø°İ À§Ä¡
+    PlayerController player; //í”Œë ˆì´ì–´
+    // ì  ì¶”ì  ì½”ë“œì—ì„œ ê°€ì ¸ì˜¬ ì˜ˆì •
+    [HideInInspector] public Vector3 attackTargetTrs; // ê³µê²© ìœ„ì¹˜
     [HideInInspector] public bool isAttackReady = false;
     [HideInInspector] public bool isSpawnReaper = false;
     
@@ -28,7 +28,7 @@ public class Death_Jangseung : Enemy
     {
         HpBarUpdate();
 
-        //ÀûÀÇ Ã¼·ÂÀÌ 0ÀÌÇÏÀÏ½Ã.
+        //ì ì˜ ì²´ë ¥ì´ 0ì´í•˜ì¼ì‹œ.
         if (enemyHp <= 0 && !isDie)
         {
             isDie = true;
@@ -50,10 +50,10 @@ public class Death_Jangseung : Enemy
 
             if (collision.gameObject.CompareTag("Attack") && !isEnemyHit && attack != null)
             {
-                // Å¸ÀÔÀÌ ÀÏÄ¡ÇÏ¸é Áï»ç
+                // íƒ€ì…ì´ ì¼ì¹˜í•˜ë©´ ì¦‰ì‚¬
                 if (!attack.CheckWeaknessPassive() && attack.attackType.ToString() == enemyWeakness.ToString())
                 {
-                    //ÀÌºÎºĞ ¾ø´Ù ³ª¿Í¼­ ÀÏ´Ü ÁÖ¼® Ã³¸® ÇØÁÖ¾úÀ½.
+                    //ì´ë¶€ë¶„ ì—†ë‹¤ ë‚˜ì™€ì„œ ì¼ë‹¨ ì£¼ì„ ì²˜ë¦¬ í•´ì£¼ì—ˆìŒ.
                     Enemy_Weakness_Hit(attack.damage, attack.attackType.ToString(), enemyHp);
                     enemyHp = 0f;
                 }
@@ -66,7 +66,7 @@ public class Death_Jangseung : Enemy
                 Invoke("EnemyHitRegen", enemyHitTime);
             }
 
-            // ºû¿¡ Ãæµ¹½Ã Àº½Å Ç®¸²
+            // ë¹›ì— ì¶©ëŒì‹œ ì€ì‹  í’€ë¦¼
             if (collision.gameObject.CompareTag("Light"))
             {
                 EnemyLightHit();
@@ -77,7 +77,7 @@ public class Death_Jangseung : Enemy
     {
         if (collision != null)
         {
-            // ºû¿¡¼­ ¹ş¾î³¯½Ã Àº½Å
+            // ë¹›ì—ì„œ ë²—ì–´ë‚ ì‹œ ì€ì‹ 
             if (collision.gameObject.CompareTag("Light"))
             {
                 EnemyCloaking();
