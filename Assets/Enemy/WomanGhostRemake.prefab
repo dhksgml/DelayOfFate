@@ -348,7 +348,7 @@ MonoBehaviour:
   dontSeeTime: 0
   maxStunTime: 3
   minStunTime: 1
-  attackDamage: 30
+  attackDamage: 50
 --- !u!1 &4938018955128738630
 GameObject:
   m_ObjectHideFlags: 0
