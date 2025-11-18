@@ -7,18 +7,18 @@ public class MissionManager : MonoBehaviour
     public static MissionManager Instance { get; private set; }
 
     [Header("Mission Slots")]
-    public Mission_System missionSlot1;
-    public Mission_System missionSlot2;
-    public Mission_System missionSlot3;
+    [HideInInspector] public Mission_System missionSlot1;
+    [HideInInspector] public Mission_System missionSlot2;
+    [HideInInspector] public Mission_System missionSlot3;
 
     [Header("Selection")]
-    public GameObject selectionIndicator; // 선택 표시 오브젝트 (이동하는 1개)
-    public Transform[] missionPositions; // 미션 버튼 위치들 (3개)
+    [HideInInspector] public GameObject selectionIndicator; // 선택 표시 오브젝트 (이동하는 1개)
+    [HideInInspector] public Transform[] missionPositions; // 미션 버튼 위치들 (3개)
     private int currentSelectedIndex = 0; // 0, 1, 2
 
     [Header("InGame Mission UI")]
-    public TMP_Text inGameMissionText; // 인게임 미션 표시 텍스트
-    public GameObject missionUIPanel; // 미션 UI 패널 (on/off 용)
+    [HideInInspector] public TMP_Text inGameMissionText; // 인게임 미션 표시 텍스트
+    [HideInInspector] public GameObject missionUIPanel; // 미션 UI 패널 (on/off 용)
 
     // 현재 진행중인 미션
     private Mission_System.MissionData activeMission;
@@ -69,23 +69,20 @@ public class MissionManager : MonoBehaviour
     // 씬이 로드될 때마다 호출됨
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // 미션 UI 오브젝트 찾기
-        FindMissionUIObjects();
+
     }
 
-    // 미션 UI 오브젝트를 이름으로 찾기
-    public void FindMissionUIObjects()
+    public void BindUI(MissionUIBinder binder)
     {
-        // Mission_Text 찾기
-        GameObject textObj = GameObject.Find("Mission_Text");
-        if (textObj != null)
-        {
-            inGameMissionText = textObj.GetComponent<TMP_Text>();
-        }
-
-        // Mission_Image_bk 찾기
-        missionUIPanel = GameObject.Find("Mission_Image_bk");
+        inGameMissionText = binder.missionText;
+        missionUIPanel = binder.missionPanel;
+        missionSlot1 = binder.slot1;
+        missionSlot2 = binder.slot2;
+        missionSlot3 = binder.slot3;
+        selectionIndicator = binder.selector;
+        missionPositions = binder.positions;
     }
+
     public void Mission_start() // 시작 신호
     {
         if (Mission_ok)
@@ -106,8 +103,6 @@ public class MissionManager : MonoBehaviour
             // 상점 씬에서만 미션 선택 가능
             if (IsInShopScene())
             {
-                print(Mission_ok);
-                print(SceneManager.GetActiveScene().name);
                 HandleMissionSelection();
             }
         }
@@ -138,9 +133,11 @@ public class MissionManager : MonoBehaviour
     // 미션 선택 입력 처리
     void HandleMissionSelection()
     {
+        print(currentSelectedIndex);
         // 좌우 이동
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
+        print("조작시도");
             currentSelectedIndex--;
             if (currentSelectedIndex < 0) currentSelectedIndex = 2;
             UpdateSelectionUI();
@@ -148,6 +145,7 @@ public class MissionManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
+        print("조작시도");
             currentSelectedIndex++;
             if (currentSelectedIndex > 2) currentSelectedIndex = 0;
             UpdateSelectionUI();
@@ -157,6 +155,7 @@ public class MissionManager : MonoBehaviour
         // Z, X, C 키로 각 미션 직접 선택
         if ((Input.GetKeyDown(KeyCode.Z)/* || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D)*/) && !isMissionActive)
         {
+            print("결정시도");
             SelectMission(currentSelectedIndex);
         }
     }

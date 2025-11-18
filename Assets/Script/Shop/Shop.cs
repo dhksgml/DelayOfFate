@@ -62,31 +62,31 @@ public class Shop : MonoBehaviour
         // Build base list: groups 1..7, numbers 1..2
         for (int n = 1; n <= 4; n++)
         {
-            allSoulIds.Add($"Soul_Add_{1}_{n}");
+            allSoulIds.Add($"Soul_Add_{1}_{n}"); // 천하장사 정정당당 속전속결 기고만장
         }
         for (int n = 1; n <= 3; n++)
         {
-            allSoulIds.Add($"Soul_Add_{2}_{n}");
+            allSoulIds.Add($"Soul_Add_{2}_{n}"); // 문전박대 백발백중 쾌도난마
         }
         for (int n = 1; n <= 3; n++)
         {
-            allSoulIds.Add($"Soul_Add_{3}_{n}");
+            allSoulIds.Add($"Soul_Add_{3}_{n}"); // 금의환향 다다익선 일확천금
         }
         for (int n = 1; n <= 3; n++)
         {
-            allSoulIds.Add($"Soul_Add_{4}_{n}");
+            allSoulIds.Add($"Soul_Add_{4}_{n}"); // 금강불괴 외강내유 외유내강
         }
         for (int n = 1; n <= 3; n++)
         {
-            allSoulIds.Add($"Soul_Add_{5}_{n}");
+            allSoulIds.Add($"Soul_Add_{5}_{n}"); // 가담항설 취사선택 경화수월
         }
-        for (int n = 1; n <= 3; n++)
+        for (int n = 1; n <= 4; n++)
         {
-            allSoulIds.Add($"Soul_Add_{6}_{n}");
+            allSoulIds.Add($"Soul_Add_{6}_{n}"); //등용문 승승장구 선견지명 일취월장
         }
-        for (int n = 1; n <= 2; n++)
+        for (int n = 1; n <= 4; n++)
         {
-            allSoulIds.Add($"Soul_Add_{7}_{n}");
+            allSoulIds.Add($"Soul_Add_{7}_{n}"); // 구사일생 궁여지책 무아지경 배수진
         }
 
         RerollSouls();

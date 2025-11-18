@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb5abe2dc5c49f8458b2a8b7499cb115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 5
   damage: 8
   isHide: 0
   playerMinusLightGage: 1.5

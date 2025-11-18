@@ -16,10 +16,14 @@ public class Place_Player_Find : MonoBehaviour
 
     void Update()
     {
-        if(minimap.isUseEyeReference)
+        if (minimap != null)
         {
-            minimapPlace.SetActive(true);
+            if (minimap.isUseEyeReference)
+            {
+                minimapPlace.SetActive(true);
+            }
         }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
