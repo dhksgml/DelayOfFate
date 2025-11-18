@@ -106,8 +106,6 @@ public class MissionManager : MonoBehaviour
             // 상점 씬에서만 미션 선택 가능
             if (IsInShopScene())
             {
-                print(Mission_ok);
-                print(SceneManager.GetActiveScene().name);
                 HandleMissionSelection();
             }
         }
@@ -138,9 +136,11 @@ public class MissionManager : MonoBehaviour
     // 미션 선택 입력 처리
     void HandleMissionSelection()
     {
+        print(currentSelectedIndex);
         // 좌우 이동
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
+        print("조작시도");
             currentSelectedIndex--;
             if (currentSelectedIndex < 0) currentSelectedIndex = 2;
             UpdateSelectionUI();
@@ -148,6 +148,7 @@ public class MissionManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
+        print("조작시도");
             currentSelectedIndex++;
             if (currentSelectedIndex > 2) currentSelectedIndex = 0;
             UpdateSelectionUI();
@@ -157,6 +158,7 @@ public class MissionManager : MonoBehaviour
         // Z, X, C 키로 각 미션 직접 선택
         if ((Input.GetKeyDown(KeyCode.Z)/* || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D)*/) && !isMissionActive)
         {
+            print("결정시도");
             SelectMission(currentSelectedIndex);
         }
     }
