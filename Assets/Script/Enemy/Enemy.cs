@@ -322,7 +322,7 @@ public abstract class Enemy     : MonoBehaviour
         enemyHpBar.hpObj.SetActive(false);
 
         // 이동속도, 공격력 2배
-        cloakingSpeed = 1.2f;
+        //cloakingSpeed = 1.2f;
         cloakingDamage = 1.5f;
 
         // 이동속도 반영
