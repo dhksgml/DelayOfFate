@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LandShark
   m_EditorClassIdentifier: 
   Name: "\uB545\uC0C1\uC5B4"
-  Coin: 86
+  Coin: 100
   Weight: 14
   classification: 0
   Hp: 56

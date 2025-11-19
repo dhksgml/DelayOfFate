@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WildBoar
   m_EditorClassIdentifier: 
   Name: "\uBA67\uB3FC\uC9C0"
-  Coin: 80
+  Coin: 100
   Weight: 7
   classification: 0
   Hp: 72

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Yin
   m_EditorClassIdentifier: 
   Name: "\uC74C"
-  Coin: 30
+  Coin: 75
   Weight: 14
   classification: 1
   Hp: 85
