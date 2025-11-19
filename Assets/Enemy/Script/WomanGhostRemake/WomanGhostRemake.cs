@@ -143,8 +143,11 @@ public class WomanGhostRemake : Enemy
         // 체력 비율
         float hpRatio = enemyHp / enemyMaxHp;
 
+
         // hpRatio가 1일 때 maxStunTime, hpRatio가 0일 때 minStunTime
         float stunTime = Mathf.Lerp(minStunTime, maxStunTime, hpRatio);
+
+        float damage = Mathf.Lerp(0, attackDamage, hpRatio);
 
         // 트리거 활성화 및 값 전달
         player.isFreeze = true;
@@ -152,7 +155,7 @@ public class WomanGhostRemake : Enemy
         isAttack = true;
 
         // 데미지
-        player.DamagedHP(attackDamage * cloakingDamage);
+        player.DamagedHP(damage * cloakingDamage);
     }
 
     IEnumerator Cloaking()
