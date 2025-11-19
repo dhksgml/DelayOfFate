@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StealEnemy
   m_EditorClassIdentifier: 
   Name: "\uC57D\uD0C8\uADC0"
-  Coin: 50
+  Coin: 45
   Weight: 7
   classification: 1
   Hp: 25

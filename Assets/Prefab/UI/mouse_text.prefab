@@ -140,12 +140,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8786482593783432978, guid: f1bd5f6fa56e72749b1678bd53f77e8a, type: 3}
       propertyPath: m_text
-      value: "\uC57D\uAC12 \uC9C0\uBD88 \uD6C4 \uBCF4\uC720\uD55C <sprite=8>\uC758\\n3\uD560
-        \uB9CC\uD07C \uD68D\uB4DD"
+      value: "\uC545\uADC0\uC5D0\uAC8C \uC8FC\uB294 \uD53C\uD574\uAC00 10\uD560 \uC99D\uAC00\\n<color=red>\uC545\uADC0\uC758
+        \uC57D\uC810\uC744 \uACF5\uACA9 \uD560 \uC218 \uC5C6\uC74C</color>"
       objectReference: {fileID: 0}
     - target: {fileID: 8786482593783432978, guid: f1bd5f6fa56e72749b1678bd53f77e8a, type: 3}
       propertyPath: m_fontSize
-      value: 24
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 8786482593783432978, guid: f1bd5f6fa56e72749b1678bd53f77e8a, type: 3}
       propertyPath: m_fontAsset
@@ -169,7 +169,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: e5c5e79a0702876479cc3f7ba1cbe9ea, type: 2}
     - target: {fileID: 8786482593783432978, guid: f1bd5f6fa56e72749b1678bd53f77e8a, type: 3}
       propertyPath: m_fontSizeBase
-      value: 24
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 8786482593783432978, guid: f1bd5f6fa56e72749b1678bd53f77e8a, type: 3}
       propertyPath: m_sharedMaterial

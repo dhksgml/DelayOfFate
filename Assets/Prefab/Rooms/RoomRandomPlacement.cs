@@ -14,7 +14,6 @@ public class RoomRandomPlacement : MonoBehaviour
     public int roomCount;
     public float spacing;//룸 거리 (이제 사실상 고정)
 
-    [HideInInspector] public int[] Cost_list; //약값
     [HideInInspector] public int[] map_structure; //맵구조
     [HideInInspector] public int[] room_count; //방 곗수 (오차1)
     [HideInInspector] public int[] value_points; //바닥에 깔리는 그 가치
@@ -53,11 +52,10 @@ public class RoomRandomPlacement : MonoBehaviour
 
     private void Awake() //배열 초기화
     {
-        Cost_list = new int[] { 0, 0, 0, 0, 0, 0, 0 }; //약값
         map_structure = new int[] { 3, 4, 4, 5, 5, 5, 5 }; //맵구조
-        room_count = new int[] { 8, 12, 16, 20, 24, 25, 25 }; //방 곗수 (오차1)
-        value_points = new int[] { 600, 900, 1200, 1600, 2000, 2000, 2000 }; //바닥에 깔리는 그 가치
-        value_error = new int[] { 50, 75, 125, 200, 300, 300, 300 }; //바닥에 깔리는 가치의 오차
+        room_count = new int[] { 7, 10, 13, 16, 19, 21, 24 }; //방 곗수 (오차1)
+        value_points = new int[] { 500, 700, 850, 1000, 1150, 1300, 1500 }; //바닥에 깔리는 그 가치
+        value_error = new int[] { 50, 75, 100, 125, 150, 175, 200 }; //바닥에 깔리는 가치의 오차
     }
 
     void Start()

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6d693c2d76da034ead3af2912b1febd, type: 3}
   m_Name: Boon_yeol_gwi_Remake
   m_EditorClassIdentifier: 
-  Name: "\uBD84\uC5F4\uADC0"
-  Coin: 35
+  Name: "\uBD88\uADC0\uC2E0"
+  Coin: 50
   Weight: 7
   classification: 1
   Hp: 30
