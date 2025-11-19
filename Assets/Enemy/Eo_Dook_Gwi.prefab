@@ -413,7 +413,7 @@ MonoBehaviour:
   playerTrs: {x: 0, y: 0, z: 0}
   rushTime: 1.5
   enemyOriginSpeed: 0
-  enemyRushSpeed: 0.5
+  enemyRushSpeed: 2
   enemyRushDamage: 10
   isRushReady: 0
 --- !u!1001 &2470677621427041773
