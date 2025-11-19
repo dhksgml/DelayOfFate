@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SoMyeon_Gwi
   m_EditorClassIdentifier: 
   Name: "\uC18C\uBA74\uADC0"
-  Coin: 73
+  Coin: 100
   Weight: 14
   classification: 1
   Hp: 107

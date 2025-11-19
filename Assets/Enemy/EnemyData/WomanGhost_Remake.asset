@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WomanGhost_Remake
   m_EditorClassIdentifier: 
   Name: "\uCC98\uB140\uADC0\uC2E0"
-  Coin: 65
+  Coin: 75
   Weight: 14
   classification: 1
   Hp: 25

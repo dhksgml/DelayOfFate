@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Death_Jangseung
   m_EditorClassIdentifier: 
   Name: "\uC8FD\uC74C\uC7A5\uC2B9"
-  Coin: 107
+  Coin: 125
   Weight: 14
   classification: 0
   Hp: 250
   D_Point: 47
   weakness: 1
   population: 1
-  CoinDeviation: 4
+  CoinDeviation: 5
   HpDeviation: 20

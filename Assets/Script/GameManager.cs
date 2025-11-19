@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Cost_list = new float[] { 500, 1000, 1500, 2000, 2500, 3000, 3500 }; //약값
+        Cost_list = new float[] { 450, 700, 1000, 1350, 1750, 2200, 2700 }; //약값
         // ���� ���� �ڽŰ� ���� Ÿ���� ������Ʈ�� 2�� �̻� �ִ� ��� ��� ����
         if (Instance == null)
         {
