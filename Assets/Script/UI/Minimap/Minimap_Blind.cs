@@ -41,7 +41,13 @@ public class Minimap_Blind : MonoBehaviour
     {
         if (blindRoomObj != null)
         {
-            blindRoomObj.SetActive(false);
+            sp = blindRoomObj.GetComponent<SpriteRenderer>();
+
+            sp.color = Color.gray;
+
+            Color c = sp.color;
+            c.a = 0.75f;
+            sp.color = c;
         }
 
         if(dontSeeRoom != null)
@@ -86,6 +92,10 @@ public class Minimap_Blind : MonoBehaviour
 
             sp.color = Color.white;
 
+            Color c = sp.color;
+            c.a = 1f;
+            sp.color = c;
+
             isFind = true;
 
             blindRoomObj.SetActive(false);
@@ -121,7 +131,7 @@ public class Minimap_Blind : MonoBehaviour
         // 만약 플레이어가 들어와 있으면
         if (collision.CompareTag("Player"))
         {
-            if (isUseEye) { return; }
+            //if (isUseEye) { return; }
             PlayerStayMap();
         }
     }
@@ -133,7 +143,7 @@ public class Minimap_Blind : MonoBehaviour
         // 만약 플레이어가 방을 떠나면
         if (collision.CompareTag("Player"))
         {
-            if (isUseEye) { return; }
+            //if (isUseEye) { return; }
             PlayerSeeMap();
         }
     }

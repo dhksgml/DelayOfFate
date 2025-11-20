@@ -241,6 +241,25 @@ public class LandShark : Enemy
     {
         if (collision != null)
         {
+            Attack_sc attack = collision.GetComponent<Attack_sc>();
+
+            if (collision.gameObject.CompareTag("Attack") && !isEnemyHit && attack != null)
+            {
+                // 플레이어 공격시 체크
+                if (!attack.CheckWeaknessPassive() && attack.attackType.ToString() == enemyWeakness.ToString())
+                {
+                    // 약점공격
+                    Enemy_Weakness_Hit(attack.damage, attack.attackType.ToString(), enemyHp);
+                    enemyHp = 0f;
+                }
+                else
+                {
+                    enemyHp -= attack.damage;
+                }
+
+                EnemyHit(attack.damage);
+            }
+
             if (collision.gameObject.CompareTag("Wall"))
             {
                 WallNotCross();
