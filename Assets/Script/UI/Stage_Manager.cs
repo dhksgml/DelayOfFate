@@ -21,10 +21,10 @@ public class Stage_Manager : MonoBehaviour
     private void Start()
     {
         weaponManager = FindObjectOfType<WeaponManager>();
-        Mission_ch();
+        Weapon_ch();
         
-        MissionManager.Instance.Mission_ok = true; // 미션 부터 시작
-        MissionManager.Instance.Mission_start();
+        //MissionManager.Instance.Mission_ok = true; // 미션 부터 시작
+        //MissionManager.Instance.Mission_start();
     }
     public void Mission_ch() // 미션 씬으로 전환되었을때
     {
@@ -35,8 +35,8 @@ public class Stage_Manager : MonoBehaviour
         Weapon_slot.SetActive(false);
         Weapon_slot_text.SetActive(false);
         weaponManager.canProcessInput = false;
-        MissionManager.Instance.inGameMissionText.gameObject.SetActive(false);
-        MissionManager.Instance.missionUIPanel.SetActive(false);
+        //MissionManager.Instance.inGameMissionText.gameObject.SetActive(false);
+        //MissionManager.Instance.missionUIPanel.SetActive(false);
         tooltip_text.text = "조작[방향키]\n결정[Z]";
     }
     public void Weapon_ch() // 장비 씬으로 전환되었을때
@@ -47,8 +47,8 @@ public class Stage_Manager : MonoBehaviour
         ShopPrefab.SetActive(false);
         Weapon_slot.SetActive(true);
         Weapon_slot_text.SetActive(true);
-        MissionManager.Instance.inGameMissionText.gameObject.SetActive(true);
-        MissionManager.Instance.missionUIPanel.SetActive(true);
+        //MissionManager.Instance.inGameMissionText.gameObject.SetActive(true);
+        //MissionManager.Instance.missionUIPanel.SetActive(true);
         StartCoroutine(EnableWeaponInputAfterDelay());
         tooltip_text.text = "조작[방향키]\n장착[Z], 해제[X]";
     }
@@ -76,8 +76,8 @@ public class Stage_Manager : MonoBehaviour
         Weapon_slot.SetActive(true);
         Weapon_slot_text.SetActive(true);
         weaponManager.canProcessInput = false;
-        MissionManager.Instance.inGameMissionText.gameObject.SetActive(true);
-        MissionManager.Instance.missionUIPanel.SetActive(true);
+        //MissionManager.Instance.inGameMissionText.gameObject.SetActive(true);
+        //MissionManager.Instance.missionUIPanel.SetActive(true);
         tooltip_text.text = "조작[방향키]\n구매[Z]";
     }
     public void Battle_ch() // 상점 전부 고른 후 전투씬으로 넘어가기

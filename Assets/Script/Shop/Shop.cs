@@ -332,6 +332,7 @@ public class Shop : MonoBehaviour
             quickSlotUI.DisplayItemInfo(i, item);
         }
     }
+    // Shop.cs의 BuySoul 메서드 수정
     public void BuySoul(int index)
     {
         if (soulPurchased[index]) return;
@@ -349,17 +350,69 @@ public class Shop : MonoBehaviour
             if (btn != null)
             {
                 btn.interactable = false;
-                slot.show = false; // 구매 완료 한건 살펴 보기 해도 안보이고 인벤토리 가서 봐야함
+                slot.show = false;
             }
             if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(Resources.Load<AudioClip>("SFX/sfx_money_2"));
+
             // 구매 효과 적용 신호 보내기
             string itemId = soulNames[index];
-            PassiveItemManager.Instance.ConfirmPassivePurchase(itemId); // 예약 제거 포함
+            PassiveItemManager.Instance.ConfirmPassivePurchase(itemId);
+
+            // ★★★ 추가: 같은 종류 2개 보유 확인 후 상점 비활성화 ★★★
+            CheckAndDisableSameTypeSouls(itemId);
+
             UpdateWeaponPrice();
         }
         else
         {
             speech_bubble_on("부족");
+        }
+    }
+
+    private void CheckAndDisableSameTypeSouls(string purchasedItemId)
+    {
+        // 구매한 아이템의 그룹 추출 (예: "Soul_Add_2_3" → 그룹 2)
+        string[] parts = purchasedItemId.Split('_');
+        if (parts.Length < 4) return;
+
+        int purchasedGroup = int.Parse(parts[2]);
+
+        // 플레이어가 같은 그룹의 혼령강화를 몇 개 보유했는지 확인
+        int ownedCount = PassiveItemManager.Instance.GetOwnedCountByGroup(purchasedGroup);
+
+        // 2개 이상 보유했다면 상점에서 같은 그룹의 모든 아이템 비활성화
+        if (ownedCount >= 2)
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                if (soulPurchased[i]) continue; // 이미 구매된 건 스킵
+
+                string shopItemId = soulNames[i];
+                if (string.IsNullOrEmpty(shopItemId)) continue;
+
+                string[] shopParts = shopItemId.Split('_');
+                if (shopParts.Length < 4) continue;
+
+                int shopGroup = int.Parse(shopParts[2]);
+
+                // 같은 그룹이면 비활성화
+                if (shopGroup == purchasedGroup)
+                {
+                    soulPurchased[i] = true;
+                    weaponSlots[i].text = "구매 불가";
+
+                    Button btn = weaponSlots[i].GetComponentInParent<Button>();
+                    Soul_in_text slot = soulIcons[i].GetComponentInParent<Soul_in_text>();
+
+                    if (btn != null)
+                    {
+                        btn.interactable = false;
+                        if (slot != null) slot.show = false;
+                    }
+                }
+            }
+
+            Debug.Log($"[상점] 그룹 {purchasedGroup} 혼령강화 2개 보유 → 상점 내 같은 그룹 비활성화");
         }
     }
     /*public void BuyLantern() // 호롱 업글
@@ -465,19 +518,19 @@ public class Shop : MonoBehaviour
             switch (itemRating) // itemRating 사용
             {
                 case 1:
-                    soulPrices[i] = 150 + Random.Range(-10, +11);
+                    soulPrices[i] = 200 + Random.Range(-10, +11);
                     break;
                 case 2:
-                    soulPrices[i] = 215 + Random.Range(-15, +16);
+                    soulPrices[i] = 360 + Random.Range(-15, +16);
                     break;
                 case 3:
-                    soulPrices[i] = 300 + Random.Range(-20, +21);
+                    soulPrices[i] = 500 + Random.Range(-20, +21);
                     break;
                 case 4:
-                    soulPrices[i] = 400 + Random.Range(-25, +26);
+                    soulPrices[i] = 750 + Random.Range(-25, +26);
                     break;
                 default:
-                    soulPrices[i] = 150;
+                    soulPrices[i] = 200;
                     break;
             }
 

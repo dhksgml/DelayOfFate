@@ -293,7 +293,7 @@ public abstract class Enemy     : MonoBehaviour
 
         isEnemyHit = false;
         //동결해둔걸 다시 풀어줌
-        rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
+        //rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     public void EnemyLightHit()

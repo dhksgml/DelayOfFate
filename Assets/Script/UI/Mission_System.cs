@@ -32,7 +32,7 @@ public class Mission_System : MonoBehaviour
         KillEnemies,
         InteractPlaces,
         RecoverItems,
-        LightAllAreas,
+        //LightAllAreas,
         SellItems,
         TimeLimit,
         OneWeaponOnly
@@ -131,7 +131,7 @@ public class Mission_System : MonoBehaviour
 
         if (currentMission.grade != MissionGrade.Low)
         {
-            availableMissions.Add(MissionType.LightAllAreas);
+            //availableMissions.Add(MissionType.LightAllAreas);
             availableMissions.Add(MissionType.OneWeaponOnly);
         }
 
@@ -158,9 +158,9 @@ public class Mission_System : MonoBehaviour
                 currentMission.targetCount = currentMission.grade == MissionGrade.Low ? 1 :
                                             currentMission.grade == MissionGrade.Mid ? 2 : 3;
                 break;
-            case MissionType.LightAllAreas:
+            /*case MissionType.LightAllAreas:
                 currentMission.targetCount = 1;
-                break;
+                break;*/
             case MissionType.SellItems:
                 currentMission.targetCount = currentMission.grade == MissionGrade.Low ? 4 :
                                             currentMission.grade == MissionGrade.Mid ? 7 : 10;
@@ -180,10 +180,8 @@ public class Mission_System : MonoBehaviour
         // 보상 타입 결정 (혼령강화 70%, 혼 15%, 냥 15%)
         float rewardTypeRoll = Random.Range(0f, 100f);
 
-        if (rewardTypeRoll < 70f) // 혼령강화
+        if (rewardTypeRoll < 70f) // 혼령강화 시도
         {
-            currentMission.rewardType = RewardType.Passive;
-
             // 미션 등급에 따른 혼령강화 등급 결정 (50% 50%)
             int passiveRating = 1;
             float passiveRoll = Random.Range(0f, 100f);
@@ -201,33 +199,83 @@ public class Mission_System : MonoBehaviour
                     break;
             }
 
-            // 혼령강화 선택 (예약하지 않음!)
-            string passiveId = null;
-            int attempts = 0;
-            while (string.IsNullOrEmpty(passiveId) && attempts < 100)
-            {
-                // GetRandomPassiveByGradeWithoutReserve 사용 (예약 없이 선택만)
-                passiveId = PassiveItemManager.Instance.GetRandomPassiveByGradeWithoutReserve(passiveRating);
-                attempts++;
-            }
+            // 혼령강화 선택 시도 (선택만, 예약 안 함)
+            string passiveId = TryGetAvailablePassive(passiveRating);
 
-            currentMission.passiveRewardId = passiveId;
-            currentMission.rewardValue = 0;
+            if (!string.IsNullOrEmpty(passiveId))
+            {
+                // 혼령강화 보상 성공
+                currentMission.rewardType = RewardType.Passive;
+                currentMission.passiveRewardId = passiveId;
+                currentMission.rewardValue = 0;
+                return;
+            }
+            else
+            {
+                // 혼령강화가 없으면 혼/냥으로 대체
+                Debug.Log($"등급 {passiveRating} 혼령강화가 소진됨. 혼/냥 보상으로 전환");
+            }
         }
-        else if (rewardTypeRoll < 85f) // 혼 15%
+
+        // 혼령강화 실패 시 또는 원래 혼/냥 보상인 경우
+        // 50:50 확률로 혼 또는 냥
+        if (Random.Range(0f, 100f) < 50f)
         {
             currentMission.rewardType = RewardType.Soul;
             currentMission.rewardValue = currentMission.grade == MissionGrade.Low ? 350 :
                                          currentMission.grade == MissionGrade.Mid ? 500 : 850;
-            currentMission.passiveRewardId = "";
         }
-        else // 냥 15%
+        else
         {
             currentMission.rewardType = RewardType.Money;
             currentMission.rewardValue = currentMission.grade == MissionGrade.Low ? 150 :
                                          currentMission.grade == MissionGrade.Mid ? 215 : 300;
-            currentMission.passiveRewardId = "";
         }
+        currentMission.passiveRewardId = "";
+    }
+    string TryGetAvailablePassive(int targetRating)
+    {
+        // 최대 100번 시도
+        int attempts = 0;
+        int maxAttempts = 100;
+
+        while (attempts < maxAttempts)
+        {
+            // 해당 등급의 혼령강화 선택 (예약하지 않음!)
+            string candidateId = PassiveItemManager.Instance.GetRandomPassiveByGradeWithoutReserve(targetRating);
+
+            if (string.IsNullOrEmpty(candidateId))
+            {
+                // 해당 등급에 더 이상 선택 가능한 혼령강화가 없음
+                break;
+            }
+
+            // 그룹 추출
+            string[] parts = candidateId.Split('_');
+            if (parts.Length < 4)
+            {
+                attempts++;
+                continue;
+            }
+
+            int group = int.Parse(parts[2]);
+
+            // 보유 개수 + 예약 개수 체크
+            int ownedCount = PassiveItemManager.Instance.GetOwnedCountByGroup(group);
+            int reservedCount = 0;//문제있음 PassiveItemManager.Instance.GetReservedCountByGroup(group);
+            int totalCount = ownedCount + reservedCount;
+
+            // 2개 미만이면 선택 가능
+            if (totalCount < 2)
+            {
+                return candidateId;
+            }
+
+            attempts++;
+        }
+
+        // 선택 가능한 혼령강화가 없음
+        return null;
     }
 
     void UpdateRewardIcon()
@@ -248,11 +296,15 @@ public class Mission_System : MonoBehaviour
         }
         else if (currentMission.rewardType == RewardType.Passive)
         {
+            // passiveRewardId 유효성 체크
             if (string.IsNullOrEmpty(currentMission.passiveRewardId))
             {
-                Debug.LogError("passiveRewardId가 null입니다!");
-                rewardIconImages.gameObject.SetActive(false);
-                rewardStr = "보상 오류";
+                // 혼령강화가 없으면 혼으로 대체
+                currentMission.rewardType = RewardType.Soul;
+                currentMission.rewardValue = 350;
+                rewardIconImages.sprite = soul_icon;
+                rewardStr = $"{currentMission.rewardValue}<sprite=8>";
+                rewardIconImages.gameObject.SetActive(true);
                 rewardText.text = $"[{rewardStr}]";
                 return;
             }
@@ -260,9 +312,12 @@ public class Mission_System : MonoBehaviour
             string[] parts = currentMission.passiveRewardId.Split('_');
             if (parts.Length < 4)
             {
-                Debug.LogError($"잘못된 passiveRewardId: {currentMission.passiveRewardId}");
-                rewardIconImages.gameObject.SetActive(false);
-                rewardStr = "보상 오류";
+                // 잘못된 ID면 혼으로 대체
+                currentMission.rewardType = RewardType.Soul;
+                currentMission.rewardValue = 350;
+                rewardIconImages.sprite = soul_icon;
+                rewardStr = $"{currentMission.rewardValue}<sprite=8>";
+                rewardIconImages.gameObject.SetActive(true);
                 rewardText.text = $"[{rewardStr}]";
                 return;
             }
@@ -273,14 +328,18 @@ public class Mission_System : MonoBehaviour
             if (passiveItemManager == null)
             {
                 passiveItemManager = FindObjectOfType<PassiveItemManager>();
-                if (passiveItemManager == null)
-                {
-                    Debug.LogError("PassiveItemManager를 찾을 수 없습니다!");
-                    rewardIconImages.gameObject.SetActive(false);
-                    rewardStr = "보상 오류";
-                    rewardText.text = $"[{rewardStr}]";
-                    return;
-                }
+            }
+
+            if (passiveItemManager == null)
+            {
+                // PassiveItemManager 없으면 혼으로 대체
+                currentMission.rewardType = RewardType.Soul;
+                currentMission.rewardValue = 350;
+                rewardIconImages.sprite = soul_icon;
+                rewardStr = $"{currentMission.rewardValue}<sprite=8>";
+                rewardIconImages.gameObject.SetActive(true);
+                rewardText.text = $"[{rewardStr}]";
+                return;
             }
 
             Sprite icon = passiveItemManager.GetIcon(group, number);
@@ -292,7 +351,6 @@ public class Mission_System : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning($"아이콘을 찾을 수 없음: group={group}, number={number}");
                 rewardIconImages.gameObject.SetActive(false);
             }
 
@@ -301,7 +359,6 @@ public class Mission_System : MonoBehaviour
 
         rewardText.text = $"[{rewardStr}]";
     }
-
     void UpdateMissionUI()
     {
         string gradeColor = currentMission.grade == MissionGrade.Low ? "#00FF00" :
@@ -332,11 +389,11 @@ public class Mission_System : MonoBehaviour
                 missionDesc = "잃어버린 물건들을 회수하세요.";
                 targetText = $"물건 {currentMission.targetCount}개 회수";
                 break;
-            case MissionType.LightAllAreas:
+            /*case MissionType.LightAllAreas:
                 missionName = "구역 조명";
                 missionDesc = "모든 지역을 밝히세요.";
                 targetText = "모든 지역 밝히기";
-                break;
+                break;*/
             case MissionType.SellItems:
                 missionName = "긴급 처분";
                 missionDesc = "현장에서 물건을 즉시 판매하세요.";

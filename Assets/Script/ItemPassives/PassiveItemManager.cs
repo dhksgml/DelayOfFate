@@ -7,6 +7,7 @@ public class PassiveItemManager : MonoBehaviour
     public static PassiveItemManager Instance { get; private set; }
 
     public List<PassiveItemData> passiveItems;
+    public List<string> ownedPassiveItems = new List<string>();
     public Sprite[] Passive_Item_Icon_1;
     public Sprite[] Passive_Item_Icon_2;
     public Sprite[] Passive_Item_Icon_3;
@@ -99,12 +100,22 @@ public class PassiveItemManager : MonoBehaviour
 
     void Start()
     {
+        // ★★★ 추가: 보유 목록 초기화 ★★★
+        ownedPassiveItems.Clear();
+
         // 저장된 값 불러오기
         foreach (var item in passiveItems)
         {
             if (PlayerPrefs.GetInt(item.id, 0) == 1)
             {
                 item.isPurchased = true;
+
+                // ★★★ 추가: 보유 목록에 추가 ★★★
+                if (!ownedPassiveItems.Contains(item.id))
+                {
+                    ownedPassiveItems.Add(item.id);
+                }
+
                 ApplyPassiveEffect(item.id);
             }
         }
@@ -360,13 +371,20 @@ public class PassiveItemManager : MonoBehaviour
             default: return 0;
         }
     }
-    public void PurchaseItem(string itemId)//구매 후 데이터 저장
+    public void PurchaseItem(string itemId)
     {
         PassiveItemData item = passiveItems.Find(i => i.id == itemId);
         if (item != null && !item.isPurchased)
         {
             item.isPurchased = true;
             PlayerPrefs.SetInt(item.id, 1);
+
+            // ★★★ 추가: 보유 목록에 추가 ★★★
+            if (!ownedPassiveItems.Contains(itemId))
+            {
+                ownedPassiveItems.Add(itemId);
+            }
+
             ApplyPassiveEffect(itemId);
         }
     }
@@ -378,12 +396,14 @@ public class PassiveItemManager : MonoBehaviour
     public void ResetPassiveItem()
     {
         PlayerPrefs.DeleteAll();
+
         foreach (var item in passiveItems)
         {
             if (item.isPurchased)
                 RemovePassiveEffect(item.id);
             item.isPurchased = false;
         }
+        ownedPassiveItems.Clear();
     }
     public Sprite GetIcon(int group, int number)
     {
@@ -580,7 +600,25 @@ public class PassiveItemManager : MonoBehaviour
         }
     }
     #region 영혼강화
+    public int GetOwnedCountByGroup(int group)
+    {
+        int count = 0;
 
+        foreach (var itemId in ownedPassiveItems)
+        {
+            string[] parts = itemId.Split('_');
+            if (parts.Length >= 4)
+            {
+                int itemGroup = int.Parse(parts[2]);
+                if (itemGroup == group)
+                {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
     private void TryApplyEffect(IPassiveEffect effect)
     {
         if (effect == null) return;

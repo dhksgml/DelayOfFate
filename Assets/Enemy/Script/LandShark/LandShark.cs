@@ -75,7 +75,7 @@ public class LandShark : Enemy
         LandSharkStat();
 
         Debug.Log(isStop);
-        EnemyMove();
+        if (!isDie) EnemyMove();
         //if(!isStop) { EnemyMove(); }
     }
 
