@@ -71,7 +71,16 @@ public class MissionManager : MonoBehaviour
     {
 
     }
-
+    public void StartMissionInGame()
+    {
+        if (isMissionSelected && !isMissionActive)
+        {
+            isMissionActive = true;
+            missionStartTime = Time.time;
+            ResetMissionProgress();
+            Debug.Log("미션 시작!");
+        }
+    }
     public void BindUI(MissionUIBinder binder)
     {
         inGameMissionText = binder.missionText;
@@ -137,7 +146,7 @@ public class MissionManager : MonoBehaviour
         // 좌우 이동
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-        print("조작시도");
+            //print("조작시도");
             currentSelectedIndex--;
             if (currentSelectedIndex < 0) currentSelectedIndex = 2;
             UpdateSelectionUI();
@@ -145,7 +154,7 @@ public class MissionManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-        print("조작시도");
+            //print("조작시도");
             currentSelectedIndex++;
             if (currentSelectedIndex > 2) currentSelectedIndex = 0;
             UpdateSelectionUI();
@@ -155,7 +164,7 @@ public class MissionManager : MonoBehaviour
         // Z, X, C 키로 각 미션 직접 선택
         if ((Input.GetKeyDown(KeyCode.Z)/* || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D)*/) && !isMissionActive)
         {
-            print("결정시도");
+            //print("결정시도");
             SelectMission(currentSelectedIndex);
         }
     }
@@ -206,7 +215,6 @@ public class MissionManager : MonoBehaviour
             selectionIndicator.transform.position = missionPositions[currentSelectedIndex].position;
         }
     }
-
     public void SelectMission(int slotIndex)
     {
         Mission_System selectedSlot = null;
@@ -225,21 +233,25 @@ public class MissionManager : MonoBehaviour
         isMissionActive = false;
         isMissionCompleted = false;
 
-        // 혼령강화 보상이면 이제 예약 (미션 선택 시점에!)
+        // 혼령강화 보상이면 예약 처리
         if (activeMission.rewardType == Mission_System.RewardType.Passive)
         {
             selectedPassiveId = activeMission.passiveRewardId;
 
-            // 이제 예약 목록에 추가
+            // 예약 목록에 추가 (이미 있는지 확인)
             if (!string.IsNullOrEmpty(selectedPassiveId))
             {
-                PassiveItemManager.Instance.reservedPassiveIds.Add(selectedPassiveId);
-                Debug.Log($"미션 보상 예약: {selectedPassiveId}");
+                if (!PassiveItemManager.Instance.reservedPassiveIds.Contains(selectedPassiveId))
+                {
+                    PassiveItemManager.Instance.reservedPassiveIds.Add(selectedPassiveId);
+                    Debug.Log($"미션 보상 예약: {selectedPassiveId}");
+                }
             }
         }
 
         FindObjectOfType<Stage_Manager>().Weapon_ch();
         Mission_ok = false;
+        ResetMissionProgress(); // ★ 추가: 미션 선택 시 진행도 초기화
         Debug.Log($"미션 선택됨: {activeMission.type}, 목표: {activeMission.targetCount}");
     }
     // 미션 진행도 초기화
@@ -371,9 +383,9 @@ public class MissionManager : MonoBehaviour
                 isCompleted = recoverCount >= activeMission.targetCount;
                 break;
 
-            case Mission_System.MissionType.LightAllAreas:
+            /*case Mission_System.MissionType.LightAllAreas:
                 isCompleted = lightedAreaCount >= totalAreaCount && totalAreaCount > 0;
-                break;
+                break;*/
 
             case Mission_System.MissionType.SellItems:
                 isCompleted = sellCount >= activeMission.targetCount;
@@ -412,6 +424,8 @@ public class MissionManager : MonoBehaviour
     // 미션 실패 시
     void FailMission()
     {
+        Debug.Log("미션 실패!");
+
         // 혼령강화 예약 취소
         if (!string.IsNullOrEmpty(selectedPassiveId))
         {
@@ -425,7 +439,6 @@ public class MissionManager : MonoBehaviour
         activeMission = null;
         ResetMissionProgress();
     }
-
     // 탈출 시 호출 (TimeLimit, OneWeaponOnly 미션 체크)
     public void OnPlayerEscaped()
     {
@@ -532,8 +545,8 @@ public class MissionManager : MonoBehaviour
                 return $"상호작용: {interactCount}/{activeMission.targetCount}";
             case Mission_System.MissionType.RecoverItems:
                 return $"회수: {recoverCount}/{activeMission.targetCount}";
-            case Mission_System.MissionType.LightAllAreas:
-                return $"밝힘: {lightedAreaCount}/{totalAreaCount}";
+            /*case Mission_System.MissionType.LightAllAreas:
+                return $"밝힘: {lightedAreaCount}/{totalAreaCount}";*/
             case Mission_System.MissionType.SellItems:
                 return $"판매: {sellCount}/{activeMission.targetCount}";
             case Mission_System.MissionType.TimeLimit:
@@ -579,9 +592,9 @@ public class MissionManager : MonoBehaviour
                 progressText = $"물건 ({recoverCount}/{activeMission.targetCount})개 회수";
                 break;
 
-            case Mission_System.MissionType.LightAllAreas:
+            /*case Mission_System.MissionType.LightAllAreas:
                 progressText = $"지역 ({lightedAreaCount}/{totalAreaCount})곳 밝히기";
-                break;
+                break;*/
 
             case Mission_System.MissionType.SellItems:
                 progressText = $"물건 ({sellCount}/{activeMission.targetCount})회 판매";
@@ -611,6 +624,10 @@ public class MissionManager : MonoBehaviour
         if (inGameMissionText != null)
         {
             inGameMissionText.text = missionText;
+        }
+        else
+        {
+            print("텍스트 감지 못함 ");
         }
     }
 
